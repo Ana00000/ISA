@@ -19,7 +19,3 @@ script:
 
 dist: trusty
 
-deploy:
-  provider: heroku
-  api_key: $HEROKU_API_KEY
-  app: ISA
