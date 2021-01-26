@@ -16,11 +16,11 @@
 	
 	<name>ISA</name>
 	<description>ISA project for Spring Boot</description>
-	
+
 	<properties>
 		<java.version>11</java.version>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
-
+		<!--sonar coverage-->
 		<sonar.coverage.exclusions>
 			**/test/**/*,
 			**/main/*
