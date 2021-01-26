@@ -22,11 +22,13 @@
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<!--sonar coverage-->
 		<sonar.coverage.exclusions>
-			**/test,
-			**/main,
-			**/test/*,
-			**/main/*
+			**/test/**,
+			**/main/**
 		</sonar.coverage.exclusions>
+		<sonar.exclusions>
+			**/test/**,
+			**/main/**
+		</sonar.exclusions>
 
 	</properties>
 	
