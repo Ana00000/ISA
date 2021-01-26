@@ -20,6 +20,11 @@
 	<properties>
 		<java.version>11</java.version>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
+
+		<sonar.coverage.exclusions>
+			**/test/**/*,
+			**/main/*
+		</sonar.coverage.exclusions>
 	</properties>
 
 <!--	<properties>-->
