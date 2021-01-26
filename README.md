@@ -1,4 +1,13 @@
-ISA 2020/2021
+                                                                          ISA 2020/2021
+                                                                          
+                                                                          
+                                                                          
+|       *Student1*       |       *Student2*       |       *Student3*       |       *Student4*       |
+|:----------------------:|:----------------------:|:----------------------:|:----------------------:|
+| [Aleksandar Hadzibabić](https://github.com/hadzija7) <br> <img src="https://avatars.githubusercontent.com/u/48260177?s=400&u=b07fa110e3f103696281edb4db816d2f71be2f14&v=4" width="170" height="170"> | [Milan Knežević](https://github.com/lemara98) <br> <img src="https://avatars.githubusercontent.com/u/58090742?s=400&u=eb8c1c59d99b1ca6475c21c7dad1eadcb6de9abf&v=4" width="170" height="170"> | [Ana Atanacković](https://github.com/Ana00000/) <br> <img src="https://avatars.githubusercontent.com/u/57576323?s=400&u=1ef5aae0fac636355c779a07004eb66378464adc&v=4" width="170" height="170"> | [Stefan Petrović](https://github.com/stefanwert) <br> <img src="https://avatars.githubusercontent.com/u/58173887?s=400&u=c02f2b1eebb5aad5c780172883a3baf36995204b&v=4" width="170" height="170"> |
+
+
+
 - Backend: Java + Spring
 - Frontend: Vue.js +Axios
 - RDBMS: PostgreSQL 
