@@ -25,6 +25,11 @@
 			**/test/**/*,
 			**/main/*
 		</sonar.coverage.exclusions>
+
+		<sonar.exclusions>
+			**/domain/*.java,
+			**/transfer/*.java
+		</sonar.exclusions>
 	</properties>
 
 <!--	<properties>-->
