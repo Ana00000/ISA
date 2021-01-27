@@ -38,7 +38,6 @@ export default {
         layers: [raster, vector],
         view: new View({
           projection: "EPSG:4326",
-
           center: [19.83, 45.25],
           zoom: 13.9,
         }),
@@ -53,8 +52,8 @@ export default {
   position: absolute;
   margin: 0;
   padding: 0;
-  height: 300px;
-  width: 99%;
+  height: 700px;
+  width: 95%;
 }
 
 </style>

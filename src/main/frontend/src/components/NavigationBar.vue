@@ -8,8 +8,10 @@
                 <h2><router-link to="/about">About</router-link></h2>    
             </div>
         </div>
-        <div class="nav1">
-            <h1>Pharmacy system</h1>
+        <div class="nav1-mid" >
+            <img src="../assets/logo.png" alt="Nije ucitao" width="60" height="60" />
+          <h1>Pharmacy system</h1>
+            <img src="../assets/logo.png" alt="Nije ucitao" width="60" height="60"  />
         </div>
         <div class="nav1">
             <div class="nav1">
@@ -43,6 +45,17 @@ export default {
 .nav1 {
     display: inline-block;
     width: 33%;
+}
+
+.logo {
+  display: inline-block;
+  width: 10%;
+}
+
+.nav1-mid {
+  display: inline-flex;
+  width: 34%;
+  flex-direction: row;
 }
 /* .nav1 {
     float:left;
