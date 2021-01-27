@@ -12,7 +12,12 @@
             <h1>Pharmacy system</h1>
         </div>
         <div class="nav1">
-            <h2><router-link to="/login">Login/Register</router-link></h2>
+            <div class="nav1">
+            <h2><router-link to="/login">Login</router-link></h2>
+            </div>
+            <div class="nav1">
+            <h2><router-link to="/register">Register</router-link></h2>
+            </div>
         </div>
     </div>
 </template>
