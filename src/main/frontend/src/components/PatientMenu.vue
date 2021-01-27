@@ -1,7 +1,7 @@
 <template>
     <div id="mainDiv">
         <div>
-            <h2><a>Pharmacies</a></h2>
+            <h2><router-link to="/pharmacies">Pharmacies</router-link></h2>
         </div>
         <div>
             <h2><a>Appointment history</a></h2>

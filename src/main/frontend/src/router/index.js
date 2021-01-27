@@ -43,6 +43,11 @@ const routes = [
     name: 'PatientHomePage',
     component: () => import('../views/PatientHomePage.vue')
   },
+  {
+    path: '/pharmacies',
+    name: 'Pharmacies',
+    component: () => import('../views/Pharmacies.vue')
+  },
 ]
 
 const router = createRouter({
