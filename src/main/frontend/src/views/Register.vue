@@ -29,7 +29,7 @@
             </h3>    
             <textarea />     
         </div>
-        <button class="button" > Confirm registration</button>
+        <button class="button-base" > Confirm registration</button>
     </div>
 </template>
 
@@ -48,6 +48,21 @@
     background-color: rgb(44,62,80);
     color: #42b983;
     padding: 10px;
+}
+
+.button-base {
+  background-color: #42b983; /* Green */
+  border: none;
+  color: rgb(44,62,80);
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 4px 2px;
+  cursor: pointer;
+
 }
 
 .button-confirm_registration {
