@@ -7,8 +7,7 @@
       <a href="#" >Clients</a>
       <a href="#" >Contact</a>
     </div>
-    <!-- Use any element to open the sidenav -->
-    <span onclick="openNav()">open</span>
+
     <h1>
       <Introduction />
     </h1>
