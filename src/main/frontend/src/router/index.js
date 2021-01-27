@@ -37,7 +37,12 @@ const routes = [
         component: Info
       }
     ]
-  }
+  },
+  {
+    path: '/patientHomePage',
+    name: 'PatientHomePage',
+    component: () => import('../views/PatientHomePage.vue')
+  },
 ]
 
 const router = createRouter({
