@@ -4,6 +4,7 @@
             <PatientMenu/>
         </div>
         <div class = "panelDiv">
+            <SearchBar title="text"/>
             <div>
                 <form>
                     <input type="text">
@@ -19,10 +20,12 @@
 
 <script>
 import PatientMenu from '../components/PatientMenu.vue'
+import SearchBar from '../components/SearchBar.vue'
 export default {
     name : 'Pharmacies',
     components : {
-        PatientMenu
+        PatientMenu,
+        SearchBar
     },
     data() {
         return{
