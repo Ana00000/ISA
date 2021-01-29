@@ -1,6 +1,8 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Info from '../components/Info.vue'
+
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -30,13 +32,6 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/Profile.vue'),
-    children: [
-      {
-        path: "info",
-        name: "Info",
-        component: Info
-      }
-    ]
   },
   {
     path: '/patientHomePage',
@@ -48,10 +43,12 @@ const routes = [
     name: 'Pharmacies',
     component: () => import('../views/Pharmacies.vue')
   },
+
 ]
 
-const router = createRouter({
-  history: createWebHashHistory(),
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 

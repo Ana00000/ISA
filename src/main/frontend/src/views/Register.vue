@@ -1,35 +1,37 @@
 <template>
     <div>
+        <div>
         <h1>Register</h1>
-    </div>
-    <div>
-        <div class="grid-container">
-            <h3 >
-                Name
-            </h3>
-            <textarea />
-            <h3 >
-                Last name
-            </h3>
-            <textarea />
-            <h3 >
-                Role
-            </h3>    
-            <textarea />    
-            <h3 >
-                Date of birth
-            </h3>    
-            <textarea />
-            <h3 >
-                E-Mail
-            </h3>    
-            <textarea />
-            <h3 >
-                Address
-            </h3>    
-            <textarea />     
         </div>
-        <button class="button-base" > Confirm registration</button>
+        <div>
+            <div class="grid-container">
+                <h3 >
+                    Name
+                </h3>
+                <textarea />
+                <h3 >
+                    Last name
+                </h3>
+                <textarea />
+                <h3 >
+                    Role
+                </h3>    
+                <textarea />    
+                <h3 >
+                    Date of birth
+                </h3>    
+                <textarea />
+                <h3 >
+                    E-Mail
+                </h3>    
+                <textarea />
+                <h3 >
+                    Address
+                </h3>    
+                <textarea />     
+            </div>
+            <button class="button-base" > Confirm registration</button>
+        </div>
     </div>
 </template>
 

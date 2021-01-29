@@ -1,20 +1,24 @@
 <template>
     <div>
-        <h1>Login</h1>
-    </div>
-    <div>
-        <div class="grid-container">
-            <h3 >
-                E-Mail
-            </h3>
-            <input class="textarea-base"/>
-            <h3 >
-                Password
-            </h3>
-            <input type="Password" class="textarea-base"/>  
+        <div>
+            <div class="grid-container">
+                <h3 >
+                    E-Mail
+                </h3>
+                <input class="textarea-base"/>
+                <h3 >
+                    Password
+                </h3>
+                <input type="Password" class="textarea-base"/>  
+            </div>
+            <button class="button-base" >Sign in</button>
         </div>
-        <button class="button-base" >Sign in</button>
+        <div>
+            <h1>Login</h1>
+        </div>
     </div>
+    
+    
 </template>
 
 <script>
