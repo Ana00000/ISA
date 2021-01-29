@@ -8,10 +8,6 @@
       <a href="#" >Contact</a>
     </div>
 
-    <h1>
-      <Introduction />
-    </h1>
-
     <div class="panel-mid">
       Mid panel
     </div>
@@ -27,14 +23,12 @@
 <script>
 // @ is an alias to /src
 import MapContainer from "@/components/MapContainer";
-import Introduction from "@/textual_components/home/Introduction";
 
 
 export default {
   name: 'Home',
   components: {
-    MapContainer,
-    Introduction
+    MapContainer
   }
 
 }
