@@ -5,12 +5,12 @@ import javax.persistence.*;
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Entity
-@Table(name="USERS") 
+@Table(name="hospitalUsers") 
 @Inheritance(strategy=TABLE_PER_CLASS)
 public abstract class User
 {
     @Id
-    @SequenceGenerator(name = "usersIdSeqGen", sequenceName = "usersIdSeq", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "usersIdSeqGen", sequenceName = "usersIdSeq", initialValue = 10, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usersIdSeqGen")
     @Column(name="id", unique=true, nullable=false)
     private long id;
