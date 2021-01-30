@@ -1,67 +1,41 @@
 <template>
-    <div>
-        <div>
-            <div class="grid-container">
-                <h3 >
-                    E-Mail
-                </h3>
-                <input class="textarea-base"/>
-                <h3 >
-                    Password
-                </h3>
-                <input type="Password" class="textarea-base"/>  
-            </div>
-            <button class="button-base" >Sign in</button>
-        </div>
-        <div>
-            <h1>Login</h1>
-        </div>
-    </div>
+    <v-card width="400" class="mx-auto mt-5">
+      <v-card-title >
+        <h1 class="display-1">Login</h1>
+      </v-card-title>
+      <v-card-text>
+        <v-form>
+          <v-text-field
+            label="Username"
+            prepend-icon="mdi-account-circle"/>
+          <v-text-field
+            :type="showPassword ? 'text' : 'password'"
+            label="Password"
+            prepend-icon="mdi-lock"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"/>
+        </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="success">
+          Login
+        </v-btn>
+      </v-card-actions>
+    </v-card>
     
     
 </template>
 
 <script>
-
+export default {
+  name: 'Login',
+  data: () => ({
+    showPassword: false
+  })
+};
 
 </script>
 
-<style scoped>
-
-.grid-container {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: 200 200 ;
-    grid-gap: 10px;
-    background-color: rgb(44,62,80);
-    color: #42b983;
-    padding: 10px;
-}
-
-.button-base {
-    background-color: #42b983; /* Green */
-    border: none;
-    color: rgb(44,62,80);
-    padding: 15px 30px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 32px;
-    font-weight: bold;
-    margin: 4px 2px;
-    cursor: pointer;
-    
-}
-
-.textarea-base {
-    vertical-align: middle;
-    font-size: 24px;
-}
-
-.textarea-password {
-    vertical-align: middle;
-    font-size: 24px;
-    
-}
+<style>
 
 </style>
