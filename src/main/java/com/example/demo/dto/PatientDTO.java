@@ -1,17 +1,11 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.Patient;
+import com.example.demo.model.User;
 
-public class PatientDTO 
-{
-
+public class PatientDTO extends UserDTO {
 	public PatientDTO() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public PatientDTO(Patient patient) {
-		// TODO Auto-generated constructor stub
+	public PatientDTO(User user) {
 	}
-
 }

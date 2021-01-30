@@ -1,6 +1,11 @@
 package com.example.demo.dto;
 
-public class PharmacistDTO 
-{
+import com.example.demo.model.Doctor;
 
+public class PharmacistDTO extends DoctorDTO {
+	public PharmacistDTO() {
+	}
+
+	public PharmacistDTO(Doctor doctor) {
+	}
 }

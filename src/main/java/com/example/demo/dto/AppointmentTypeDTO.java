@@ -3,8 +3,7 @@ package com.example.demo.dto;
 import com.example.demo.model.AppointmentType;
 import com.example.demo.model.enums.AppointmentTypeValues;
 
-public class AppointmentTypeDTO 
-{
+public class AppointmentTypeDTO {
     private long id;
     private AppointmentTypeValues value;
     

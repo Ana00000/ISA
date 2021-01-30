@@ -5,8 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Medicine 
-{
+public class Medicine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", unique=true, nullable=false)

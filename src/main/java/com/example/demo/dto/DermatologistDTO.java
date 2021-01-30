@@ -1,5 +1,11 @@
 package com.example.demo.dto;
 
-public class DermatologistDTO {
+import com.example.demo.model.Doctor;
 
+public class DermatologistDTO extends DoctorDTO {
+	public DermatologistDTO() {
+	}
+	
+	public DermatologistDTO(Doctor doctor) {
+	}
 }

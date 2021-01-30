@@ -2,8 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.model.Allergy;
 
-public class AllergyDTO 
-{
+public class AllergyDTO {
 	private long id;
 	private MedicineIngredientDTO medicineIngredient;
 	

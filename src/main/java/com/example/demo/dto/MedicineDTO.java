@@ -2,8 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.model.Medicine;
 
-public class MedicineDTO 
-{
+public class MedicineDTO {
     private long id;
     private String name;
     private boolean recipeNeed;

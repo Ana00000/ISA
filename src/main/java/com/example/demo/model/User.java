@@ -7,8 +7,7 @@ import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 @Entity
 @Table(name="hospitalUsers") 
 @Inheritance(strategy=TABLE_PER_CLASS)
-public abstract class User 
-{
+public abstract class User {
     @Id
     @SequenceGenerator(name = "usersIdSeqGen", sequenceName = "usersIdSeq", initialValue = 10, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usersIdSeqGen")

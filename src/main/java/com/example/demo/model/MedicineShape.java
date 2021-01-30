@@ -5,8 +5,7 @@ import javax.persistence.*;
 import com.example.demo.model.enums.MedicineShapeValue;
 
 @Entity
-public class MedicineShape 
-{
+public class MedicineShape {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     @Column(name="id", unique=true, nullable=false)

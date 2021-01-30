@@ -3,8 +3,7 @@ package com.example.demo.dto;
 import com.example.demo.model.TypeOfMedicine;
 import com.example.demo.model.enums.MedicineType;
 
-public class TypeOfMedicineDTO 
-{
+public class TypeOfMedicineDTO {
 	private long id;
 	private MedicineType value;
 	
