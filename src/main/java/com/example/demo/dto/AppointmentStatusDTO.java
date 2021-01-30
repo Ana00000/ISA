@@ -5,19 +5,19 @@ import com.example.demo.model.enums.AppointmentStatusValue;
 
 public class AppointmentStatusDTO {
 	private long id;
-	private AppointmentStatusValue value;
+	private AppointmentStatusValue statusValue;
 	 
 	public AppointmentStatusDTO() {
 		}
 		
 	public AppointmentStatusDTO(AppointmentStatus appointmentStatus) {
-		this(appointmentStatus.getId(), appointmentStatus.getValue());
+		this(appointmentStatus.getId(), appointmentStatus.getStatusValue());
 	}
 
-	public AppointmentStatusDTO(long id, AppointmentStatusValue value) {
+	public AppointmentStatusDTO(long id, AppointmentStatusValue statusValue) {
 		super();
 		this.id = id;
-		this.value = value;
+		this.statusValue = statusValue;
 	}
 
 	public long getId() {
@@ -28,11 +28,11 @@ public class AppointmentStatusDTO {
 		this.id = id;
 	}
 
-	public AppointmentStatusValue getValue() {
-		return value;
+	public AppointmentStatusValue getStatusValue() {
+		return statusValue;
 	}
 
-	public void setValue(AppointmentStatusValue value) {
-		this.value = value;
+	public void setStatusValue(AppointmentStatusValue statusValue) {
+		this.statusValue = statusValue;
 	}
 }

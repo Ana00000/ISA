@@ -5,19 +5,19 @@ import com.example.demo.model.enums.MedicineType;
 
 public class TypeOfMedicineDTO {
 	private long id;
-	private MedicineType value;
+	private MedicineType medicineType;
 	
 	public TypeOfMedicineDTO() {
 	}
 	
 	public TypeOfMedicineDTO(TypeOfMedicine typeOfMedicine) {
-		this(typeOfMedicine.getId(), typeOfMedicine.getValue());
+		this(typeOfMedicine.getId(), typeOfMedicine.getMedicineType());
 	}
 
-	public TypeOfMedicineDTO(long id, MedicineType value) {
+	public TypeOfMedicineDTO(long id, MedicineType medicineType) {
 		super();
 		this.id = id;
-		this.value = value;
+		this.medicineType = medicineType;
 	}
 
 	public long getId() {
@@ -28,11 +28,11 @@ public class TypeOfMedicineDTO {
 		this.id = id;
 	}
 
-	public MedicineType getValue() {
-		return value;
+	public MedicineType getMedicineType() {
+		return medicineType;
 	}
 
-	public void setValue(MedicineType value) {
-		this.value = value;
+	public void setMedicineType(MedicineType medicineType) {
+		this.medicineType = medicineType;
 	}
 }

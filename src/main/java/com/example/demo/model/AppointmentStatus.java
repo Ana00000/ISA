@@ -11,16 +11,16 @@ public class AppointmentStatus {
     @Column(name="id", unique=true, nullable=false)
     private long id;
     
-    @Column(name="value", unique=false, nullable=false)
-    private AppointmentStatusValue value;
+    @Column(name="statusValue", unique=false, nullable=false)
+    private AppointmentStatusValue statusValue;
 
     public AppointmentStatus() {
     }
 
-	public AppointmentStatus(long id, AppointmentStatusValue value) {
+	public AppointmentStatus(long id, AppointmentStatusValue statusValue) {
 		super();
 		this.id = id;
-		this.value = value;
+		this.statusValue = statusValue;
 	}
 
 	public long getId() {
@@ -31,11 +31,11 @@ public class AppointmentStatus {
 		this.id = id;
 	}
 
-	public AppointmentStatusValue getValue() {
-		return value;
+	public AppointmentStatusValue getStatusValue() {
+		return statusValue;
 	}
 
-	public void setValue(AppointmentStatusValue value) {
-		this.value = value;
+	public void setStatusValue(AppointmentStatusValue statusValue) {
+		this.statusValue = statusValue;
 	}
 }

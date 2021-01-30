@@ -18,7 +18,7 @@ public class Medicine {
     private boolean recipeNeed;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable( name = "alternativeMedicine", joinColumns = @JoinColumn(name="mainMedicine", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "alternativeMedicine", referencedColumnName = "id"))
+    @JoinTable( name = "alternativeMedicine", joinColumns = @JoinColumn(name="mainMedicineId", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "alternativeMedicineId", referencedColumnName = "id"))
     private Set<Medicine> alternativeMedicine = new HashSet<Medicine>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -28,7 +28,7 @@ public class Medicine {
     private MedicineShape medicineShape;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable( name = "ingredientsOfMedicine", joinColumns = @JoinColumn(name="ingredient", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "medicine", referencedColumnName = "id"))
+    @JoinTable( name = "ingredientsOfMedicine", joinColumns = @JoinColumn(name="ingredientName", referencedColumnName="name"), inverseJoinColumns = @JoinColumn(name = "medicineName", referencedColumnName = "name"))
     private Set<MedicineIngredient> ingredients = new HashSet<MedicineIngredient>();
     
     public Medicine() {

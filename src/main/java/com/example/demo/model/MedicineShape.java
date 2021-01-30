@@ -11,16 +11,16 @@ public class MedicineShape {
     @Column(name="id", unique=true, nullable=false)
     private long id;
     
-    @Column(name="value", unique=false, nullable=false)
-    private MedicineShapeValue value;
+    @Column(name="shapeValue", unique=false, nullable=false)
+    private MedicineShapeValue shapeValue;
 
     public MedicineShape() {
     }
     
-	public MedicineShape(long id, MedicineShapeValue value) {
+	public MedicineShape(long id, MedicineShapeValue shapeValue) {
 		super();
 		this.id = id;
-		this.value = value;
+		this.shapeValue = shapeValue;
 	}
 
 	public long getId() {
@@ -31,11 +31,11 @@ public class MedicineShape {
 		this.id = id;
 	}
 
-	public MedicineShapeValue getValue() {
-		return value;
+	public MedicineShapeValue getShapeValue() {
+		return shapeValue;
 	}
 
-	public void setValue(MedicineShapeValue value) {
-		this.value = value;
+	public void setShapeValue(MedicineShapeValue shapeValue) {
+		this.shapeValue = shapeValue;
 	}
 }
