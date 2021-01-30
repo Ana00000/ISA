@@ -102,7 +102,6 @@ export default {
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
 
@@ -125,7 +124,6 @@ export default {
 .panel-map {
   padding-left: 20px;
   padding-right: 20px;
-  background-color: #42b983;
 }
 
 .panel-mid {

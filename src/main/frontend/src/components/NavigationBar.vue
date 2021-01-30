@@ -9,25 +9,25 @@
         <v-btn color="brown lighten-3" class="hidden-sm-and-down">JOIN</v-btn>
     </v-toolbar> -->
     <div class="nav">
-        <div class="nav1" >
-            <div class="nav1">
-                <h2><router-link to="/" style="">Home</router-link></h2>
+        <div class="nav1 justify-center" >
+            <div class="nav1 justify-center">
+                <h2><router-link to="/" class="display-1">Home</router-link></h2>
             </div>
-            <div class="nav1">
-                <h2><router-link to="/about">About</router-link></h2>    
+            <div class="nav1 justify-center">
+                <h2><router-link to="/about" class="display-1">About</router-link></h2>
             </div>
         </div>
-        <div class="nav1-mid" >
-            <img src="../assets/logo.jpg" alt="Nije ucitao" width="80" height="60" />
-          <h1>Pharmacy system</h1>
-            <img src="../assets/logo.jpg" alt="Nije ucitao" width="80" height="60" />
-        </div>
+          <v-card-title class="nav1-mid justify-center">
+            <img src="../assets/logo.jpg" alt="Nije ucitao" width="60" height="45" />
+            <h1 class="display-1">Pharmacy system</h1>
+            <img src="../assets/logo.jpg" alt="Nije ucitao" width="60" height="45" />
+          </v-card-title>
         <div class="nav1">
             <div class="nav1">
-            <h2><router-link to="/login">Login</router-link></h2>
+            <h2><router-link to="/login" class="display-1">Login</router-link></h2>
             </div>
             <div class="nav1">
-            <h2><router-link to="/register">Register</router-link></h2>
+            <h2><router-link to="/register" class="display-1">Register</router-link></h2>
             </div>
         </div>
     </div>
@@ -57,21 +57,11 @@ export default {
     width: 33%;
 }
 
-.logo {
-  display: inline-block;
-  width: 10%;
-}
-
 .nav1-mid {
   display: inline-flex;
   width: 34%;
   flex-direction: row;
 }
-/* .nav1 {
-    float:left;
-    width: 33%;
-    border: solid black 1px;
-} */
 h2 {
     margin: 40px 0 0;
 }
