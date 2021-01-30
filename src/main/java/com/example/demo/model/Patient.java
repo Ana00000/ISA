@@ -11,17 +11,6 @@ import javax.persistence.*;
 @Entity
 public class Patient extends User
 {
-    @Column(name="appID", unique=false, nullable=false)
-    private Integer id;
-
     public Patient(){
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 }

@@ -3,8 +3,8 @@ package com.example.demo.model;
 import javax.persistence.Entity;
 
 @Entity
-public class Doctor extends User
+public class Dermatologist extends User
 {
-    public Doctor(){
-    }
+	 public Dermatologist(){
+	 }
 }
