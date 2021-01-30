@@ -1,38 +1,40 @@
-/**
- * Class MedicineIngredient
- * AUTHOR: Aleksandar Hadzibabic
- * DATE: 24/1/2021
- */
-
 package com.example.demo.model;
 
 import javax.persistence.*;
 
 @Entity
-public class MedicineIngredient {
+public class MedicineIngredient 
+{
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private int ingredientID;
+    @Column(name="id", unique=true, nullable=false)
+    private long id;
 
-    @Column(nullable = false)
-    private String ingredientName;
+    @Column(name="name", unique=false, nullable=false)
+    private String name;
 
     public MedicineIngredient() {
     }
 
-    public int getIngredientID() {
-        return ingredientID;
-    }
+	public MedicineIngredient(long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
-    public void setIngredientID(int ingredientID) {
-        this.ingredientID = ingredientID;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public String getIngredientName() {
-        return ingredientName;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setIngredientName(String ingredientName) {
-        this.ingredientName = ingredientName;
-    }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

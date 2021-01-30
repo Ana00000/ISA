@@ -1,9 +1,3 @@
-/**
- * Class AppointmentType
- * AUTHOR: Aleksandar Hadzibabic
- * DATE: 24/1/2021
- */
-
 package com.example.demo.model;
 
 import javax.persistence.*;
@@ -11,36 +5,38 @@ import javax.persistence.*;
 enum AppointmentTypeValues {CONSULTATION, EXAMINATION}
 
 @Entity
-//@Table(name="AppointmentType")
 public class AppointmentType
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //This strategy increments key like 1,2,3
-    private int typeID;
-    @Column(name="typeValue", unique=true, nullable=false)
-    private AppointmentTypeValues typeValue;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Column(name="id", unique=true, nullable=false)
+    private long id;
+    
+    @Column(name="value", unique=false, nullable=false)
+    private AppointmentTypeValues value;
 
     public AppointmentType() {
     }
+    
+	public AppointmentType(long id, AppointmentTypeValues value) {
+		super();
+		this.id = id;
+		this.value = value;
+	}
+	
+	public long getId() {
+		return id;
+	}
 
-    public AppointmentType(int typeID, AppointmentTypeValues typeValue) {
-        this.typeID = typeID;
-        this.typeValue = typeValue;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public int getTypeID() {
-        return typeID;
-    }
+	public AppointmentTypeValues getValue() {
+		return value;
+	}
 
-    public void setTypeID(int typeID) {
-        this.typeID = typeID;
-    }
-
-    public AppointmentTypeValues getTypeValue() {
-        return typeValue;
-    }
-
-    public void setTypeValue(AppointmentTypeValues typeValue) {
-        this.typeValue = typeValue;
-    }
+	public void setValue(AppointmentTypeValues value) {
+		this.value = value;
+	}
 }

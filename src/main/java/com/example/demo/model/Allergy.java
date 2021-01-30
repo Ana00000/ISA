@@ -1,38 +1,40 @@
-/**
- * Class Allergy
- * AUTHOR: Aleksandar Hadzibabic
- * DATE: 24/1/2021
- */
-
 package com.example.demo.model;
 
 import javax.persistence.*;
 
 @Entity
-public class Allergy {
+public class Allergy 
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int allergyID;
+    @Column(name="id", unique=true, nullable=false)
+    private long id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    MedicineIngredient medicineIngredient;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private MedicineIngredient medicineIngredient;
 
     public Allergy() {
     }
 
-    public int getAllergyID() {
-        return allergyID;
-    }
+	public Allergy(long id, MedicineIngredient medicineIngredient) {
+		super();
+		this.id = id;
+		this.medicineIngredient = medicineIngredient;
+	}
 
-    public void setAllergyID(int allergyID) {
-        this.allergyID = allergyID;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public MedicineIngredient getMedicineIngredient() {
-        return medicineIngredient;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setMedicineIngredient(MedicineIngredient medicineIngredient) {
-        this.medicineIngredient = medicineIngredient;
-    }
+	public MedicineIngredient getMedicineIngredient() {
+		return medicineIngredient;
+	}
+
+	public void setMedicineIngredient(MedicineIngredient medicineIngredient) {
+		this.medicineIngredient = medicineIngredient;
+	}
 }
