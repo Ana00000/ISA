@@ -6,10 +6,11 @@ import java.util.Set;
 
 @Entity
 public class Medicine {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", unique=true, nullable=false)
-    private long id;
+    private Long id;
 
     @Column(name="name", unique=false, nullable=false)
     private String name;
@@ -34,7 +35,7 @@ public class Medicine {
     public Medicine() {
     }
 
-	public Medicine(long id, String name, boolean recipeNeed, Set<Medicine> alternativeMedicine,
+	public Medicine(Long id, String name, boolean recipeNeed, Set<Medicine> alternativeMedicine,
 			MedicineManufacturer medicineManufacturer, MedicineShape medicineShape,
 			Set<MedicineIngredient> ingredients) {
 		super();
@@ -47,11 +48,11 @@ public class Medicine {
 		this.ingredients = ingredients;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

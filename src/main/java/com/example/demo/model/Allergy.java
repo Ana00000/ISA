@@ -4,10 +4,11 @@ import javax.persistence.*;
 
 @Entity
 public class Allergy {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", unique=true, nullable=false)
-    private long id;
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicineIngredient medicineIngredient;
@@ -15,17 +16,17 @@ public class Allergy {
     public Allergy() {
     }
 
-	public Allergy(long id, MedicineIngredient medicineIngredient) {
+	public Allergy(Long id, MedicineIngredient medicineIngredient) {
 		super();
 		this.id = id;
 		this.medicineIngredient = medicineIngredient;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

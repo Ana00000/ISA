@@ -8,11 +8,12 @@ import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 @Table(name="hospitalUsers") 
 @Inheritance(strategy=TABLE_PER_CLASS)
 public abstract class User {
+	
     @Id
     @SequenceGenerator(name = "usersIdSeqGen", sequenceName = "usersIdSeq", initialValue = 10, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usersIdSeqGen")
     @Column(name="id", unique=true, nullable=false)
-    private long id;
+    private Long id;
 
     @Column(name="name", unique=false, nullable=false)
     private String name;
@@ -23,18 +24,18 @@ public abstract class User {
 	public User() {
 	}
 	
-	public User(long id, String name, String lastName) {
+	public User(Long id, String name, String lastName) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -5,10 +5,11 @@ import java.sql.Timestamp;
 
 @Entity
 public class Appointment {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     @Column(name="id", unique=true, nullable=false)
-    private long id;
+    private Long id;
 
     @Column(name="price", unique=false, nullable=false)
     private double price;
@@ -34,7 +35,7 @@ public class Appointment {
 	public Appointment() {
 	}
 
-	public Appointment(long id, double price, AppointmentType appointmentType, AppointmentStatus status, Patient patient,
+	public Appointment(Long id, double price, AppointmentType appointmentType, AppointmentStatus status, Patient patient,
 			Doctor doctor, Timestamp startTime, Timestamp endTime) {
 		super();
 		this.id = id;
@@ -47,11 +48,11 @@ public class Appointment {
 		this.endTime = endTime;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

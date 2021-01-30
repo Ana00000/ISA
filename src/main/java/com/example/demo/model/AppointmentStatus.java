@@ -6,10 +6,11 @@ import com.example.demo.model.enums.AppointmentStatusValue;
 
 @Entity
 public class AppointmentStatus {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", unique=true, nullable=false)
-    private long id;
+    private Long id;
     
     @Column(name="statusValue", unique=false, nullable=false)
     private AppointmentStatusValue statusValue;
@@ -17,17 +18,17 @@ public class AppointmentStatus {
     public AppointmentStatus() {
     }
 
-	public AppointmentStatus(long id, AppointmentStatusValue statusValue) {
+	public AppointmentStatus(Long id, AppointmentStatusValue statusValue) {
 		super();
 		this.id = id;
 		this.statusValue = statusValue;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
