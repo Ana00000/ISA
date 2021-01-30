@@ -1,21 +1,21 @@
 package com.example.demo.dto;
 
 import com.example.demo.model.Allergy;
-import com.example.demo.model.MedicineIngredient;
 
 public class AllergyDTO 
 {
 	private long id;
-	private MedicineIngredient medicineIngredient;
+	private MedicineIngredientDTO medicineIngredient;
 	
 	public AllergyDTO() {
 	}
 	
 	public AllergyDTO(Allergy allergy) {
-		this(allergy.getId(), allergy.getMedicineIngredient());
+		this.id = allergy.getId();
+		this.medicineIngredient = new MedicineIngredientDTO(allergy.getMedicineIngredient());
 	}
 	
-	public AllergyDTO(long id, MedicineIngredient medicineIngredient) {
+	public AllergyDTO(long id, MedicineIngredientDTO medicineIngredient) {
 		super();
 		this.id = id;
 		this.medicineIngredient = medicineIngredient;
@@ -29,11 +29,11 @@ public class AllergyDTO
 		this.id = id;
 	}
 
-	public MedicineIngredient getMedicineIngredient() {
+	public MedicineIngredientDTO getMedicineIngredient() {
 		return medicineIngredient;
 	}
 
-	public void setMedicineIngredient(MedicineIngredient medicineIngredient) {
+	public void setMedicineIngredient(MedicineIngredientDTO medicineIngredient) {
 		this.medicineIngredient = medicineIngredient;
 	}
 }

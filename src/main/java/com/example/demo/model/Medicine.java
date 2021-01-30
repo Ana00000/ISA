@@ -64,7 +64,7 @@ public class Medicine
 		this.name = name;
 	}
 
-	public boolean isRecipeNeed() {
+	public boolean isRecipeNeeded() {
 		return recipeNeed;
 	}
 
