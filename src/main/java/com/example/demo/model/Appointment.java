@@ -14,7 +14,7 @@ public class Appointment {
     private double price;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private AppointmentType type;
+    private AppointmentType appointmentType;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private AppointmentStatus status;
@@ -34,12 +34,12 @@ public class Appointment {
 	public Appointment() {
 	}
 
-	public Appointment(long id, double price, AppointmentType type, AppointmentStatus status, Patient patient,
+	public Appointment(long id, double price, AppointmentType appointmentType, AppointmentStatus status, Patient patient,
 			Doctor doctor, Timestamp startTime, Timestamp endTime) {
 		super();
 		this.id = id;
 		this.price = price;
-		this.type = type;
+		this.appointmentType = appointmentType;
 		this.status = status;
 		this.patient = patient;
 		this.doctor = doctor;
@@ -62,13 +62,13 @@ public class Appointment {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
-	public AppointmentType getType() {
-		return type;
+	
+	public AppointmentType getAppointmentType() {
+		return appointmentType;
 	}
 
-	public void setType(AppointmentType type) {
-		this.type = type;
+	public void setAppointmentType(AppointmentType appointmentType) {
+		this.appointmentType = appointmentType;
 	}
 
 	public AppointmentStatus getStatus() {

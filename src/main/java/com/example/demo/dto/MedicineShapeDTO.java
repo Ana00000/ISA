@@ -5,19 +5,19 @@ import com.example.demo.model.enums.MedicineShapeValue;
 
 public class MedicineShapeDTO {
 	private long id;
-	private MedicineShapeValue value;
+	private MedicineShapeValue shapeValue;
 	 
 	public MedicineShapeDTO() {
 	}
 	
 	public MedicineShapeDTO(MedicineShape medicineShape) {
-		this(medicineShape.getId(), medicineShape.getValue());
+		this(medicineShape.getId(), medicineShape.getShapeValue());
 	}
 
-	public MedicineShapeDTO(long id, MedicineShapeValue value) {
+	public MedicineShapeDTO(long id, MedicineShapeValue shapeValue) {
 		super();
 		this.id = id;
-		this.value = value;
+		this.shapeValue = shapeValue;
 	}
 
 	public long getId() {
@@ -28,11 +28,11 @@ public class MedicineShapeDTO {
 		this.id = id;
 	}
 
-	public MedicineShapeValue getValue() {
-		return value;
+	public MedicineShapeValue getShapeValue() {
+		return shapeValue;
 	}
 
-	public void setValue(MedicineShapeValue value) {
-		this.value = value;
+	public void setShapeValue(MedicineShapeValue shapeValue) {
+		this.shapeValue = shapeValue;
 	}
 }

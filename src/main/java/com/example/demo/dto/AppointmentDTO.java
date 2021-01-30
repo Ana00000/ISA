@@ -8,7 +8,7 @@ import com.example.demo.model.Doctor;
 public class AppointmentDTO {
 	private long id;
 	private double price;
-	private AppointmentTypeDTO type;
+	private AppointmentTypeDTO appointmentType;
 	private AppointmentStatusDTO status;
 	private PatientDTO patient;
 	private DoctorDTO doctor;
@@ -21,7 +21,7 @@ public class AppointmentDTO {
 	public AppointmentDTO(Appointment appointment) {
 		this.id = appointment.getId();
 		this.price = appointment.getPrice();
-		this.type = new AppointmentTypeDTO(appointment.getType());
+		this.appointmentType = new AppointmentTypeDTO(appointment.getAppointmentType());
 		this.status = new AppointmentStatusDTO(appointment.getStatus());
 		this.patient = new PatientDTO(appointment.getPatient());
 		this.doctor = getDoctorDTO(appointment);
@@ -29,12 +29,12 @@ public class AppointmentDTO {
 		this.endTime = appointment.getEndTime();
 	}
 
-	public AppointmentDTO(long id, double price, AppointmentTypeDTO type, AppointmentStatusDTO status,
+	public AppointmentDTO(long id, double price, AppointmentTypeDTO appointmentType, AppointmentStatusDTO status,
 			PatientDTO patient, DoctorDTO doctor, Timestamp startTime, Timestamp endTime) {
 		super();
 		this.id = id;
 		this.price = price;
-		this.type = type;
+		this.appointmentType = appointmentType;
 		this.status = status;
 		this.patient = patient;
 		this.doctor = doctor;
@@ -67,12 +67,12 @@ public class AppointmentDTO {
 		this.price = price;
 	}
 
-	public AppointmentTypeDTO getType() {
-		return type;
+	public AppointmentTypeDTO getAppointmentType() {
+		return appointmentType;
 	}
 
-	public void setType(AppointmentTypeDTO type) {
-		this.type = type;
+	public void setAppointmentType(AppointmentTypeDTO appointmentType) {
+		this.appointmentType = appointmentType;
 	}
 
 	public AppointmentStatusDTO getStatus() {

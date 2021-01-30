@@ -11,16 +11,16 @@ public class TypeOfMedicine {
     @Column(name="id", unique=true, nullable=false)
     private long id;
     
-    @Column(name="value", unique=false, nullable=false)
-    private MedicineType value;
+    @Column(name="medicineType", unique=false, nullable=false)
+    private MedicineType medicineType;
 
     public TypeOfMedicine() {
     }
     
-	public TypeOfMedicine(long id, MedicineType value) {
+	public TypeOfMedicine(long id, MedicineType medicineType) {
 		super();
 		this.id = id;
-		this.value = value;
+		this.medicineType = medicineType;
 	}
 
 	public long getId() {
@@ -31,11 +31,11 @@ public class TypeOfMedicine {
 		this.id = id;
 	}
 
-	public MedicineType getValue() {
-		return value;
+	public MedicineType getMedicineType() {
+		return medicineType;
 	}
 
-	public void setValue(MedicineType value) {
-		this.value = value;
+	public void setMedicineType(MedicineType medicineType) {
+		this.medicineType = medicineType;
 	}
 }
