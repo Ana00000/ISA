@@ -11,16 +11,16 @@
     <div class="nav">
         <div class="nav1" >
             <div class="nav1">
-                <h2><router-link to="/">Home</router-link></h2>    
+                <h2><router-link to="/" style="">Home</router-link></h2>
             </div>
             <div class="nav1">
                 <h2><router-link to="/about">About</router-link></h2>    
             </div>
         </div>
         <div class="nav1-mid" >
-            <img src="../assets/logo.png" alt="Nije ucitao" width="60" height="60" />
+            <img src="../assets/logo.jpg" alt="Nije ucitao" width="80" height="60" />
           <h1>Pharmacy system</h1>
-            <img src="../assets/logo.png" alt="Nije ucitao" width="60" height="60"  />
+            <img src="../assets/logo.jpg" alt="Nije ucitao" width="80" height="60" />
         </div>
         <div class="nav1">
             <div class="nav1">
