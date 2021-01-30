@@ -2,8 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.model.MedicineManufacturer;
 
-public class MedicineManufacturerDTO 
-{
+public class MedicineManufacturerDTO {
 	private long id;
     private String name;
     

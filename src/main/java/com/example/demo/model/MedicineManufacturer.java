@@ -3,8 +3,7 @@ package com.example.demo.model;
 import javax.persistence.*;
 
 @Entity
-public class MedicineManufacturer 
-{
+public class MedicineManufacturer {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     @Column(name="id", unique=true, nullable=false)

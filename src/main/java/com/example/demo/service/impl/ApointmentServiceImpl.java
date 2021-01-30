@@ -6,8 +6,6 @@ import com.example.demo.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ApointmentServiceImpl implements AppointmentService {
 

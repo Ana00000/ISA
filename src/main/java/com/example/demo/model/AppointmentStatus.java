@@ -5,8 +5,7 @@ import javax.persistence.*;
 import com.example.demo.model.enums.AppointmentStatusValue;
 
 @Entity
-public class AppointmentStatus 
-{
+public class AppointmentStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", unique=true, nullable=false)
