@@ -1,9 +1,9 @@
 package com.example.demo.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
-public class Doctor extends User
+public abstract class Doctor extends User
 {
     public Doctor(){
     }
