@@ -1,4 +1,5 @@
 package com.example.demo.model;
+
 import javax.persistence.*;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;

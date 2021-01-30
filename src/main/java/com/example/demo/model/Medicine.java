@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,7 +20,7 @@ public class Medicine
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable( name = "alternativeMedicine", joinColumns = @JoinColumn(name="mainMedicine", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "alternativeMedicine", referencedColumnName = "id"))
-    private Set<Medicine> alternativeMedicine;
+    private Set<Medicine> alternativeMedicine = new HashSet<Medicine>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicineManufacturer medicineManufacturer;
@@ -27,11 +28,16 @@ public class Medicine
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicineShape medicineShape;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable( name = "ingredientsOfMedicine", joinColumns = @JoinColumn(name="ingredient", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "medicine", referencedColumnName = "id"))
+    private Set<MedicineIngredient> ingredients = new HashSet<MedicineIngredient>();
+    
     public Medicine() {
     }
 
 	public Medicine(long id, String name, boolean recipeNeed, Set<Medicine> alternativeMedicine,
-			MedicineManufacturer medicineManufacturer, MedicineShape medicineShape) {
+			MedicineManufacturer medicineManufacturer, MedicineShape medicineShape,
+			Set<MedicineIngredient> ingredients) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,6 +45,7 @@ public class Medicine
 		this.alternativeMedicine = alternativeMedicine;
 		this.medicineManufacturer = medicineManufacturer;
 		this.medicineShape = medicineShape;
+		this.ingredients = ingredients;
 	}
 
 	public long getId() {
@@ -87,5 +94,13 @@ public class Medicine
 
 	public void setMedicineShape(MedicineShape medicineShape) {
 		this.medicineShape = medicineShape;
+	}
+	
+	public Set<MedicineIngredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(Set<MedicineIngredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 }
