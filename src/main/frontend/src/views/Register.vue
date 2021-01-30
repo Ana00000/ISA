@@ -1,82 +1,76 @@
 <template>
-    <div>
-        <div>
-        <h1>Register</h1>
-        </div>
-        <div>
-            <div class="grid-container">
-                <h3 >
-                    Name
-                </h3>
-                <textarea type="Text" class="textarea-base"/>
-                <h3 >
-                    Last name
-                </h3>
-                <textarea type="Text" class="textarea-base"/>
-                <h3 >
-                    Role
-                </h3>    
-                <textarea type="Text" class="textarea-base"/>
-                <h3 >
-                    Date of birth
-                </h3>    
-                <textarea type="Text" class="textarea-base"/>
-                <h3 >
-                    E-Mail
-                </h3>    
-                <textarea type="Text" class="textarea-base"/>
-                <h3 >
-                    Address
-                </h3>    
-                <textarea type="Text" class="textarea-base"/>
-            </div>
-            <button class="button-base" > Confirm registration</button>
-        </div>
-    </div>
+  <v-card width="400" class="mx-auto mt-5" color="white">
+    <v-card-title class="justify-center">
+      <h1 class="display-1 ">Registration</h1>
+    </v-card-title>
+    <v-card-text>
+      <v-form class="mx-auto ml-5 mr-5">
+        <v-text-field
+            label="Username/Email"
+            v-model="username"
+            prepend-icon="mdi-account-circle"/>
+        <v-text-field
+            :type="showPassword ? 'text' : 'password'"
+            label="Password"
+            v-model="password"
+            prepend-icon="mdi-lock"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="showPassword = !showPassword"/>
+        <v-text-field
+            label="First name"
+            v-model="firstName"
+            prepend-icon="mdi-name-circle"/>
+        <v-text-field
+            label="Last name"
+            v-model="lastName"
+            prepend-icon="mdi-address-circle"/>
+        <v-text-field
+            label="Address"
+            v-model="address"
+            prepend-icon="mdi-address-circle"/>
+        <label>
+          Date of birth
+        </label>
+        <v-date-picker
+            label="Date of birth"
+            class="v-calendar"
+            value="today"
+            v-model="dateOfBirth"
+            prepend-icon="mdi-account-circle"/>
+      </v-form>
+    </v-card-text>
+    <v-card-actions class="justify-center mb-5">
+      <v-btn color="info mb-5">
+        Register
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
 
 
+export default {
+  name: 'Register',
+  data: () => ({
+    showPassword: false,
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    dateOfBirth: null,
+    users: []
+  }),
+  methods: {
+    login() {
+      this.$axios.get
+    }
+  }
+};
+
 </script>
 
-<style scoped>
-
-.grid-container {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: 50px 50px 50px 50px 50px 50px;
-    grid-gap: 10px;
-    background-color: rgb(44,62,80);
-    color: #42b983;
-    padding: 10px;
-}
-
-.button-base {
-  background-color: #42b983; /* Green */
-  border: none;
-  color: rgb(44,62,80);
-  padding: 15px 30px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 32px;
-  font-weight: bold;
-  margin: 4px 2px;
-  cursor: pointer;
-
-}
-
-.button-confirm_registration {
-    background-color: #42b983;
-    color: rgb(44,62,80);
-}
-
-.textarea-base {
-  vertical-align: middle;
-  font-size: 24px;
-  border: 2px solid #42b983;
-  width: 500px;
-}
+<style>
 
 </style>
