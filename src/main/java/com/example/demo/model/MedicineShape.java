@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
-enum MedicineShapeValue { pill, tablet, syrup }
+import com.example.demo.model.enums.MedicineShapeValue;
 
 @Entity
 public class MedicineShape 
