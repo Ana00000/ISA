@@ -6,7 +6,7 @@ import com.example.demo.model.Appointment;
 import com.example.demo.model.Doctor;
 
 public class AppointmentDTO {
-	private long id;
+	private Long id;
 	private double price;
 	private AppointmentTypeDTO appointmentType;
 	private AppointmentStatusDTO status;
@@ -29,7 +29,7 @@ public class AppointmentDTO {
 		this.endTime = appointment.getEndTime();
 	}
 
-	public AppointmentDTO(long id, double price, AppointmentTypeDTO appointmentType, AppointmentStatusDTO status,
+	public AppointmentDTO(Long id, double price, AppointmentTypeDTO appointmentType, AppointmentStatusDTO status,
 			PatientDTO patient, DoctorDTO doctor, Timestamp startTime, Timestamp endTime) {
 		super();
 		this.id = id;
@@ -51,11 +51,11 @@ public class AppointmentDTO {
 		return null;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

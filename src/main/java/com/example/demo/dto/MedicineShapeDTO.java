@@ -4,7 +4,7 @@ import com.example.demo.model.MedicineShape;
 import com.example.demo.model.enums.MedicineShapeValue;
 
 public class MedicineShapeDTO {
-	private long id;
+	private Long id;
 	private MedicineShapeValue shapeValue;
 	 
 	public MedicineShapeDTO() {
@@ -14,17 +14,17 @@ public class MedicineShapeDTO {
 		this(medicineShape.getId(), medicineShape.getShapeValue());
 	}
 
-	public MedicineShapeDTO(long id, MedicineShapeValue shapeValue) {
+	public MedicineShapeDTO(Long id, MedicineShapeValue shapeValue) {
 		super();
 		this.id = id;
 		this.shapeValue = shapeValue;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

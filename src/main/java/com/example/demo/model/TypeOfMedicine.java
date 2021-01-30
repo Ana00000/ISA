@@ -6,10 +6,11 @@ import com.example.demo.model.enums.MedicineType;
 
 @Entity
 public class TypeOfMedicine {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", unique=true, nullable=false)
-    private long id;
+    private Long id;
     
     @Column(name="medicineType", unique=false, nullable=false)
     private MedicineType medicineType;
@@ -17,17 +18,17 @@ public class TypeOfMedicine {
     public TypeOfMedicine() {
     }
     
-	public TypeOfMedicine(long id, MedicineType medicineType) {
+	public TypeOfMedicine(Long id, MedicineType medicineType) {
 		super();
 		this.id = id;
 		this.medicineType = medicineType;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

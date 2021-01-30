@@ -3,7 +3,7 @@ package com.example.demo.dto;
 import com.example.demo.model.Medicine;
 
 public class MedicineDTO {
-    private long id;
+    private Long id;
     private String name;
     private boolean recipeNeed;
     private MedicineManufacturerDTO medicineManufacturer;
@@ -20,7 +20,7 @@ public class MedicineDTO {
 		this.medicineShape = new MedicineShapeDTO(medicine.getMedicineShape());
 	}
 	
-	public MedicineDTO(long id, String name, boolean recipeNeed, MedicineManufacturerDTO medicineManufacturer,
+	public MedicineDTO(Long id, String name, boolean recipeNeed, MedicineManufacturerDTO medicineManufacturer,
 			MedicineShapeDTO medicineShape) {
 		super();
 		this.id = id;
@@ -30,11 +30,11 @@ public class MedicineDTO {
 		this.medicineShape = medicineShape;
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

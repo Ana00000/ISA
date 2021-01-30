@@ -4,7 +4,7 @@ import com.example.demo.model.TypeOfMedicine;
 import com.example.demo.model.enums.MedicineType;
 
 public class TypeOfMedicineDTO {
-	private long id;
+	private Long id;
 	private MedicineType medicineType;
 	
 	public TypeOfMedicineDTO() {
@@ -14,17 +14,17 @@ public class TypeOfMedicineDTO {
 		this(typeOfMedicine.getId(), typeOfMedicine.getMedicineType());
 	}
 
-	public TypeOfMedicineDTO(long id, MedicineType medicineType) {
+	public TypeOfMedicineDTO(Long id, MedicineType medicineType) {
 		super();
 		this.id = id;
 		this.medicineType = medicineType;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

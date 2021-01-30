@@ -3,7 +3,7 @@ package com.example.demo.dto;
 import com.example.demo.model.User;
 
 public abstract class UserDTO {
-	private long id;
+	private Long id;
 	private String name;
 	private String lastName;
 	 
@@ -14,18 +14,18 @@ public abstract class UserDTO {
 		this(user.getId(), user.getName(), user.getLastName());
 	}
 	
-	public UserDTO(long id, String name, String lastName) {
+	public UserDTO(Long id, String name, String lastName) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

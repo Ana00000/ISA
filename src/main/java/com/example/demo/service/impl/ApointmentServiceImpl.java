@@ -13,7 +13,7 @@ public class ApointmentServiceImpl implements AppointmentService {
     private AppointmentRepository appointmentRepository;
 
     @Override
-    public Appointment findById(Integer id) {
+    public Appointment findById(Long id) {
         return this.appointmentRepository.getOne(id);
     }
 }

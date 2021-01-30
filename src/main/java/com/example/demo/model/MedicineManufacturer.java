@@ -4,10 +4,11 @@ import javax.persistence.*;
 
 @Entity
 public class MedicineManufacturer {
+	
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     @Column(name="id", unique=true, nullable=false)
-    private long id;
+    private Long id;
     
     @Column(name="name", unique=false, nullable=false)
     private String name;
@@ -15,17 +16,17 @@ public class MedicineManufacturer {
     public MedicineManufacturer() {
     }
    
-	public MedicineManufacturer(long id, String name) {
+	public MedicineManufacturer(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

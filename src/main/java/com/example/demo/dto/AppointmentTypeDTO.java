@@ -4,7 +4,7 @@ import com.example.demo.model.AppointmentType;
 import com.example.demo.model.enums.AppointmentTypeValues;
 
 public class AppointmentTypeDTO {
-    private long id;
+    private Long id;
     private AppointmentTypeValues appointmentTypeValue;
     
 	public AppointmentTypeDTO() {
@@ -14,17 +14,17 @@ public class AppointmentTypeDTO {
 		this(appointmentType.getId(), appointmentType.getAppointmentTypeValue());
 	}
 	
-	public AppointmentTypeDTO(long id, AppointmentTypeValues appointmentTypeValue) {
+	public AppointmentTypeDTO(Long id, AppointmentTypeValues appointmentTypeValue) {
 		super();
 		this.id = id;
 		this.appointmentTypeValue = appointmentTypeValue;
 	}
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

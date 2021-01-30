@@ -3,7 +3,7 @@ package com.example.demo.dto;
 import com.example.demo.model.Allergy;
 
 public class AllergyDTO {
-	private long id;
+	private Long id;
 	private MedicineIngredientDTO medicineIngredient;
 	
 	public AllergyDTO() {
@@ -14,17 +14,17 @@ public class AllergyDTO {
 		this.medicineIngredient = new MedicineIngredientDTO(allergy.getMedicineIngredient());
 	}
 	
-	public AllergyDTO(long id, MedicineIngredientDTO medicineIngredient) {
+	public AllergyDTO(Long id, MedicineIngredientDTO medicineIngredient) {
 		super();
 		this.id = id;
 		this.medicineIngredient = medicineIngredient;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
