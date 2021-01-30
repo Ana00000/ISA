@@ -1,9 +1,3 @@
-/**
- * Class Appointment
- * AUTHOR: Aleksandar Hadzibabic
- * DATE: 24/1/2021
- */
-
 package com.example.demo.model;
 
 import javax.persistence.*;
@@ -13,22 +7,23 @@ import java.sql.Timestamp;
 public class Appointment
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //This strategy increments key like 1,2,3
-    private int appID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Column(name="id", unique=true, nullable=false)
+    private long id;
 
-    @Column(nullable = false)
-    private int appPrice;
+    @Column(name="price", unique=false, nullable=false)
+    private double price;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private AppointmentType appointmentType;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private AppointmentType type;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private AppointmentStatus appointmentStatus;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private AppointmentStatus status;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Patient patient;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Doctor doctor;
 
     @Column(nullable = false)
@@ -37,70 +32,83 @@ public class Appointment
     @Column(nullable = false)
     private Timestamp endTime;
 
-    public Appointment() {
-    }
+	public Appointment() {
+	}
 
-    public int getAppID() {
-        return appID;
-    }
+	public Appointment(long id, double price, AppointmentType type, AppointmentStatus status, Patient patient,
+			Doctor doctor, Timestamp startTime, Timestamp endTime) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.type = type;
+		this.status = status;
+		this.patient = patient;
+		this.doctor = doctor;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
 
-    public void setAppID(int appID) {
-        this.appID = appID;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public int getAppPrice() {
-        return appPrice;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setAppPrice(int appPrice) {
-        this.appPrice = appPrice;
-    }
+	public double getPrice() {
+		return price;
+	}
 
-    public AppointmentType getAppointmentType() {
-        return appointmentType;
-    }
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
-    public void setAppointmentType(AppointmentType appointmentType) {
-        this.appointmentType = appointmentType;
-    }
+	public AppointmentType getType() {
+		return type;
+	}
 
-    public AppointmentStatus getAppointmentStatus() {
-        return appointmentStatus;
-    }
+	public void setType(AppointmentType type) {
+		this.type = type;
+	}
 
-    public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
-        this.appointmentStatus = appointmentStatus;
-    }
+	public AppointmentStatus getStatus() {
+		return status;
+	}
 
-    public Patient getPatient() {
-        return patient;
-    }
+	public void setStatus(AppointmentStatus status) {
+		this.status = status;
+	}
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
+	public Patient getPatient() {
+		return patient;
+	}
 
-    public Doctor getDoctor() {
-        return doctor;
-    }
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
+	public Doctor getDoctor() {
+		return doctor;
+	}
 
-    public Timestamp getStartTime() {
-        return startTime;
-    }
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
+	}
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
+	public Timestamp getStartTime() {
+		return startTime;
+	}
 
-    public Timestamp getEndTime() {
-        return endTime;
-    }
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
 
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
-    }
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
 }

@@ -1,84 +1,91 @@
-/**
- * Class Medicine
- * AUTHOR: Aleksandar Hadzibabic
- * DATE: 24/1/2021
- */
-
 package com.example.demo.model;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Medicine {
+public class Medicine 
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name="id", unique=true, nullable=false)
+    private long id;
 
-    @Column(nullable = false)
+    @Column(name="name", unique=false, nullable=false)
     private String name;
+    
+    @Column(name="recipeNeed", unique=false, nullable=false)
+    private boolean recipeNeed;
 
-    @Column(nullable = false)
-    private boolean needsRecipe;
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable( name = "alternativeMedicine", joinColumns = @JoinColumn(name="mainMedicine", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "alternativeMedicine", referencedColumnName = "id"))
     private Set<Medicine> alternativeMedicine;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicineManufacturer medicineManufacturer;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private MedicineShape medicineShape;
 
     public Medicine() {
     }
 
-    public int getId() {
-        return id;
-    }
+	public Medicine(long id, String name, boolean recipeNeed, Set<Medicine> alternativeMedicine,
+			MedicineManufacturer medicineManufacturer, MedicineShape medicineShape) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.recipeNeed = recipeNeed;
+		this.alternativeMedicine = alternativeMedicine;
+		this.medicineManufacturer = medicineManufacturer;
+		this.medicineShape = medicineShape;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public boolean isNeedsRecipe() {
-        return needsRecipe;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setNeedsRecipe(boolean needsRecipe) {
-        this.needsRecipe = needsRecipe;
-    }
+	public boolean isRecipeNeed() {
+		return recipeNeed;
+	}
 
-    public Set<Medicine> getAlternativeMedicine() {
-        return alternativeMedicine;
-    }
+	public void setRecipeNeed(boolean recipeNeed) {
+		this.recipeNeed = recipeNeed;
+	}
 
-    public void setAlternativeMedicine(Set<Medicine> alternativeMedicine) {
-        this.alternativeMedicine = alternativeMedicine;
-    }
+	public Set<Medicine> getAlternativeMedicine() {
+		return alternativeMedicine;
+	}
 
-    public MedicineManufacturer getMedicineManufacturer() {
-        return medicineManufacturer;
-    }
+	public void setAlternativeMedicine(Set<Medicine> alternativeMedicine) {
+		this.alternativeMedicine = alternativeMedicine;
+	}
 
-    public void setMedicineManufacturer(MedicineManufacturer medicineManufacturer) {
-        this.medicineManufacturer = medicineManufacturer;
-    }
+	public MedicineManufacturer getMedicineManufacturer() {
+		return medicineManufacturer;
+	}
 
-    public MedicineShape getMedicineShape() {
-        return medicineShape;
-    }
+	public void setMedicineManufacturer(MedicineManufacturer medicineManufacturer) {
+		this.medicineManufacturer = medicineManufacturer;
+	}
 
-    public void setMedicineShape(MedicineShape medicineShape) {
-        this.medicineShape = medicineShape;
-    }
+	public MedicineShape getMedicineShape() {
+		return medicineShape;
+	}
+
+	public void setMedicineShape(MedicineShape medicineShape) {
+		this.medicineShape = medicineShape;
+	}
 }

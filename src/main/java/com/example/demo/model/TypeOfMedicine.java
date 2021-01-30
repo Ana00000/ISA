@@ -1,9 +1,3 @@
-/**
- * Class TypeOfMedicine
- * AUTHOR: Aleksandar Hadzibabic
- * DATE: 24/1/2021
- */
-
 package com.example.demo.model;
 
 import javax.persistence.*;
@@ -11,29 +5,38 @@ import javax.persistence.*;
 enum MedicineType { HEAD, BODY}
 
 @Entity
-public class TypeOfMedicine {
+public class TypeOfMedicine 
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int typeID;
-    @Column(nullable = false)
-    private MedicineType typeValue;
+    @Column(name="id", unique=true, nullable=false)
+    private long id;
+    
+    @Column(name="value", unique=false, nullable=false)
+    private MedicineType value;
 
     public TypeOfMedicine() {
     }
+    
+	public TypeOfMedicine(long id, MedicineType value) {
+		super();
+		this.id = id;
+		this.value = value;
+	}
 
-    public int getTypeID() {
-        return typeID;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setTypeID(int typeID) {
-        this.typeID = typeID;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public MedicineType getTypeValue() {
-        return typeValue;
-    }
+	public MedicineType getValue() {
+		return value;
+	}
 
-    public void setTypeValue(MedicineType typeValue) {
-        this.typeValue = typeValue;
-    }
+	public void setValue(MedicineType value) {
+		this.value = value;
+	}
 }

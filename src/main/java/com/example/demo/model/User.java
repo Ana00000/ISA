@@ -1,5 +1,4 @@
 package com.example.demo.model;
-
 import javax.persistence.*;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
@@ -7,7 +6,7 @@ import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 @Entity
 @Table(name="hospitalUsers") 
 @Inheritance(strategy=TABLE_PER_CLASS)
-public abstract class User
+public abstract class User 
 {
     @Id
     @SequenceGenerator(name = "usersIdSeqGen", sequenceName = "usersIdSeq", initialValue = 10, allocationSize = 1)
@@ -22,6 +21,13 @@ public abstract class User
     private String lastName;
 
 	public User() {
+	}
+	
+	public User(long id, String name, String lastName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.lastName = lastName;
 	}
 
 	public long getId() {

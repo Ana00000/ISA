@@ -1,9 +1,3 @@
-/**
- * Class MedicineShape
- * AUTHOR: Aleksandar Hadzibabic
- * DATE: 24/1/2021
- */
-
 package com.example.demo.model;
 
 import javax.persistence.*;
@@ -11,30 +5,38 @@ import javax.persistence.*;
 enum MedicineShapeValue { pill, tablet, syrup }
 
 @Entity
-public class MedicineShape {
+public class MedicineShape 
+{
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
-    private int shapeID;
-
-    @Column( nullable = false )
-    private MedicineShapeValue medicineShapeValue;
+    @Column(name="id", unique=true, nullable=false)
+    private long id;
+    
+    @Column(name="value", unique=false, nullable=false)
+    private MedicineShapeValue value;
 
     public MedicineShape() {
     }
+    
+	public MedicineShape(long id, MedicineShapeValue value) {
+		super();
+		this.id = id;
+		this.value = value;
+	}
 
-    public int getShapeID() {
-        return shapeID;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public void setShapeID(int shapeID) {
-        this.shapeID = shapeID;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public MedicineShapeValue getMedicineShapeValue() {
-        return medicineShapeValue;
-    }
+	public MedicineShapeValue getValue() {
+		return value;
+	}
 
-    public void setMedicineShapeValue(MedicineShapeValue medicineShapeValue) {
-        this.medicineShapeValue = medicineShapeValue;
-    }
+	public void setValue(MedicineShapeValue value) {
+		this.value = value;
+	}
 }
