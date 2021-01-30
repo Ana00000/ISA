@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
-enum MedicineType { HEAD, BODY}
+import com.example.demo.model.enums.MedicineType;
 
 @Entity
 public class TypeOfMedicine 

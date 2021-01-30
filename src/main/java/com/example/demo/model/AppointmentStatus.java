@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
-enum AppointmentStatusValue{ UPCOMING, DONE, DENIED }
+import com.example.demo.model.enums.AppointmentStatusValue;
 
 @Entity
 public class AppointmentStatus 

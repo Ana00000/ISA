@@ -2,7 +2,7 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
-enum AppointmentTypeValues {CONSULTATION, EXAMINATION}
+import com.example.demo.model.enums.AppointmentTypeValues;
 
 @Entity
 public class AppointmentType
