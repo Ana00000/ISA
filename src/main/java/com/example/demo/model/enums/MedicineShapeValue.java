@@ -20,7 +20,7 @@ public enum MedicineShapeValue {
 
     public static Optional<MedicineShapeValue> fromText(String text) {
         return Arrays.stream(values())
-          .filter(bl -> bl.text.equalsIgnoreCase(text))
+          .filter(msv -> msv.text.equalsIgnoreCase(text))
           .findFirst();
     }
 }

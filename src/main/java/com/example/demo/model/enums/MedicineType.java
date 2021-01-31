@@ -19,7 +19,7 @@ public enum MedicineType {
 
     public static Optional<MedicineType> fromText(String text) {
         return Arrays.stream(values())
-          .filter(bl -> bl.text.equalsIgnoreCase(text))
+          .filter(mt -> mt.text.equalsIgnoreCase(text))
           .findFirst();
     }
 }
