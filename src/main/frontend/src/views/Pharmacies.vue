@@ -1,31 +1,28 @@
 <template>
-    <div>
-        <div class = "panelDiv">
-            <PatientMenu/>
-        </div>
-        <div class = "panelDiv">
-            <SearchBar title="text"/>
-            <div>
-                <form>
-                    <input type="text">
-                    <input value="Search" type="submit">
-                </form>
+    <v-container style="padding: 0px" fluid fill-height dark class="grey lighten-1">
+        <v-layout>
+            <div style="width:25%;">
+                <PatientMenu/>
             </div>
-            <div v-bind:key="pharmacy.id" v-for="pharmacy in pharmacies">
-                <p>{{pharmacy.name}}</p>
+            <div class="panelDiv">
+                <div style="background: none; border: none;">
+                    <item-list title="Pharmacies"></item-list>
+                </div>
             </div>
-        </div>
-    </div>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
 import PatientMenu from '../components/PatientMenu.vue'
-import SearchBar from '../components/SearchBar.vue'
+import ItemList from '../components/ItemList.vue'
+//import SearchBar from '../components/SearchBar.vue'
 export default {
     name : 'Pharmacies',
     components : {
         PatientMenu,
-        SearchBar
+        ItemList,
+  //      SearchBar
     },
     data() {
         return{
@@ -49,8 +46,14 @@ export default {
 </script>
 
 <style scoped>
+
 .panelDiv {
-    float: left;
-    margin: 60;
+    /* justify-content: center;
+    display: flex; */
+    width: 100%;
+    margin: 0auto;
+    background: none;
+    border: none;
+
 }
 </style>

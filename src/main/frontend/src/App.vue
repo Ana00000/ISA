@@ -1,7 +1,9 @@
 <template>
-  <v-app>
-    <NavigationBar/>
-    <v-content>
+  <v-app class="grey lighten-4">
+    <div>
+      <NavigationBar/>
+    </div>
+    <v-content style="border: solid black 2px">
       <router-view></router-view>
     </v-content>
   </v-app>
@@ -18,7 +20,6 @@ export default {
   },
 
   data: () => ({
-    //
   }),
 };
 </script>
