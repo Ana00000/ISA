@@ -1,15 +1,9 @@
 <template>
-  <div>
-    <div id="mySidepanel" class="sidepanel" :style="{width: sidePanelWidth ? '242.1px' : '0'}">
-      <a href="javascript:void(0)" class="closebtn" v-on:click="nav()">&times;</a>
-      <a href="#">About</a>
-      <a href="#">Services</a>
-      <a href="#">Clients</a>
-      <a href="#">Contact</a>
-    </div>
-
-    <button class="openbtn"  v-on:click="nav()">&#9776; Toggle Sidepanel</button>
-
+  <span>
+    <home-background></home-background>
+    <map-container></map-container>
+  </span>
+  <!-- <div>
     <div class="panel-mid">
       Mid panel
     </div>
@@ -19,13 +13,13 @@
     <div class="panel-footer">
     </div>
 
-  </div>
+  </div> -->
 </template>
 
 <script>
+import HomeBackground from '../components/HomeBackground.vue';
 // @ is an alias to /src
-import MapContainer from "@/components/MapContainer";
-
+import MapContainer from '../components/MapContainer.vue';
 
 export default {
   name: 'Home',
@@ -35,27 +29,27 @@ export default {
     }
   },
   components: {
-    MapContainer
-  },
-  methods: {
-    nav() {
-      // this.document.getElementById("mySidepanel").style.width = "250px";
-      this.sidePanelWidth = !this.sidePanelWidth
-    }
+    MapContainer,
+    HomeBackground
   }
 
 }
-
-
-
 </script>
 
 <style>
 
-/* The sidepanel menu */
-.sidepanel {
-  height: 300px; /* Specify a height */
-  width: 0; /* 0 width - change this with JavaScript */
+/* The side navigation menu */
+
+.backgroundDiv {
+  background: url('https://wallup.net/wp-content/uploads/2017/11/17/260979-pills-pharmacy.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 200px; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
   top: 180px;

@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <span class="bg"/>
-    <v-app>
-      <NavigationBar/>
-      <v-content>
-        <router-view></router-view>
-      </v-content>
-    </v-app>
-  </div>
+  <v-app class="grey lighten-4">
+    <NavigationBar/>
+    <v-content style="border: solid black 2px;">
+      <router-view></router-view>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
