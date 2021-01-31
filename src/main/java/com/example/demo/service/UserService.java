@@ -28,5 +28,5 @@ public interface UserService {
 
 	void remove(Long id);
 
-	UserDTO login(UserDTO userDTO);
+	User login(UserDTO userDTO);
 }
