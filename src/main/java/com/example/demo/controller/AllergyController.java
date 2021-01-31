@@ -25,7 +25,7 @@ public class AllergyController {
 		this.allergyService = allergyService;
 	}
 	
-	@GetMapping()
+	@GetMapping(value = "/all")
 	public ResponseEntity<List<AllergyDTO>> getAllAllergies() {
 
 		List<Allergy> allergies = allergyService.findAll();
