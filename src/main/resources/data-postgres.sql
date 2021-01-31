@@ -22,9 +22,9 @@ INSERT INTO appointment_type(id, appointment_type_value) VALUES (9, 0);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (10, 1);
 
 
-INSERT INTO dermatologist(id, name, last_name, type) VALUES (1, 'Mirina', 'Ikaric', 'dermatologist');
-INSERT INTO dermatologist(id, name, last_name, type) VALUES (2, 'Janko', 'Micic', 'dermatologist');
-INSERT INTO dermatologist(id, name, last_name, type) VALUES (3, 'Sofija', 'Josipovic', 'dermatologist');
+INSERT INTO dermatologist(id, name, last_name, type, email) VALUES (1, 'Mirina', 'Ikaric', 'dermatologist', 'mirina456ikaric@gmail.com');
+INSERT INTO dermatologist(id, name, last_name, type, email) VALUES (2, 'Janko', 'Micic', 'dermatologist', 'janko307micic@gmail.com');
+INSERT INTO dermatologist(id, name, last_name, type, email) VALUES (3, 'Sofija', 'Josipovic', 'dermatologist', 'sofija2242josipovic@gmail.com');
 
 
 INSERT INTO medicine_ingredient(id, name) VALUES (1, 'Ceftaroline');
@@ -63,14 +63,14 @@ INSERT INTO medicine_shape(id, shape_value) VALUES (2, 1);
 INSERT INTO medicine_shape(id, shape_value) VALUES (3, 2);
 
 
-INSERT INTO patient(id, name, last_name) VALUES (4, 'Marko', 'Gojkovic');
-INSERT INTO patient(id, name, last_name) VALUES (5, 'Klara', 'Mitrovic');
-INSERT INTO patient(id, name, last_name) VALUES (6, 'Mirko', 'Lazarevic');
+INSERT INTO patient(id, name, last_name, email) VALUES (4, 'Marko', 'Gojkovic', 'marko12653gojkovic@gmail.com');
+INSERT INTO patient(id, name, last_name, email) VALUES (5, 'Klara', 'Mitrovic', 'klara0430mitrovic@gmail.com');
+INSERT INTO patient(id, name, last_name, email) VALUES (6, 'Mirko', 'Lazarevic', 'mirko1205lazarevic@gmail.com');
 
 
-INSERT INTO pharmacist(id, name, last_name, type) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist');
-INSERT INTO pharmacist(id, name, last_name, type) VALUES (8, 'Igor', 'Ostojic', 'pharmacist');
-INSERT INTO pharmacist(id, name, last_name, type) VALUES (9, 'Sanja', 'Petrovic', 'pharmacist');
+INSERT INTO pharmacist(id, name, last_name, type, email) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana30356stefanovic@gmail.com');
+INSERT INTO pharmacist(id, name, last_name, type, email) VALUES (8, 'Igor', 'Ostojic', 'pharmacist', 'igor3259ostojic@gmail.com');
+INSERT INTO pharmacist(id, name, last_name, type, email) VALUES (9, 'Sanja', 'Petrovic', 'pharmacist', 'sanja205petrovic@gmail.com');
 
 
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (1, 1);

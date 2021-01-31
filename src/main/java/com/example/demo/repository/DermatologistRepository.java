@@ -19,4 +19,6 @@ public interface DermatologistRepository extends JpaRepository<Dermatologist, Lo
 	List<Dermatologist> findAllByLastName(String lastName);
 	
 	List<Dermatologist> findByNameAndLastNameAllIgnoringCase(String name, String lastName);
+
+	List<Dermatologist> findAllByEmail(String email);
 }

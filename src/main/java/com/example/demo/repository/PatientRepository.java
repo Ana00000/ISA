@@ -19,4 +19,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 	List<Patient> findAllByLastName(String lastName);
 	
 	List<Patient> findByNameAndLastNameAllIgnoringCase(String name, String lastName);
+	
+	List<Patient> findAllByEmail(String email);
 }

@@ -19,4 +19,6 @@ public interface PharmacistRepository extends JpaRepository<Pharmacist, Long> {
 	List<Pharmacist> findAllByLastName(String lastName);
 	
 	List<Pharmacist> findByNameAndLastNameAllIgnoringCase(String name, String lastName);
+
+	List<Pharmacist> findAllByEmail(String email);
 }
