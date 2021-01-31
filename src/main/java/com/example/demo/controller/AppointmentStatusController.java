@@ -14,7 +14,7 @@ import com.example.demo.model.AppointmentStatus;
 import com.example.demo.service.AppointmentStatusService;
 
 @RestController
-@RequestMapping(value = "/appointmentStatus", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/appointmentStatuses", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppointmentStatusController {
 	
 	private AppointmentStatusService appointmentStatusService;
