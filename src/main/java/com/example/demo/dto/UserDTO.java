@@ -2,7 +2,9 @@ package com.example.demo.dto;
 
 import com.example.demo.model.User;
 
-public class UserDTO {
+import java.io.Serializable;
+
+public class UserDTO implements Serializable {
 	private Long id;
 	private String name;
 	private String lastName;
@@ -63,5 +65,16 @@ public class UserDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDTO{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				'}';
 	}
 }

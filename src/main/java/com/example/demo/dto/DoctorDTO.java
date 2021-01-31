@@ -7,5 +7,6 @@ public class DoctorDTO extends UserDTO {
 	}
 	
 	public DoctorDTO(User user) {
+		super(user);
 	}
 }

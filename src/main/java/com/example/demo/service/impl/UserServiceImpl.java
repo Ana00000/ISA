@@ -69,10 +69,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO login(UserDTO userDTO) {
+        System.out.println(userDTO);
+
         String email = userDTO.getEmail();
         String password = userDTO.getPassword();
 
         User user = userRepository.findByEmailAndPassword(email, password);
+        System.out.println(user);
 
         if (user == null) {
             throw new RuntimeException("User with that email and password doesn't exist");
@@ -82,10 +85,13 @@ public class UserServiceImpl implements UserService {
 
         if (Patient.class.equals(user.getClass())) {
             userDTO1 = new PatientDTO(user);
+            System.out.println(userDTO1);
         } else if (Pharmacist.class.equals(user.getClass())) {
             userDTO1 = new PharmacistDTO((Doctor) user);
+            System.out.println(userDTO1);
         } else {
             userDTO1 = new DermatologistDTO((Doctor) user);
+            System.out.println(userDTO1);
         }
 
         return userDTO1;
