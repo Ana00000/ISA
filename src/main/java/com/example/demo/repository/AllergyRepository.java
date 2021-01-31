@@ -8,7 +8,5 @@ import com.example.demo.model.Allergy;
 
 public interface AllergyRepository extends JpaRepository<Allergy, Long> {
 	
-	Allergy findOneById(Long id);
-	
 	Page<Allergy> findAll(Pageable pageable);
 }
