@@ -20,7 +20,7 @@ public enum AppointmentStatusValue {
 
     public static Optional<AppointmentStatusValue> fromText(String text) {
         return Arrays.stream(values())
-          .filter(bl -> bl.text.equalsIgnoreCase(text))
+          .filter(asv -> asv.text.equalsIgnoreCase(text))
           .findFirst();
     }
 }
