@@ -8,7 +8,5 @@ import com.example.demo.model.AppointmentType;
 
 public interface AppointmentTypeRepository extends JpaRepository<AppointmentType, Long> {
 
-	AppointmentType findOneById(Long id);
-	
 	Page<AppointmentType> findAll(Pageable pageable);
 }

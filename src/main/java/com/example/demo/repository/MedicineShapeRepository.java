@@ -8,7 +8,5 @@ import com.example.demo.model.MedicineShape;
 
 public interface MedicineShapeRepository extends JpaRepository<MedicineShape, Long> {
 
-	MedicineShape findOneById(Long id);
-	
 	Page<MedicineShape> findAll(Pageable pageable);
 }

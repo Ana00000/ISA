@@ -10,8 +10,6 @@ import com.example.demo.model.Doctor;
 
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
-	Doctor findOneById(Long id);
-
 	Doctor findOneByPassword(String password);
 	
 	Page<Doctor> findAll(Pageable pageable);
