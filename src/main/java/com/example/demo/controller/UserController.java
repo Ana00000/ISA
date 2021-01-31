@@ -34,6 +34,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
+        System.out.println(userDTO);
         UserDTO userDto;
 
         try {
@@ -41,6 +42,7 @@ public class UserController {
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }
         catch (RuntimeException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
