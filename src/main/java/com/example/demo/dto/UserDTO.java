@@ -7,20 +7,22 @@ public abstract class UserDTO {
 	private String name;
 	private String lastName;
 	private String email;
+	private String password;
 	 
 	public UserDTO() {
 	}
 	
 	public UserDTO(User user) {
-		this(user.getId(), user.getName(), user.getLastName(), user.getEmail());
+		this(user.getId(), user.getName(), user.getLastName(), user.getEmail(), user.getPassword());
 	}
 	
-	public UserDTO(Long id, String name, String lastName, String email) {
+	public UserDTO(Long id, String name, String lastName, String email, String password) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
+		this.password = password;
 	}
 	
 	public Long getId() {
@@ -53,5 +55,13 @@ public abstract class UserDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

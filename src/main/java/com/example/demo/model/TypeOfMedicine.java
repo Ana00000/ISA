@@ -39,4 +39,37 @@ public class TypeOfMedicine {
 	public void setMedicineType(MedicineType medicineType) {
 		this.medicineType = medicineType;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((medicineType == null) ? 0 : medicineType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TypeOfMedicine other = (TypeOfMedicine) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (medicineType != other.medicineType)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "TypeOfMedicine [id=" + id + ", medicineType=" + medicineType + "]";
+	}
 }
