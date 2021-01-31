@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.TypeOfMedicineDTO;
@@ -36,5 +37,17 @@ public class TypeOfMedicineController {
 		}
 
 		return new ResponseEntity<>(typesOfMedicineDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<TypeOfMedicineDTO> getTypeOfMedicine(@PathVariable Long id) {
+
+		TypeOfMedicine typeOfMedicine = typeOfMedicineService.findOne(id);
+
+		if (typeOfMedicine == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(new TypeOfMedicineDTO(typeOfMedicine), HttpStatus.OK);
 	}
 }
