@@ -19,7 +19,7 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="success" class="mx-auto mb-5">
+        <v-btn color="success" class="mx-auto mb-5" v-on:click="login">
           Login
         </v-btn>
       </v-card-actions>
@@ -38,9 +38,21 @@ export default {
     password: '',
     users: []
   }),
+  computed: {
+    user() {
+      return {'email': this.username, 'password': this.password}
+    }
+  },
   methods: {
     login() {
-      this.$axios.get
+      this.$http.post('http://localhost:8081/user/login', this.user)
+      .then(resp => {
+        console.log(resp.data);
+      })
+      .catch(er => {
+        console.log('Error while logging in');
+        console.log(er.response.data);
+      })
     }
   }
 };

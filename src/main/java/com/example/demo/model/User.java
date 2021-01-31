@@ -21,10 +21,10 @@ public abstract class User {
     @Column(name="lastName", unique=false, nullable=false)
     private String lastName;
     
-    @Column(name="email", unique=false, nullable=false)
+    @Column(name="email", unique=true, nullable=false)
     private String email;
 
-    @Column(name="password", unique=true, nullable=false)
+    @Column(name="password", unique=false, nullable=false)
     private String password;
 
 	public User() {
