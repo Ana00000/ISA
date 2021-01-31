@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.model.User;
 
-public abstract class UserDTO {
+public class UserDTO {
 	private Long id;
 	private String name;
 	private String lastName;

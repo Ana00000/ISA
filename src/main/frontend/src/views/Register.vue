@@ -64,7 +64,7 @@ export default {
   }),
   methods: {
     login() {
-      this.$axios.get
+
     }
   }
 };

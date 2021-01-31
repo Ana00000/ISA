@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import com.example.demo.model.User;
 
-public abstract class DoctorDTO extends UserDTO {
+public class DoctorDTO extends UserDTO {
 	public DoctorDTO() {
 	}
 	
