@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.service.AppointmentTypeService;
 
 @RestController
-@RequestMapping(value = "/appointmentType", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/appointmentTypes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppointmentTypeController {
 	
 	private AppointmentTypeService appointmentTypeService;

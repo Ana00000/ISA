@@ -15,7 +15,7 @@ import com.example.demo.service.TypeOfMedicineService;
 import org.springframework.http.MediaType;
 
 @RestController
-@RequestMapping(value = "/typeOfMedicine", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/typesOfMedicine", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TypeOfMedicineController {
 	
 	private TypeOfMedicineService typeOfMedicineService;
