@@ -1,42 +1,44 @@
 <template>
-    <div id="mainDiv">
-        <div>
-            <h2><router-link to="/pharmacies">Pharmacies</router-link></h2>
-        </div>
-        <div>
-            <h2><a>Appointment history</a></h2>
-        </div>
-        <div>
-            <h2><a>Scheduled appointments</a></h2>
-        </div>
-        <div>
-            <h2><a>eRecipes</a></h2>
-        </div>
-        <div>
-            <h2><a>Reserved medicine</a></h2>
-        </div>
-        <div>
-            <h2><a>Penalty insight</a></h2>
-        </div>
-        <div>
-            <h2><a>Issued medicine</a></h2>
-        </div>
-        <div>
-            <h2><a>Promotions</a></h2>
-        </div>
-        <div>
-            <h2><a>Write a complaint</a></h2>
-        </div>
-        <div>
-            <h2><a>Reserve medicine</a></h2>
-        </div>
-        <div>
-            <h2><a>Schedule appointment</a></h2>
-        </div>
-        <div>
-            <h2><a>Profile</a></h2>
-        </div>
-    </div>
+    <v-container class="pink lighten-2 white--text">
+        <v-layout style="padding:0px" column>
+            <div>
+                <router-link class="link" to="/pharmacies">Pharmacies</router-link>
+            </div>
+            <div >
+                <router-link class="link" to="/pharmacies">Appointment history</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">Scheduled appointments</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">eRecipes</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">Reserved medicine</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">Penalty insight</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">Issued medicine</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">Promotions</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">Write a complaint</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">Reserve medicine</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">Schedule appointment</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/pharmacies">Profile</router-link>
+            </div>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -46,11 +48,19 @@ export default {
 </script>
 
 <style scoped>
-#mainDiv {
-    border: solid black 1px;
+div {
+    margin-bottom: 20px;
+    justify-content: center;
+    display: flex;
 }
 
-#mainDiv div {
-    background: rgb(240, 169, 179);
+.link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.menuDiv {
 }
 </style>
