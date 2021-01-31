@@ -1,7 +1,13 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.dto.DermatologistDTO;
+import com.example.demo.dto.PatientDTO;
+import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.UserDTO;
+import com.example.demo.model.Doctor;
+import com.example.demo.model.Patient;
+import com.example.demo.model.Pharmacist;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +30,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    public ResponseEntity<List<User>> getAll() {
+    @GetMapping("/findAll")
+    public ResponseEntity<List<User>> findAll() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
@@ -34,11 +41,22 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
-        System.out.println(userDTO);
         UserDTO userDto;
 
         try {
-            userDto = userService.login(userDTO);
+            User user = userService.login(userDTO);
+
+            if (user == null) {
+                throw new RuntimeException("User with that email and password doesn't exist");
+            }
+
+            if (Patient.class.equals(user.getClass())) {
+                userDto = new PatientDTO(user);
+            } else if (Pharmacist.class.equals(user.getClass())) {
+                userDto = new PharmacistDTO((Doctor) user);
+            } else {
+                userDto = new DermatologistDTO((Doctor) user);
+            }
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }
         catch (RuntimeException e) {
