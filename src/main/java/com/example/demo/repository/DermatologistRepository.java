@@ -11,6 +11,8 @@ import com.example.demo.model.Dermatologist;
 public interface DermatologistRepository extends JpaRepository<Dermatologist, Long> {
 
 	Dermatologist findOneById(Long id);
+
+	Dermatologist findOneByPassword(String password);
 	
 	Page<Dermatologist> findAll(Pageable pageable);
 	

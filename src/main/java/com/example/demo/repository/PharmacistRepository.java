@@ -11,6 +11,8 @@ import com.example.demo.model.Pharmacist;
 public interface PharmacistRepository extends JpaRepository<Pharmacist, Long> {
 
 	Pharmacist findOneById(Long id);
+
+	Pharmacist findOneByPassword(String password);
 	
 	Page<Pharmacist> findAll(Pageable pageable);
 
