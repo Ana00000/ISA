@@ -11,8 +11,6 @@ import com.example.demo.model.Appointment;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 	
-	Appointment findOneById(Long id);
-	
 	Page<Appointment> findAll(Pageable pageable);
 	
 	List<Appointment> findAllByStartTime(Timestamp startTime);
