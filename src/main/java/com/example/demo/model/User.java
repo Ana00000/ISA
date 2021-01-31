@@ -20,15 +20,19 @@ public abstract class User {
 
     @Column(name="lastName", unique=false, nullable=false)
     private String lastName;
+    
+    @Column(name="email", unique=false, nullable=false)
+    private String email;
 
 	public User() {
 	}
 	
-	public User(Long id, String name, String lastName) {
+	public User(Long id, String name, String lastName, String email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
+		this.email = email;
 	}
 
 	public Long getId() {
@@ -53,5 +57,13 @@ public abstract class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

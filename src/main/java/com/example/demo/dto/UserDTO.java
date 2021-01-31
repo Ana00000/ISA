@@ -6,19 +6,21 @@ public abstract class UserDTO {
 	private Long id;
 	private String name;
 	private String lastName;
+	private String email;
 	 
 	public UserDTO() {
 	}
 	
 	public UserDTO(User user) {
-		this(user.getId(), user.getName(), user.getLastName());
+		this(user.getId(), user.getName(), user.getLastName(), user.getEmail());
 	}
 	
-	public UserDTO(Long id, String name, String lastName) {
+	public UserDTO(Long id, String name, String lastName, String email) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
+		this.email = email;
 	}
 	
 	public Long getId() {
@@ -43,5 +45,13 @@ public abstract class UserDTO {
 	
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
