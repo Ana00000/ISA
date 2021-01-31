@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.model.Patient;
 import com.example.demo.service.PatientService;
-
 import org.springframework.http.MediaType;
 
 @RestController

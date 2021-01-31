@@ -6,13 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.dto.MedicineIngredientDTO;
 import com.example.demo.model.MedicineIngredient;
 import com.example.demo.service.MedicineIngredientService;
-
 import org.springframework.http.MediaType;
 
 @RestController
@@ -37,5 +36,17 @@ public class MedicineIngredientController {
 		}
 
 		return new ResponseEntity<>(medicineIngredientsDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<MedicineIngredientDTO> getMedicineIngredient(@PathVariable Long id) {
+
+		MedicineIngredient medicineIngredient = medicineIngredientService.findOne(id);
+
+		if (medicineIngredient == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(new MedicineIngredientDTO(medicineIngredient), HttpStatus.OK);
 	}
 }
