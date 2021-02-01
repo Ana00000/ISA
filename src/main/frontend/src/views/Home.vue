@@ -3,7 +3,9 @@
     <home-background></home-background>
     <v-container class="grey lighten-2" fluid fill-height>
       <v-layout column>
-        
+        <div style="margin: auto 0">
+          <h2>Search pharmacies</h2>
+        </div>
         <div height="300px">
           <v-container>
             <v-layout column>
@@ -31,11 +33,6 @@ import axios from 'axios';
 
 export default {
   name: 'Home',
-  data() {
-    return {
-      sidePanelWidth: false
-    }
-  },
   components: {
     MapContainer,
     HomeBackground,
