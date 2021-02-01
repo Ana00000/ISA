@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
+import com.example.demo.dto.UserDTO;
+
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Entity
@@ -26,17 +28,51 @@ public abstract class User {
 
     @Column(name="password", unique=false, nullable=false)
     private String password;
+    
+    @Column(name="address", unique=false, nullable=false)
+    private String address;
+    
+    @Column(name="phoneNumber", unique=false, nullable=false)
+    private String phoneNumber;
 
 	public User() {
 	}
 	
-	public User(Long id, String name, String lastName, String email, String password) {
+	public User(UserDTO userDTO) {
+		this.id = userDTO.getId();
+		this.name = userDTO.getName();
+		this.lastName = userDTO.getLastName();
+		this.email = userDTO.getEmail();
+		this.password = userDTO.getPassword();
+		this.address= userDTO.getAddress();
+		this.phoneNumber= userDTO.getPhoneNumber();
+	}
+	
+	public User(Long id, String name, String lastName, String email, String password, String address, String phoneNumber) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.address=address;
+		this.phoneNumber=phoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Long getId() {
@@ -131,6 +167,8 @@ public abstract class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", password="
-				+ password + "]";
+				+ password + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
 	}
+
+	
 }

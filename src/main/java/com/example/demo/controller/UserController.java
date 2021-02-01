@@ -9,7 +9,11 @@ import com.example.demo.model.Doctor;
 import com.example.demo.model.Patient;
 import com.example.demo.model.Pharmacist;
 import com.example.demo.model.User;
+import com.example.demo.service.PatientService;
 import com.example.demo.service.UserService;
+
+import jdk.jfr.Registered;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,10 +28,13 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    
+    private final PatientService patientService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PatientService patientService) {
         this.userService = userService;
+        this.patientService = patientService;
     }
 
     @GetMapping("/findAll")
@@ -38,7 +45,7 @@ public class UserController {
     public ResponseEntity<UserDTO> findByEmail(String email) {
         return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
     }
-
+    
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
         UserDTO userDto;
@@ -60,6 +67,20 @@ public class UserController {
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }
         catch (RuntimeException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    
+    @PostMapping("/register")
+    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO){
+    	try {
+			Patient patient= new Patient(userDTO);
+			System.out.println(patient);
+			patientService.save(patient);
+    		
+    		return new ResponseEntity<UserDTO>(userDTO,HttpStatus.OK);
+		} catch (RuntimeException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
