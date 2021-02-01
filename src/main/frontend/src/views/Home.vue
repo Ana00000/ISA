@@ -1,25 +1,33 @@
 <template>
   <span>
     <home-background></home-background>
-    <map-container></map-container>
+    <v-container class="grey lighten-2" fluid fill-height>
+      <v-layout column>
+        
+        <div height="300px">
+          <v-container>
+            <v-layout column>
+                <item-list v-bind:items="items"></item-list>
+            </v-layout>
+          </v-container>
+        </div>
+        <v-flex>
+            <map-container></map-container> 
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <Footer></Footer>
   </span>
-  <!-- <div>
-    <div class="panel-mid">
-      Mid panel
-    </div>
-    <div class="panel-map">
-      <MapContainer/>
-    </div>
-    <div class="panel-footer">
-    </div>
-
-  </div> -->
 </template>
 
 <script>
+import Footer from '../components/Footer.vue';
 import HomeBackground from '../components/HomeBackground.vue';
+import ItemList from '../components/ItemList.vue';
 // @ is an alias to /src
 import MapContainer from '../components/MapContainer.vue';
+
+import axios from 'axios';
 
 export default {
   name: 'Home',
@@ -30,7 +38,19 @@ export default {
   },
   components: {
     MapContainer,
-    HomeBackground
+    HomeBackground,
+    Footer,
+    ItemList
+  },
+  data() {
+    return{
+      items: []
+    }
+  },
+  created() {
+      axios.get('https://jsonplaceholder.typicode.com/albums?_limit=5')
+          .then(res => this.items = res.data)
+          .catch(err => console.log(err));
   }
 
 }
@@ -39,6 +59,13 @@ export default {
 <style>
 
 /* The side navigation menu */
+
+#waterDiv{
+  background: url('https://www.treehugger.com/thmb/xPeXCbh_Yb5tGtATB-j1XtInMbM=/3500x2334/filters:fill(auto,1)/closeupbrightbluewater-61f0f88d81004729a7385484bcd38998.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
 
 .backgroundDiv {
   background: url('https://wallup.net/wp-content/uploads/2017/11/17/260979-pills-pharmacy.jpg');

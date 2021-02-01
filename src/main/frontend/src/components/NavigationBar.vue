@@ -6,7 +6,7 @@
                     <v-list-tile :key="index">
                         <v-list-tile-content>
                             <v-card height="50px">
-                                <h3>{{item.title}}</h3>
+                                <router-link class="router" :to="item.path">{{item.title}}</router-link>
                             </v-card>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -38,10 +38,10 @@ export default {
             appTitle: 'Pharmacy',
             drawer: false,
             items: [
-                { title: 'About' },
-                { title: 'Services' },
-                { title: 'Clients' },
-                { title: 'Contacts' }
+                { title: 'Search Pharmacies', path: '/' },
+                { title: 'Search Medicine', path: '/' },
+                { title: 'Clients', path: '/' },
+                { title: 'Contacts', path: '/' }
             ]
         }
     }

@@ -1,25 +1,25 @@
 <template>
+  <v-container>
+  <v-layout row wrap>
   <v-card
-    class="mx-auto"
-    max-width="500"
+    class="mx-auto" style="width: 70%"
   >
     <v-toolbar
-      color="pink"
+      color="#3949AB"
       dark
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title>{{title}}</v-toolbar-title>
+      <!-- <v-toolbar-title>{{title}}</v-toolbar-title> -->
+      <v-text-field
+        hide-details
+        prepend-icon="mdi-magnify"
+        single-line
+      ></v-text-field>
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      <v-app-bar-nav-icon  @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-btn icon>
-        <v-icon>mdi-checkbox-marked-circle</v-icon>
-      </v-btn>
     </v-toolbar>
 
     <v-list two-line>
@@ -70,23 +70,74 @@
       </v-list-item-group>
     </v-list>
   </v-card>
+  <v-card v-bind:class="{'cardClass':drawer}" width="30%">
+    <div>
+      <h2>Sort criteria</h2>
+    </div>
+    <v-divider></v-divider>
+    <v-list-item>
+      <v-checkbox label="Name"></v-checkbox>
+    </v-list-item>
+    <v-list-item>
+      <v-checkbox label="Address"></v-checkbox>
+    </v-list-item>
+    <v-list-item>
+      <v-checkbox label="Grade"></v-checkbox>
+    </v-list-item>
+    <v-btn>Search</v-btn>
+  </v-card>
+  
+  <!-- <v-navigation-drawer
+      v-model="drawer"
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            <v-list-item-title>Foo</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title>Bar</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title>Fizz</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title>Buzz</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer> -->
+  </v-layout>
+  </v-container>
 </template>
 
 
 <script>
-import axios from 'axios';
   export default {
     data: () => ({
       selected: [2],
       items: [] /*userId, id, title*/ ,
+      drawer: false,
     }),
     props: [
         "title",
-    ],
-    created() {
-        axios.get('https://jsonplaceholder.typicode.com/albums?_limit=5')
-            .then(res => this.items = res.data)
-            .catch(err => console.log(err));
-    }
+        "items"
+    ]
   }
 </script>
+
+<style scoped>
+.cardClass {
+  display: none; 
+}
+</style>
