@@ -13,15 +13,17 @@ public class UserDTO implements Serializable {
 	private String password;
 	private String address;
 	private String phoneNumber;
+	private boolean active;
+	private String hashString;
 
 	public UserDTO() {
 	}
 	
 	public UserDTO(User user) {
-		this(user.getId(), user.getName(), user.getLastName(), user.getEmail(), user.getPassword(),user.getAddress(),user.getPhoneNumber());
+		this(user.getId(), user.getName(), user.getLastName(), user.getEmail(), user.getPassword(),user.getAddress(),user.getPhoneNumber(),user.getHashString());
 	}
 	
-	public UserDTO(Long id, String name, String lastName, String email, String password, String address, String phoneNumber) {
+	public UserDTO(Long id, String name, String lastName, String email, String password, String address, String phoneNumber,String hashString) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -30,6 +32,7 @@ public class UserDTO implements Serializable {
 		this.password = password;
 		this.address=address;
 		this.phoneNumber=phoneNumber;
+		this.hashString=hashString;
 	}
 	
 	public String getAddress() {
@@ -86,6 +89,22 @@ public class UserDTO implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public String getHashString() {
+		return hashString;
+	}
+
+	public void setHashString(String hashString) {
+		this.hashString = hashString;
 	}
 
 	@Override

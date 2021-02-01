@@ -48,7 +48,6 @@
       </v-btn>
     </v-card-actions>
   </v-card>
-  
 </template>
 
 <script>
@@ -74,6 +73,9 @@ export default {
   },
   methods: {
     register() {
+      if(!this.ValidateEmail()){
+        return;
+      }
       if (this.password!==this.password2){
           alert("Passwords don't match !!!");
           this.password='';
@@ -88,6 +90,16 @@ export default {
         console.log('Error while registering in');
         console.log(er.response.data);
       })
+    },
+
+    ValidateEmail() 
+    {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.username))
+      {
+        return (true)
+      }
+        alert("You have entered an invalid email address!")
+        return (false)
     }
   }
 };

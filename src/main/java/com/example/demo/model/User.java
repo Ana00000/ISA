@@ -34,7 +34,13 @@ public abstract class User {
     
     @Column(name="phoneNumber", unique=false, nullable=false)
     private String phoneNumber;
-
+    
+    @Column(name="active", unique=false, nullable=false)
+    private boolean active; 
+    
+    @Column(name="hashString", unique=false, nullable=true)
+    private String hashString;
+    
 	public User() {
 	}
 	
@@ -44,11 +50,13 @@ public abstract class User {
 		this.lastName = userDTO.getLastName();
 		this.email = userDTO.getEmail();
 		this.password = userDTO.getPassword();
-		this.address= userDTO.getAddress();
-		this.phoneNumber= userDTO.getPhoneNumber();
+		this.address = userDTO.getAddress();
+		this.phoneNumber = userDTO.getPhoneNumber();
+		this.active = userDTO.isActive();
+		this.hashString = userDTO.getHashString();
 	}
 	
-	public User(Long id, String name, String lastName, String email, String password, String address, String phoneNumber) {
+	public User(Long id, String name, String lastName, String email, String password, String address, String phoneNumber,boolean active, String hashString) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,6 +65,8 @@ public abstract class User {
 		this.password = password;
 		this.address=address;
 		this.phoneNumber=phoneNumber;
+		this.active=active;
+		this.hashString=hashString;
 	}
 
 	public String getAddress() {
@@ -113,6 +123,22 @@ public abstract class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public String getHashString() {
+		return hashString;
+	}
+
+	public void setHashString(String hashString) {
+		this.hashString = hashString;
 	}
 
 	@Override
