@@ -1,5 +1,5 @@
 <template>
-    <v-container class="blue ma-0" fluid fill-width>
+    <v-container class="indigo ma-0" fluid fill-width>
         <v-layout type>
             <div>
                 <router-link class="link" to="/dermatologistHomePage/clients">Clients</router-link>

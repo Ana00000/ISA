@@ -54,9 +54,19 @@ const routes = [
     component: () => import('../views/DermatologistHomePage.vue')
   },
   {
+    path: '/dermatologistHomePage/profile',
+    name: 'Profile',
+    component: () => import('../views/DermatologistProfile.vue')
+  },
+  {
     path: '/pharmacistHomePage',
     name: 'PharmacistHomePage',
     component: () => import('../views/PharmacistHomePage.vue')
+  },
+  {
+    path: '/pharmacistHomePage/profile',
+    name: 'Profile',
+    component: () => import('../views/PharmacistProfile.vue')
   }
 ]
 
