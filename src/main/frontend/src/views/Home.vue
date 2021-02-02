@@ -45,7 +45,7 @@ export default {
     }
   },
   created() {
-      axios.get('https://jsonplaceholder.typicode.com/albums?_limit=5')
+      axios.get('https://localhost:8081')
           .then(res => this.items = res.data)
           .catch(err => console.log(err));
   }
