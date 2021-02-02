@@ -1,17 +1,19 @@
 <template>
     <div>
+        <home-background class="homeBack"/>
         <div class="panelDiv">
             <DermatologistMenu/>
         </div>
-        <div class="panelDiv"/>
     </div>
 </template>
 
 <script>
+import HomeBackground from '../components/HomeBackground.vue';
 import DermatologistMenu from '../components/DermatologistMenu.vue'
 export default {
     name : 'DermatologistHomePage',
     components : {
+        HomeBackground,
         DermatologistMenu
     },
     data() {
@@ -22,15 +24,13 @@ export default {
 }
 </script>
 
+
 <style scoped>
-.panelDiv {
-    float: right;
+.homeBack {
+    height: 850px;
 }
 
-.backgroundDiv {
-  background: url('https://wallup.net/wp-content/uploads/2017/11/17/260979-pills-pharmacy.jpg');
-  background-size: cover;
-  width: 100%;
-  height: 100%;
+.panelDiv {
+    float: bottom;
 }
 </style>

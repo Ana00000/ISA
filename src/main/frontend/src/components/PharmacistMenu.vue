@@ -2,25 +2,25 @@
     <v-container class="blue ma-0" fluid fill-width>
         <v-layout type>
             <div>
-                <router-link class="link" to="/clients">Clients</router-link>
+                <router-link class="link" to="/pharmacistHomePage/clients">Clients</router-link>
             </div>
             <div >
-                <router-link class="link" to="/consultationsInfo">Consultations info</router-link>
+                <router-link class="link" to="/pharmacistHomePage/consultationsInfo">Consultations info</router-link>
             </div>
             <div>
-                <router-link class="link" to="/workingSchedule">Working schedule</router-link>
+                <router-link class="link" to="/pharmacistHomePage/workingSchedule">Working schedule</router-link>
             </div>
             <div>
-                <router-link class="link" to="/prescriptions">Prescriptions</router-link>
+                <router-link class="link" to="/pharmacistHomePage/prescriptions">Prescriptions</router-link>
             </div>
             <div>
-                <router-link class="link" to="/vacationsAndAbsences">Vacations and absences</router-link>
+                <router-link class="link" to="/pharmacistHomePage/vacationsAndAbsences">Vacations and absences</router-link>
             </div>
             <div>
-                <router-link class="link" to="/profileOfPharmacist">Profile</router-link>
+                <router-link class="link" to="/pharmacistHomePage/profile">Profile</router-link>
             </div>
             <div>
-                <router-link class="link" to="/scheduleConsultation">Schedule consultation</router-link>
+                <router-link class="link" to="/pharmacistHomePage/scheduleConsultation">Schedule consultation</router-link>
             </div>
         </v-layout>
     </v-container>
@@ -33,7 +33,6 @@ export default {
 </script>
 
 <style scoped>
-
 div {
     width: max-content;
     margin-left: 30px;

@@ -1,23 +1,23 @@
 <template>
-    <v-container class="blue lighten-4">
-        <v-layout column>
+    <v-container class="blue ma-0" fluid fill-width>
+        <v-layout type>
             <div>
-                <router-link class="link" to="/clients">Clients</router-link>
+                <router-link class="link" to="/dermatologistHomePage/clients">Clients</router-link>
             </div>
             <div >
-                <router-link class="link" to="/examinationsInfo">Examinations info</router-link>
+                <router-link class="link" to="/dermatologistHomePage/examinationsInfo">Examinations info</router-link>
             </div>
             <div>
-                <router-link class="link" to="/workingSchedule">Working schedule</router-link>
+                <router-link class="link" to="/dermatologistHomePage/workingSchedule">Working schedule</router-link>
             </div>
             <div>
-                <router-link class="link" to="/vacationsAndAbsences">Vacations and absences</router-link>
+                <router-link class="link" to="/dermatologistHomePage/vacationsAndAbsences">Vacations and absences</router-link>
             </div>
             <div>
-                <router-link class="link" to="/profileOfDermatologist">Profile</router-link>
+                <router-link class="link" to="/dermatologistHomePage/profile">Profile</router-link>
             </div>
             <div>
-                <router-link class="link" to="/scheduleExamination">Schedule examination</router-link>
+                <router-link class="link" to="/dermatologistHomePage/scheduleExamination">Schedule examination</router-link>
             </div>
         </v-layout>
     </v-container>
@@ -31,11 +31,10 @@ export default {
 
 <style scoped>
 div {
+    width: max-content;
+    margin-left: 30px;
+    margin-right: 30px;
     display: inline-block;
-    max-width: 250px;
-    margin-bottom: 30px;
-    justify-content: center;
-    display: inline-flex;
 }
 
 .link {
