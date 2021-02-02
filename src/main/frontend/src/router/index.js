@@ -54,14 +54,19 @@ const routes = [
     component: () => import('../views/DermatologistHomePage.vue')
   },
   {
-    path: '/dermatologistHomePage/profile',
-    name: 'Profile',
-    component: () => import('../views/DermatologistProfile.vue')
-  },
-  {
     path: '/dermatologistHomePage/clients',
     name: 'Clients',
     component: () => import('../views/DermatologistClients.vue')
+  },
+  {
+    path: '/dermatologistHomePage/examinationsInfo',
+    name: 'ExaminationsInfo',
+    component: () => import('../views/ExaminationsInfo.vue')
+  },
+  {
+    path: '/dermatologistHomePage/profile',
+    name: 'Profile',
+    component: () => import('../views/DermatologistProfile.vue')
   },
   {
     path: '/pharmacistHomePage',
@@ -69,14 +74,19 @@ const routes = [
     component: () => import('../views/PharmacistHomePage.vue')
   },
   {
-    path: '/pharmacistHomePage/profile',
-    name: 'Profile',
-    component: () => import('../views/PharmacistProfile.vue')
-  },
-  {
     path: '/pharmacistHomePage/clients',
     name: 'Clients',
     component: () => import('../views/PharmacistClients.vue')
+  },
+  {
+    path: '/pharmacistHomePage/consultationsInfo',
+    name: 'ConsultationsInfo',
+    component: () => import('../views/ConsultationsInfo.vue')
+  },
+  {
+    path: '/pharmacistHomePage/profile',
+    name: 'Profile',
+    component: () => import('../views/PharmacistProfile.vue')
   }
 ]
 
