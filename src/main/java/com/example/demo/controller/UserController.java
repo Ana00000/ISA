@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.dto.DermatologistDTO;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.dto.PharmacistDTO;
@@ -11,22 +10,13 @@ import com.example.demo.model.Pharmacist;
 import com.example.demo.model.User;
 import com.example.demo.service.PatientService;
 import com.example.demo.service.UserService;
-import com.sun.jdi.connect.Transport;
-
-import jdk.jfr.Registered;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.MimeMappings;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Properties;
 import java.util.Random;
-
-import javax.websocket.Session;
 
 @RestController
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
