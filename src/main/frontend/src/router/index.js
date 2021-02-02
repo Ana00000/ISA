@@ -69,6 +69,11 @@ const routes = [
     component: () => import('../views/DermatologistWorkingSchedule.vue')
   },
   {
+    path: '/dermatologistHomePage/vacationsAndAbsences',
+    name: 'VacationsAndAbsences',
+    component: () => import('../views/DermatologistVacationsAndAbsences.vue')
+  },
+  {
     path: '/dermatologistHomePage/profile',
     name: 'Profile',
     component: () => import('../views/DermatologistProfile.vue')
@@ -92,6 +97,11 @@ const routes = [
     path: '/pharmacistHomePage/workingSchedule',
     name: 'WorkingSchedule',
     component: () => import('../views/PharmacistWorkingSchedule.vue')
+  },
+  {
+    path: '/pharmacistHomePage/vacationsAndAbsences',
+    name: 'VacationsAndAbsences',
+    component: () => import('../views/PharmacistVacationsAndAbsences.vue')
   },
   {
     path: '/pharmacistHomePage/profile',
