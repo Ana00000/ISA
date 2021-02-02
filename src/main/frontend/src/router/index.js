@@ -104,6 +104,11 @@ const routes = [
     component: () => import('../views/PharmacistWorkingSchedule.vue')
   },
   {
+    path: '/pharmacistHomePage/prescriptions',
+    name: 'Prescriptions',
+    component: () => import('../views/Prescriptions.vue')
+  },
+  {
     path: '/pharmacistHomePage/vacationsAndAbsences',
     name: 'VacationsAndAbsences',
     component: () => import('../views/PharmacistVacationsAndAbsences.vue')

@@ -2,6 +2,9 @@
     <v-container class="indigo ma-0" fluid fill-width>
         <v-layout type>
             <div>
+                <router-link class="link" to="/pharmacistHomePage">Home page</router-link>
+            </div>
+            <div>
                 <router-link class="link" to="/pharmacistHomePage/clients">Clients</router-link>
             </div>
             <div >
@@ -35,8 +38,8 @@ export default {
 <style scoped>
 div {
     width: max-content;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 25px;
+    margin-right: 25px;
     display: inline-block;
 }
 

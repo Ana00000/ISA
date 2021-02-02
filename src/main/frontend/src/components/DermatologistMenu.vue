@@ -1,6 +1,10 @@
 <template>
     <v-container class="indigo ma-0" fluid fill-width>
         <v-layout type>
+            <div/>
+            <div>
+                <router-link class="link" to="/dermatologistHomePage">Home page</router-link>
+            </div>
             <div>
                 <router-link class="link" to="/dermatologistHomePage/clients">Clients</router-link>
             </div>
@@ -19,6 +23,7 @@
             <div>
                 <router-link class="link" to="/dermatologistHomePage/scheduleExamination">Schedule examination</router-link>
             </div>
+            <div/>
         </v-layout>
     </v-container>
 </template>
