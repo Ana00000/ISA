@@ -52,6 +52,11 @@ const routes = [
     path: '/dermatologistHomePage',
     name: 'DermatologistHomePage',
     component: () => import('../views/DermatologistHomePage.vue')
+  },
+  {
+    path: '/pharmacistHomePage',
+    name: 'PharmacistHomePage',
+    component: () => import('../views/PharmacistHomePage.vue')
   }
 ]
 
