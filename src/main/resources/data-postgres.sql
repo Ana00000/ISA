@@ -73,6 +73,11 @@ INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phon
 INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (9, 'Sanja', 'Petrovic', 'pharmacist', 'sanja205petrovic@gmail.com', 'sanja3523', 'Smederevo Smederevska 28', '064894648', 'TRUE');
 
 
+INSERT INTO pharmacy_administrator(id, name, last_name, email, password) VALUES (10, 'Marko', 'Markovic',  'markovic@gmail.com', 'markovic');
+INSERT INTO pharmacy_administrator(id, name, last_name, email, password) VALUES (11, 'Atanasije', 'Jevtic',  'jevtic@gmail.com', 'jevtic');
+INSERT INTO pharmacy_administrator(id, name, last_name, email, password) VALUES (12, 'Milan', 'Nikolovic', 'nikolovic@gmail.com', 'nikolovic');
+
+
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (1, 1);
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (2, 1);
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (3, 0);
