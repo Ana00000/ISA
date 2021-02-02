@@ -15,8 +15,7 @@
 
 <script>
 import PatientMenu from '../components/PatientMenu.vue'
-import ItemList from '../components/ItemList.vue'
-//import SearchBar from '../components/SearchBar.vue'
+import ItemList from '../components/itemList/ItemList.vue'
 export default {
     name : 'Pharmacies',
     components : {

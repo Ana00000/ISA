@@ -2,7 +2,9 @@ package com.example.demo.dto;
 
 import com.example.demo.model.Medicine;
 
-public class MedicineDTO {
+import java.io.Serializable;
+
+public class MedicineDTO implements Serializable {
     private Long id;
     private String name;
     private boolean recipeNeed;

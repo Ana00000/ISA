@@ -4,8 +4,10 @@ import javax.persistence.*;
 
 import com.example.demo.model.enums.MedicineShapeValue;
 
+import java.io.Serializable;
+
 @Entity
-public class MedicineShape {
+public class MedicineShape implements Serializable {
 	
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )

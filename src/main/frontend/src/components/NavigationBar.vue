@@ -39,7 +39,7 @@ export default {
             drawer: false,
             items: [
                 { title: 'Search Pharmacies', path: '/' },
-                { title: 'Search Medicine', path: '/' },
+                { title: 'Search Medicine', path: '/searchMedicine' },
                 { title: 'Clients', path: '/' },
                 { title: 'Contacts', path: '/' }
             ]

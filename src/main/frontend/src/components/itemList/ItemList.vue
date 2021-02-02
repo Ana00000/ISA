@@ -31,16 +31,14 @@
         <template v-for="(item, index) in items">
           <v-list-item :key="item.title">
             <template v-slot:default="{ active }">
-              <v-list-item-content>
-                <v-list-item-title v-text="item.title"></v-list-item-title>
-
-                <!-- <v-list-item-subtitle
-                  class="text--primary"
-                  v-text="item.headline"
-                ></v-list-item-subtitle> -->
-
-                <!-- <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle> -->
+              <v-list-item-content >
+                <v-list-item-title  v-text="item.title"></v-list-item-title>
+                <template >
+                  <v-list-item-subtitle v-bind:key="value" v-for="value in item" v-text="value" ></v-list-item-subtitle>
+                </template>
+              
               </v-list-item-content>
+
 
               <v-list-item-action>
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
@@ -87,36 +85,6 @@
     <v-btn>Search</v-btn>
   </v-card>
   
-  <!-- <v-navigation-drawer
-      v-model="drawer"
-      temporary
-    >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer> -->
   </v-layout>
   </v-container>
 </template>
@@ -126,7 +94,6 @@
   export default {
     data: () => ({
       selected: [2],
-      items: [] /*userId, id, title*/ ,
       drawer: false,
     }),
     props: [

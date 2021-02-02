@@ -25,7 +25,7 @@
 <script>
 import Footer from '../components/Footer.vue';
 import HomeBackground from '../components/HomeBackground.vue';
-import ItemList from '../components/ItemList.vue';
+import ItemList from '../components/itemList/ItemList.vue';
 // @ is an alias to /src
 import MapContainer from '../components/MapContainer.vue';
 
