@@ -82,7 +82,7 @@ export default {
           this.password2='';
           return;
       }
-      this.$http.post('http://localhost:8081/user/register', this.user)
+      this.$http.post('http://localhost:8081/users/register', this.user)
       .then(resp => {
         console.log(resp.data);
       })
