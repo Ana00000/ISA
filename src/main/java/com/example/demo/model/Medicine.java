@@ -1,11 +1,12 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Medicine {
+public class Medicine implements Serializable {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -49,11 +49,11 @@ export default {
 
 <style>
 #map {
-  position: absolute;
-  margin: 0;
-  padding: 0;
+  /* position: absolute; */
+  margin: 0 auto;
+  padding: 60px;
   height: 700px;
-  width: 95%;
+  width: 80%;
 }
 
 </style>
