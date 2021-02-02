@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="welcoming">Pharmacist you can schedule consultations here!</div>
+        <div class="welcoming">Pharmacist you can find your working schedule here!</div>
         <div class="panelDiv">
                 <PharmacistMenu/>
         </div> 
@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import PharmacistMenu from '../components/PharmacistMenu.vue'
+import PharmacistMenu from '../../components/pharmacist/PharmacistMenu.vue'
 export default {
-    name: 'ScheduleConsultation',    
+    name: 'WorkingSchedule',    
     components : {   
         PharmacistMenu
     },

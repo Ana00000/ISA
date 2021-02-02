@@ -2,19 +2,19 @@
     <div>
         <home-background class="homeBack"/>
         <div class="panelDiv">
-            <PharmacistMenu/>
+            <DermatologistMenu/>
         </div>
     </div>
 </template>
 
 <script>
-import HomeBackground from '../components/HomeBackground.vue';
-import PharmacistMenu from '../components/PharmacistMenu.vue'
+import HomeBackground from '../../components/HomeBackground.vue';
+import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
 export default {
-    name : 'PharmacistHomePage',
-    components : {   
+    name : 'DermatologistHomePage',
+    components : {
         HomeBackground,
-        PharmacistMenu
+        DermatologistMenu
     },
     data() {
         return{
@@ -23,6 +23,7 @@ export default {
     }
 }
 </script>
+
 
 <style scoped>
 .homeBack {

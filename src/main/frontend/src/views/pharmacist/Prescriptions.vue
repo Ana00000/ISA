@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import PharmacistMenu from '../components/PharmacistMenu.vue'
+import PharmacistMenu from '../../components/pharmacist/PharmacistMenu.vue'
 export default {
     name: 'Prescriptions',    
     components : {   
