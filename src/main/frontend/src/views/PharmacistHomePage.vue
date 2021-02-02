@@ -1,24 +1,35 @@
 <template>
     <div>
-        <div class = "panelDiv">
+        <home-background class="homeBack"/>
+        <div class="panelDiv">
             <PharmacistMenu/>
         </div>
-        <div class = "panelDiv"/>
     </div>
 </template>
 
 <script>
+import HomeBackground from '../components/HomeBackground.vue';
 import PharmacistMenu from '../components/PharmacistMenu.vue'
 export default {
     name : 'PharmacistHomePage',
-    components : {
+    components : {   
+        HomeBackground,
         PharmacistMenu
+    },
+    data() {
+        return{
+            items: []
+        }
     }
 }
 </script>
 
 <style scoped>
+.homeBack {
+    height: 850px;
+}
+
 .panelDiv {
-    float: right;
+    float: bottom;
 }
 </style>

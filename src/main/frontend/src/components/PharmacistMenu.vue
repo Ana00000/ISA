@@ -1,6 +1,6 @@
 <template>
-    <v-container class="blue lighten-4">
-        <v-layout column>
+    <v-container class="blue ma-0" fluid fill-width>
+        <v-layout type>
             <div>
                 <router-link class="link" to="/clients">Clients</router-link>
             </div>
@@ -33,12 +33,12 @@ export default {
 </script>
 
 <style scoped>
+
 div {
+    width: max-content;
+    margin-left: 30px;
+    margin-right: 30px;
     display: inline-block;
-    max-width: 250px;
-    margin-bottom: 30px;
-    justify-content: center;
-    display: inline-flex;
 }
 
 .link {
