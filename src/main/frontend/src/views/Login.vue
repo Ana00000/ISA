@@ -48,6 +48,7 @@ export default {
       this.$http.post('http://localhost:8081/users/login', this.user)
       .then(resp => {
         console.log(resp.data);
+        this.$router.push('/')
       })
       .catch(er => {
         console.log('Error while logging in');
