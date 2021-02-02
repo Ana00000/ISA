@@ -1,9 +1,7 @@
 package com.example.demo.dto;
 
 import java.sql.Timestamp;
-
 import com.example.demo.model.Appointment;
-import com.example.demo.model.Doctor;
 
 public class AppointmentDTO {
 	private Long id;
@@ -24,7 +22,7 @@ public class AppointmentDTO {
 		this.appointmentType = new AppointmentTypeDTO(appointment.getAppointmentType());
 		this.status = new AppointmentStatusDTO(appointment.getStatus());
 		this.patient = new PatientDTO(appointment.getPatient());
-		this.doctor = getDoctorDTO(appointment);
+		this.doctor = new DoctorDTO(appointment.getDoctor(), appointment.getDoctor().getType());
 		this.startTime = appointment.getStartTime();
 		this.endTime = appointment.getEndTime();
 	}
@@ -40,15 +38,6 @@ public class AppointmentDTO {
 		this.doctor = doctor;
 		this.startTime = startTime;
 		this.endTime = endTime;
-	}
-	
-	private DoctorDTO getDoctorDTO(Appointment appointment) {
-		Doctor doctor = appointment.getDoctor();
-		if (doctor.getType().contentEquals("pharmacist"))
-			return new PharmacistDTO(appointment.getDoctor());
-		else if (doctor.getType().contentEquals("dermatologist"))
-			return new DermatologistDTO(appointment.getDoctor());
-		return null;
 	}
 
 	public Long getId() {

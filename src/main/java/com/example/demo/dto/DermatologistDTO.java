@@ -7,5 +7,6 @@ public class DermatologistDTO extends DoctorDTO {
 	}
 	
 	public DermatologistDTO(Doctor doctor) {
+		super(doctor, doctor.getType());
 	}
 }

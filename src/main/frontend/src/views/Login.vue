@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     login() {
-      this.$http.post('http://localhost:8081/user/login', this.user)
+      this.$http.post('http://localhost:8081/users/login', this.user)
       .then(resp => {
         console.log(resp.data);
       })
