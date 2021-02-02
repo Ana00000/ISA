@@ -27,7 +27,7 @@ export default {
 
 <style scoped>
 .homeBack {
-    height: 850px;
+    height: 840px;
 }
 
 .panelDiv {

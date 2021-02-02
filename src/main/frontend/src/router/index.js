@@ -59,6 +59,11 @@ const routes = [
     component: () => import('../views/DermatologistProfile.vue')
   },
   {
+    path: '/dermatologistHomePage/clients',
+    name: 'Clients',
+    component: () => import('../views/DermatologistClients.vue')
+  },
+  {
     path: '/pharmacistHomePage',
     name: 'PharmacistHomePage',
     component: () => import('../views/PharmacistHomePage.vue')
@@ -67,6 +72,11 @@ const routes = [
     path: '/pharmacistHomePage/profile',
     name: 'Profile',
     component: () => import('../views/PharmacistProfile.vue')
+  },
+  {
+    path: '/pharmacistHomePage/clients',
+    name: 'Clients',
+    component: () => import('../views/PharmacistClients.vue')
   }
 ]
 

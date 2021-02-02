@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="welcoming">Hi dermatologist!</div>
+        <div class="welcoming">Dermatologist you can find your clients here!</div>
         <div class="panelDiv">
                 <DermatologistMenu/>
         </div> 
@@ -10,7 +10,7 @@
 <script>
 import DermatologistMenu from '../components/DermatologistMenu.vue'
 export default {
-    name: 'DermatologistProfile',   
+    name: 'Clients',    
     components : {   
         DermatologistMenu
     },
