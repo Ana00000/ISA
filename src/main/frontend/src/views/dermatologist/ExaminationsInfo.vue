@@ -1,18 +1,18 @@
 <template>
     <div>
-        <div class="welcoming">Hi pharmacist!</div>
+        <div class="welcoming">Dermatologist you can find examinations info here!</div>
         <div class="panelDiv">
-                <PharmacistMenu/>
+                <DermatologistMenu/>
         </div> 
     </div>  
 </template>
 
 <script>
-import PharmacistMenu from '../components/PharmacistMenu.vue'
+import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
 export default {
-    name: 'PharmacistProfile',
+    name: 'ExaminationsInfo',   
     components : {   
-        PharmacistMenu
+        DermatologistMenu
     },
 }
 </script>

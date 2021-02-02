@@ -1,4 +1,4 @@
-                                            ISA 2020/2021
+                                               ISA 2020/2021
                                                                           
                                                                           
                                                                           
@@ -15,8 +15,10 @@ We are working with:
 - Code quality analysis tool: SonarCloud
 - Application building tool: Maven
 
+
 Link to the Trello board:
 - https://trello.com/b/NXeqJSsg/isa
+
 
 [![Build Status](https://travis-ci.com/Ana00000/ISA.svg?branch=develop)](https://travis-ci.com/Ana00000/ISA)
 
