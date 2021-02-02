@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
+import com.example.demo.dto.UserDTO;
+
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
 @Entity
@@ -26,17 +28,61 @@ public abstract class User {
 
     @Column(name="password", unique=false, nullable=false)
     private String password;
-
+    
+    @Column(name="address", unique=false, nullable=false)
+    private String address;
+    
+    @Column(name="phoneNumber", unique=false, nullable=false)
+    private String phoneNumber;
+    
+    @Column(name="active", unique=false, nullable=false)
+    private boolean active; 
+    
+    @Column(name="hashString", unique=false, nullable=true)
+    private String hashString;
+    
 	public User() {
 	}
 	
-	public User(Long id, String name, String lastName, String email, String password) {
+	public User(UserDTO userDTO) {
+		this.id = userDTO.getId();
+		this.name = userDTO.getName();
+		this.lastName = userDTO.getLastName();
+		this.email = userDTO.getEmail();
+		this.password = userDTO.getPassword();
+		this.address = userDTO.getAddress();
+		this.phoneNumber = userDTO.getPhoneNumber();
+		this.active = userDTO.isActive();
+		this.hashString = userDTO.getHashString();
+	}
+	
+	public User(Long id, String name, String lastName, String email, String password, String address, String phoneNumber,boolean active, String hashString) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.address=address;
+		this.phoneNumber=phoneNumber;
+		this.active=active;
+		this.hashString=hashString;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Long getId() {
@@ -77,6 +123,22 @@ public abstract class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public String getHashString() {
+		return hashString;
+	}
+
+	public void setHashString(String hashString) {
+		this.hashString = hashString;
 	}
 
 	@Override
@@ -131,6 +193,8 @@ public abstract class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", password="
-				+ password + "]";
+				+ password + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
 	}
+
+	
 }
