@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@syncfusion/ej2-vue-schedule": "^18.4.41",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "ol": "^6.5.0",
