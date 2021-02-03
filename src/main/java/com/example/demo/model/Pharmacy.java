@@ -19,6 +19,9 @@ public class Pharmacy {
     @Column(name="name", unique=false, nullable=false)
     private String name;
 
+    @Column(name="contact", unique=false, nullable=false)
+    private String contact;
+
     @Column(name="country", unique=false, nullable=false)
     private String country;
 
@@ -37,11 +40,8 @@ public class Pharmacy {
     @Column(name="latitude", unique=false, nullable=false)
     private float latitude;
 
-    @Column(name="averageGrade", unique=false, nullable=false)
+    @Column(name="averageGrade", unique=false, nullable=true)
     private float averageGrade;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-    private PharmacyAdmin pharmacyAdmin;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
@@ -59,19 +59,22 @@ public class Pharmacy {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "MedicineInPharmacies",
+            name = "MedicineInPharmacy",
             joinColumns = @JoinColumn(name = "PharmacyId", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "medicineId", referencedColumnName = "id"))
     private Set<Medicine> medicines;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "AppointmentInPharmacy",
             joinColumns = @JoinColumn(name = "PharmacyId", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "appointmentId", referencedColumnName = "id"))
     private Set<Appointment> appointments;
 
-    public Pharmacy(Long id, String name, String country, String city, String street, int number, float longitude, float latitude, float averageGrade, PharmacyAdmin pharmacyAdmin, Set<Dermatologist> dermatologists, Set<Pharmacist> pharmacists, Set<Medicine> medicines, Set<Appointment> appointments) {
+    public Pharmacy() {
+    }
+
+    public Pharmacy(Long id, String name, String country, String city, String street, int number, float longitude, float latitude, float averageGrade) {
         this.id = id;
         this.name = name;
         this.country = country;
@@ -81,11 +84,6 @@ public class Pharmacy {
         this.longitude = longitude;
         this.latitude = latitude;
         this.averageGrade = averageGrade;
-        this.pharmacyAdmin = pharmacyAdmin;
-        this.dermatologists = dermatologists;
-        this.pharmacists = pharmacists;
-        this.medicines = medicines;
-        this.appointments = appointments;
     }
 
     public Long getId() {
@@ -158,6 +156,42 @@ public class Pharmacy {
 
     public void setAverageGrade(float averageGrade) {
         this.averageGrade = averageGrade;
+    }
+
+    public String getContact() { return contact; }
+
+    public void setContact(String contact) { this.contact = contact; }
+
+    public Set<Dermatologist> getDermatologists() {
+        return dermatologists;
+    }
+
+    public void setDermatologists(Set<Dermatologist> dermatologists) {
+        this.dermatologists = dermatologists;
+    }
+
+    public Set<Pharmacist> getPharmacists() {
+        return pharmacists;
+    }
+
+    public void setPharmacists(Set<Pharmacist> pharmacists) {
+        this.pharmacists = pharmacists;
+    }
+
+    public Set<Medicine> getMedicines() {
+        return medicines;
+    }
+
+    public void setMedicines(Set<Medicine> medicines) {
+        this.medicines = medicines;
+    }
+
+    public Set<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(Set<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     @Override

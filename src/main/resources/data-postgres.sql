@@ -73,9 +73,25 @@ INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phon
 INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (9, 'Sanja', 'Petrovic', 'pharmacist', 'sanja205petrovic@gmail.com', 'sanja3523', 'Smederevo Smederevska 28', '064894648', 'TRUE');
 
 
-INSERT INTO pharmacy_administrator(id, name, last_name, email, password) VALUES (10, 'Marko', 'Markovic',  'markovic@gmail.com', 'markovic');
-INSERT INTO pharmacy_administrator(id, name, last_name, email, password) VALUES (11, 'Atanasije', 'Jevtic',  'jevtic@gmail.com', 'jevtic');
-INSERT INTO pharmacy_administrator(id, name, last_name, email, password) VALUES (12, 'Milan', 'Nikolovic', 'nikolovic@gmail.com', 'nikolovic');
+INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (13, 'Lekic', '021765873', 'Serbia', 'Novi Sad', 'Danila Kisa', '1', 19.83766985, 45.249441, 0);
+INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (14, 'Zegin', '021643251', 'Serbia', 'Novi Sad', 'Kralja Petra', '12', 19.83478635, 45.26154741, 0);
+INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (15, 'Ivancic i sinovi', '02106958', 'Serbia', 'Novi Sad', 'Slobodana Jovanovica', '22', 19.8035717, 45.254534, 0);
+
+
+INSERT INTO pharmacy_admin(id, name, last_name, email, password, address, phone_number, active, pharmacy_id) VALUES (10, 'Marko', 'Markovic', 'markovic@gmail.com', 'markovic', 'Novi Sad, Kralja Milana 10', '064765432', 'TRUE', 13);
+INSERT INTO pharmacy_admin(id, name, last_name, email, password, address, phone_number, active, pharmacy_id) VALUES (11, 'Atanasije', 'Jevtic', 'jevtic@gmail.com', 'jevtic', 'Novi Sad, Baje Pivljanina 2', '063123456', 'TRUE', 14);
+INSERT INTO pharmacy_admin(id, name, last_name, email, password, address, phone_number, active, pharmacy_id) VALUES (12, 'Milan', 'Nikolovic', 'nikolovic@gmail.com', 'nikolovic', 'Novi Sad, Marka Miljanova 21', '062875621', 'TRUE', 15);
+
+
+INSERT INTO dermatologist_in_pharmacy(pharmacy_id, dermatologist_id) VALUES (13, 1);
+INSERT INTO dermatologist_in_pharmacy(pharmacy_id, dermatologist_id) VALUES (14, 1);
+INSERT INTO dermatologist_in_pharmacy(pharmacy_id, dermatologist_id) VALUES (14, 2);
+INSERT INTO dermatologist_in_pharmacy(pharmacy_id, dermatologist_id) VALUES (15, 3);
+
+
+INSERT INTO pharmacist_in_pharmacy(pharmacy_id, pharmacist_id) VALUES (13, 7);
+INSERT INTO pharmacist_in_pharmacy(pharmacy_id, pharmacist_id) VALUES (14, 8);
+INSERT INTO pharmacist_in_pharmacy(pharmacy_id, pharmacist_id) VALUES (15, 9);
 
 
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (1, 1);
@@ -112,6 +128,14 @@ INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, d
 VALUES (10, 451.00, 6, 9, 6, 3, '2020-02-13 00:20', '2020-02-13 00:50');
 
 
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 1);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 2);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (15, 3);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 4);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 5);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (15, 6);
+
+
 INSERT INTO medicine(id, name, recipe_need, medicine_manufacturer_id, medicine_shape_id) 
 VALUES (1, 'Ibuprofen', False, 5, 1);
 INSERT INTO medicine(id, name, recipe_need, medicine_manufacturer_id, medicine_shape_id) 
@@ -132,6 +156,14 @@ INSERT INTO medicine(id, name, recipe_need, medicine_manufacturer_id, medicine_s
 VALUES (9, 'Otezla', True, 5, 2);
 INSERT INTO medicine(id, name, recipe_need, medicine_manufacturer_id, medicine_shape_id) 
 VALUES (10, 'Codeine', False, 1, 3);
+
+
+INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (13, 1);
+INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (14, 2);
+INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (15, 3);
+INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (13, 4);
+INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (14, 5);
+INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (15, 6);
 
 
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (1, 3);
