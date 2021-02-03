@@ -2,7 +2,8 @@
   <v-container>
   <v-layout row wrap>
 
-  <v-card v-bind:class="{'cardClass':drawer}" width="15%" height="auto">
+  <v-card 
+    v-bind:class="{'cardClass':drawer}" width="15%" height="450px">
     <div>
       <h2>Sort by</h2>
     </div>
@@ -28,7 +29,7 @@
   </v-card>
 
   <v-card
-    class="mx-auto" style="width: 55%;" height="auto">
+    class="mx-auto" style="width: 55%; height: 550px; overflow-y: scroll">
     <v-toolbar
       color="#13077d" dark>
       <v-app-bar-nav-icon  @click="drawer = !drawer"/>
@@ -53,7 +54,7 @@
   </v-card>
 
   <v-card
-    class="mx-auto" style="width: 21%;" height="auto">
+    class="mx-auto" style="width: 21%; height: 550px; overflow-y: scroll">
     <v-toolbar
       color="#13077d" dark>
       <v-text-field
@@ -89,7 +90,7 @@
 <script>
   export default {
     data: () => ({
-      drawer: true,
+      drawer: false,
     }),
     props: [
         "items"
