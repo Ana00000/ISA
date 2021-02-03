@@ -1,5 +1,9 @@
 <template>
-    <div>
+    <div style="
+        background: #13077d;
+        background: -webkit-linear-gradient(to right, #5442ed, #cdc8fa, #13077d);
+        background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);">
+        <br/>
         <div class="welcoming">Pharmacist you can find vacations and absences here!</div>
         <div class="panelDiv">
                 <PharmacistMenu/>
@@ -22,7 +26,7 @@ export default {
 .welcoming {
     font-weight: bolder;
     font-size: 25px;
-    height: 840px;
+    height: 816px;
 }
 
 .panelDiv {
