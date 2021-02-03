@@ -3,7 +3,7 @@
         <div>
             <WorkingSchedule/>
         </div> 
-        <div class="panelDiv">
+        <div>
             <DermatologistMenu/>
         </div> 
     </div>  
