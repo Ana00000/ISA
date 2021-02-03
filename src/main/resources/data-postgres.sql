@@ -63,9 +63,9 @@ INSERT INTO medicine_shape(id, shape_value) VALUES (2, 1);
 INSERT INTO medicine_shape(id, shape_value) VALUES (3, 2);
 
 
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active) VALUES (4, 'Marko', 'Gojkovic', 'marko12653gojkovic@gmail.com', 'marko040234', 'Novi sad Futoska2', '06489745', 'TRUE');
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active) VALUES (5, 'Klara', 'Mitrovic', 'klara0430mitrovic@gmail.com', 'klara2352892', 'Novi sad Futoska22', '06489713', 'TRUE');
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active) VALUES (6, 'Mirko', 'Lazarevic', 'mirko1205lazarevic@gmail.com', 'mirko329855324', 'Novi sad Futoska23', '06489714', 'TRUE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active) VALUES (4, 'Marko', 'Gojkovic', 'marko12653gojkovic@gmail.com', 'marko040234', 'Novi sad Futoska 2', '06489745', 'TRUE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active) VALUES (5, 'Klara', 'Mitrovic', 'klara0430mitrovic@gmail.com', 'klara2352892', 'Novi sad Futoska 22', '06489713', 'TRUE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active) VALUES (6, 'Mirko', 'Lazarevic', 'mirko1205lazarevic@gmail.com', 'mirko329855324', 'Novi sad Futoska 23', '06489714', 'TRUE');
 
 
 INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana30356stefanovic@gmail.com', 'jovana437334', 'Smederevo Smederevska 14', '06489489489', 'TRUE');
