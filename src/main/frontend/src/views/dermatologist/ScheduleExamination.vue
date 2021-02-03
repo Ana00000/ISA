@@ -13,7 +13,7 @@ export default {
     name: 'ScheduleExamination',    
     components : {   
         DermatologistMenu
-    },
+    }
 }
 </script>
 

@@ -6,7 +6,7 @@
     <v-container>
         <div class="searchDiv">
             <div style="margin: 35px">
-                <h1 class="display-2">Search clients</h1>
+                <h1 class="display-2">Clients</h1>
             </div>
             <item-list-clients v-bind:items="clients"/>
         </div>

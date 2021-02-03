@@ -13,7 +13,7 @@ export default {
     name: 'DermatologistProfile',   
     components : {   
         DermatologistMenu
-    },
+    }
 }
 </script>
 

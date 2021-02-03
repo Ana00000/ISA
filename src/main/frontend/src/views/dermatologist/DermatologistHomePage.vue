@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import HomeBackground from '../../components/HomeBackground.vue';
+import HomeBackground from '../../components/HomeBackground.vue'
 import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
 export default {
     name : 'DermatologistHomePage',

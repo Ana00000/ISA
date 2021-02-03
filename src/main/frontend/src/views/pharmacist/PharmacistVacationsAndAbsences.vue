@@ -10,10 +10,10 @@
 <script>
 import PharmacistMenu from '../../components/pharmacist/PharmacistMenu.vue'
 export default {
-    name: 'VacationsAndAbsences',    
+    name: 'PharmacistVacationsAndAbsences',    
     components : {   
         PharmacistMenu
-    },
+    }
 }
 </script>
 

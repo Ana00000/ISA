@@ -13,7 +13,7 @@ export default {
     name: 'Prescriptions',    
     components : {   
         PharmacistMenu
-    },
+    }
 }
 </script>
 
