@@ -4,7 +4,10 @@
         background: -webkit-linear-gradient(to right, #5442ed, #cdc8fa, #13077d);
         background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"> 
         <div class="searchDiv">
+<<<<<<< HEAD
             <br/>
+=======
+>>>>>>> 8d22128... Clients page of pharmacist,visual
             <div>
                 <h1 class="display-2">You can find your clients here!</h1>
             </div>
