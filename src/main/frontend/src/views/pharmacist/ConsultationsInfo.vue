@@ -13,7 +13,7 @@ export default {
     name: 'ConsultationsInfo',    
     components : {   
         PharmacistMenu
-    },
+    }
 }
 </script>
 

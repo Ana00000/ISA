@@ -13,7 +13,7 @@ export default {
     name: 'PharmacistProfile',
     components : {   
         PharmacistMenu
-    },
+    }
 }
 </script>
 

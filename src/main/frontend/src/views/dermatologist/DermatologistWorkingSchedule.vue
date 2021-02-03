@@ -10,10 +10,10 @@
 <script>
 import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
 export default {
-    name: 'WorkingSchedule',    
+    name: 'DermatologistWorkingSchedule',    
     components : {   
         DermatologistMenu
-    },
+    }
 }
 </script>
 
