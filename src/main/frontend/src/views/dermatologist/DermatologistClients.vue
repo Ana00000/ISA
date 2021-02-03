@@ -4,6 +4,7 @@
         background: -webkit-linear-gradient(to right, #5442ed, #cdc8fa, #13077d);
         background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"> 
         <div class="searchDiv">
+            <br/>
             <div>
                 <h1 class="display-2">You can find your clients here!</h1>
             </div>
