@@ -49,11 +49,6 @@ const routes = [
     component: () => import('../views/SearchMedicine.vue')
   },
   {
-    path: '/searchClients',
-    name: 'SearchClients',
-    component: () => import('../views/SearchClients.vue')
-  },
-  {
     path: '/dermatologistHomePage',
     name: 'DermatologistHomePage',
     component: () => import('../views/dermatologist/DermatologistHomePage.vue')
