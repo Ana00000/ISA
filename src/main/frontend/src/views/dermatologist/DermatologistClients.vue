@@ -20,7 +20,7 @@
 <script>
 import axios from 'axios';
 import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
-import ItemListClients from '../../components/itemList/ItemListClients.vue';
+import ItemListClients from '../../components/itemList/ItemListClients.vue'
 export default {
     name: 'DermatologistClients',    
     components : {   
