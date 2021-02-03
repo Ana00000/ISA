@@ -2,14 +2,21 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.example.demo.dto.UserDTO;
 
 import static javax.persistence.InheritanceType.TABLE_PER_CLASS;
 
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
+
 @Entity
 @Table(name="hospitalUsers") 
 @Inheritance(strategy=TABLE_PER_CLASS)
-public abstract class User {
+public  class User implements UserDetails{
 	
     @Id
     @SequenceGenerator(name = "usersIdSeqGen", sequenceName = "usersIdSeq", initialValue = 10, allocationSize = 1)
@@ -40,6 +47,15 @@ public abstract class User {
     
     @Column(name="hashString", unique=false, nullable=true)
     private String hashString;
+    
+    @Column(name = "last_password_reset_date")
+    private Timestamp lastPasswordResetDate;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
     
 	public User() {
 	}
@@ -141,6 +157,18 @@ public abstract class User {
 		this.hashString = hashString;
 	}
 
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
+	}
+	
+	public Timestamp getLastPasswordResetDate() {
+        return lastPasswordResetDate;
+    }
+
+    public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
+        this.lastPasswordResetDate = lastPasswordResetDate;
+    }
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -194,6 +222,36 @@ public abstract class User {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", password="
 				+ password + ", address=" + address + ", phoneNumber=" + phoneNumber + "]";
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return this.authorities;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 	
