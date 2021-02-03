@@ -29,8 +29,6 @@ import ItemList from '../components/itemList/ItemList.vue';
 // @ is an alias to /src
 import MapContainer from '../components/MapContainer.vue';
 
-import axios from 'axios';
-
 export default {
   name: 'Home',
   components: {
@@ -44,11 +42,11 @@ export default {
       items: []
     }
   },
-  created() {
-      axios.get('https://localhost:8081')
-          .then(res => this.items = res.data)
-          .catch(err => console.log(err));
-  }
+  // created() {
+  //     this.$http.get('https://localhost:8081')
+  //         .then(res => this.items = res.data)
+  //         .catch(err => console.log(err));
+  // }
 
 }
 </script>
