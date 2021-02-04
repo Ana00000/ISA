@@ -32,7 +32,8 @@ export default {
   data: () => ({
     markers: [],
     features: [],
-    map: null
+    map: null,
+    location: ""
   }),
   methods: {
     doInverseGeoCoding(item) {
@@ -41,6 +42,15 @@ export default {
     getPharmacies(markers, map){
       this.markers = markers;
       console.log(this.markers);
+
+      function reverseGeocode(coords) {
+         fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + coords[0] + '&lat=' + coords[1])
+          .then(function(response) {
+            return response.json();
+          }).then(function(json) {
+            console.log(json);
+          });
+      }
 
       var features = [];
 
@@ -51,24 +61,15 @@ export default {
         var name = item.name;
 
 
-        /*....
-        * now get your specific icon...('..../ic_customMarker.png')
-        * by e.g. switch case...
-        */
-        var iconPath = 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Google_Maps_pin.svg';
 
-        //create Feature... with coordinates
-        // var markerFeature = new ol.Feature({
-        //   geometry: new Point(proj.transform([longitude, latitude], 'EPSG:4326',  'EPSG:4326'))
-        // });
+        var coord = proj.toLonLat([item.longitude, item.latitude], "EPSG:4326", "EPSG:4326");
+        var location = reverseGeocode(coord);
+
+        var iconPath = 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Google_Maps_pin.svg';
 
         var iconFeature = new ol.Feature({
           geometry: new Point(proj.transform([longitude, latitude], 'EPSG:4326',  'EPSG:4326')),
-          label: name,
-          labelActive: true
         });
-
-        // iconFeature.label(name);
 
         //create style for your feature...
         var iconStyle = new style.Style({
@@ -78,7 +79,14 @@ export default {
             anchorYUnits: 'pixels',
             opacity: 1,
             src: iconPath
-          }))
+          })),
+          text: new style.Text({
+            font: '20px Sans',
+            text: item.name + "\n" + item.city + ", " + item.street + " " + item.number,
+            fill: new style.Fill({ color: '#ff0000' }),
+            stroke: new style.Stroke({ color: '#000', width: 3 }),
+            offset: [0, 100]
+          })
         });
 
         iconFeature.setStyle(iconStyle);
@@ -121,9 +129,7 @@ export default {
           }),
           new MousePosition()
         ]),
-
         target: "map",
-
         layers: [raster, vector],
         view: new View({
           projection: "EPSG:4326",
@@ -132,7 +138,7 @@ export default {
         }),
       });
 
-      // ADDING PHARMACIES TO THE MAP
+        // ADDING PHARMACIES TO THE MAP
       this.$http.get('http://localhost:8081/pharmacies/all').then(resp => {
         this.getPharmacies(resp.data);
       }).catch(err => {
