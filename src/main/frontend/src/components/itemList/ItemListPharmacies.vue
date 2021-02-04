@@ -101,6 +101,7 @@
 
 
 <script>
+import axios from 'axios';
   export default {
     data: () => ({
       selected: [2],
@@ -109,14 +110,17 @@
       renderingItems: [],
       searchedItems: [],
       filterGrade: 0,
-      sortCriteria: 'name'
+      sortCriteria: 'name',
+      items: []
     }),
-    props: [
-        "items"
-    ],
-    mounted(){
-      this.renderingItems = this.items;
-      this.searchedItems = this.items;
+    created(){
+      axios.get('http://localhost:8081/pharmacies/all')
+            .then(res => {
+              this.items = res.data;
+              this.renderingItems = res.data;
+              this.searchedItems = res.data;
+            })
+            .catch(err => console.log(err));
     },
     methods:{
       search: function(){

@@ -91,20 +91,22 @@
 
 
 <script>
+import axios from 'axios';
   export default {
     data: () => ({
       selected: [2],
       drawer: false,
       searchString: '',
-      renderingItems: []
+      renderingItems: [],
+      items : []
     }),
-    props: [
-        "items"
-    ],
     created(){
-      console.log('created');
-      console.log(this.items);
-      this.renderingItems = this.items;
+       axios.get('http://localhost:8081/medicine')
+            .then(res => {
+              this.items = res.data;
+              this.renderingItems = res.data
+            })
+            .catch(err => console.log(err));
     },
     methods:{
       search: function(){
