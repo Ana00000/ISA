@@ -9,7 +9,7 @@
         <div height="300px">
           <v-container>
             <v-layout column>
-                <item-list v-bind:items="items"></item-list>
+                <item-list-pharmacies v-bind:items="items"></item-list-pharmacies>
             </v-layout>
           </v-container>
         </div>
@@ -25,9 +25,9 @@
 <script>
 import Footer from '../components/Footer.vue';
 import HomeBackground from '../components/HomeBackground.vue';
-import ItemList from '../components/itemList/ItemList.vue';
-// @ is an alias to /src
+import ItemListPharmacies from '../components/itemList/ItemListPharmacies.vue';
 import MapContainer from '../components/MapContainer.vue';
+import axios from 'axios';
 
 export default {
   name: 'Home',
@@ -35,18 +35,18 @@ export default {
     MapContainer,
     HomeBackground,
     Footer,
-    ItemList
+    ItemListPharmacies
   },
   data() {
     return{
       items: []
     }
   },
-  // created() {
-  //     this.$http.get('https://localhost:8081')
-  //         .then(res => this.items = res.data)
-  //         .catch(err => console.log(err));
-  // }
+  created() {
+      axios.get('http://localhost:8081/pharmacies/all')
+          .then(res => this.items = res.data)
+          .catch(err => console.log(err));
+  }
 
 }
 </script>

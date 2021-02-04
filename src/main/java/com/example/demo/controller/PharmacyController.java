@@ -27,7 +27,7 @@ public class PharmacyController {
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<PharmacyDTO>> getAllPharmacists() {
+    public ResponseEntity<List<PharmacyDTO>> getAllPharmacies() {
 
         List<Pharmacy> pharmacies = pharmacyService.findAll();
 
@@ -40,7 +40,7 @@ public class PharmacyController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PharmacyDTO> getPharmacist(@PathVariable Long id) {
+    public ResponseEntity<PharmacyDTO> getPharmacy(@PathVariable Long id) {
 
         Pharmacy pharmacy = pharmacyService.findOne(id);
 

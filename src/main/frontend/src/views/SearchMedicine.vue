@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <div style="margin: 50px"><h2 class="display-3">Search Medicine</h2></div>
-        <item-list-medicine v-bind:items="items"></item-list-medicine>
+        <item-list-medicine v-bind:items="items" v-if="items"></item-list-medicine>
     </v-container>
 </template>
 

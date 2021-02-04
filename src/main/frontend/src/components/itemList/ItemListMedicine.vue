@@ -99,16 +99,11 @@
       renderingItems: []
     }),
     props: [
-        "title",
         "items"
     ],
-    mounted(){
-      this.renderingItems = this.items;
-    },
     created(){
-      this.renderingItems = this.items;
-    },
-    beforeCreate(){
+      console.log('created');
+      console.log(this.items);
       this.renderingItems = this.items;
     },
     methods:{

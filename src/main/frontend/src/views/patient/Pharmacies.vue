@@ -5,8 +5,9 @@
                 <PatientMenu/>
             </div>
             <div class="panelDiv">
+                <div style="margin: 50px"><h2 class="display-3">Search Pharmacies</h2></div>
                 <div style="background: none; border: none;">
-                    <item-list title="Pharmacies"></item-list>
+                    <item-list-pharmacies v-bind:items="items"></item-list-pharmacies>
                 </div>
             </div>
         </v-layout>
@@ -14,32 +15,24 @@
 </template>
 
 <script>
-import PatientMenu from '../components/PatientMenu.vue'
-import ItemList from '../components/itemList/ItemList.vue'
+import PatientMenu from '@/components/PatientMenu.vue'
+import ItemListPharmacies from '@/components/itemList/ItemListPharmacies.vue'
+import axios from 'axios'
 export default {
     name : 'Pharmacies',
     components : {
         PatientMenu,
-        ItemList,
-  //      SearchBar
+        ItemListPharmacies,
     },
     data() {
-        return{
-            pharmacies: [
-                {
-                    id: 1,
-                    name: 'Pharmacy1'
-                },
-                {
-                    id: 2,
-                    name: 'Pharmacy2'
-                },
-                {
-                    id: 3,
-                    name: 'Pharmacy3'
-                }
-            ]
+        return {
+            items : []
         }
+    },
+    created() {
+        axios.get('http://localhost:8081/pharmacies/all')
+            .then(res => this.items = res.data)
+            .catch(err => console.log(err));
     }
 }
 </script>
