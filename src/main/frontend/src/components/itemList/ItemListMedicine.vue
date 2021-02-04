@@ -14,6 +14,8 @@
         hide-details
         prepend-icon="mdi-magnify"
         single-line
+        v-model="searchString"
+        v-on:keyup="search()"
       ></v-text-field>
 
       <v-spacer></v-spacer>
@@ -28,7 +30,7 @@
         active-class="pink--text"
         multiple
       >
-        <template v-for="(item, index) in items">
+        <template v-for="(item, index) in renderingItems">
           <v-list-item :key="item.title">
             <template v-slot:default="{ active }">
               <v-list-item-content >
@@ -89,15 +91,35 @@
 
 
 <script>
+import axios from 'axios';
   export default {
     data: () => ({
       selected: [2],
       drawer: false,
+      searchString: '',
+      renderingItems: [],
+      items : []
     }),
-    props: [
-        "title",
-        "items"
-    ]
+    created(){
+       axios.get('http://localhost:8081/medicine')
+            .then(res => {
+              this.items = res.data;
+              this.renderingItems = res.data
+            })
+            .catch(err => console.log(err));
+    },
+    methods:{
+      search: function(){
+        var i;
+        var newArray = [];
+        for(i = 0; i < this.items.length; i++){
+          if(this.searchString == '' || this.items[i].name.indexOf(this.searchString) !== -1 ){
+            newArray.push(this.items[i])
+          }
+        }
+        this.renderingItems = newArray;
+      }
+    }
   }
 </script>
 

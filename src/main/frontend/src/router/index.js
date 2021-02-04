@@ -36,12 +36,12 @@ const routes = [
   {
     path: '/patientHomePage',
     name: 'PatientHomePage',
-    component: () => import('../views/PatientHomePage.vue')
+    component: () => import('../views/patient/PatientHomePage.vue')
   },
   {
     path: '/pharmacies',
     name: 'Pharmacies',
-    component: () => import('../views/Pharmacies.vue')
+    component: () => import('../views/patient/Pharmacies.vue')
   },
   {
     path: '/searchMedicine',

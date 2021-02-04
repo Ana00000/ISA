@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import PatientMenu from '../components/PatientMenu.vue'
+import PatientMenu from '@/components/PatientMenu.vue'
 export default {
     name : 'PatientHomePage',
     components : {
