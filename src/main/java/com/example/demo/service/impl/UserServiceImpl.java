@@ -1,19 +1,19 @@
 package com.example.demo.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.demo.dto.DermatologistDTO;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.UserDTO;
-import com.example.demo.model.Doctor;
-import com.example.demo.model.Patient;
-import com.example.demo.model.Pharmacist;
+import com.example.demo.model.*;
+import com.example.demo.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 
@@ -21,6 +21,12 @@ import com.example.demo.service.UserService;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthorityService authorityService;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {
@@ -52,7 +58,13 @@ public class UserServiceImpl implements UserService {
     }
 
     public UserDTO findByEmail(String email) {
-        return new UserDTO(userRepository.findByEmail(email));
+        User user = userRepository.findByEmail(email);
+
+        if(user != null){
+            return new UserDTO(user);
+        }
+
+        return null;
     }
 
     public List<User> findByNameAndLastNameAllIgnoringCase(String name, String lastName) {
@@ -60,6 +72,10 @@ public class UserServiceImpl implements UserService {
     }
 
     public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        List<Authority> authorities = new ArrayList<>();
+        authorities.add(authorityService.findByName("ROLE_USER"));
+        user.setAuthorities(authorities);
         return userRepository.save(user);
     }
 

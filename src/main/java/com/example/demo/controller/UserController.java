@@ -45,10 +45,10 @@ public class UserController {
 	@Autowired
 	private TokenUtils tokenUtils;
 
-	
+	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	
+	@Autowired
 	private CustomUserDetailsService userDetailsService;
 	
 	@Autowired
@@ -97,9 +97,9 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest, UriComponentsBuilder ucBuilder) {
 
 		UserDTO existUserDto = this.userService.findByEmail(userRequest.getEmail());
-		User existUser= new User(existUserDto);
-		if (existUser != null) {
-			throw new ResourceConflictException(userRequest.getId(), "Username already exists");
+
+		if (existUserDto != null) {
+			throw new ResourceConflictException(existUserDto.getId(), "Username already exists");
 		}
 
 		User user = this.userService.save(new User(userRequest));

@@ -2,11 +2,14 @@ package com.example.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,7 +22,8 @@ import com.example.demo.security.TokenUtils;
 import com.example.demo.service.impl.CustomUserDetailsService;
 
 
-
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	// Implementacija PasswordEncoder-a koriscenjem BCrypt hashing funkcije.
 		// BCrypt po defalt-u radi 10 rundi hesiranja prosledjene vrednosti.
@@ -65,10 +69,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint).and()
 
 					// svim korisnicima dopusti da pristupe putanjama /auth/**, (/h2-console/** ako se koristi H2 baza) i /api/foo
-					.authorizeRequests().antMatchers("/login").permitAll()
-					
+					.authorizeRequests().antMatchers("/users/login").permitAll()
+					.antMatchers("/users/register").permitAll()
+
 					// za svaki drugi zahtev korisnik mora biti autentifikovan
 					.anyRequest().authenticated().and()
+
 					// za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
 					.cors().and()
 
@@ -83,7 +89,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		@Override
 		public void configure(WebSecurity web) throws Exception {
 			// TokenAuthenticationFilter ce ignorisati sve ispod navedene putanje
-			web.ignoring().antMatchers(HttpMethod.POST, "/login");
+			web.ignoring().antMatchers(HttpMethod.POST, "/users/login");
+			web.ignoring().antMatchers(HttpMethod.POST, "/users/register");
 			web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html",
 					"/**/*.css", "/**/*.js");
 		}

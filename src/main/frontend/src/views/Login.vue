@@ -48,7 +48,7 @@ export default {
       this.$http.post('http://localhost:8081/users/login', this.user)
       .then(resp => {
         console.log(resp.data);
-        this.$router.push('/')
+        window.location.href = "http://localhost:8080/";
       })
       .catch(er => {
         console.log('Error while logging in');
