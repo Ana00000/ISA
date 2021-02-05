@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.Appointment;
+import com.example.demo.model.Patient;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.service.AppointmentService;
 
@@ -44,6 +45,11 @@ public class ApointmentServiceImpl implements AppointmentService {
 	
 	public List<Appointment> findAllByPrice(double price) {
 		return appointmentRepository.findAllByPrice(price);
+	}
+
+	@Override
+	public List<Appointment> findAllByPatient(Patient patient) {
+		return null;
 	}
 
 	public Appointment save(Appointment appointment) {
