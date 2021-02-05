@@ -29,7 +29,7 @@
                 <router-link class="link" to="/pharmacies">Write a complaint</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Reserve medicine</router-link>
+                <router-link class="link" to="/patientReserveMedicine">Reserve medicine</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacies">Schedule appointment</router-link>
