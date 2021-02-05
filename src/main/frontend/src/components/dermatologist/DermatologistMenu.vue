@@ -18,7 +18,7 @@
                 <router-link class="link" to="/dermatologistHomePage/vacationsAndAbsences">Vacations and absences</router-link>
             </div>
             <div>
-                <router-link class="link" to="/dermatologistHomePage/profile">Profile</router-link>
+                <router-link class="link" to="/dermatologistHomePage/profile/:id">Profile</router-link>
             </div>
             <div>
                 <router-link class="link" to="/dermatologistHomePage/scheduleExamination">Schedule examination</router-link>

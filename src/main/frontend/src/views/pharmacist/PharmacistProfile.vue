@@ -136,7 +136,6 @@ export default {
         address: '',
         phoneNumber: '',
         active: true,
-        type: 'pharmacist',
         workingInPharmacy: null,
         userImage: userImage,
         updatePng: updatePng
@@ -164,6 +163,7 @@ export default {
             this.password = item.password;
             this.address = item.address;
             this.phoneNumber = item.phoneNumber;
+            this.type = item.type;
             this.active = item.active;
         },
         setPharmacy() {
@@ -175,10 +175,8 @@ export default {
         setPharmacyInfo(item) {
             item.forEach(pharmacy => {
                 pharmacy.pharmacists.forEach(pharmacist => {
-                    if(pharmacist.id == this.id){
-                        console.log(pharmacist.id);
+                    if(pharmacist.id == this.id)
                         this.workingInPharmacy = pharmacy.id;
-                    }
                 });
 
             });
