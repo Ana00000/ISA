@@ -10,7 +10,7 @@
             </div>
             <div class="welcoming">For search enter name and/or surname.</div>
             <br/>
-            <item-list-clients v-bind:items="clients"/>
+            <dermatologist-clients-search/>
         </div>
         <div class="panelDiv">
                 <DermatologistMenu/>
@@ -20,16 +20,12 @@
 
 <script>
 import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
-import ItemListClients from '../../components/itemList/ItemListClients.vue'
+import DermatologistClientsSearch from '../../components/dermatologist/DermatologistClientsSearch.vue'
 export default {
     name: 'DermatologistClients',    
     components : {   
         DermatologistMenu,
-        ItemListClients
-    },
-    data() {
-        return{
-        }
+        DermatologistClientsSearch
     }
 }
 </script>
