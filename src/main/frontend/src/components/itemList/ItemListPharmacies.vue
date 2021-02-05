@@ -114,7 +114,7 @@ import axios from 'axios';
       items: []
     }),
     created(){
-      axios.get('http://localhost:8081/pharmacies/all')
+      axios.get('http://localhost:8081/pharmacies/patient')
             .then(res => {
               this.items = res.data;
               this.renderingItems = res.data;

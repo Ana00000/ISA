@@ -34,7 +34,7 @@ export default {
 
 .panelDiv {
     width: 100%;
-    margin: 0auto;
+    margin: 0 auto;
     background: none;
     border: none;
 }

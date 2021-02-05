@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.example.demo.model.Patient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 	List<Appointment> findAllByEndTime(Timestamp endTime);
 
 	List<Appointment> findAllByPrice(double price);
+
+	List<Appointment> findAllByPatient(Patient patient);
 }

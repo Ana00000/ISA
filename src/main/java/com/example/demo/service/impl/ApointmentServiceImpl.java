@@ -49,7 +49,7 @@ public class ApointmentServiceImpl implements AppointmentService {
 
 	@Override
 	public List<Appointment> findAllByPatient(Patient patient) {
-		return null;
+		return appointmentRepository.findAllByPatient(patient);
 	}
 
 	public Appointment save(Appointment appointment) {
