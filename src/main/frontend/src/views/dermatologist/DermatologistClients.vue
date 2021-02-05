@@ -12,8 +12,8 @@
             <br/>
             <dermatologist-clients-search/>
         </div>
-        <div class="panelDiv">
-                <DermatologistMenu/>
+        <div>
+            <DermatologistMenu/>
         </div>
     </div>  
 </template>

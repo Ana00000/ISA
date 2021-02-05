@@ -12,8 +12,8 @@
             <br/>
             <pharmacist-clients-search/>
         </div>
-        <div class="panelDiv">
-                <PharmacistMenu/>
+        <div>
+            <PharmacistMenu/>
         </div>
     </div>  
 </template>
