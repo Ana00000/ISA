@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-<<<<<<< HEAD
-import com.example.demo.dto.*;
-import com.example.demo.model.*;
-=======
+
 import com.example.demo.dto.DermatologistDTO;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.dto.PharmacistDTO;
@@ -15,7 +12,6 @@ import com.example.demo.model.User;
 import com.example.demo.security.ResourceConflictException;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.security.UserTokenState;
->>>>>>> Security applied on login and registration
 import com.example.demo.service.PatientService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.CustomUserDetailsService;
