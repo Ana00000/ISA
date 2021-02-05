@@ -1,13 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.DermatologistDTO;
-import com.example.demo.dto.PatientDTO;
-import com.example.demo.dto.PharmacistDTO;
-import com.example.demo.dto.UserDTO;
-import com.example.demo.model.Doctor;
-import com.example.demo.model.Patient;
-import com.example.demo.model.Pharmacist;
-import com.example.demo.model.User;
+import com.example.demo.dto.*;
+import com.example.demo.model.*;
 import com.example.demo.service.PatientService;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +37,7 @@ public class UserController {
     
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
-        UserDTO userDto;
+        UserDTO userDto = null;
 
         try {
             User user = userService.login(userDTO);
@@ -59,8 +53,10 @@ public class UserController {
                 userDto = new PatientDTO(user);
             } else if (Pharmacist.class.equals(user.getClass())) {
                 userDto = new PharmacistDTO((Doctor) user);
-            } else {
+            } else if (Dermatologist.class.equals(user.getClass())){
                 userDto = new DermatologistDTO((Doctor) user);
+            } else if (PharmacyAdmin.class.equals(user.getClass())){
+                userDto = new PharmacyAdminDTO(user);
             }
             return new ResponseEntity<>(userDto, HttpStatus.OK);
         }
