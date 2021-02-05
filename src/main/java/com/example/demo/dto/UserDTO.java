@@ -20,10 +20,10 @@ public class UserDTO implements Serializable {
 	}
 	
 	public UserDTO(User user) {
-		this(user.getId(), user.getName(), user.getLastName(), user.getEmail(), user.getPassword(),user.getAddress(),user.getPhoneNumber(),user.getHashString());
+		this(user.getId(), user.getName(), user.getLastName(), user.getEmail(), user.getPassword(),user.getAddress(),user.getPhoneNumber(),user.isActive(), user.getHashString());
 	}
 	
-	public UserDTO(Long id, String name, String lastName, String email, String password, String address, String phoneNumber,String hashString) {
+	public UserDTO(Long id, String name, String lastName, String email, String password, String address, String phoneNumber,Boolean active, String hashString) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,9 +32,12 @@ public class UserDTO implements Serializable {
 		this.password = password;
 		this.address=address;
 		this.phoneNumber=phoneNumber;
+		this.active = active;
 		this.hashString=hashString;
 	}
-	
+
+
+
 	public String getAddress() {
 		return address;
 	}

@@ -19,7 +19,7 @@ import org.springframework.http.MediaType;
 @RequestMapping(value = "/pharmacists", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PharmacistController {
 	
-	private PharmacistService pharmacistService;
+	private final PharmacistService pharmacistService;
     
 	@Autowired
 	public PharmacistController(PharmacistService pharmacistService) {

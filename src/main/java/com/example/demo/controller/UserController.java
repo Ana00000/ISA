@@ -20,7 +20,6 @@ import java.util.Random;
 
 @RestController
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-
 public class UserController {
 
     private final UserService userService;

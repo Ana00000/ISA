@@ -3,7 +3,7 @@
     <span class="bg"/>
     <div class="panelDiv">
       <div style="margin: 10px"  >
-        <h1 style="color: white">Pharmacy Profile</h1>
+        <h1 style="color: white">Pharmacy Administrator Profile</h1>
       </div>
       <div class="grid-container1">
         <v-list style="background: transparent" class="display-4">
@@ -26,20 +26,18 @@
         </v-list>
         <div>
           <div class="grid-container2">
-            <h3 class="grid-item">Name:</h3>
+            <h3 class="grid-item">First Name:</h3>
             <h3 class="grid-item">{{name}}</h3>
-            <h3 class="grid-item">Contact:</h3>
-            <h3 class="grid-item">{{contact}}</h3>
-            <h3 class="grid-item">Country:</h3>
-            <h3 class="grid-item">{{country}}</h3>
-            <h3 class="grid-item">City:</h3>
-            <h3 class="grid-item">{{city}}</h3>
-            <h3 class="grid-item">Street:</h3>
-            <h3 class="grid-item">{{street}}</h3>
-            <h3 class="grid-item">Number:</h3>
-            <h3 class="grid-item">{{number}}</h3>
-            <h3 class="grid-item">Average Grade:</h3>
-            <h3 class="grid-item">{{averageGrade}}</h3>
+            <h3 class="grid-item">Last Name:</h3>
+            <h3 class="grid-item">{{lastName}}</h3>
+            <h3 class="grid-item">Email:</h3>
+            <h3 class="grid-item">{{email}}</h3>
+            <h3 class="grid-item">Address:</h3>
+            <h3 class="grid-item">{{address}}</h3>
+            <h3 class="grid-item">Phone Number:</h3>
+            <h3 class="grid-item">{{phoneNumber}}</h3>
+            <h3 class="grid-item">Working in pharmacy:</h3>
+            <h3 class="grid-item">{{workingInPharmacy}}</h3>
           </div>
         </div>
       </div>
@@ -49,24 +47,24 @@
 
 <script>
 export default {
-  name: "PharmacyProfile",
+name: "PharmacyAdminProfile",
   data: () => ({
     name: '',
-    contact: '',
-    country: '',
-    city: '',
-    street: '',
-    number: '',
-    averageGrade: null,
-    pharmacyId: 0
+    lastName: '',
+    email: '',
+    address: '',
+    phoneNumber: null,
+    active: true,
+    workingInPharmacy: null,
+    pharmacyAdminId: null
   }),
   mounted() {
     this.init();
   },
   methods: {
     init() {
-      this.pharmacyId = this.$route.params.pharmacyId;
-      this.$http.get('http://localhost:8081/pharmacies/' + this.pharmacyId).then(resp => {
+      this.pharmacyAdminId = this.$route.params.pharmacyAdminId;
+      this.$http.get('http://localhost:8081/pharmacyAdmins/' + this.pharmacyAdminId).then(resp => {
         console.log(resp.data);
         this.setInfo(resp.data);
       }).catch(err => {
@@ -75,21 +73,23 @@ export default {
       })
     },
     setInfo(item) {
-        this.name = item.name;
-        this.contact = item.contact;
-        this.country = item.country;
-        this.city = item.city;
-        this.street = item.street;
-        this.number = item.number;
-        this.averageGrade = item.averageGrade;
+      this.name = item.name;
+      this.lastName = item.lastName;
+      this.email = item.email;
+      this.address = item.address;
+      this.phoneNumber = item.phoneNumber;
+      this.active = item.active;
+      this.workingInPharmacy = item.pharmacy.id;
+      this.pharmacyAdminId = item.pharmacyAdminId;
     }
   }
 }
 </script>
 
 <style scoped>
+
 .bg {
-  background: url('https://images.unsplash.com/photo-1584362917165-526a968579e8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=782&q=80');
+  background: url('https://media.capc.org/images/AdobeStock_274131656.original.jpg');
   background-size: cover;
   width: 100%;
   height: 100%;
