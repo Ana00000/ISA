@@ -70,17 +70,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 					// svim korisnicima dopusti da pristupe putanjama /auth/**, (/h2-console/** ako se koristi H2 baza) i /api/foo
 					.authorizeRequests().antMatchers("/users/login").permitAll()
-					.antMatchers("/users/register").permitAll()
-
+					.antMatchers("/users/register").permitAll();
+					
 					// za svaki drugi zahtev korisnik mora biti autentifikovan
-					.anyRequest().authenticated().and()
+					//.anyRequest().authenticated().and()
 
 					// za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
-					.cors().and()
+					//.cors().and()
 
 					// umetni custom filter TokenAuthenticationFilter kako bi se vrsila provera JWT tokena umesto cistih korisnickog imena i lozinke (koje radi BasicAuthenticationFilter)
-					.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
-							BasicAuthenticationFilter.class);
+					//.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
+						//	BasicAuthenticationFilter.class);
+							
 			// zbog jednostavnosti primera
 			http.csrf().disable();
 		}

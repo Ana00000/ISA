@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import WorkingSchedule from '../../components/WorkingSchedule.vue'
+import WorkingSchedule from '../../components/doctor/WorkingSchedule.vue'
 import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
 export default {
     name: 'DermatologistWorkingSchedule',    

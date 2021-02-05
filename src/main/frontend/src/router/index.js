@@ -79,7 +79,7 @@ const routes = [
     component: () => import('../views/dermatologist/DermatologistVacationsAndAbsences.vue')
   },
   {
-    path: '/dermatologistHomePage/profile',
+    path: '/dermatologistHomePage/profile/:id',
     name: 'DermatologistProfile',
     component: () => import('../views/dermatologist/DermatologistProfile.vue')
   },
@@ -119,7 +119,7 @@ const routes = [
     component: () => import('../views/pharmacist/PharmacistVacationsAndAbsences.vue')
   },
   {
-    path: '/pharmacistHomePage/profile',
+    path: '/pharmacistHomePage/profile/:id',
     name: 'PharmacistProfile',
     component: () => import('../views/pharmacist/PharmacistProfile.vue')
   },
