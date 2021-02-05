@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.model.Patient;
@@ -48,5 +49,45 @@ public class PatientController {
 		}
 
 		return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
+	}
+	
+	// For this search is needed full name
+	@GetMapping(value = "findByName/{name}")
+	public ResponseEntity<List<PatientDTO>> getPatientsByName(@PathVariable String name) {
+
+		List<Patient> patients = patientService.findAllByName(name);
+
+		List<PatientDTO> patientsDTO = new ArrayList<>();
+		for (Patient p : patients) {
+			patientsDTO.add(new PatientDTO(p));
+		}
+		return new ResponseEntity<>(patientsDTO, HttpStatus.OK);
+	}
+
+	// For this search is needed full lastName
+	@GetMapping(value = "findByLastName/{lastName}")
+	public ResponseEntity<List<PatientDTO>> getPatientsByLastName(@PathVariable String lastName) {
+
+		List<Patient> patients = patientService.findAllByLastName(lastName);
+
+		List<PatientDTO> patientsDTO = new ArrayList<>();
+		for (Patient p : patients) {
+			patientsDTO.add(new PatientDTO(p));
+		}
+		return new ResponseEntity<>(patientsDTO, HttpStatus.OK);
+	}
+	
+	// For this search is needed full name and full lastName
+	@GetMapping(value = "findByNameAndLastName/{name}/{lastName}")
+	public ResponseEntity<List<PatientDTO>> getPatientsByNameAndLastName(@PathVariable("name") String name,
+			@PathVariable("lastName") String lastName) {
+
+		List<Patient> patients = patientService.findByNameAndLastNameAllIgnoringCase(name, lastName);
+
+		List<PatientDTO> patientsDTO = new ArrayList<>();
+		for (Patient p : patients) {
+			patientsDTO.add(new PatientDTO(p));
+		}
+		return new ResponseEntity<>(patientsDTO, HttpStatus.OK);
 	}
 }

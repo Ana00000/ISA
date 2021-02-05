@@ -39,15 +39,15 @@
         v-model="selected"
         active-class="indigo--text"
         multiple>
-        <template v-for="(item, id) in items">
-          <v-list-item :key="item.id">
+        <template v-for="(client, id) in clients">
+          <v-list-item :key="client.id">
             <template>  
               <v-list-item-content>
-                  <v-list-item-subtitle v-text="item.name+' '+item.lastName+', '+item.phoneNumber+', '+item.address+', '+item.email"></v-list-item-subtitle>
+                  <v-list-item-subtitle v-text="client.name+' '+client.lastName+', '+client.phoneNumber+', '+client.address+', '+client.email"></v-list-item-subtitle>
               </v-list-item-content>
             </template>
           </v-list-item>
-          <v-divider v-if="id <items.length-1" :key="id"/>
+          <v-divider v-if="id <clients.length-1" :key="id"/>
         </template>
       </v-list-item-group>
     </v-list>
@@ -60,24 +60,24 @@
       <v-text-field
         hide-details
         prepend-icon="mdi-magnify"
-        single-line/>
-      <v-spacer/>
-      <v-btn class="indigo">Search</v-btn>
+        single-line
+        v-model="searchInput"
+        v-on:keyup="searchQuery()"/>
     </v-toolbar>
     <v-list two-line>
       <v-list-item-group
         v-model="selected"
         active-class="indigo--text"
         multiple>
-        <template v-for="(item, id) in items">
-          <v-list-item :key="item.id">
+        <template v-for="(client, id) in clients">
+          <v-list-item :key="client.id">
             <template>  
               <v-list-item-content>
-                  <v-list-item-subtitle v-text="item.name+' '+item.lastName"></v-list-item-subtitle>
+                  <v-list-item-subtitle v-text="client.name+' '+client.lastName"></v-list-item-subtitle>
               </v-list-item-content>
             </template>
           </v-list-item>
-          <v-divider v-if="id <items.length-1" :key="id"/>
+          <v-divider v-if="id <clients.length-1" :key="id"/>
         </template>
       </v-list-item-group>
     </v-list>
@@ -88,13 +88,34 @@
 </template>
 
 <script>
-  export default {
+import axios from 'axios';
+export default {
     data: () => ({
       drawer: false,
+      searchInput: null,
+      clients: [],
+      clientsCopy : []
     }),
-    props: [
-        "items"
-    ]
+    created(){
+       axios.get('http://localhost:8081/patients/all')
+            .then(res => {
+              this.clients = res.data;
+              this.clientsCopy = res.data
+            })
+            .catch(err => console.log(err));
+    },
+    methods: {
+      searchQuery() {
+        var resultOfSearch = [];
+        for(var i = 0; i < this.clientsCopy.length; i++) {
+          var fullName = this.clientsCopy[i].lastName + ' ' + this.clientsCopy[i].name;
+          var fullNameReverse = this.clientsCopy[i].name + ' ' + this.clientsCopy[i].lastName;
+          if(fullName.toLowerCase().includes(this.searchInput.toLowerCase()) || fullNameReverse.toLowerCase().includes(this.searchInput.toLowerCase()))
+                resultOfSearch.push(this.clientsCopy[i])
+        }
+        this.clients = resultOfSearch;
+      }
+    }
   }
 </script>
 

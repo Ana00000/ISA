@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
 import ItemListClients from '../../components/itemList/ItemListClients.vue'
 export default {
@@ -30,13 +29,7 @@ export default {
     },
     data() {
         return{
-            clients: []
         }
-    },
-    created() {
-        axios.get('http://localhost:8081/patients/all')
-            .then(res => this.clients = res.data)
-            .catch(err => console.log(err));
     }
 }
 </script>
