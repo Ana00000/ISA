@@ -3,9 +3,9 @@
         <v-navigation-drawer app temporary v-model="drawer" class="indigo" dark disable-resize-watcher>
             <v-list>
                 <template v-for="(item, index) in items">
-                    <v-list-tile :key="index">
+                    <v-list-tile :key="index" >
                         <v-list-tile-content>
-                            <v-card height="50px">
+                            <v-card height="35px" class="ma-1 text-sm-button text-center">
                                 <router-link class="router" :to="item.path">{{item.title}}</router-link>
                             </v-card>
                         </v-list-tile-content>
@@ -18,10 +18,10 @@
             <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-spacer class="hidden-md-and-up"></v-spacer>
             <v-toolbar-title><router-link class="router" to="/">{{appTitle}}</router-link></v-toolbar-title>
-            <v-btn flat class="hidden-sm-and-down" @click="drawer = !drawer">Menu</v-btn>
+            <v-btn flat class="hidden-sm-and-down ma-1" @click="drawer = !drawer">Menu</v-btn>
             <v-spacer class="hidden-sm-and-down"></v-spacer>
             <v-btn flat class="hidden-sm-and-down"><router-link class="router" to="/login">Login</router-link></v-btn>
-            <v-btn color="brown lighten-3" class="hidden-sm-and-down"><router-link class="router" to="/register">Register</router-link></v-btn>
+            <v-btn color="brown lighten-3" class="hidden-sm-and-down ma-1"><router-link class="router" to="/register">Register</router-link></v-btn>
         </v-toolbar>
     </span>
 </template>

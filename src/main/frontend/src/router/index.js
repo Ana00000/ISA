@@ -122,6 +122,16 @@ const routes = [
     path: '/pharmacistHomePage/scheduleConsultation',
     name: 'ScheduleConsultation',
     component: () => import('../views/pharmacist/ScheduleConsultation.vue')
+  },
+  {
+    path: '/pharmacy/profile/:pharmacyId',
+    name: 'PharmacyProfile',
+    component: () => import('../views/pharmacy/PharmacyProfile.vue')
+  },
+  {
+    path: '/pharmacyAdmin/profile/:pharmacyAdminId',
+    name: 'PharmacyAdminProfile',
+    component: () => import('../views/pharmacyAdmin/PharmacyAdminProfile.vue')
   }
 ]
 
