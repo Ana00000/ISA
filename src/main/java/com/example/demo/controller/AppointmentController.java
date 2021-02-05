@@ -3,7 +3,9 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.model.AppointmentStatus;
 import com.example.demo.model.Patient;
+import com.example.demo.model.enums.AppointmentStatusValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,7 +59,7 @@ public class AppointmentController {
 
 	@GetMapping(value = "/patient")
 //	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<List<AppointmentDTO>> getByPatient() {
+	public ResponseEntity<List<AppointmentDTO>> getDoneByPatient() {
 
 		//Izdvojimo pacijenta iz sesije
 		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
@@ -69,7 +71,29 @@ public class AppointmentController {
 
 		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
 		for (Appointment a : appointments) {
-			appointmentsDTO.add(new AppointmentDTO(a));
+			if(a.getStatus().getStatusValue() == AppointmentStatusValue.DONE)
+				appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/patientUpcomming")
+//	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<List<AppointmentDTO>> getUpcommingByPatient() {
+
+		//Izdvojimo pacijenta iz sesije
+		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("OOOOOO" + currentUser.getName());
+		Patient patient = new Patient();
+		patient.setEmail(currentUser.getName());
+		patient.setId(6L);
+		List<Appointment> appointments = appointmentService.findAllByPatient(patient);
+
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			if(a.getStatus().getStatusValue() == AppointmentStatusValue.UPCOMING)
+				appointmentsDTO.add(new AppointmentDTO(a));
 		}
 
 		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);

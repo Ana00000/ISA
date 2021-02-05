@@ -8,7 +8,7 @@
                 <router-link class="link" to="/patientAppointmentHistory">Appointment history</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Scheduled appointments</router-link>
+                <router-link class="link" to="/patientScheduledAppointments">Scheduled appointments</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacies">eRecipes</router-link>

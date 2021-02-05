@@ -37,7 +37,6 @@
                 <v-list-item-title  v-text="item.name"></v-list-item-title>
                 <v-list-item-subtitle v-text="item.street + ', ' + item.city"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Grade: ' + item.averageGrade"></v-list-item-subtitle>
-              
               </v-list-item-content>
 
 
@@ -138,7 +137,7 @@ import axios from 'axios';
         var i;
         var newArray = [];
         for(i = 0; i < this.searchedItems.length; i++){
-          if( this.filterGrade == '' || this.renderingItems[i].averageGrade == this.filterGrade ){
+          if( this.filterGrade == '' || this.searchedItems[i].averageGrade == this.filterGrade ){
             newArray.push(this.items[i]);
           }
         }
