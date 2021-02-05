@@ -2,10 +2,10 @@
     <v-container class="pink lighten-2 white--text">
         <v-layout style="padding:0px" column>
             <div>
-                <router-link class="link" to="/pharmacies">Pharmacies</router-link>
+                <router-link class="link" to="/patientPharmacies">Pharmacies</router-link>
             </div>
             <div >
-                <router-link class="link" to="/pharmacies">Appointment history</router-link>
+                <router-link class="link" to="/patientAppointmentHistory">Appointment history</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacies">Scheduled appointments</router-link>

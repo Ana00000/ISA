@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.demo.model.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,5 +50,21 @@ public class AppointmentController {
 		}
 
 		return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/patient")
+	public ResponseEntity<List<AppointmentDTO>> getByPatient() {
+
+		//Izdvojimo pacijenta iz sesije
+
+		Patient patient = new Patient();
+		List<Appointment> appointments = appointmentService.findAllByPatient(patient);
+
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
 	}
 }
