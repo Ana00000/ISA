@@ -1,23 +1,56 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.*;
-import com.example.demo.model.*;
+
+import com.example.demo.dto.DermatologistDTO;
+import com.example.demo.dto.PatientDTO;
+import com.example.demo.dto.PharmacistDTO;
+import com.example.demo.dto.UserDTO;
+import com.example.demo.model.Doctor;
+import com.example.demo.model.Patient;
+import com.example.demo.model.Pharmacist;
+import com.example.demo.model.User;
+import com.example.demo.security.ResourceConflictException;
+import com.example.demo.security.TokenUtils;
+import com.example.demo.security.UserTokenState;
 import com.example.demo.service.PatientService;
 import com.example.demo.service.UserService;
+import com.example.demo.service.impl.CustomUserDetailsService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import java.util.List;
 import java.util.Random;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
+	
+	@Autowired
+	private TokenUtils tokenUtils;
 
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
+	
+	@Autowired
     private final UserService userService;
     
+	@Autowired
     private final PatientService patientService;
 
     @Autowired
@@ -36,55 +69,40 @@ public class UserController {
     }
     
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
-        UserDTO userDto = null;
+    public ResponseEntity<UserTokenState> login(@RequestBody UserDTO authenticationRequest,
+			HttpServletResponse response) {
+    	System.out.println("------- login -------");
+    	// 
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
+						authenticationRequest.getPassword()));
 
-        try {
-            User user = userService.login(userDTO);
-            
-            if (user == null) {
-                throw new RuntimeException("User with that email and password doesn't exist");
-            }
-            if(!user.isActive()) {
-            	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-            }
+		// Ubaci korisnika u trenutni security kontekst
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            if (Patient.class.equals(user.getClass())) {
-                userDto = new PatientDTO(user);
-            } else if (Pharmacist.class.equals(user.getClass())) {
-                userDto = new PharmacistDTO((Doctor) user);
-            } else if (Dermatologist.class.equals(user.getClass())){
-                userDto = new DermatologistDTO((Doctor) user);
-            } else if (PharmacyAdmin.class.equals(user.getClass())){
-                userDto = new PharmacyAdminDTO(user);
-            }
-            return new ResponseEntity<>(userDto, HttpStatus.OK);
-        }
-        catch (RuntimeException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+		// Kreiraj token za tog korisnika
+		User user = (User) authentication.getPrincipal();
+		String jwt = tokenUtils.generateToken(user.getUsername());
+		int expiresIn = tokenUtils.getExpiredIn();
+
+		// Vrati token kao odgovor na uspesnu autentifikaciju
+		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
     }
     
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserDTO userDTO){
-    	try {
-    		String hashString = givenUsingJava8_whenGeneratingRandomAlphabeticString_thenCorrect();
-    		userDTO.setHashString(hashString);
-    		userDTO.setActive(true);	//set it false when email verification is done !!!
-			if(userService.login(userDTO) != null) {
-				return new ResponseEntity<String>("User name not available",HttpStatus.BAD_REQUEST);
-			}
-    		Patient patient= new Patient(userDTO);
-			patientService.save(patient);
-    		
-    		return new ResponseEntity<String>("Successfully created",HttpStatus.OK);
-		} catch (RuntimeException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-    
+    public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest, UriComponentsBuilder ucBuilder) {
+
+		UserDTO existUserDto = this.userService.findByEmail(userRequest.getEmail());
+
+		if (existUserDto != null) {
+			throw new ResourceConflictException(existUserDto.getId(), "Username already exists");
+		}
+
+		User user = this.userService.save(new User(userRequest));
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());
+		return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
     
     public String givenUsingJava8_whenGeneratingRandomAlphabeticString_thenCorrect() {
         int leftLimit = 97; // letter 'a'
@@ -98,24 +116,5 @@ public class UserController {
           .toString();
         return generatedString;
     }
-    
-    /*public static void send(String from,String password,String to,String sub,String msg){  
-    	Properties props = new Properties();
-    	Session session= Session.getDefaultInstance(System.getProperties());
-
-    	try {
-    	  Message msg = new MimeMessage(session);
-    	  msg.setFrom(new InternetAddress("admin@example.com", "Example.com Admin"));
-    	  msg.addRecipient(Message.RecipientType.TO,
-    	                   new InternetAddress("user@example.com", "Mr. User"));
-    	  msg.setSubject("Your Example.com account has been activated");
-    	  msg.setText("This is a test");
-    	  Transport.send(msg);
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    		return;
-    	}
-           
-  }  */
 
 }

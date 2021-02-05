@@ -198,3 +198,5 @@ INSERT INTO ingredients_of_medicine(ingredient_name, medicine_name) VALUES ('Sel
 INSERT INTO ingredients_of_medicine(ingredient_name, medicine_name) VALUES ('Alosetron', 'Codeine');
 INSERT INTO ingredients_of_medicine(ingredient_name, medicine_name) VALUES ('Magnesium', 'Codeine');
 
+INSERT INTO AUTHORITY (name) VALUES ('ROLE_USER');
+INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
