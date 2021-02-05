@@ -49,4 +49,16 @@ public class AppointmentController {
 
 		return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.OK);
 	}
+
+	@GetMapping(value = "/patient/{id}")
+	public ResponseEntity<AppointmentDTO> getByPatient(@PathVariable Long id) {
+
+		Appointment appointment = appointmentService.findOne(id);
+
+		if (appointment == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.OK);
+	}
 }
