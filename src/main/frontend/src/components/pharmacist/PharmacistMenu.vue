@@ -20,7 +20,7 @@
                 <router-link class="link" to="/pharmacistHomePage/vacationsAndAbsences">Vacations and absences</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/profile">Profile</router-link>
+                <router-link class="link" to="/pharmacistHomePage/profile/:id">Profile</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacistHomePage/scheduleConsultation">Schedule consultation</router-link>

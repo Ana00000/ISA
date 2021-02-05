@@ -2,34 +2,207 @@
     <div style="
         background: #13077d;
         background: -webkit-linear-gradient(to right, #5442ed, #cdc8fa, #13077d);
-        background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"> 
-        <br/>
-        <div class="welcoming">Hi pharmacist!</div>
-        <div class="panelDiv">
-                <PharmacistMenu/>
+        background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);">
+
+        <br/><br/>
+        
+        <div class="userImage">
+            <img :src="userImage" width="600px" height="500px"/>
+        </div>
+
+        <v-container fluid class="container">
+            <v-row>
+            <v-col cols="6"/>
+            <v-col cols="2">
+                <v-text-field
+                    label="Name"
+                    v-model="name"
+                    hint="Your name should contain at least 2 characters!"/>
+            </v-col>
+            </v-row>
+
+            <v-row>
+            <v-col cols="6"/>
+            <v-col cols="2">
+                <v-text-field
+                label="Last name"
+                v-model="lastName"
+                hint="Your last name should contain at least 2 characters!"/>
+            </v-col>
+            </v-row>
+
+            <v-row>
+            <v-col cols="6"/>
+            <v-col cols="2">
+                <v-text-field
+                label="Email"
+                v-model="email"
+                hint="Your email should contain at least 5 characters!"/>
+            </v-col>
+            </v-row>
+
+            <v-row>
+            <v-col cols="6"/>
+            <v-col cols="2">
+                <v-text-field
+                label="Password"
+                v-model="password"
+                hint="Your password should contain at least 3 characters!"
+                ref="password"
+                type="password"/>
+            </v-col>
+            </v-row>
+
+            <v-row>
+            <v-col cols="6"/>
+            <v-col cols="2">
+                <v-text-field
+                label="Address"
+                v-model="address"
+                hint="Your address should contain at least 3 characters!"/>
+            </v-col>
+            </v-row>
+            
+            <v-row>
+            <v-col cols="6"/>
+            <v-col cols="2">
+                <v-text-field
+                label="Phone number"
+                v-model="phoneNumber"
+                hint="Your phone number should contain 9 or 10 numbers!"/>
+            </v-col>
+            </v-row>
+            
+            <v-row>
+            <v-col cols="6"/>
+            <v-col cols="2">
+                <v-text-field
+                label="Type of doctor"
+                v-model="type"
+                hint="You can not change your job title, only admin can!"
+                readonly/>
+            </v-col>
+            </v-row>
+
+            <v-row>
+            <v-col cols="6"/>
+            <v-col cols="2">
+                <v-text-field
+                label="Working in pharmacy"
+                v-model="workingInPharmacy"
+                hint="You can not change in which pharmacy you work, only admin can!"
+                readonly>
+                </v-text-field>
+            </v-col>
+            </v-row>
+            <br/><br/>
+        </v-container>
+
+        <div class="updatePng">
+            <img :src="updatePng" width="350px" height="350px"/>
+        </div>
+
+        <div class="updateButton">
+            <v-btn
+                color="#aba7ff"
+                elevation="24"
+                x-large
+                raised
+                rounded
+            >Update info</v-btn>
+        </div>
+
+        <div class="menu">
+            <PharmacistMenu/>
         </div> 
     </div>  
 </template>
 
 <script>
+import userImage from "../../assets/user_profile.jpg"
+import updatePng from "../../assets/update_profile.png"
 import PharmacistMenu from '../../components/pharmacist/PharmacistMenu.vue'
 export default {
     name: 'PharmacistProfile',
     components : {   
         PharmacistMenu
+    },
+    data: () => ({
+        id: null,
+        name: '',
+        lastName: '',
+        email: '',
+        password: '',
+        address: '',
+        phoneNumber: '',
+        active: true,
+        type: 'pharmacist',
+        workingInPharmacy: null,
+        userImage: userImage,
+        updatePng: updatePng
+    }),
+    mounted() {
+        this.init();
+    },
+    methods: {
+        init() {
+            this.setPharmacist();
+            this.setPharmacy();
+        },
+        setPharmacist() {
+            this.id = this.$route.params.id;
+            this.$http.get('http://localhost:8081/pharmacists/' + this.id).then(resp => {
+                console.log(resp.data);
+                this.setPharmacistInfo(resp.data);
+            }).catch(err => console.log(err));
+        },
+        setPharmacistInfo(item) {
+            this.id = item.id;
+            this.name = item.name;
+            this.lastName = item.lastName;
+            this.email = item.email;
+            this.password = item.password;
+            this.address = item.address;
+            this.phoneNumber = item.phoneNumber;
+            this.active = item.active;
+        },
+        setPharmacy() {
+            this.$http.get('http://localhost:8081/pharmacies/all').then(resp => {
+                console.log(resp.data);
+                this.setPharmacyInfo(resp.data);
+            }).catch(err => console.log(err));
+        },
+        setPharmacyInfo(item) {
+            item.forEach(pharmacy => {
+                pharmacy.pharmacists.forEach(pharmacist => {
+                    if(pharmacist.id == this.id){
+                        console.log(pharmacist.id);
+                        this.workingInPharmacy = pharmacy.id;
+                    }
+                });
+
+            });
+        }
     }
 }
 </script>
 
-
 <style scoped>
-.welcoming {
-    font-weight: bolder;
-    font-size: 25px;
-    height: 816px;
+.userImage {
+    position: absolute;
+    left: 110px;
+    top: 150px;
 }
 
-.panelDiv {
-    float: bottom;
+.updatePng {
+    position: absolute;
+    right: 160px;
+    top: 100px;
+}
+
+.updateButton {
+    position: absolute;
+    right: 250px;
+    top: 600px;
 }
 </style>

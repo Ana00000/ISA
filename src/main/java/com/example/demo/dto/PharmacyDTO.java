@@ -1,8 +1,6 @@
 package com.example.demo.dto;
 
 import com.example.demo.model.*;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -21,6 +19,8 @@ public class PharmacyDTO implements Serializable {
         this.longitude = longitude;
         this.latitude = latitude;
         this.averageGrade = averageGrade;
+        this.dermatologists = dermatologists;
+        this.pharmacists = pharmacists;
     }
 
     public PharmacyDTO(Pharmacy pharmacy) {
@@ -34,6 +34,8 @@ public class PharmacyDTO implements Serializable {
         this.longitude = pharmacy.getLongitude();
         this.latitude = pharmacy.getLatitude();
         this.averageGrade = pharmacy.getAverageGrade();
+        this.dermatologists = pharmacy.getDermatologists();
+        this.pharmacists = pharmacy.getPharmacists();
     }
 
     private Long id;

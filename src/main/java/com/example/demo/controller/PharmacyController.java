@@ -1,17 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.PharmacyDTO;
-import com.example.demo.model.Pharmacist;
 import com.example.demo.model.Pharmacy;
-import com.example.demo.repository.PharmacyRepository;
 import com.example.demo.service.PharmacyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +16,8 @@ import java.util.List;
 public class PharmacyController {
 
     private PharmacyService pharmacyService;
-
-    @Autowired
+    
+	@Autowired
     public PharmacyController(PharmacyService pharmacyService) {
         this.pharmacyService = pharmacyService;
     }
@@ -35,7 +31,7 @@ public class PharmacyController {
         for (Pharmacy p : pharmacies) {
             pharmacistsDTO.add(new PharmacyDTO(p));
         }
-
+        
         return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
     }
 
