@@ -84,6 +84,11 @@ export default {
     methods:{
         reserve: function(){
             console.log("Heeej", this.request );
+            if(this.quantity == '' || this.pharmacyDTO == '' || this.medicineDTO == '' || this.date == '')
+            {
+                alert("Please enter all data needed for search :)");
+                return;
+            }
             axios.post('http://localhost:8081/medicineReservation/create', this.request)
                 .then(res => {
                     console.log(res);

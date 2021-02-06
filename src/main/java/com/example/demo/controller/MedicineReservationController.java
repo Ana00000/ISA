@@ -52,15 +52,20 @@ public class MedicineReservationController {
         //Need to get patient from session
         //validate DTO data for null
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
-        Patient patient = patientService.findOne(Long.parseLong(currentUser.getName()));
+
+//        Patient patient = patientService.findOne(Long.parseLong(currentUser.getName()));
+        Patient patient = patientService.findOne(4L);
         Medicine medicine = medicineService.findOne(reservationRequest.getMedicineDTO().getId());
         Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyDTO().getId());
-
         PharmacyMedicine pharmacyMedicine = medicineReservationService.findOnePharmacyMedicine(
                 new PharmacyMedicinePK(medicine, pharmacy));
 
+        if( pharmacyMedicine == null ){
+            //This pharmacy doesn't contain this medicine, we need to send user to another pharmacy
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         System.out.println("Hello there");
-        System.out.println("Kolicina: " + pharmacyMedicine.getQuantity());
+        System.out.println("Kolicina: " + pharmacyMedicine.getQuantity() + " / " + reservationRequest.getQuantity() );
         //check patients penalties
         //check if patient is allergic
         //check if pharmacy has enough quantity
@@ -77,12 +82,11 @@ public class MedicineReservationController {
         medicineReservation.setPharmacy(pharmacy);
         medicineReservation.setPickUpDate(reservationRequest.getPickUpDate());
         medicineReservation.setPatient(patient);
-
-
         MedicineReservation retValue = medicineReservationService.save(medicineReservation);
+
         //Update quantity of medicine in pharmacy
-        //phMedicine.setQuantity(phMedicine.getQuantity() - reservationRequest.getQuantity());
-        //medicineReservationService.updatePharmacyMedicine(phMedicine);
+        pharmacyMedicine.setQuantity(pharmacyMedicine.getQuantity() - reservationRequest.getQuantity());
+        medicineReservationService.updatePharmacyMedicine(pharmacyMedicine);
 
         return new ResponseEntity<>(reservationRequest, HttpStatus.OK);
     }

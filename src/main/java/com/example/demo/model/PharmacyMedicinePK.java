@@ -15,6 +15,22 @@ public class PharmacyMedicinePK implements Serializable {
         this.pharmacy = pharmacy;
     }
 
+    public Medicine getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(Medicine medicine) {
+        this.medicine = medicine;
+    }
+
+    public Pharmacy getPharmacy() {
+        return pharmacy;
+    }
+
+    public void setPharmacy(Pharmacy pharmacy) {
+        this.pharmacy = pharmacy;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

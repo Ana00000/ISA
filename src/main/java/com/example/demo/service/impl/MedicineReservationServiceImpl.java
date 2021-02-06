@@ -57,9 +57,6 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 
     @Override
     public PharmacyMedicine updatePharmacyMedicine(PharmacyMedicine pharmacyMedicine){
-//        PharmacyMedicinePK pharmacyMedicinePK = new PharmacyMedicinePK(pharmacyMedicine.getMedicine(), pharmacyMedicine.getPharmacy());
-//        Optional<PharmacyMedicine> pm = pharmacyMedicineRepository.findById(pharmacyMedicinePK);
-//        pm.get().setMedicine(pharmacyMedicine.getMedicine());
         return pharmacyMedicineRepository.save(pharmacyMedicine);
     }
 }
