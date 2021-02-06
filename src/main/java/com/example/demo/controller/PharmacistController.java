@@ -58,7 +58,7 @@ public class PharmacistController {
 	public ResponseEntity<PharmacistDTO> updatePharmacist(@RequestBody PharmacistDTO pharmacistDTO) {
 
 		Pharmacist pharmacist = pharmacistService.findOne(pharmacistDTO.getId());
-		
+
 		if (pharmacist == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
