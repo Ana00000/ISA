@@ -3,15 +3,14 @@ package com.example.demo.dto;
 import com.example.demo.model.MedicineReservation;
 import com.example.demo.model.MedicineReservationStatus;
 import com.example.demo.model.Patient;
-import com.example.demo.model.PharmacyMedicine;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import java.util.Date;
 import java.util.Objects;
 
 public class MedicineReservationDTO {
+
+    private Long id;
+
     private MedicineReservationStatus reservationStatus;
 
     private Long quantity;
@@ -22,14 +21,26 @@ public class MedicineReservationDTO {
 
     private MedicineDTO medicineDTO;
 
+    private Date pickUpDate;
+
     public MedicineReservationDTO() {}
 
     public MedicineReservationDTO(MedicineReservation reservation) {
+        this.id = reservation.getId();
         this.reservationStatus = reservation.getReservationStatus();
         this.quantity = reservation.getQuantity();
         this.patient = reservation.getPatient();
         this.pharmacyDTO = new PharmacyDTO(reservation.getPharmacyMedicine().getPharmacy());
         this.medicineDTO = new MedicineDTO(reservation.getPharmacyMedicine().getMedicine());
+        this.pickUpDate = reservation.getPickUpDate();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public MedicineReservationStatus getReservationStatus() {
@@ -72,12 +83,21 @@ public class MedicineReservationDTO {
         this.medicineDTO = medicineDTO;
     }
 
+    public Date getPickUpDate() {
+        return pickUpDate;
+    }
+
+    public void setPickUpDate(Date pickUpDate) {
+        this.pickUpDate = pickUpDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MedicineReservationDTO that = (MedicineReservationDTO) o;
-        return Objects.equals(reservationStatus, that.reservationStatus) &&
+        return  Objects.equals(id, that.id) &&
+                Objects.equals(reservationStatus, that.reservationStatus) &&
                 Objects.equals(quantity, that.quantity) &&
                 Objects.equals(patient, that.patient) &&
                 Objects.equals(pharmacyDTO, that.pharmacyDTO) &&
@@ -86,7 +106,7 @@ public class MedicineReservationDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(reservationStatus, quantity, patient, pharmacyDTO, medicineDTO);
+        return Objects.hash(id, reservationStatus, quantity, patient, pharmacyDTO, medicineDTO);
     }
 
     @Override

@@ -3,6 +3,8 @@ package com.example.demo.model;
 import com.example.demo.dto.MedicineReservationDTO;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +26,9 @@ public class MedicineReservation {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PharmacyMedicine pharmacyMedicine;
 
+    @Column(nullable = false)
+    private Date pickUpDate;
+
     public MedicineReservation(Long id) {
         this.id = id;
     }
@@ -34,12 +39,13 @@ public class MedicineReservation {
         this.patient = reservationDTO.getPatient();
     }
 
-    public MedicineReservation(Long id, MedicineReservationStatus reservationStatus, Long quantity, Patient patient, PharmacyMedicine pharmacyMedicine) {
+    public MedicineReservation(Long id, MedicineReservationStatus reservationStatus, Long quantity, Patient patient, PharmacyMedicine pharmacyMedicine, Date date) {
         this.id = id;
         this.reservationStatus = reservationStatus;
         this.quantity = quantity;
         this.patient = patient;
         this.pharmacyMedicine = pharmacyMedicine;
+        this.pickUpDate = date;
     }
 
     public Long getId() {
@@ -80,6 +86,14 @@ public class MedicineReservation {
 
     public void setPharmacyMedicine(PharmacyMedicine pharmacyMedicine) {
         this.pharmacyMedicine = pharmacyMedicine;
+    }
+
+    public Date getPickUpDate() {
+        return pickUpDate;
+    }
+
+    public void setPickUpDate(Date pickUpDate) {
+        this.pickUpDate = pickUpDate;
     }
 
     @Override

@@ -8,11 +8,11 @@
                 <div style="margin: 50px"><h2 class="display-3">Medicine Reservation</h2></div>
                 <div style="background: none; border: none;">
                     <v-card style="margin-left: 90px; margin-right: 90px; padding: 10px;background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Medicine</h2></v-card>
-                    <item-list-medicine></item-list-medicine>
+                    <item-list-medicine @sendMedicine="receiveMedicine" ></item-list-medicine>
                 </div>
                 <div>
                     <v-card style="margin-left: 90px; margin-right: 90px; padding: 10px; background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Pharmacy</h2></v-card>
-                    <item-list-pharmacies></item-list-pharmacies>
+                    <item-list-pharmacies @sendPharmacy="receivePharmacy"></item-list-pharmacies>
                 </div>
                 <v-container>
                     <v-layout row>
@@ -23,7 +23,7 @@
                             <v-divider></v-divider>
                             <div style="margin: 20px;">
                                 <label>Quantity: </label>
-                                <input style="background:pink; border" type="number" min="0" max="10" placeholder="" v-model="filterGrade"/>
+                                <input style="background:pink; border" type="number" min="0" max="10" placeholder="0" v-model="quantity"/>
                             </div>
                         </v-card>
                         <v-card width="25%">
@@ -32,7 +32,7 @@
                             </div>
                             <v-divider></v-divider>
                             <div>
-                                <date-picker-text></date-picker-text>
+                                <date-picker-text @Hello="receiveDatePicker"></date-picker-text>
                             </div>
                         </v-card>
                         <v-card width="25%" style="background: linear-gradient(to right, pink, #cdc8fa, pink);">
@@ -54,6 +54,7 @@ import PatientMenu from '@/components/PatientMenu.vue'
 import ItemListMedicine from '../../components/itemList/ItemListMedicine.vue'
 import ItemListPharmacies from '../../components/itemList/ItemListPharmacies.vue'
 import DatePickerText from '../../components/DatePickerText.vue'
+import axios from 'axios'
 export default {
     name : 'ReserveMedicine',
     components : {
@@ -64,12 +65,40 @@ export default {
     },
     data() {
         return {
+            quantity: '',
+            prahmacyDTO: '',
+            medicineDTO: '',
+            date: '',
+            request: {
+                quantity: this.quantity,
+                pharmacyDTO: this.pharmacyDTO,
+                MedicineDTO: this.medicineDTO,
+                pickUpDate: this.date,
+            },
         }
     },
     methods:{
         reserve: function(){
             //validation
-            // axios.post('http://localhost:8081/')
+            axios.post('http://localhost:8081/medicineReservation/create', this.request)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(res => {
+                    console.log(res);
+                })
+        },
+        receiveDatePicker: function(value){
+            this.date = value;
+            console.log(value);
+        },
+        receiveMedicine: function(value){
+            this.medicineDTO = value;
+            console.log(value);
+        },
+        receivePharmacy: function(value){
+            this.pharmacyDTO = value;
+            console.log(value);
         }
     }
 }

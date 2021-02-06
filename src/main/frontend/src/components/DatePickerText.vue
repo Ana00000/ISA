@@ -34,7 +34,7 @@
           <v-btn
             text
             color="primary"
-            @click="$refs.menu.save(date)"
+            @click="$refs.menu.save(date); $emit('Hello', date)"
           >
             OK
           </v-btn>

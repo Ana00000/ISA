@@ -31,7 +31,7 @@
         single
       >
         <template v-for="(item, index) in renderingItems">
-          <v-list-item :key="item.title">
+          <v-list-item :key="item.title" @click="$emit('sendMedicine',item)" >
             <template v-slot:default="{ active }">
               <v-list-item-content >
                 <v-list-item-title  v-text="item.name"></v-list-item-title>

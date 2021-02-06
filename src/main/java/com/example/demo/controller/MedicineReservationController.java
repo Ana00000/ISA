@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +34,17 @@ public class MedicineReservationController {
         return new ResponseEntity<>(reservationDTOS, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/create")
+    @PostMapping(value = "/create")
     public ResponseEntity<MedicineReservationDTO> createReservation(@RequestBody MedicineReservationDTO reservationRequest) {
+        //Need to get patient from session
         //validate DTO data for null
-
+        System.out.println("Hello there");
         //check if pharmacy has enough quantity
         Optional<PharmacyMedicine> pharmacyMedicine = medicineReservationService.findOnePharmacyMedicine(
                 new PharmacyMedicinePK(new Medicine(reservationRequest.getMedicineDTO()), new Pharmacy(reservationRequest.getPharmacyDTO())));
+
+        System.out.println("Hello there");
+
         if( reservationRequest.getQuantity() >= pharmacyMedicine.get().getQuantity() ){
             //Exception
         }
@@ -51,7 +52,7 @@ public class MedicineReservationController {
         //check if patient is allergic
 
 
-        MedicineReservation medicineReservation = medicineReservationService.save(new MedicineReservation(reservationRequest));
+        //MedicineReservation medicineReservation = medicineReservationService.save(new MedicineReservation(reservationRequest));
 
         //check if saved successfully
 
