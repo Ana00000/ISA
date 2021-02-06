@@ -13,8 +13,8 @@
 
             <v-container fluid class="container">
                 <v-row>
-                <v-col cols="6"/>
-                <v-col cols="2">
+                <v-col cols="5"/>
+                <v-col cols="3">
                     <v-text-field
                         label="Name"
                         v-model="name"
@@ -23,8 +23,8 @@
                 </v-row>
 
                 <v-row>
-                <v-col cols="6"/>
-                <v-col cols="2">
+                <v-col cols="5"/>
+                <v-col cols="3">
                     <v-text-field
                     label="Last name"
                     v-model="lastName"
@@ -33,8 +33,8 @@
                 </v-row>
 
                 <v-row>
-                <v-col cols="6"/>
-                <v-col cols="2">
+                <v-col cols="5"/>
+                <v-col cols="3">
                     <v-text-field
                     label="Email"
                     v-model="email"
@@ -43,8 +43,8 @@
                 </v-row>
 
                 <v-row>
-                <v-col cols="6"/>
-                <v-col cols="2">
+                <v-col cols="5"/>
+                <v-col cols="3">
                     <v-text-field
                     label="Password"
                     v-model="password"
@@ -55,8 +55,8 @@
                 </v-row>
 
                 <v-row>
-                <v-col cols="6"/>
-                <v-col cols="2">
+                <v-col cols="5"/>
+                <v-col cols="3">
                     <v-text-field
                     label="Address"
                     v-model="address"
@@ -65,8 +65,8 @@
                 </v-row>
                 
                 <v-row>
-                <v-col cols="6"/>
-                <v-col cols="2">
+                <v-col cols="5"/>
+                <v-col cols="3">
                     <v-text-field
                     label="Phone number"
                     v-model="phoneNumber"
@@ -75,8 +75,8 @@
                 </v-row>
                 
                 <v-row>
-                <v-col cols="6"/>
-                <v-col cols="2">
+                <v-col cols="5"/>
+                <v-col cols="3">
                     <v-text-field
                     label="Type of doctor"
                     v-model="type"
@@ -86,8 +86,8 @@
                 </v-row>
 
                 <v-row>
-                <v-col cols="6"/>
-                <v-col cols="2">
+                <v-col cols="5"/>
+                <v-col cols="3">
                     <v-text-field
                     label="Working in pharmacy/pharmacies"
                     v-model="workingInPharmacy"

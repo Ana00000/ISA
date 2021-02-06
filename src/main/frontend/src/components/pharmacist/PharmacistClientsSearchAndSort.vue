@@ -2,30 +2,29 @@
   <v-container>
   <v-layout row wrap>
 
-  <v-card 
-    v-bind:class="{'cardClass':drawer}" width="15%" height="450px">
-    <div>
+   <v-card 
+    v-bind:class="{'cardClass':drawer}" width="15%" height="410px">
+    <div class="sort">
       <h2>Sort by</h2>
     </div>
     <v-divider></v-divider>
-    <v-list-item>
-      <v-checkbox label="Name"></v-checkbox>
-    </v-list-item>
-    <v-list-item>
-      <v-checkbox label="Last name"></v-checkbox>
-    </v-list-item>
-    <v-list-item>
-      <v-checkbox label="Phone number"></v-checkbox>
-    </v-list-item>
-    <v-list-item>
-      <v-checkbox label="Address"></v-checkbox>
-    </v-list-item>
-    <v-list-item>
-      <v-checkbox label="Email"></v-checkbox>
-    </v-list-item>
-    <v-list-item>
-      <v-checkbox label="Date of examination"></v-checkbox>
-    </v-list-item>
+    <v-radio-group v-model="sortOption" column>
+        <v-radio class="optionButtons" value="name" label="Name"></v-radio>
+        <v-radio class="optionButtons" value="lastName" label="Last name"></v-radio>
+        <v-radio class="optionButtons" value="phoneNumber" label="Phone number"></v-radio>
+        <v-radio class="optionButtons" value="address" label="Address"></v-radio>
+        <v-radio class="optionButtons" value="email" label="Email"></v-radio>
+        <v-radio class="optionButtons" value="dateOfExamination" label="Date of examination"></v-radio>
+    </v-radio-group>
+    <br/><br/>
+    <v-btn v-on:click="sortClients" 
+          color="#aba7ff"
+          elevation="24"
+          x-large
+          raised
+          rounded>
+            Sort
+    </v-btn>
   </v-card>
 
   <v-card
@@ -92,6 +91,7 @@ import axios from 'axios';
 export default {
     data: () => ({
       drawer: false,
+      sortOption: 'name',
       searchInput: null,
       clients: [],
       clientsCopy : []
@@ -114,12 +114,50 @@ export default {
                 resultOfSearch.push(this.clientsCopy[i])
         }
         this.clients = resultOfSearch;
+      },
+      sortClients() {
+        if(this.sortOption == 'name'){
+          this.clients.sort(function(a, b){
+            return a.name.localeCompare(b.name);
+          })
+        }else if(this.sortOption == 'lastName'){
+          this.clients.sort(function(a, b){
+            return a.lastName.localeCompare(b.lastName);
+          })
+        }else if(this.sortOption == 'phoneNumber'){
+          this.clients.sort(function(a, b){
+            return a.phoneNumber.localeCompare(b.phoneNumber);
+          })
+        }else if(this.sortOption == 'address'){
+        this.clients.sort(function(a, b){
+          return a.address.localeCompare(b.address);
+        })
+        }else if(this.sortOption == 'email'){
+          this.clients.sort(function(a, b){
+            return a.email.localeCompare(b.email);
+          })
+        }else {
+          this.clients.sort(function(a, b){
+            return a.dateOfExamination.localeCompare(b.dateOfExamination);
+          })
+        }
       }
-    }
   }
+}
 </script>
 
 <style scoped>
+.sort {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.optionButtons {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 35px;
+}
+
 .cardClass {
   display: none; 
 }
