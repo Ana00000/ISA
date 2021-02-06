@@ -239,9 +239,9 @@ export default {
             {
                 alert("Your email should contain at least 5 characters!");
                 return;
-            }else if(this.email.length > 20)
+            }else if(this.email.length > 35)
             {
-                alert("Your email shouldn't contain more than 20 characters!");
+                alert("Your email shouldn't contain more than 35 characters!");
                 return;
             }
         },
@@ -261,9 +261,9 @@ export default {
             {
                 alert("Your address should contain at least 3 characters!");
                 return;
-            }else if(this.address.length > 30)
+            }else if(this.address.length > 50)
             {
-                alert("Your address shouldn't contain more than 30 characters!");
+                alert("Your address shouldn't contain more than 50 characters!");
                 return;
             }
         },
