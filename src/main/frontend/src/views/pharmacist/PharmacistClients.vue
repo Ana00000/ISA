@@ -10,33 +10,22 @@
             </div>
             <div class="welcoming">For search enter name and/or surname.</div>
             <br/>
-            <item-list-clients v-bind:items="clients"/>
+            <pharmacist-clients-search/>
         </div>
-        <div class="panelDiv">
-                <PharmacistMenu/>
+        <div>
+            <PharmacistMenu/>
         </div>
     </div>  
 </template>
 
 <script>
-import axios from 'axios';
 import PharmacistMenu from '../../components/pharmacist/PharmacistMenu.vue'
-import ItemListClients from '../../components/itemList/ItemListClients.vue'
+import PharmacistClientsSearch from '../../components/pharmacist/PharmacistClientsSearch.vue'
 export default {
     name: 'PharmacistClients',    
     components : {   
         PharmacistMenu,
-        ItemListClients
-    },
-    data() {
-        return{
-            clients: []
-        }
-    },
-    created() {
-        axios.get('http://localhost:8081/patients/all')
-            .then(res => this.clients = res.data)
-            .catch(err => console.log(err));
+        PharmacistClientsSearch
     }
 }
 </script>
