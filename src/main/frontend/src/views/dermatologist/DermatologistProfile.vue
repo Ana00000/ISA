@@ -131,6 +131,7 @@ export default {
         DermatologistMenu
     },
     data: () => ({
+        errors: [],
         id: null,
         name: '',
         lastName: '',
@@ -186,6 +187,11 @@ export default {
             });
         },
         updateProfile() {
+            if(this.name.length < 2)
+            {
+                this.errors.push("Name required.");
+                return;
+            }
             this.$http.put('http://localhost:8081/dermatologists/update', 
             {         
                 id : this.id,

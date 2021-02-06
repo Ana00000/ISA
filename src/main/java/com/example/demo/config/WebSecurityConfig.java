@@ -69,16 +69,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.authorizeRequests().antMatchers("/users/login").permitAll()
 					.antMatchers("/users/register").permitAll()
 					.antMatchers("/pharmacies/all").permitAll()
-<<<<<<< HEAD
 					.antMatchers("/appointments/**").permitAll()
 					.antMatchers("/medicine/**").permitAll()
 					.antMatchers("/medicineReservation/**").permitAll()
 					.antMatchers("/pharmacists/**").permitAll()
 					.antMatchers("/dermatologists/**").permitAll()
-=======
 					.antMatchers("/pharmacists/").permitAll()
 					.antMatchers("/dermatologists/").permitAll()
->>>>>>> a7632d6... Presentation and change of profile info for dermatologists
 
 					// za svaki drugi zahtev korisnik mora biti autentifikovan
 					.anyRequest().authenticated().and()
