@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.*;
-import com.example.demo.model.enums.MedicineReservationValue;
+import com.example.demo.model.enums.MedicineReservationStatusValue;
 import com.example.demo.repository.MedicineReservationRepository;
 import com.example.demo.repository.PharmacyMedicineRepository;
 import com.example.demo.service.MedicineReservationService;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MedicineReservationServiceImpl implements MedicineReservationService {
@@ -43,10 +42,6 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 
     @Override
     public MedicineReservation save(MedicineReservation medicineReservation) {
-        medicineReservation.setReservationStatus(new MedicineReservationStatus(1L, MedicineReservationValue.ACTIVE));
-        Patient patient = new Patient();
-        patient.setId(4L);
-        medicineReservation.setPatient(patient);
         return medicineReservationRepository.save(medicineReservation);
     }
 
@@ -56,9 +51,8 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
     }
 
     @Override
-    public Optional<PharmacyMedicine> findOnePharmacyMedicine(PharmacyMedicinePK medicineReservationPK) {
-        //return pharmacyMedicineRepository.findOne(pharmacyMedicine);
-        return pharmacyMedicineRepository.findById(medicineReservationPK);
+    public PharmacyMedicine findOnePharmacyMedicine(PharmacyMedicinePK medicineReservationPK) {
+        return pharmacyMedicineRepository.findById(medicineReservationPK).orElse(null);
     }
 
     @Override

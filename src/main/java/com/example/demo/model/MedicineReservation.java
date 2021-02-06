@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.dto.MedicineReservationDTO;
+import com.example.demo.model.enums.MedicineReservationStatusValue;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -14,8 +15,8 @@ public class MedicineReservation {
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    private MedicineReservationStatus reservationStatus;
+    @Enumerated(EnumType.STRING)
+    private MedicineReservationStatusValue reservationStatus;
 
     @Column(nullable = false)
     private Long quantity;
@@ -32,8 +33,7 @@ public class MedicineReservation {
     @Column(nullable = false)
     private Date pickUpDate;
 
-    public MedicineReservation(Long id) {
-        this.id = id;
+    public MedicineReservation(){
     }
 
     public MedicineReservation(MedicineReservationDTO reservationDTO) {
@@ -53,11 +53,11 @@ public class MedicineReservation {
         this.id = id;
     }
 
-    public MedicineReservationStatus getReservationStatus() {
+    public MedicineReservationStatusValue getReservationStatus() {
         return reservationStatus;
     }
 
-    public void setReservationStatus(MedicineReservationStatus reservationStatus) {
+    public void setReservationStatus(MedicineReservationStatusValue reservationStatus) {
         this.reservationStatus = reservationStatus;
     }
 

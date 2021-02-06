@@ -3,15 +3,15 @@ package com.example.demo.dto;
 import com.example.demo.model.MedicineReservation;
 import com.example.demo.model.MedicineReservationStatus;
 import com.example.demo.model.Patient;
+import com.example.demo.model.enums.MedicineReservationStatusValue;
 
 import java.util.Date;
 import java.util.Objects;
 
 public class MedicineReservationDTO {
-
     private Long id;
 
-    private MedicineReservationStatus reservationStatus;
+    private MedicineReservationStatusValue reservationStatus;
 
     private Long quantity;
 
@@ -43,11 +43,11 @@ public class MedicineReservationDTO {
         this.id = id;
     }
 
-    public MedicineReservationStatus getReservationStatus() {
+    public MedicineReservationStatusValue getReservationStatus() {
         return reservationStatus;
     }
 
-    public void setReservationStatus(MedicineReservationStatus reservationStatus) {
+    public void setReservationStatus(MedicineReservationStatusValue reservationStatus) {
         this.reservationStatus = reservationStatus;
     }
 

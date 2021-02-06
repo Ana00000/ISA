@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.example.demo.model.enums.MedicineReservationValue;
+import com.example.demo.model.enums.MedicineReservationStatusValue;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,9 +14,9 @@ public class MedicineReservationStatus {
     private Long id;
 
     @Column(name="statusValue", unique = true, nullable = false)
-    private MedicineReservationValue statusValue;
+    private MedicineReservationStatusValue statusValue;
 
-    public MedicineReservationStatus(Long id, MedicineReservationValue statusValue) {
+    public MedicineReservationStatus(Long id, MedicineReservationStatusValue statusValue) {
         this.id = id;
         this.statusValue = statusValue;
     }
@@ -29,11 +29,11 @@ public class MedicineReservationStatus {
         this.id = id;
     }
 
-    public MedicineReservationValue getStatusValue() {
+    public MedicineReservationStatusValue getStatusValue() {
         return statusValue;
     }
 
-    public void setStatusValue(MedicineReservationValue statusValue) {
+    public void setStatusValue(MedicineReservationStatusValue statusValue) {
         this.statusValue = statusValue;
     }
 

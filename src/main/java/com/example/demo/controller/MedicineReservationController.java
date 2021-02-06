@@ -2,11 +2,17 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.MedicineReservationDTO;
 import com.example.demo.model.*;
+import com.example.demo.model.enums.MedicineReservationStatusValue;
 import com.example.demo.service.MedicineReservationService;
+import com.example.demo.service.MedicineService;
+import com.example.demo.service.PatientService;
+import com.example.demo.service.PharmacyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,10 +22,17 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/medicineReservation", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MedicineReservationController {
+    @Autowired
     private MedicineReservationService medicineReservationService;
 
     @Autowired
-    public MedicineReservationController(MedicineReservationService medicineReservationService){this.medicineReservationService = medicineReservationService;}
+    private PatientService patientService;
+
+    @Autowired
+    private MedicineService medicineService;
+
+    @Autowired
+    private PharmacyService pharmacyService;
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<MedicineReservationDTO>> getAllReservations() {
@@ -38,26 +51,38 @@ public class MedicineReservationController {
     public ResponseEntity<MedicineReservationDTO> createReservation(@RequestBody MedicineReservationDTO reservationRequest) {
         //Need to get patient from session
         //validate DTO data for null
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        Patient patient = patientService.findOne(Long.parseLong(currentUser.getName()));
+        Medicine medicine = medicineService.findOne(reservationRequest.getMedicineDTO().getId());
+        Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyDTO().getId());
 
-        Optional<PharmacyMedicine> pharmacyMedicine = medicineReservationService.findOnePharmacyMedicine(
-                new PharmacyMedicinePK(new Medicine(reservationRequest.getMedicineDTO()), new Pharmacy(reservationRequest.getPharmacyDTO())));
+        PharmacyMedicine pharmacyMedicine = medicineReservationService.findOnePharmacyMedicine(
+                new PharmacyMedicinePK(medicine, pharmacy));
 
         System.out.println("Hello there");
-        System.out.println("Kolicina: " + pharmacyMedicine.get().getQuantity());
-        PharmacyMedicine phMedicine = pharmacyMedicine.get();
+        System.out.println("Kolicina: " + pharmacyMedicine.getQuantity());
         //check patients penalties
         //check if patient is allergic
         //check if pharmacy has enough quantity
-        if( reservationRequest.getQuantity() >= pharmacyMedicine.get().getQuantity() ){
+        if( reservationRequest.getQuantity() >= pharmacyMedicine.getQuantity() ){
             //Exception
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         //save reservation
-        MedicineReservation medicineReservation = medicineReservationService.save(new MedicineReservation(reservationRequest));
+        MedicineReservation medicineReservation = new MedicineReservation();
+        medicineReservation.setReservationStatus(MedicineReservationStatusValue.ACTIVE);
+        medicineReservation.setQuantity(reservationRequest.getQuantity());
+        medicineReservation.setMedicine(medicine);
+        medicineReservation.setPharmacy(pharmacy);
+        medicineReservation.setPickUpDate(reservationRequest.getPickUpDate());
+        medicineReservation.setPatient(patient);
+
+
+        MedicineReservation retValue = medicineReservationService.save(medicineReservation);
         //Update quantity of medicine in pharmacy
-        phMedicine.setQuantity(phMedicine.getQuantity() - reservationRequest.getQuantity());
-        medicineReservationService.updatePharmacyMedicine(phMedicine);
+        //phMedicine.setQuantity(phMedicine.getQuantity() - reservationRequest.getQuantity());
+        //medicineReservationService.updatePharmacyMedicine(phMedicine);
 
         return new ResponseEntity<>(reservationRequest, HttpStatus.OK);
     }
