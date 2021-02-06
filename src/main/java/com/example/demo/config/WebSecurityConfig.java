@@ -1,5 +1,9 @@
 package com.example.demo.config;
 
+import com.example.demo.security.RestAuthenticationEntryPoint;
+import com.example.demo.security.TokenAuthenticationFilter;
+import com.example.demo.security.TokenUtils;
+import com.example.demo.service.impl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,17 +13,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-
-import com.example.demo.security.RestAuthenticationEntryPoint;
-import com.example.demo.security.TokenAuthenticationFilter;
-import com.example.demo.security.TokenUtils;
-import com.example.demo.service.impl.CustomUserDetailsService;
 
 
 @Configuration
@@ -70,18 +68,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 					// svim korisnicima dopusti da pristupe putanjama /auth/**, (/h2-console/** ako se koristi H2 baza) i /api/foo
 					.authorizeRequests().antMatchers("/users/login").permitAll()
-					.antMatchers("/users/register").permitAll();
-					
+					.antMatchers("/users/register").permitAll()
+					.antMatchers("/pharmacies/all").permitAll()
+
 					// za svaki drugi zahtev korisnik mora biti autentifikovan
-					//.anyRequest().authenticated().and()
+					.anyRequest().authenticated().and()
 
 					// za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
-					//.cors().and()
+					.cors().and()
 
 					// umetni custom filter TokenAuthenticationFilter kako bi se vrsila provera JWT tokena umesto cistih korisnickog imena i lozinke (koje radi BasicAuthenticationFilter)
-					//.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
-						//	BasicAuthenticationFilter.class);
-							
+					.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
+							BasicAuthenticationFilter.class);
 			// zbog jednostavnosti primera
 			http.csrf().disable();
 		}
