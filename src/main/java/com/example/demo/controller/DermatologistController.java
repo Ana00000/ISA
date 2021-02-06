@@ -63,14 +63,9 @@ public class DermatologistController {
 		if (dermatologist == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-
+		
+		setOfValidInputs(dermatologist, dermatologistDTO);
 		dermatologist.setId(dermatologistDTO.getId());
-		dermatologist.setName(dermatologistDTO.getName());
-		dermatologist.setLastName(dermatologistDTO.getLastName());
-		dermatologist.setEmail(dermatologistDTO.getEmail());
-		dermatologist.setPassword(dermatologistDTO.getPassword());
-		dermatologist.setAddress(dermatologistDTO.getAddress());
-		dermatologist.setPhoneNumber(dermatologistDTO.getPhoneNumber());
 		dermatologist.setType(dermatologistDTO.getType());
 		dermatologist.setActive(dermatologistDTO.isActive());
 
@@ -89,5 +84,109 @@ public class DermatologistController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	private void setOfValidInputs(Dermatologist dermatologist, DermatologistDTO dermatologistDTO) {
+		setOfValidName(dermatologist, dermatologistDTO.getName());
+		setOfValidLastName(dermatologist, dermatologistDTO.getLastName());
+		setOfValidEmail(dermatologist, dermatologistDTO.getEmail());
+		setOfValidPassword(dermatologist, dermatologistDTO.getPassword());
+		setOfValidAddress(dermatologist, dermatologistDTO.getAddress());
+		setOfValidPhoneNumber(dermatologist, dermatologistDTO.getPhoneNumber());
+    }
+	
+	private void setOfValidName(Dermatologist dermatologist, String name) {
+        if(name.length() < 2)
+        {
+        	System.out.println("Your name should contain at least 2 characters!");
+            return;
+        }else if(name.length() > 20)
+        {
+        	System.out.println("Your name shouldn't contain more than 20 characters!");
+            return;
+        }else 
+        	dermatologist.setName(name);
+    }
+	
+	private void setOfValidLastName(Dermatologist dermatologist, String lastName) {
+        if(lastName.length() < 2)
+        {
+        	System.out.println("Your last name should contain at least 2 characters!");
+            return;
+        }else if(lastName.length() > 20)
+        {
+        	System.out.println("Your last name shouldn't contain more than 20 characters!");
+            return;
+        }else 
+        	dermatologist.setLastName(lastName);
+    }
+	
+	private void setOfValidEmail(Dermatologist dermatologist, String email) {
+        if(email.length() < 5)
+        {
+        	System.out.println("Your email should contain at least 5 characters!");
+            return;
+        }else if(email.length() > 35)
+        {
+        	System.out.println("Your email shouldn't contain more than 35 characters!");
+            return;
+        }else 
+        	dermatologist.setEmail(email);
+    }
+	
+	private void setOfValidPassword(Dermatologist dermatologist, String password) {
+        if(password.length() < 3)
+        {
+        	System.out.println("Your password should contain at least 3 characters!");
+            return;
+        }else if(password.length() > 20)
+        {
+        	System.out.println("Your password shouldn't contain more than 20 characters!");
+            return;
+        }else 
+        	dermatologist.setPassword(password);
+    }
+	
+	private void setOfValidAddress(Dermatologist dermatologist, String address) {
+        if(address.length() < 3)
+        {
+        	System.out.println("Your address should contain at least 3 characters!");
+            return;
+        }else if(address.length() > 50)
+        {
+        	System.out.println("Your address shouldn't contain more than 50 characters!");
+            return;
+        }else
+        	dermatologist.setAddress(address);
+    }
+	
+	private void setOfValidPhoneNumber(Dermatologist dermatologist, String phoneNumber) {
+		int flag = validationOfPhoneNumberElements(phoneNumber);
+		flag += validationOfPhoneNumberLength(phoneNumber);
+        if(flag == 0)
+        	dermatologist.setPhoneNumber(phoneNumber);
+    }
+	
+	private int validationOfPhoneNumberElements(String phoneNumber) {
+		for(int i = 0; i < phoneNumber.length(); i++)
+        {
+			if (!(phoneNumber.matches("[0-9]+") || phoneNumber.contains("/") || phoneNumber.contains("-"))) {
+			    System.out.println("Your phone number can contain only numbers and / - characters!");
+			    return 1;
+			}
+        }
+		return 0;
+	}
+	
+	private int validationOfPhoneNumberLength(String phoneNumber) {
+		if(phoneNumber.length() < 6)
+        {
+        	System.out.println("Your phone number should contain at least 6 characters!");
+            return 1;
+        }else if(phoneNumber.length() > 10)
+        {
+        	System.out.println("Your phone number shouldn't contain more than 10 characters!");
+            return 1;
+        }
+		return 0;
 	}
 }
