@@ -10,7 +10,7 @@
             </div>
             <div class="welcoming">For search enter name and/or surname.</div>
             <br/>
-            <dermatologist-clients-search/>
+            <dermatologist-clients-search-and-sort/>
         </div>
         <div>
             <DermatologistMenu/>
@@ -20,12 +20,12 @@
 
 <script>
 import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
-import DermatologistClientsSearch from '../../components/dermatologist/DermatologistClientsSearch.vue'
+import DermatologistClientsSearchAndSort from '../../components/dermatologist/DermatologistClientsSearchAndSort.vue'
 export default {
     name: 'DermatologistClients',    
     components : {   
         DermatologistMenu,
-        DermatologistClientsSearch
+        DermatologistClientsSearchAndSort
     }
 }
 </script>
