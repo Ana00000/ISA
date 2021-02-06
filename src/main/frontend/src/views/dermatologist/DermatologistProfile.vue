@@ -131,7 +131,6 @@ export default {
         DermatologistMenu
     },
     data: () => ({
-        errors: [],
         id: null,
         name: '',
         lastName: '',
@@ -187,11 +186,7 @@ export default {
             });
         },
         updateProfile() {
-            if(this.name.length < 2)
-            {
-                this.errors.push("Name required.");
-                return;
-            }
+            this.validationOfInput();
             this.$http.put('http://localhost:8081/dermatologists/update', 
             {         
                 id : this.id,
@@ -208,6 +203,95 @@ export default {
             ).then(resp => {
                console.log(resp.data);
             }).catch(err => console.log(err));
+        },
+        validationOfInput() {
+            this.validationOfName();
+            this.validationOfLastName();
+            this.validationOfEmail();
+            this.validationOfPassword();
+            this.validationOfAddress();
+            this.validationOfPhoneNumber();
+        },
+        validationOfName() {
+            if(this.name.length < 2)
+            {
+                alert("Your name should contain at least 2 characters!");
+                return;
+            }else if(this.name.length > 20)
+            {
+                alert("Your name shouldn't contain more than 20 characters!");
+                return;
+            }
+        },
+        validationOfLastName() {
+            if(this.lastName.length < 2)
+            {
+                alert("Your last name should contain at least 2 characters!");
+                return;
+            }else if(this.lastName.length > 20)
+            {
+                alert("Your last name shouldn't contain more than 20 characters!");
+                return;
+            }
+        },
+        validationOfEmail() {
+            if(this.email.length < 5)
+            {
+                alert("Your email should contain at least 5 characters!");
+                return;
+            }else if(this.email.length > 20)
+            {
+                alert("Your email shouldn't contain more than 20 characters!");
+                return;
+            }
+        },
+        validationOfPassword() {
+            if(this.password.length < 3)
+            {
+                alert("Your password should contain at least 3 characters!");
+                return;
+            }else if(this.password.length > 20)
+            {
+                alert("Your password shouldn't contain more than 20 characters!");
+                return;
+            }
+        },
+        validationOfAddress() {
+            if(this.address.length < 3)
+            {
+                alert("Your address should contain at least 3 characters!");
+                return;
+            }else if(this.address.length > 30)
+            {
+                alert("Your address shouldn't contain more than 30 characters!");
+                return;
+            }
+        },
+        validationOfPhoneNumber() {
+            this.validationOfPhoneNumberLength();
+            this.validationOfPhoneNumberElements();
+        }, 
+        validationOfPhoneNumberLength() {
+            if(this.phoneNumber.length < 6)
+            {
+                alert("Your phone number should contain at least 6 characters!");
+                return;
+            }else if(this.phoneNumber.length > 10)
+            {
+                alert("Your phone number shouldn't contain more than 10 characters!");
+                return;
+            }
+        },
+        validationOfPhoneNumberElements() {
+            var keysAllowed = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/', '-'];
+            for(var element = 0; element < this.phoneNumber.length; element++)
+            {
+                if(!keysAllowed.includes(this.phoneNumber[element]))
+                {
+                    alert("Your phone number can contain only numbers and / - characters!");
+                    return;
+                }
+            }
         }
     }
 }
