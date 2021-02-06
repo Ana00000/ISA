@@ -2,7 +2,9 @@ package com.example.demo.dto;
 
 import com.example.demo.model.User;
 
-public class PatientDTO extends UserDTO {
+import java.io.Serializable;
+
+public class PatientDTO extends UserDTO implements Serializable {
 
 	public PatientDTO() {
 	}

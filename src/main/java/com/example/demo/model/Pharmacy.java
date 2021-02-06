@@ -6,11 +6,12 @@ import org.springframework.context.annotation.Primary;
 import javax.persistence.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Pharmacy {
+public class Pharmacy implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

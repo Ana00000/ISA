@@ -5,10 +5,11 @@ import com.example.demo.model.MedicineReservationStatus;
 import com.example.demo.model.Patient;
 import com.example.demo.model.enums.MedicineReservationStatusValue;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class MedicineReservationDTO {
+public class MedicineReservationDTO implements Serializable {
     private Long id;
 
     private MedicineReservationStatusValue reservationStatus;
