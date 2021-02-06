@@ -10,7 +10,7 @@
             </div>
             <div class="welcoming">For search enter name and/or surname.</div>
             <br/>
-            <pharmacist-clients-search/>
+            <pharmacist-clients-search-and-sort/>
         </div>
         <div>
             <PharmacistMenu/>
@@ -20,12 +20,12 @@
 
 <script>
 import PharmacistMenu from '../../components/pharmacist/PharmacistMenu.vue'
-import PharmacistClientsSearch from '../../components/pharmacist/PharmacistClientsSearch.vue'
+import PharmacistClientsSearchAndSort from '../../components/pharmacist/PharmacistClientsSearchAndSort.vue'
 export default {
     name: 'PharmacistClients',    
     components : {   
         PharmacistMenu,
-        PharmacistClientsSearch
+        PharmacistClientsSearchAndSort
     }
 }
 </script>
