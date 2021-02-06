@@ -200,10 +200,7 @@ export default {
                 hashString: null
             }
             ).then(resp => {
-                this.console.log('test');
-               
                console.log(resp.data);
-                //this.setPharmacistInfo(resp.data)
             }).catch(err => console.log(err));
         }
     }
