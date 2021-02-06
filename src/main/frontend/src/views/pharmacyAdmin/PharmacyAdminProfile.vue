@@ -14,13 +14,16 @@
             <v-btn style="margin: 0 auto" class="buttons">check if medicine is available via E-Receipt</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn style="margin: 0 auto" class="buttons">reserve appointment with pharmacist</v-btn>
+            <v-btn style="margin: 0 auto" class="buttons">define new appointment with pharmacist</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn style="margin: 0 auto" class="buttons">reserve appointment with dermatologist</v-btn>
+            <v-btn style="margin: 0 auto" class="buttons" v-on:click="defineAppWithDermatologist">define new appointment with dermatologist</v-btn>
           </v-list-item>
           <v-list-item>
             <v-btn style="margin: 0 auto" class="buttons">become a premium member</v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn style="margin: 0 auto" class="buttons">Statistics</v-btn>
           </v-list-item>
 
         </v-list>
@@ -81,7 +84,11 @@ name: "PharmacyAdminProfile",
       this.active = item.active;
       this.workingInPharmacy = item.pharmacy.id;
       this.pharmacyAdminId = item.pharmacyAdminId;
+    },
+    defineAppWithDermatologist() {
+      this.$router.push('/pharmacyAdmin/AppointmentWithDermatologistForm');
     }
+
   }
 }
 </script>
