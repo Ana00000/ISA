@@ -104,7 +104,8 @@
             </div>
 
             <div class="updateButton">
-                <v-btn
+                <v-btn 
+                    v-on:click="updateProfile" 
                     color="#aba7ff"
                     elevation="24"
                     x-large
@@ -137,6 +138,7 @@ export default {
         password: '',
         address: '',
         phoneNumber: '',
+        type: '',
         active: true,
         workingInPharmacy: null,
         userImage: userImage,
@@ -182,6 +184,27 @@ export default {
                 });
 
             });
+        },
+        updateProfile() {
+            this.$http.put('http://localhost:8081/pharmacists/update', 
+            {         
+                id : this.id,
+                name : this.name,
+                lastName : this.lastName,
+                email : this.email,
+                password : this.password,
+                address : this.address,
+                phoneNumber : this.phoneNumber,
+                active : this.active,
+                type : this.type,
+                hashString: null
+            }
+            ).then(resp => {
+                this.console.log('test');
+               
+               console.log(resp.data);
+                //this.setPharmacistInfo(resp.data)
+            }).catch(err => console.log(err));
         }
     }
 }

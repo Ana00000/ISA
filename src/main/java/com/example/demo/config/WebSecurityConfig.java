@@ -19,7 +19,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
@@ -73,13 +72,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.antMatchers("/appointments/**").permitAll()
 					.antMatchers("/medicine/**").permitAll()
 					.antMatchers("/medicineReservation/**").permitAll()
+					.antMatchers("/pharmacists/**").permitAll()
+					.antMatchers("/dermatologists/**").permitAll()
 
 					// za svaki drugi zahtev korisnik mora biti autentifikovan
 					.anyRequest().authenticated().and()
 
 					// za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
 					.cors().and()
-
+				
 					// umetni custom filter TokenAuthenticationFilter kako bi se vrsila provera JWT tokena umesto cistih korisnickog imena i lozinke (koje radi BasicAuthenticationFilter)
 					.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService),
 							BasicAuthenticationFilter.class);
