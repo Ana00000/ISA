@@ -27,7 +27,7 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 
     @Override
     public List<MedicineReservation> findAll() {
-        return null;
+        return medicineReservationRepository.findAll();
     }
 
     @Override

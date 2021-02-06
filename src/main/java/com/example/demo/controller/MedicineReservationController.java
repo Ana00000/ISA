@@ -37,7 +37,9 @@ public class MedicineReservationController {
     public ResponseEntity<List<MedicineReservationDTO>> getAllReservations() {
 
         List<MedicineReservation> reservations = medicineReservationService.findAll();
-
+        if( reservations == null ){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         List<MedicineReservationDTO> reservationDTOS = new ArrayList<>();
         for (MedicineReservation a : reservations) {
             reservationDTOS.add(new MedicineReservationDTO(a));

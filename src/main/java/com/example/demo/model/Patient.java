@@ -4,8 +4,10 @@ import javax.persistence.*;
 
 import com.example.demo.dto.UserDTO;
 
+import java.io.Serializable;
+
 @Entity
-public class Patient extends User {
+public class Patient extends User implements Serializable{
 
     @Column(name = "subscribedToPromotions", unique = false, nullable = false)
     private Boolean subscribedToPromotions;
