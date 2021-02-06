@@ -1,8 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.MedicineReservation;
-import com.example.demo.model.PharmacyMedicinePK;
-import com.example.demo.model.PharmacyMedicine;
+import com.example.demo.model.*;
+import com.example.demo.model.enums.MedicineReservationValue;
 import com.example.demo.repository.MedicineReservationRepository;
 import com.example.demo.repository.PharmacyMedicineRepository;
 import com.example.demo.service.MedicineReservationService;
@@ -44,7 +43,11 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 
     @Override
     public MedicineReservation save(MedicineReservation medicineReservation) {
-        return null;
+        medicineReservation.setReservationStatus(new MedicineReservationStatus(1L, MedicineReservationValue.ACTIVE));
+        Patient patient = new Patient();
+        patient.setId(4L);
+        medicineReservation.setPatient(patient);
+        return medicineReservationRepository.save(medicineReservation);
     }
 
     @Override
@@ -56,5 +59,13 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
     public Optional<PharmacyMedicine> findOnePharmacyMedicine(PharmacyMedicinePK medicineReservationPK) {
         //return pharmacyMedicineRepository.findOne(pharmacyMedicine);
         return pharmacyMedicineRepository.findById(medicineReservationPK);
+    }
+
+    @Override
+    public PharmacyMedicine updatePharmacyMedicine(PharmacyMedicine pharmacyMedicine){
+//        PharmacyMedicinePK pharmacyMedicinePK = new PharmacyMedicinePK(pharmacyMedicine.getMedicine(), pharmacyMedicine.getPharmacy());
+//        Optional<PharmacyMedicine> pm = pharmacyMedicineRepository.findById(pharmacyMedicinePK);
+//        pm.get().setMedicine(pharmacyMedicine.getMedicine());
+        return pharmacyMedicineRepository.save(pharmacyMedicine);
     }
 }

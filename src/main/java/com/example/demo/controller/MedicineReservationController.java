@@ -38,23 +38,26 @@ public class MedicineReservationController {
     public ResponseEntity<MedicineReservationDTO> createReservation(@RequestBody MedicineReservationDTO reservationRequest) {
         //Need to get patient from session
         //validate DTO data for null
-        System.out.println("Hello there");
-        //check if pharmacy has enough quantity
+
         Optional<PharmacyMedicine> pharmacyMedicine = medicineReservationService.findOnePharmacyMedicine(
                 new PharmacyMedicinePK(new Medicine(reservationRequest.getMedicineDTO()), new Pharmacy(reservationRequest.getPharmacyDTO())));
 
         System.out.println("Hello there");
-
-        if( reservationRequest.getQuantity() >= pharmacyMedicine.get().getQuantity() ){
-            //Exception
-        }
+        System.out.println("Kolicina: " + pharmacyMedicine.get().getQuantity());
+        PharmacyMedicine phMedicine = pharmacyMedicine.get();
         //check patients penalties
         //check if patient is allergic
+        //check if pharmacy has enough quantity
+        if( reservationRequest.getQuantity() >= pharmacyMedicine.get().getQuantity() ){
+            //Exception
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-
-        //MedicineReservation medicineReservation = medicineReservationService.save(new MedicineReservation(reservationRequest));
-
-        //check if saved successfully
+        //save reservation
+        MedicineReservation medicineReservation = medicineReservationService.save(new MedicineReservation(reservationRequest));
+        //Update quantity of medicine in pharmacy
+        phMedicine.setQuantity(phMedicine.getQuantity() - reservationRequest.getQuantity());
+        medicineReservationService.updatePharmacyMedicine(phMedicine);
 
         return new ResponseEntity<>(reservationRequest, HttpStatus.OK);
     }

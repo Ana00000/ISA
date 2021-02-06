@@ -15,6 +15,10 @@ public class PharmacyMedicine {
     @Column( nullable = false, unique = false)
     private Long quantity;
 
+    public PharmacyMedicine(){
+
+    }
+
     public PharmacyMedicine(Medicine medicine, Pharmacy pharmacy, Long quantity) {
         this.medicine = medicine;
         this.pharmacy = pharmacy;

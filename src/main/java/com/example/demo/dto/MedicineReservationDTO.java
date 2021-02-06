@@ -30,8 +30,8 @@ public class MedicineReservationDTO {
         this.reservationStatus = reservation.getReservationStatus();
         this.quantity = reservation.getQuantity();
         this.patient = reservation.getPatient();
-        this.pharmacyDTO = new PharmacyDTO(reservation.getPharmacyMedicine().getPharmacy());
-        this.medicineDTO = new MedicineDTO(reservation.getPharmacyMedicine().getMedicine());
+        this.pharmacyDTO = new PharmacyDTO(reservation.getPharmacy());
+        this.medicineDTO = new MedicineDTO(reservation.getMedicine());
         this.pickUpDate = reservation.getPickUpDate();
     }
 

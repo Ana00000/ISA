@@ -23,4 +23,6 @@ public interface MedicineReservationService {
     void remove(Long id);
 
     Optional<PharmacyMedicine> findOnePharmacyMedicine(PharmacyMedicinePK key);
+
+    PharmacyMedicine updatePharmacyMedicine(PharmacyMedicine pharmacyMedicine);
 }

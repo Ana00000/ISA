@@ -68,18 +68,22 @@ export default {
             quantity: '',
             prahmacyDTO: '',
             medicineDTO: '',
-            date: '',
-            request: {
-                quantity: this.quantity,
-                pharmacyDTO: this.pharmacyDTO,
-                MedicineDTO: this.medicineDTO,
-                pickUpDate: this.date,
-            },
+            date: ''
+        }
+    },
+    computed:{
+        request(){
+            return {
+                'quantity': this.quantity,
+                'pharmacyDTO': this.pharmacyDTO,
+                'medicineDTO': this.medicineDTO,
+                'pickUpDate': this.date
+            }
         }
     },
     methods:{
         reserve: function(){
-            //validation
+            console.log("Heeej", this.request );
             axios.post('http://localhost:8081/medicineReservation/create', this.request)
                 .then(res => {
                     console.log(res);

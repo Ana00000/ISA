@@ -14,17 +14,20 @@ public class MedicineReservation {
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private MedicineReservationStatus reservationStatus;
 
     @Column(nullable = false)
     private Long quantity;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Patient patient;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private PharmacyMedicine pharmacyMedicine;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Medicine medicine;
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Pharmacy pharmacy;
 
     @Column(nullable = false)
     private Date pickUpDate;
@@ -37,15 +40,9 @@ public class MedicineReservation {
         this.reservationStatus = reservationDTO.getReservationStatus();
         this.quantity = reservationDTO.getQuantity();
         this.patient = reservationDTO.getPatient();
-    }
-
-    public MedicineReservation(Long id, MedicineReservationStatus reservationStatus, Long quantity, Patient patient, PharmacyMedicine pharmacyMedicine, Date date) {
-        this.id = id;
-        this.reservationStatus = reservationStatus;
-        this.quantity = quantity;
-        this.patient = patient;
-        this.pharmacyMedicine = pharmacyMedicine;
-        this.pickUpDate = date;
+        this.pharmacy = new Pharmacy(reservationDTO.getPharmacyDTO());
+        this.medicine = new Medicine(reservationDTO.getMedicineDTO());
+        this.pickUpDate = reservationDTO.getPickUpDate();
     }
 
     public Long getId() {
@@ -80,20 +77,28 @@ public class MedicineReservation {
         this.patient = patient;
     }
 
-    public PharmacyMedicine getPharmacyMedicine() {
-        return pharmacyMedicine;
-    }
-
-    public void setPharmacyMedicine(PharmacyMedicine pharmacyMedicine) {
-        this.pharmacyMedicine = pharmacyMedicine;
-    }
-
     public Date getPickUpDate() {
         return pickUpDate;
     }
 
     public void setPickUpDate(Date pickUpDate) {
         this.pickUpDate = pickUpDate;
+    }
+
+    public Medicine getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(Medicine medicine) {
+        this.medicine = medicine;
+    }
+
+    public Pharmacy getPharmacy() {
+        return pharmacy;
+    }
+
+    public void setPharmacy(Pharmacy pharmacy) {
+        this.pharmacy = pharmacy;
     }
 
     @Override
@@ -104,13 +109,12 @@ public class MedicineReservation {
         return Objects.equals(id, that.id) &&
                 Objects.equals(reservationStatus, that.reservationStatus) &&
                 Objects.equals(quantity, that.quantity) &&
-                Objects.equals(patient, that.patient) &&
-                Objects.equals(pharmacyMedicine, that.pharmacyMedicine);
+                Objects.equals(patient, that.patient);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, reservationStatus, quantity, patient, pharmacyMedicine);
+        return Objects.hash(id, reservationStatus, quantity, patient);
     }
 
     @Override
@@ -120,7 +124,6 @@ public class MedicineReservation {
                 ", reservationStatus=" + reservationStatus +
                 ", quantity=" + quantity +
                 ", patient=" + patient +
-                ", pharmacyMedicine=" + pharmacyMedicine +
                 '}';
     }
 }
