@@ -2,7 +2,7 @@
   <v-container>
   <v-layout row wrap>
   <v-card
-    class="mx-auto" style="width: 50%; max-height: 700px; overflow-y: scroll"
+    class="mx-auto" style="width: 50%; max-height: 400px; overflow-y: scroll"
   >
     <v-toolbar
       color="#3949AB"
@@ -28,7 +28,7 @@
       <v-list-item-group
         v-model="selected"
         active-class="pink--text"
-        multiple
+        single
       >
         <template v-for="(item, index) in renderingItems">
           <v-list-item :key="item.title">
@@ -75,9 +75,8 @@
     <v-divider></v-divider>
     <div style="margin: 0 auto; width: 100px">
       <v-radio-group v-model="sortCriteria" column>
-        <v-radio value="date" label="Date"></v-radio>
-        <v-radio value="price" label="Price"></v-radio>
-        <v-radio value = "duration" label="Duration"></v-radio>
+        <v-radio value="name" label="Name"></v-radio>
+        <v-radio value="manufacturer" label="Manufacturer"></v-radio>
       </v-radio-group>
     </div>
     <v-btn v-on:click="sort">Sort</v-btn>
@@ -88,11 +87,12 @@
     </div>
     <v-divider></v-divider>
       <div style="margin: 0 auto; width: 100px">
-        <h3 style="margin-top: 20px;">Type</h3>
+        <h3 style="margin-top: 20px;">Shape</h3>
         <v-radio-group v-model="filterCriteria" column>
           <v-radio value="all" label="All"></v-radio>
-          <v-radio value="EXAMINATION" label="Examination"></v-radio>
-          <v-radio value="CONSULTATION" label="Consultation"></v-radio>
+          <v-radio value="PILL" label="Pill"></v-radio>
+          <v-radio value="TABLET" label="Tablet"></v-radio>
+          <v-radio value="SYRUP" label="Syrup"></v-radio>
         </v-radio-group>
       </div>
     <v-btn v-on:click="filter" >Filter</v-btn>
@@ -106,7 +106,7 @@
 import axios from 'axios';
   export default {
     data: () => ({
-      selected: [2],
+      selected: [],
       drawer: false,
       searchString: '',
       renderingItems: [],
@@ -141,25 +141,20 @@ import axios from 'axios';
         var i;
         var newArray = [];
         for(i = 0; i < this.searchedItems.length; i++){
-          if( this.filterCriteria == 'all' || this.searchedItems[i].appointmentType.appointmentTypeValue == this.filterCriteria ){
+          if( this.filterCriteria == 'all' || this.searchedItems[i].medicineShape.shapeValue == this.filterCriteria ){
             newArray.push(this.items[i]);
           }
         }
         this.renderingItems = newArray;
       },
       sort: function(){
-        if(this.sortCriteria == 'date'){
+        if(this.sortCriteria == 'name'){
           this.renderingItems.sort(function(a, b){
-            return a.startTime-b.startTime;
+            return a.name.localeCompare(b.name);
           })
-        }else if(this.sortCriteria == 'price'){
+        }else{
           this.renderingItems.sort(function(a, b){
-            return a.price - b.price;
-          })
-        }
-        else{
-          this.renderingItems.sort(function(a, b){
-            return Math.abs(a.startTime - a.endTime) - Math.abs(b.startTime - b.endTime);
+            return a.medicineManufacturer.name.localeCompare(b.medicineManufacturer.name);
           })
         }
       }

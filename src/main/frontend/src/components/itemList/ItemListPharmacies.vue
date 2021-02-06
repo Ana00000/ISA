@@ -2,7 +2,7 @@
   <v-container>
   <v-layout row wrap>
   <v-card
-    class="mx-auto" style="width: 50%; max-height: 700px; overflow-y: scroll"
+    class="mx-auto" style="width: 50%; max-height: 500px; overflow-y: scroll"
   >
     <v-toolbar
       color="#3949AB"
@@ -28,7 +28,7 @@
       <v-list-item-group
         v-model="selected"
         active-class="pink--text"
-        multiple
+        single
       >
         <template v-for="(item, index) in renderingItems">
           <v-list-item :key="item.title">
@@ -112,8 +112,9 @@ import axios from 'axios';
       sortCriteria: 'name',
       items: []
     }),
+    props: ["maxHeight"],
     created(){
-      axios.get('http://localhost:8081/pharmacies/patient')
+      axios.get('http://localhost:8081/pharmacies/all')
             .then(res => {
               this.items = res.data;
               this.renderingItems = res.data;

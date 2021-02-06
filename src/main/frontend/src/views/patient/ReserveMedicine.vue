@@ -7,8 +7,43 @@
             <div class="panelDiv">
                 <div style="margin: 50px"><h2 class="display-3">Medicine Reservation</h2></div>
                 <div style="background: none; border: none;">
+                    <v-card style="margin-left: 90px; margin-right: 90px; padding: 10px;background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Medicine</h2></v-card>
                     <item-list-medicine></item-list-medicine>
                 </div>
+                <div>
+                    <v-card style="margin-left: 90px; margin-right: 90px; padding: 10px; background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Pharmacy</h2></v-card>
+                    <item-list-pharmacies></item-list-pharmacies>
+                </div>
+                <v-container>
+                    <v-layout row>
+                        <v-card width="50%" height="200px">
+                            <div style="background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);">
+                                <h2>Choose Quantity</h2>
+                            </div>
+                            <v-divider></v-divider>
+                            <div style="margin: 20px;">
+                                <label>Quantity: </label>
+                                <input style="background:pink; border" type="number" min="0" max="10" placeholder="" v-model="filterGrade"/>
+                            </div>
+                        </v-card>
+                        <v-card width="25%">
+                            <div style="background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);">
+                                <h2>Choose Date</h2>
+                            </div>
+                            <v-divider></v-divider>
+                            <div>
+                                <date-picker-text></date-picker-text>
+                            </div>
+                        </v-card>
+                        <v-card width="25%" style="background: linear-gradient(to right, pink, #cdc8fa, pink);">
+                            <div style="margin-top: 25%">
+                                <v-btn v-on:click="reserve" rounded color="#3949AB" dark>
+                                    Reserve
+                                </v-btn>
+                            </div>
+                        </v-card>
+                    </v-layout>
+                </v-container>
             </div>
         </v-layout>
     </v-container>
@@ -17,16 +52,26 @@
 <script>
 import PatientMenu from '@/components/PatientMenu.vue'
 import ItemListMedicine from '../../components/itemList/ItemListMedicine.vue'
+import ItemListPharmacies from '../../components/itemList/ItemListPharmacies.vue'
+import DatePickerText from '../../components/DatePickerText.vue'
 export default {
     name : 'ReserveMedicine',
     components : {
         PatientMenu,
-        ItemListMedicine
+        ItemListMedicine,
+        ItemListPharmacies,
+        DatePickerText
     },
     data() {
         return {
         }
     },
+    methods:{
+        reserve: function(){
+            //validation
+            // axios.post('http://localhost:8081/')
+        }
+    }
 }
 </script>
 
