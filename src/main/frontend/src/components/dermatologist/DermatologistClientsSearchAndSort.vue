@@ -7,14 +7,14 @@
     <div class="sort">
       <h2>Sort by</h2>
     </div>
-    <v-divider></v-divider>
+    <v-divider/>
     <v-radio-group v-model="sortOption" column>
-        <v-radio class="optionButtons" value="name" label="Name"></v-radio>
-        <v-radio class="optionButtons" value="lastName" label="Last name"></v-radio>
-        <v-radio class="optionButtons" value="phoneNumber" label="Phone number"></v-radio>
-        <v-radio class="optionButtons" value="address" label="Address"></v-radio>
-        <v-radio class="optionButtons" value="email" label="Email"></v-radio>
-        <v-radio class="optionButtons" value="dateOfExamination" label="Date of examination"></v-radio>
+        <v-radio class="optionButtons" value="name" label="Name" color="#aba7ff"/>
+        <v-radio class="optionButtons" value="lastName" label="Last name" color="#aba7ff"/>
+        <v-radio class="optionButtons" value="phoneNumber" label="Phone number" color="#aba7ff"/>
+        <v-radio class="optionButtons" value="address" label="Address" color="#aba7ff"/>
+        <v-radio class="optionButtons" value="email" label="Email" color="#aba7ff"/>
+        <v-radio class="optionButtons" value="dateOfExamination" label="Date of examination" color="#aba7ff"/>
     </v-radio-group>
     <br/><br/>
     <v-btn v-on:click="sortClients" 
