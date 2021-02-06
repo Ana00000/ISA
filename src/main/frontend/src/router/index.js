@@ -147,6 +147,11 @@ const routes = [
     path: '/pharmacyAdmin/profile/:pharmacyAdminId',
     name: 'PharmacyAdminProfile',
     component: () => import('../views/pharmacyAdmin/PharmacyAdminProfile.vue')
+  },
+  {
+    path: '/pharmacyAdmin/AppointmentWithDermatologistForm',
+    name: 'AppointmentWithDermatologistForm',
+    component: () => import('../views/pharmacyAdmin/AppointmentWithDermatologistForm.vue')
   }
 ]
 
