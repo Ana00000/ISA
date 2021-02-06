@@ -4,9 +4,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public enum MedicineReservationValue {
-    UPCOMING("upcoming"),
-    DONE("done"),
-    DENIED("denied");
+    ACTIVE("active"),
+    CANCELED("canceled");
 
     private String text;
 

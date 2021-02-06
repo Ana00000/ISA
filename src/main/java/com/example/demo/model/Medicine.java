@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.MedicineDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -35,6 +37,11 @@ public class Medicine implements Serializable {
     
     public Medicine() {
     }
+
+    public Medicine(MedicineDTO medicineDTO) {
+    	this.id = medicineDTO.getId();
+    	this.name = medicineDTO.getName();
+	}
 
 	public Medicine(Long id, String name, boolean recipeNeed, Set<Medicine> alternativeMedicine,
 			MedicineManufacturer medicineManufacturer, MedicineShape medicineShape,

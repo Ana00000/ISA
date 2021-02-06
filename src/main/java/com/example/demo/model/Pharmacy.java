@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.PharmacyDTO;
 import org.junit.Ignore;
 import org.springframework.context.annotation.Primary;
 import javax.persistence.*;
@@ -72,6 +73,11 @@ public class Pharmacy {
     private Set<Appointment> appointments;
 
     public Pharmacy() {
+    }
+
+    public Pharmacy(PharmacyDTO pharmacyDTO) {
+        this.id = pharmacyDTO.getId();
+        this.name = pharmacyDTO.getName();
     }
 
     public Pharmacy(Long id, String name, String country, String city, String street, int number, float longitude, float latitude, float averageGrade) {

@@ -165,6 +165,13 @@ INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (13, 4);
 INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (14, 5);
 INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (15, 6);
 
+INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (13, 1, 20);
+INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (14, 2, 30);
+INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (15, 3, 10);
+INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (13, 4, 25);
+INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (14, 5, 4);
+INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (15, 6, 100);
+
 
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (1, 3);
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (5, 2);
@@ -197,6 +204,9 @@ INSERT INTO ingredients_of_medicine(ingredient_name, medicine_name) VALUES ('Ber
 INSERT INTO ingredients_of_medicine(ingredient_name, medicine_name) VALUES ('Selenium', 'Codeine');
 INSERT INTO ingredients_of_medicine(ingredient_name, medicine_name) VALUES ('Alosetron', 'Codeine');
 INSERT INTO ingredients_of_medicine(ingredient_name, medicine_name) VALUES ('Magnesium', 'Codeine');
+
+INSERT INTO medicine_reservation_status(id, status_value) VALUES (1, 0);
+INSERT INTO medicine_reservation_status(id, status_value) VALUES (2, 1);
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_USER');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');

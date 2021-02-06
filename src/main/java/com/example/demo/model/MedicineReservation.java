@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.MedicineReservationDTO;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -24,6 +26,12 @@ public class MedicineReservation {
 
     public MedicineReservation(Long id) {
         this.id = id;
+    }
+
+    public MedicineReservation(MedicineReservationDTO reservationDTO) {
+        this.reservationStatus = reservationDTO.getReservationStatus();
+        this.quantity = reservationDTO.getQuantity();
+        this.patient = reservationDTO.getPatient();
     }
 
     public MedicineReservation(Long id, MedicineReservationStatus reservationStatus, Long quantity, Patient patient, PharmacyMedicine pharmacyMedicine) {

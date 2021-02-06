@@ -13,7 +13,7 @@ public class MedicineReservationStatus {
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 
-    @Column(name="value", unique = true, nullable = false)
+    @Column(name="statusValue", unique = true, nullable = false)
     private MedicineReservationValue statusValue;
 
     public MedicineReservationStatus(Long id, MedicineReservationValue statusValue) {

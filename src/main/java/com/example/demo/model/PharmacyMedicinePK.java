@@ -3,14 +3,14 @@ package com.example.demo.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class MedicineReservationPK implements Serializable {
+public class PharmacyMedicinePK implements Serializable {
     protected Medicine medicine;
     protected Pharmacy pharmacy;
 
-    public MedicineReservationPK() {
+    public PharmacyMedicinePK() {
     }
 
-    public MedicineReservationPK(Medicine medicine, Pharmacy pharmacy) {
+    public PharmacyMedicinePK(Medicine medicine, Pharmacy pharmacy) {
         this.medicine = medicine;
         this.pharmacy = pharmacy;
     }
@@ -19,7 +19,7 @@ public class MedicineReservationPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MedicineReservationPK that = (MedicineReservationPK) o;
+        PharmacyMedicinePK that = (PharmacyMedicinePK) o;
         return Objects.equals(medicine, that.medicine) &&
                 Objects.equals(pharmacy, that.pharmacy);
     }

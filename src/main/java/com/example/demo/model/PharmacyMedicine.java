@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@IdClass(MedicineReservationPK.class)
+@IdClass(PharmacyMedicinePK.class)
 public class PharmacyMedicine {
     @Id
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
