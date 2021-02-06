@@ -5,6 +5,7 @@ import com.example.demo.dto.DermatologistDTO;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.UserDTO;
+import com.example.demo.model.Dermatologist;
 import com.example.demo.model.Doctor;
 import com.example.demo.model.Patient;
 import com.example.demo.model.Pharmacist;
@@ -12,16 +13,18 @@ import com.example.demo.model.User;
 import com.example.demo.security.ResourceConflictException;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.security.UserTokenState;
+import com.example.demo.service.DermatologistService;
 import com.example.demo.service.PatientService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.CustomUserDetailsService;
 
-
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -52,10 +55,15 @@ public class UserController {
     
 	@Autowired
     private final PatientService patientService;
+	
+	@Autowired
+	private final DermatologistService dermatologistService;
 
+	 
     @Autowired
-    public UserController(UserService userService, PatientService patientService) {
-        this.userService = userService;
+    public UserController(UserService userService, PatientService patientService, DermatologistService dermatologistService) {
+        this.dermatologistService = dermatologistService;
+		this.userService = userService;
         this.patientService = patientService;
     }
 
@@ -64,7 +72,7 @@ public class UserController {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
-    public ResponseEntity<UserDTO> findByEmail(String email) {
+    public ResponseEntity<User> findByEmail(String email) {
         return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
     }
     
@@ -79,8 +87,7 @@ public class UserController {
 
 		// Ubaci korisnika u trenutni security kontekst
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		// Kreiraj token za tog korisnika
+		// Kreiraj token zaa tog korisnika
 		User user = (User) authentication.getPrincipal();
 		String jwt = tokenUtils.generateToken(user.getUsername());
 		int expiresIn = tokenUtils.getExpiredIn();
@@ -92,15 +99,15 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> addUser(@RequestBody UserDTO userRequest, UriComponentsBuilder ucBuilder) {
 
-		UserDTO existUserDto = this.userService.findByEmail(userRequest.getEmail());
+		User existUser = this.userService.findByEmail(userRequest.getEmail());
 
-		if (existUserDto != null) {
-			throw new ResourceConflictException(existUserDto.getId(), "Username already exists");
+		if (existUser != null) {
+			throw new ResourceConflictException(existUser.getId(), "Username already exists");
 		}
 
-		User user = this.userService.save(new User(userRequest));
+		User user = this.userService.save(new Patient(userRequest));
 		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());
+		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());	//is this redirection ???
 		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
     

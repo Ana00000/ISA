@@ -20,7 +20,7 @@ public interface UserService {
 
 	List<User> findAllByLastName(String lastName);
 
-	UserDTO findByEmail(String email);
+	User findByEmail(String email);
 
 	List<User> findByNameAndLastNameAllIgnoringCase(String name, String lastName);
 
