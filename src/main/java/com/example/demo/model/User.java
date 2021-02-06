@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name="hospitalUsers") 
+@Table(name="Users")
 @Inheritance(strategy=TABLE_PER_CLASS)
 public  class User implements UserDetails{
 	

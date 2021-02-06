@@ -5,7 +5,7 @@
                 <PatientMenu/>
             </div>
             <div class="panelDiv">
-                <div style="margin: 50px"><h2 class="display-3">Appointment History</h2></div>
+                <div style="margin: 50px"><h2 class="display-3">Scheduled Appointments</h2></div>
                 <div style="background: none; border: none;">
                     <item-list-appointments></item-list-appointments>
                 </div>
@@ -18,7 +18,7 @@
 import PatientMenu from '@/components/PatientMenu.vue'
 import ItemListAppointments from '@/components/itemList/ItemListAppointments.vue'
 export default {
-    name : 'AppointmentHistory',
+    name : 'ScheduledAppointments',
     components : {
         PatientMenu,
         ItemListAppointments

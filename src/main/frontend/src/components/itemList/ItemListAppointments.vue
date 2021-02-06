@@ -34,12 +34,12 @@
           <v-list-item :key="item.title">
             <template v-slot:default="{ active }">
               <v-list-item-content >
-                <v-list-item-title  v-text="item.name"></v-list-item-title>
-                <v-list-item-subtitle v-text="item.street + ', ' + item.city"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Grade: ' + item.averageGrade"></v-list-item-subtitle>
-              
+                <v-list-item-title  v-text="item.startTime + '-' + item.endTime"></v-list-item-title>
+                <v-list-item-subtitle v-text="'Price: ' + item.price"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Type: ' + item.appointmentType.appointmentTypeValue"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Doctor: ' + item.doctor.name + ' ' + item.doctor.lastName"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Status: ' + item.status.statusValue"></v-list-item-subtitle>
               </v-list-item-content>
-
 
               <v-list-item-action>
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
@@ -76,9 +76,9 @@
     <v-divider></v-divider>
     <div style="margin: 0 auto; width: 100px">
       <v-radio-group v-model="sortCriteria" column>
-        <v-radio value="name" label="Name"></v-radio>
-        <v-radio value="address" label="Address"></v-radio>
-        <v-radio value = "grade" label="Grade"></v-radio>
+        <v-radio value="date" label="Date"></v-radio>
+        <v-radio value="price" label="Price"></v-radio>
+        <v-radio value = "duration" label="Duration"></v-radio>
       </v-radio-group>
     </div>
     <v-btn v-on:click="sort">Sort</v-btn>
@@ -88,11 +88,15 @@
       <h2>Filter</h2>
     </div>
     <v-divider></v-divider>
-    <div style="margin: 10px">
-      <label>Grade: </label> 
-      <input style="background:pink; border" type="number" min="0" max="10" placeholder="" v-model="filterGrade"/>
-    </div>
-    <v-btn v-on:click="filter" style="margin: 20px;">Filter</v-btn>
+      <div style="margin: 0 auto; width: 100px">
+        <h3 style="margin-top: 20px;">Type</h3>
+        <v-radio-group v-model="filterCriteria" column>
+          <v-radio value="all" label="All"></v-radio>
+          <v-radio value="EXAMINATION" label="Examination"></v-radio>
+          <v-radio value="CONSULTATION" label="Consultation"></v-radio>
+        </v-radio-group>
+      </div>
+    <v-btn v-on:click="filter" >Filter</v-btn>
   </v-card>
   
   </v-layout>
@@ -109,11 +113,12 @@ import axios from 'axios';
       renderingItems: [],
       searchedItems: [],
       filterGrade: 0,
-      sortCriteria: 'name',
+      sortCriteria: 'date',
+      filterCriteria: 'all',
       items: []
     }),
     created(){
-      axios.get('http://localhost:8081/appointments/all')
+      axios.get('http://localhost:8081/appointments/patient')
             .then(res => {
               this.items = res.data;
               this.renderingItems = res.data;
@@ -137,25 +142,25 @@ import axios from 'axios';
         var i;
         var newArray = [];
         for(i = 0; i < this.searchedItems.length; i++){
-          if( this.filterGrade == '' || this.renderingItems[i].averageGrade == this.filterGrade ){
+          if( this.filterCriteria == 'all' || this.searchedItems[i].appointmentType.appointmentTypeValue == this.filterCriteria ){
             newArray.push(this.items[i]);
           }
         }
         this.renderingItems = newArray;
       },
       sort: function(){
-        if(this.sortCriteria == 'name'){
+        if(this.sortCriteria == 'date'){
           this.renderingItems.sort(function(a, b){
-            return a.name.localeCompare(b.name);
+            return a.startTime-b.startTime;
           })
-        }else if(this.sortCriteria == 'address'){
+        }else if(this.sortCriteria == 'price'){
           this.renderingItems.sort(function(a, b){
-            return a.street.localeCompare(b.street);
+            return a.price - b.price;
           })
         }
         else{
           this.renderingItems.sort(function(a, b){
-            return a.averageGrade - b.averageGrade;
+            return Math.abs(a.startTime - a.endTime) - Math.abs(b.startTime - b.endTime);
           })
         }
       }

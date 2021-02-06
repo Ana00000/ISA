@@ -2,7 +2,7 @@
   <v-container>
   <v-layout row wrap>
   <v-card
-    class="mx-auto" style="width: 50%; max-height: 700px; overflow-y: scroll"
+    class="mx-auto" style="width: 50%; max-height: 500px; overflow-y: scroll"
   >
     <v-toolbar
       color="#3949AB"
@@ -28,16 +28,15 @@
       <v-list-item-group
         v-model="selected"
         active-class="pink--text"
-        multiple
+        single
       >
         <template v-for="(item, index) in renderingItems">
-          <v-list-item :key="item.title">
+          <v-list-item :key="item.title" @click="$emit('sendPharmacy', item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
                 <v-list-item-title  v-text="item.name"></v-list-item-title>
                 <v-list-item-subtitle v-text="item.street + ', ' + item.city"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Grade: ' + item.averageGrade"></v-list-item-subtitle>
-              
               </v-list-item-content>
 
 
@@ -113,6 +112,7 @@ import axios from 'axios';
       sortCriteria: 'name',
       items: []
     }),
+    props: ["maxHeight"],
     created(){
       axios.get('http://localhost:8081/pharmacies/all')
             .then(res => {
@@ -138,7 +138,7 @@ import axios from 'axios';
         var i;
         var newArray = [];
         for(i = 0; i < this.searchedItems.length; i++){
-          if( this.filterGrade == '' || this.renderingItems[i].averageGrade == this.filterGrade ){
+          if( this.filterGrade == '' || this.searchedItems[i].averageGrade == this.filterGrade ){
             newArray.push(this.items[i]);
           }
         }
