@@ -210,3 +210,4 @@ INSERT INTO medicine_reservation_status(id, status_value) VALUES (2, 1);
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_USER');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
+

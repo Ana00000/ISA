@@ -22,6 +22,9 @@
         <v-btn color="success" class="mx-auto mb-5" v-on:click="login">
           Login
         </v-btn>
+        <v-btn color="success" class="mx-auto mb-5" v-on:click="proba">
+          Proba
+        </v-btn>
       </v-card-actions>
     </v-card>
     
@@ -29,7 +32,7 @@
 </template>
 
 <script>
-
+import axios from 'axios';
 export default {
   name: 'Login',
   data: () => ({
@@ -48,12 +51,31 @@ export default {
       this.$http.post('http://localhost:8081/users/login', this.user)
       .then(resp => {
         console.log(resp.data);
+        localStorage.setItem("token", resp.data.accessToken);
         window.location.href = "http://localhost:8080/";
       })
       .catch(er => {
         console.log('Error while logging in');
         console.log(er.response.data);
       })
+    },
+    proba() {
+      alert("radi");
+      var tokenString= '';
+      tokenString = localStorage.getItem("token");
+
+      // const bodyParameters = {
+      //   key: "value"
+      // };
+      const config = {
+          headers: { Authorization: `Bearer ${tokenString}` }
+      };
+
+      axios.get( 
+        'http://localhost:8081/patients/all',
+        config
+      ).then(console.log)
+      .catch(console.log);
     }
   }
 };
