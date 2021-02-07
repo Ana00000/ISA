@@ -63,9 +63,9 @@ INSERT INTO medicine_shape(id, shape_value) VALUES (2, 1);
 INSERT INTO medicine_shape(id, shape_value) VALUES (3, 2);
 
 
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active) VALUES (4, 'Marko', 'Gojkovic', 'marko12653gojkovic@gmail.com', '$2a$10$1bC7jlRWy07HDwy0/.NDm.N5J5Z17nKm4bFb4nDJvBVT.4kmdW.4m', 'Novi sad Futoska 2', '06489745', 'TRUE');
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active) VALUES (5, 'Klara', 'Mitrovic', 'klara0430mitrovic@gmail.com', '$2a$10$lJD44wzUcg16lKdLQ2e9Gur8.DOQo/MuQ6Qob6azFdWL94W2dStQi', 'Novi sad Futoska 22', '06489713', 'TRUE');
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active) VALUES (6, 'Mirko', 'Lazarevic', 'mirko1205lazarevic@gmail.com', '$2a$10$C5Fl8.LEF.nfIDcSr8F/uOZUPon.2MmUDfJ1UIAich6gwV79W6D3S', 'Novi sad Futoska 23', '06489714', 'TRUE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions) VALUES (4, 'Marko', 'Gojkovic', 'marko12653gojkovic@gmail.com', '$2a$10$1bC7jlRWy07HDwy0/.NDm.N5J5Z17nKm4bFb4nDJvBVT.4kmdW.4m', 'Novi sad Futoska 2', '06489745', 'TRUE', 'TRUE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions) VALUES (5, 'Klara', 'Mitrovic', 'klara0430mitrovic@gmail.com', '$2a$10$lJD44wzUcg16lKdLQ2e9Gur8.DOQo/MuQ6Qob6azFdWL94W2dStQi', 'Novi sad Futoska 22', '06489713', 'TRUE', 'FALSE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions) VALUES (6, 'Mirko', 'Lazarevic', 'mirko1205lazarevic@gmail.com', '$2a$10$C5Fl8.LEF.nfIDcSr8F/uOZUPon.2MmUDfJ1UIAich6gwV79W6D3S', 'Novi sad Futoska 23', '06489714', 'TRUE', 'TRUE');
 
 
 INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana30356stefanovic@gmail.com', '$2a$10$jE2y9.zdTbKRg9usCa7mP.Gbda96riobY/v8gtM6Kj6SLM65e99GW', 'Smederevo Smederevska 14', '06489489489', 'TRUE');
@@ -104,6 +104,9 @@ INSERT INTO type_of_medicine(id, medicine_type) VALUES (7, 0);
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (8, 1);
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (9, 1);
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (10, 0);
+
+
+INSERT INTO promotion(id, start_time, end_time, description) VALUES (0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Promocija 123');
 
 
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
