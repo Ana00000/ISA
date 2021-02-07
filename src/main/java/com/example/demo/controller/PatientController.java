@@ -1,19 +1,16 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.model.Patient;
 import com.example.demo.service.PatientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -46,6 +43,20 @@ public class PatientController {
 	public ResponseEntity<PatientDTO> getAllPatients(@PathVariable Long id) {
 
 		Patient patient = patientService.findOne(id);
+
+		if (patient == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getInfo")
+	public ResponseEntity<PatientDTO> getInfo() {
+
+		//extract patient from session
+
+		Patient patient = patientService.findOne(4L);
 
 		if (patient == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -92,5 +103,126 @@ public class PatientController {
 			patientsDTO.add(new PatientDTO(p));
 		}
 		return new ResponseEntity<>(patientsDTO, HttpStatus.OK);
+	}
+
+	@PostMapping(value="/update")
+	public ResponseEntity<PatientDTO> updatePatient(@RequestBody PatientDTO PatientDTO) {
+
+		Patient patient = patientService.findOne(PatientDTO.getId());
+
+		if (patient == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		setOfValidInputs(patient, PatientDTO);
+		patient.setActive(PatientDTO.isActive());
+
+		patient = patientService.save(patient);
+		return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
+	}
+
+	private void setOfValidInputs(Patient patient, PatientDTO patientDTO) {
+		setOfValidName(patient, patientDTO.getName());
+		setOfValidLastName(patient, patientDTO.getLastName());
+		setOfValidEmail(patient, patientDTO.getEmail());
+		setOfValidPassword(patient, patientDTO.getPassword());
+		setOfValidAddress(patient, patientDTO.getAddress());
+		setOfValidPhoneNumber(patient, patientDTO.getPhoneNumber());
+	}
+
+	private void setOfValidName(Patient patient, String name) {
+		if(name.length() < 2)
+		{
+			System.out.println("Your name should contain at least 2 characters!");
+			return;
+		}else if(name.length() > 20)
+		{
+			System.out.println("Your name shouldn't contain more than 20 characters!");
+			return;
+		}else
+			patient.setName(name);
+	}
+
+	private void setOfValidLastName(Patient patient, String lastName) {
+		if(lastName.length() < 2)
+		{
+			System.out.println("Your last name should contain at least 2 characters!");
+			return;
+		}else if(lastName.length() > 20)
+		{
+			System.out.println("Your last name shouldn't contain more than 20 characters!");
+			return;
+		}else
+			patient.setLastName(lastName);
+	}
+
+	private void setOfValidEmail(Patient patient, String email) {
+		if(email.length() < 5)
+		{
+			System.out.println("Your email should contain at least 5 characters!");
+			return;
+		}else if(email.length() > 35)
+		{
+			System.out.println("Your email shouldn't contain more than 35 characters!");
+			return;
+		}else
+			patient.setEmail(email);
+	}
+
+	private void setOfValidPassword(Patient patient, String password) {
+		if(password.length() < 3)
+		{
+			System.out.println("Your password should contain at least 3 characters!");
+			return;
+		}else if(password.length() > 20)
+		{
+			System.out.println("Your password shouldn't contain more than 20 characters!");
+			return;
+		}else
+			patient.setPassword(password);
+	}
+
+	private void setOfValidAddress(Patient patient, String address) {
+		if(address.length() < 3)
+		{
+			System.out.println("Your address should contain at least 3 characters!");
+			return;
+		}else if(address.length() > 50)
+		{
+			System.out.println("Your address shouldn't contain more than 50 characters!");
+			return;
+		}else
+			patient.setAddress(address);
+	}
+
+	private void setOfValidPhoneNumber(Patient patient, String phoneNumber) {
+		int flag = validationOfPhoneNumberElements(phoneNumber);
+		flag += validationOfPhoneNumberLength(phoneNumber);
+		if(flag == 0)
+			patient.setPhoneNumber(phoneNumber);
+	}
+
+	private int validationOfPhoneNumberElements(String phoneNumber) {
+		for(int i = 0; i < phoneNumber.length(); i++)
+		{
+			if (!(phoneNumber.matches("[0-9]+") || phoneNumber.contains("/") || phoneNumber.contains("-"))) {
+				System.out.println("Your phone number can contain only numbers and / - characters!");
+				return 1;
+			}
+		}
+		return 0;
+	}
+
+	private int validationOfPhoneNumberLength(String phoneNumber) {
+		if(phoneNumber.length() < 6)
+		{
+			System.out.println("Your phone number should contain at least 6 characters!");
+			return 1;
+		}else if(phoneNumber.length() > 10)
+		{
+			System.out.println("Your phone number shouldn't contain more than 10 characters!");
+			return 1;
+		}
+		return 0;
 	}
 }

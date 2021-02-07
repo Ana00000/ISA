@@ -35,7 +35,7 @@
                 <router-link class="link" to="/pharmacies">Schedule appointment</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Profile</router-link>
+                <router-link class="link" to="/patientProfile">Profile</router-link>
             </div>
         </v-layout>
     </v-container>
@@ -59,6 +59,28 @@ div {
     text-decoration: none;
     font-weight: bold;
     font-size: 30px;
+}
+
+.pagePlacing {
+    height: 840px;
+}
+
+.userImage {
+    position: absolute;
+    left: 110px;
+    top: 150px;
+}
+
+.updatePng {
+    position: absolute;
+    right: 160px;
+    top: 100px;
+}
+
+.updateButton {
+    position: absolute;
+    right: 250px;
+    top: 600px;
 }
 
 .menuDiv {

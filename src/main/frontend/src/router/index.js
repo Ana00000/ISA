@@ -64,6 +64,11 @@ const routes = [
     component: () => import('../views/patient/ReservedMedicine.vue')
   },
   {
+    path: '/patientProfile',
+    name: 'PatientProfile',
+    component: () => import('../views/patient/PatientProfile.vue')
+  },
+  {
     path: '/searchMedicine',
     name: 'SearchMedicine',
     component: () => import('../views/SearchMedicine.vue')
