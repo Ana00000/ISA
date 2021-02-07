@@ -14,7 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -88,6 +91,31 @@ public class MedicineReservationController {
         //Update quantity of medicine in pharmacy
         pharmacyMedicine.setQuantity(pharmacyMedicine.getQuantity() - reservationRequest.getQuantity());
         medicineReservationService.updatePharmacyMedicine(pharmacyMedicine);
+
+        return new ResponseEntity<>(reservationRequest, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/cancel")
+    public ResponseEntity<MedicineReservationDTO> cancelReservation(@RequestBody MedicineReservationDTO reservationRequest) {
+        //check for the time
+        Date date = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, 1);
+        date = c.getTime();
+
+        if(reservationRequest.getPickUpDate().before(date)){
+            //cannot cancel reservation, If patient don't pick up medicine he get's one penalty
+            System.out.println("Invalid date");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        //if good, cancel it
+        MedicineReservation medicineReservation = medicineReservationService.findOne(reservationRequest.getId());
+        medicineReservation.setReservationStatus(MedicineReservationStatusValue.CANCELED);
+        medicineReservationService.save(medicineReservation);
+
+        //notify the doctor
 
         return new ResponseEntity<>(reservationRequest, HttpStatus.OK);
     }

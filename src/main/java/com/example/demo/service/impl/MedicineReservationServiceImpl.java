@@ -22,7 +22,7 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 
     @Override
     public MedicineReservation findOne(Long id) {
-        return null;
+        return medicineReservationRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
     }
 
     @Override
-    public PharmacyMedicine findOnePharmacyMedicine(PharmacyMedicinePK medicineReservationPK) {
-        return pharmacyMedicineRepository.findById(medicineReservationPK).orElse(null);
+    public PharmacyMedicine findOnePharmacyMedicine(PharmacyMedicinePK pharmacyMedicinePK) {
+        return pharmacyMedicineRepository.findById(pharmacyMedicinePK).orElse(null);
     }
 
     @Override

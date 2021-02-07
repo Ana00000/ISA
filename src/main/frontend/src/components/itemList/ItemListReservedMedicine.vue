@@ -26,15 +26,15 @@
       <v-list-item-group
         v-model="selected"
         active-class="pink--text"
-        multiple
+        single
       >
         <template v-for="(item, index) in renderingItems">
-          <v-list-item :key="item.id">
+          <v-list-item :key="item.id" @click="$emit('sendReservedMedicine',item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
                 <v-list-item-title  v-text="item.medicineDTO.name"></v-list-item-title>
                 <v-list-item-subtitle v-text="'Pharmacy: ' + item.pharmacyDTO.name"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Type: ' + item.appointmentType.appointmentTypeValue"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Date: ' + item.pickUpDate"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Patient: ' + item.patient.name + ' ' + item.patient.lastName"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Quantity: ' + item.quantity"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Status: ' + item.reservationStatus"></v-list-item-subtitle>

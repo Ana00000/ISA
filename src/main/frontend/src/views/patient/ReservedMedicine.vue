@@ -7,7 +7,10 @@
             <div class="panelDiv">
                 <div style="margin: 50px"><h2 class="display-3">Reserved Medicine</h2></div>
                 <div style="background: none; border: none;">
-                    <item-list-reserved-medicine></item-list-reserved-medicine>
+                    <item-list-reserved-medicine @sendReservedMedicine="receiveReservedMedicine"></item-list-reserved-medicine>
+                </div>
+                <div style="margin-top: 30px">
+                    <v-btn class="pink lighten-3" large @click="cancelReservation"><h2 display-1>Cancel Reservation</h2></v-btn>
                 </div>
             </div>
         </v-layout>
@@ -17,6 +20,7 @@
 <script>
 import PatientMenu from '@/components/PatientMenu.vue'
 import ItemListReservedMedicine from '../../components/itemList/ItemListReservedMedicine.vue'
+import axios from 'axios';
 export default {
     name : 'AppointmentHistory',
     components : {
@@ -25,8 +29,25 @@ export default {
     },
     data() {
         return {
+            reservedMedicine: ''
         }
     },
+    methods:{
+        receiveReservedMedicine: function(value){
+            this.reservedMedicine = value;
+        },
+        cancelReservation: function(){
+            axios.post('http://localhost:8081/medicineReservation/cancel', this.reservedMedicine)
+                .then(res => {
+                    console.log(res);
+                    location.reload();
+                })
+                .catch(res => {
+                    alert("You didn't cancel reservation at the time, enjoy your penalty! ;)");
+                    console.log(res);
+                })
+        }
+    }
 }
 </script>
 
