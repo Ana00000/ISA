@@ -14,6 +14,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.repository.DermatologistRepository;
+import com.example.demo.repository.DoctorRepository;
+import com.example.demo.repository.PatientRepository;
+import com.example.demo.repository.PharmacistRepository;
+import com.example.demo.repository.PharmacyAdminRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 
@@ -21,6 +27,11 @@ import com.example.demo.service.UserService;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final DoctorRepository doctorRepository;
+    private final DermatologistRepository dermatologistRepository;
+    private final PatientRepository patientRepository;
+    private final PharmacistRepository pharmacistRepository;
+    private final PharmacyAdminRepository pharmacyAdminRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -29,20 +40,44 @@ public class UserServiceImpl implements UserService {
     private AuthorityService authorityService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserRepository userRepository, DoctorRepository doctorRepository, DermatologistRepository dermatologistRepository, 
+    		PatientRepository patientRepository, PharmacistRepository pharmacistRepository, PharmacyAdminRepository pharmacyAdminRepository) {
+        this.patientRepository = patientRepository;
+		this.userRepository = userRepository;
+        this.doctorRepository = doctorRepository;
+        this.dermatologistRepository = dermatologistRepository;
+        this.pharmacistRepository = pharmacistRepository;
+        this.pharmacyAdminRepository = pharmacyAdminRepository;
     }
 
     public User findOne(Long id) {
-        return userRepository.findById(id).orElseGet(null);
+    	List<User> users = findAll();
+    	for (User user : users) {
+			if(user.getId() == id) {
+				return user;
+			}
+		}
+        return null;
     }
 
     public User findOneByPassword(String password) {
-        return userRepository.findOneByPassword(password);
+    	List<User> users = findAll();
+    	for (User user : users) {
+			if(user.getPassword().equals(password)) {
+				return user;
+			}
+		}
+        return null;
     }
 
     public List<User> findAll() {
-        return userRepository.findAll();
+    	List<User> retList = new ArrayList();
+    	retList.addAll(doctorRepository.findAll());
+    	retList.addAll(dermatologistRepository.findAll());
+    	retList.addAll(patientRepository.findAll());
+    	retList.addAll(pharmacistRepository.findAll());
+    	retList.addAll(pharmacyAdminRepository.findAll());
+        return retList;
     }
 
     public Page<User> findAll(Pageable page) {
@@ -50,33 +85,67 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<User> findAllByName(String name) {
-        return userRepository.findAllByName(name);
+    	List<User> users = findAll();
+    	List<User> retList = new ArrayList<User>();
+    	for (User user : users) {
+			if(user.getName().toLowerCase().equals(name.toLowerCase())) {
+				retList.add(user);
+			}
+		}
+        return retList;
     }
 
     public List<User> findAllByLastName(String lastName) {
-        return userRepository.findAllByLastName(lastName);
+    	List<User> users = findAll();
+    	List<User> retList = new ArrayList<User>();
+    	for (User user : users) {
+			if(user.getLastName().toLowerCase().equals(lastName.toLowerCase())) {
+				retList.add(user);
+			}
+		}
+        return retList;
     }
 
-    public UserDTO findByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-
-        if(user != null){
-            return new UserDTO(user);
-        }
-
+    public User findByEmail(String email) {
+    	List<User> users = findAll();
+    	List<UserDTO> retList = new ArrayList<UserDTO>();
+    	for (User user : users) {
+			if(user.getEmail().toLowerCase().equals(email.toLowerCase())) {
+				return user;
+			}
+		}
         return null;
     }
 
     public List<User> findByNameAndLastNameAllIgnoringCase(String name, String lastName) {
-        return userRepository.findByNameAndLastNameAllIgnoringCase(name, lastName);
+    	List<User> users = findAll();
+    	List<User> retList = new ArrayList<User>();
+    	for (User user : users) {
+			if(user.getLastName().toLowerCase().equals(lastName.toLowerCase()) 
+					&& user.getName().toLowerCase().equals(name.toLowerCase())) {
+				retList.add(user);
+			}
+		}
+        return retList;
     }
-
     public User save(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    	user.setPassword(passwordEncoder.encode(user.getPassword()));
         List<Authority> authorities = new ArrayList<>();
         authorities.add(authorityService.findByName("ROLE_USER"));
         user.setAuthorities(authorities);
-        return userRepository.save(user);
+    	if(user.getClass() == Dermatologist.class) {
+    		return dermatologistRepository.save((Dermatologist)user);
+    	}
+    	if (user.getClass() == Patient.class) {
+    		return patientRepository.save((Patient)user);
+    	}
+    	if(user.getClass() == Pharmacist.class) {
+    		return pharmacistRepository.save((Pharmacist)user);
+    	}
+    	if(user.getClass() == PharmacyAdmin.class) {
+    		 return pharmacyAdminRepository.save((PharmacyAdmin)user);
+    	}
+		return userRepository.save(user);
     }
 
     public void remove(Long id) {
@@ -85,6 +154,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(UserDTO userDTO) {
-        return userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
+    	List<User> users = findAll();
+    	for (User user : users) {
+			if(user.getUsername().equals(userDTO.getEmail()) && user.getPassword().equals(userDTO.getPassword())) {
+				return user;
+			}
+		}
+        return null;
     }
 }
