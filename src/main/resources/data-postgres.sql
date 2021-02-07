@@ -227,8 +227,8 @@ INSERT INTO ingredients_of_medicine(ingredient_name, medicine_name) VALUES ('Mag
 INSERT INTO medicine_reservation_status(id, status_value) VALUES (1, 0);
 INSERT INTO medicine_reservation_status(id, status_value) VALUES (2, 1);
 
-INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (1, '2020-03-03 00:00:00', 3, 'ACTIVE', 1, 4, 13);
-INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (2, '2020-03-03 00:00:00', 5, 'ACTIVE', 4, 4, 13);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (1, '2021-03-03 00:00:00', 3, 'ACTIVE', 1, 4, 13);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (2, '2021-03-03 00:00:00', 5, 'ACTIVE', 4, 4, 13);
 INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (3, '2020-03-03 00:00:00', 6, 'ACTIVE', 5, 4, 14);
 
 
