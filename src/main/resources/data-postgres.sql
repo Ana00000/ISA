@@ -63,7 +63,7 @@ INSERT INTO medicine_shape(id, shape_value) VALUES (2, 1);
 INSERT INTO medicine_shape(id, shape_value) VALUES (3, 2);
 
 
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions) VALUES (4, 'Marko', 'Gojkovic', 'marko12653gojkovic@gmail.com', '$2a$10$1bC7jlRWy07HDwy0/.NDm.N5J5Z17nKm4bFb4nDJvBVT.4kmdW.4m', 'Novi sad Futoska 2', '06489745', 'TRUE', 'TRUE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions) VALUES (4, 'Marko', 'Gojkovic', 'mile.knezevic98@gmail.com', '$2a$10$1bC7jlRWy07HDwy0/.NDm.N5J5Z17nKm4bFb4nDJvBVT.4kmdW.4m', 'Novi sad Futoska 2', '06489745', 'TRUE', 'TRUE');
 INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions) VALUES (5, 'Klara', 'Mitrovic', 'klara0430mitrovic@gmail.com', '$2a$10$lJD44wzUcg16lKdLQ2e9Gur8.DOQo/MuQ6Qob6azFdWL94W2dStQi', 'Novi sad Futoska 22', '06489713', 'TRUE', 'FALSE');
 INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions) VALUES (6, 'Mirko', 'Lazarevic', 'mirko1205lazarevic@gmail.com', '$2a$10$C5Fl8.LEF.nfIDcSr8F/uOZUPon.2MmUDfJ1UIAich6gwV79W6D3S', 'Novi sad Futoska 23', '06489714', 'TRUE', 'TRUE');
 

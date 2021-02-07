@@ -35,11 +35,24 @@ export default {
   },
   methods: {
     confirmPromotion() {
+      if ((this.dateAndTimeFrom > this.dateAndTimeTo) ||
+      (this.dateAndTimeFrom < Date.now()) ||
+      (this.dateAndTimeTo < Date.now())) {
+        alert("Time Span is not set correctly! Try again.");
+        return;
+      }
+
+      if (this.text === '') {
+        alert('Description is not set. Try again');
+        return;
+      }
+
       this.promotionId = Math.floor((Math.random() * 1000000) + 1);
       this.$http.post('http://localhost:8081/promotions/save', this.Promotion)
       .then(resp => {
         console.log(resp.data);
         this.$router.back();
+        alert("Promotion is sent to subscribed patients successfully.");
       })
       .catch(err => {
         alert('ERROR: Something went wrong.');
