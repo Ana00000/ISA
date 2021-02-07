@@ -152,6 +152,11 @@ const routes = [
     path: '/pharmacyAdmin/AppointmentWithDermatologistForm',
     name: 'AppointmentWithDermatologistForm',
     component: () => import('../views/pharmacyAdmin/AppointmentWithDermatologistForm.vue')
+  },
+  {
+    path: '/pharmacyAdmin/definePromotion',
+    name: 'DefinePromotion',
+    component: () => import('../views/pharmacyAdmin/DefinePromotion.vue')
   }
 ]
 
