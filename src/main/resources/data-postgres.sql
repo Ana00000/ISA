@@ -217,6 +217,6 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_DERMATOLOGIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACIST');
 
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (1, 0, 2, '2020-02-13 00:00', '2020-02-20 00:00');
-INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (2, 2, 13, '2020-03-21 00:00', '2020-03-24 00:00');
+INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (2, 2, 8, '2020-03-21 00:00', '2020-03-24 00:00');
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (3, 1, 3, '2020-05-03 00:00', '2020-06-03 00:00');
-INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (4, 0, 14, '2020-02-19 00:00', '2020-02-20 00:00');
+INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (4, 0, 7, '2020-02-19 00:00', '2020-02-20 00:00');
