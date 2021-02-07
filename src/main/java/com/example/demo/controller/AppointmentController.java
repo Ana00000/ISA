@@ -44,9 +44,8 @@ public class AppointmentController {
 	
 	@GetMapping(value = "/allConsultations")
 	public ResponseEntity<List<AppointmentDTO>> getAllConsultations() {
-
-		List<Appointment> appointments = new ArrayList<>();
 		
+		List<Appointment> appointments = new ArrayList<>();
 		for(Appointment a : appointmentService.findAll())
 			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("consultation"))
 				appointments.add(a);
@@ -61,11 +60,44 @@ public class AppointmentController {
 	
 	@GetMapping(value = "/allExaminations")
 	public ResponseEntity<List<AppointmentDTO>> getAllExaminations() {
-
-		List<Appointment> appointments = new ArrayList<>();
 		
+		List<Appointment> appointments = new ArrayList<>();
 		for(Appointment a : appointmentService.findAll())
 			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("examination"))
+				appointments.add(a);
+		
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/allConsultations/{id}")
+	public ResponseEntity<List<AppointmentDTO>> getAllPharmacistConsultations(@PathVariable Long id) {
+
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll())
+			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("consultation")
+			   & a.getDoctor().getId() == id)
+				appointments.add(a);
+		
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/allExaminations/{id}")
+	public ResponseEntity<List<AppointmentDTO>> getAllDermatologistExaminations(@PathVariable Long id) {
+		
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll())
+			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("examination")
+			   & a.getDoctor().getId() == id)
 				appointments.add(a);
 		
 		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
