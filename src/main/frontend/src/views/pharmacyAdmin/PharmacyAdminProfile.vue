@@ -22,10 +22,6 @@
           <v-list-item>
             <v-btn style="margin: 0 auto" class="buttons">become a premium member</v-btn>
           </v-list-item>
-          <v-list-item>
-            <v-btn style="margin: 0 auto" class="buttons">Statistics</v-btn>
-          </v-list-item>
-
         </v-list>
         <div>
           <div class="grid-container2">
