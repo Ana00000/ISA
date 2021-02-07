@@ -20,26 +20,32 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
         this.pharmacyAdminRepository = pharmacyAdminRepository;
     }
 
+    @Override
     public PharmacyAdmin findOne(Long id) {
-        return pharmacyAdminRepository.findById(id).orElseGet(null);
+        return pharmacyAdminRepository.findById(id).orElse(null);
     }
 
+    @Override
     public PharmacyAdmin findOneByPassword(String password) {
         return pharmacyAdminRepository.findOneByPassword(password);
     }
 
+    @Override
     public List<PharmacyAdmin> findAll() {
         return pharmacyAdminRepository.findAll();
     }
 
+    @Override
     public Page<PharmacyAdmin> findAll(Pageable page) {
         return pharmacyAdminRepository.findAll(page);
     }
 
+    @Override
     public List<PharmacyAdmin> findAllByName(String name) {
         return pharmacyAdminRepository.findAllByName(name);
     }
 
+    @Override
     public List<PharmacyAdmin> findAllByLastName(String lastName) {
         return pharmacyAdminRepository.findAllByLastName(lastName);
     }
@@ -49,6 +55,7 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
         return null;
     }
 
+    @Override
     public PharmacyAdmin save(PharmacyAdmin pharmacyAdmin) {
         pharmacyAdminRepository.save(pharmacyAdmin);
         return pharmacyAdmin;

@@ -85,7 +85,7 @@ name: "PharmacyAdminProfile",
       this.$router.push('/pharmacyAdmin/AppointmentWithDermatologistForm');
     },
     definePromotion() {
-      this.$router.push('/pharmacy/definePromotion');
+      this.$router.push('/pharmacyAdmin/definePromotion');
     }
 
   }
