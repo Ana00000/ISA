@@ -75,9 +75,8 @@
     <v-divider></v-divider>
     <div style="margin: 0 auto; width: 100px">
       <v-radio-group v-model="sortCriteria" column>
-        <v-radio value="date" label="Date"></v-radio>
-        <v-radio value="price" label="Price"></v-radio>
-        <v-radio value = "duration" label="Duration"></v-radio>
+        <v-radio value="name" label="Name"></v-radio>
+        <v-radio value="quantity" label="Quantity"></v-radio>
       </v-radio-group>
     </div>
     <v-btn v-on:click="sort">Sort</v-btn>
@@ -88,11 +87,11 @@
     </div>
     <v-divider></v-divider>
       <div style="margin: 0 auto; width: 100px">
-        <h3 style="margin-top: 20px;">Type</h3>
+        <h3 style="margin-top: 20px;">Status</h3>
         <v-radio-group v-model="filterCriteria" column>
           <v-radio value="all" label="All"></v-radio>
-          <v-radio value="EXAMINATION" label="Examination"></v-radio>
-          <v-radio value="CONSULTATION" label="Consultation"></v-radio>
+          <v-radio value="ACTIVE" label="Active"></v-radio>
+          <v-radio value="CANCELED" label="Canceled"></v-radio>
         </v-radio-group>
       </div>
     <v-btn v-on:click="filter" >Filter</v-btn>
@@ -130,7 +129,7 @@ import axios from 'axios';
         var i;
         var newArray = [];
         for(i = 0; i < this.items.length; i++){
-          if(this.searchString == '' || this.items[i].name.indexOf(this.searchString) !== -1 || this.items[i].street.indexOf(this.searchString) !== -1 ){
+          if(this.searchString == '' || this.items[i].name.indexOf(this.searchString) !== -1 ){
             newArray.push(this.items[i]);
           }
         }
@@ -141,25 +140,20 @@ import axios from 'axios';
         var i;
         var newArray = [];
         for(i = 0; i < this.searchedItems.length; i++){
-          if( this.filterCriteria == 'all' || this.searchedItems[i].appointmentType.appointmentTypeValue == this.filterCriteria ){
+          if( this.filterCriteria == 'all' || this.searchedItems[i].reservationStatus == this.filterCriteria ){
             newArray.push(this.items[i]);
           }
         }
         this.renderingItems = newArray;
       },
       sort: function(){
-        if(this.sortCriteria == 'date'){
+        if(this.sortCriteria == 'name'){
           this.renderingItems.sort(function(a, b){
-            return a.startTime-b.startTime;
+            return a.medicineDTO.name.localeCompare(b.medicineDTO.name);
           })
-        }else if(this.sortCriteria == 'price'){
+        }else{
           this.renderingItems.sort(function(a, b){
-            return a.price - b.price;
-          })
-        }
-        else{
-          this.renderingItems.sort(function(a, b){
-            return Math.abs(a.startTime - a.endTime) - Math.abs(b.startTime - b.endTime);
+            return a.quantity-b.quantity;
           })
         }
       }

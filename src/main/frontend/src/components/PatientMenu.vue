@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pink lighten-2 white--text">
+    <v-container class="pink lighten-3 white--text">
         <v-layout style="padding:0px" column>
             <div>
                 <router-link class="link" to="/patientPharmacies">Pharmacies</router-link>
@@ -14,13 +14,13 @@
                 <router-link class="link" to="/pharmacies">eRecipes</router-link>
             </div>
             <div>
+                <router-link class="link" to="/pharmacies">Issued e-medicine</router-link>
+            </div>
+            <div>
                 <router-link class="link" to="/patientReservedMedicine">Reserved medicine</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacies">Penalty insight</router-link>
-            </div>
-            <div>
-                <router-link class="link" to="/pharmacies">Issued medicine</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacies">Promotions</router-link>
@@ -32,7 +32,7 @@
                 <router-link class="link" to="/patientReserveMedicine">Reserve medicine</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Schedule appointment</router-link>
+                <router-link class="link" to="/patientScheduleConsultation">Schedule consultation with pharmacist</router-link>
             </div>
             <div>
                 <router-link class="link" to="/patientProfile">Profile</router-link>
@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 div {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     justify-content: center;
     display: flex;
 }

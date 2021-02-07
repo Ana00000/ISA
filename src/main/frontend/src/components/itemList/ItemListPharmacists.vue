@@ -32,11 +32,8 @@
           <v-list-item :key="item.title">
             <template v-slot:default="{ active }">
               <v-list-item-content >
-                <v-list-item-title  v-text="item.startTime + '-' + item.endTime"></v-list-item-title>
-                <v-list-item-subtitle v-text="'Price: ' + item.price"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Type: ' + item.appointmentType.appointmentTypeValue"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Doctor: ' + item.doctor.name + ' ' + item.doctor.lastName"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Status: ' + item.status.statusValue"></v-list-item-subtitle>
+                <v-list-item-title  v-text="item.name + '-' + item.lastName"></v-list-item-title>
+                <v-list-item-subtitle v-text="'Grade: ' + item.grade"></v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-action>
@@ -116,7 +113,7 @@ import axios from 'axios';
       items: []
     }),
     created(){
-      axios.get('http://localhost:8081/appointments/patient')
+      axios.get('http://localhost:8081/pharmacists/all')
             .then(res => {
               this.items = res.data;
               this.renderingItems = res.data;
