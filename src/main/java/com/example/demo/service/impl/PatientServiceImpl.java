@@ -51,6 +51,11 @@ public class PatientServiceImpl implements PatientService {
 		return patientRepository.findAllByEmail(email);
 	}
 
+	@Override
+	public List<Patient> findAllBySubscribedToPromotions(Boolean subscribedToPromotions) {
+		return patientRepository.findAllBySubscribedToPromotions(subscribedToPromotions);
+	}
+
 	public Patient save(Patient patient) {
 		return patientRepository.save(patient);
 	}
