@@ -3,8 +3,37 @@
         background: #13077d;
         background: -webkit-linear-gradient(to right, #5442ed, #cdc8fa, #13077d);
         background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);">
-        <br/>
-        <div class="welcoming">Pharmacist you can find your prescriptions here!</div>
+
+        <br/><br/>
+
+        <v-container fluid class="container">
+            <v-row>
+            <v-col cols="5"/>
+            <v-col cols="2">
+                <v-text-field
+                    label="Medicine reservation number"
+                    hint="Enter unique number of the medicine reservation!"
+                    color="indigo"
+                    prepend-icon="mdi-magnify"
+                    single-line
+                    v-model="searchReservation"/>
+            </v-col>
+            </v-row>
+        </v-container>
+        
+        <br/><br/>
+        
+        <div class="searchButton">
+            <v-btn 
+                v-on:click="searchReservation" 
+                color="#aba7ff"
+                elevation="24"
+                x-large
+                raised
+                rounded
+            >Search reservation</v-btn>
+        </div>
+
         <div class="panelDiv">
                 <PharmacistMenu/>
         </div> 
@@ -23,13 +52,7 @@ export default {
 
 
 <style scoped>
-.welcoming {
-    font-weight: bolder;
-    font-size: 25px;
-    height: 816px;
-}
-
-.panelDiv {
-    float: bottom;
+.searchButton {
+    height: 650px;
 }
 </style>
