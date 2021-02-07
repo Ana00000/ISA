@@ -18,7 +18,8 @@
                     <v-text-field
                         label="Name"
                         v-model="name"
-                        hint="Your name should contain at least 2 characters!"/>
+                        hint="Your name should contain at least 2 characters!"
+                        color="indigo"/>
                 </v-col>
                 </v-row>
 
@@ -28,7 +29,8 @@
                     <v-text-field
                     label="Last name"
                     v-model="lastName"
-                    hint="Your last name should contain at least 2 characters!"/>
+                    hint="Your last name should contain at least 2 characters!"
+                    color="indigo"/>
                 </v-col>
                 </v-row>
 
@@ -38,7 +40,8 @@
                     <v-text-field
                     label="Email"
                     v-model="email"
-                    hint="Your email should contain at least 5 characters!"/>
+                    hint="Your email should contain at least 5 characters!"
+                    color="indigo"/>
                 </v-col>
                 </v-row>
 
@@ -50,7 +53,8 @@
                     v-model="password"
                     hint="Your password should contain at least 3 characters!"
                     ref="password"
-                    type="password"/>
+                    type="password"
+                    color="indigo"/>
                 </v-col>
                 </v-row>
 
@@ -60,7 +64,8 @@
                     <v-text-field
                     label="Address"
                     v-model="address"
-                    hint="Your address should contain at least 3 characters!"/>
+                    hint="Your address should contain at least 3 characters!"
+                    color="indigo"/>
                 </v-col>
                 </v-row>
                 
@@ -70,7 +75,8 @@
                     <v-text-field
                     label="Phone number"
                     v-model="phoneNumber"
-                    hint="Your phone number should contain 9 or 10 numbers!"/>
+                    hint="Your phone number should contain 9 or 10 numbers!"
+                    color="indigo"/>
                 </v-col>
                 </v-row>
                 
@@ -81,7 +87,8 @@
                     label="Type of doctor"
                     v-model="type"
                     hint="You can not change your job title, only admin can!"
-                    readonly/>
+                    readonly
+                    color="indigo"/>
                 </v-col>
                 </v-row>
 
@@ -92,7 +99,8 @@
                     label="Working in pharmacy/pharmacies"
                     v-model="workingInPharmacy"
                     hint="You can not change in which pharmacy/pharmacies you work, only admin can!"
-                    readonly>
+                    readonly
+                    color="indigo">
                     </v-text-field>
                 </v-col>
                 </v-row>
