@@ -77,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.antMatchers("/dermatologists/**").permitAll()
 					.antMatchers("/patients/**").permitAll()
 					.antMatchers("/doctors/**").permitAll()
-
+					//.antMatchers("/**").permitAll()
 
 					// za svaki drugi zahtev korisnik mora biti autentifikovan
 					.anyRequest().authenticated().and()
