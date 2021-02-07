@@ -20,7 +20,7 @@
             <v-btn style="margin: 0 auto" class="buttons" v-on:click="defineAppWithDermatologist">define new appointment with dermatologist</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn style="margin: 0 auto" class="buttons">become a premium member</v-btn>
+            <v-btn style="margin: 0 auto" class="buttons" v-on:click="definePromotion">define new promotion</v-btn>
           </v-list-item>
         </v-list>
         <div>
@@ -83,6 +83,9 @@ name: "PharmacyAdminProfile",
     },
     defineAppWithDermatologist() {
       this.$router.push('/pharmacyAdmin/AppointmentWithDermatologistForm');
+    },
+    definePromotion() {
+      this.$router.push('/pharmacy/definePromotion');
     }
 
   }
