@@ -61,7 +61,7 @@ public class PromotionController {
 
         for(Patient p : subscribedPatients){
             String promotionStringStart = "Dear mr./mrs. " + p.getName() + " " + p.getLastName() + ",\n\n";
-            String promotionStringEnd = "\n\nPromotion will be active in period \nfrom: " + from + "\nto: " + to + "";
+            String promotionStringEnd = "\n\nPromotion will be active in period \nfrom: " + from + "\nto: " + to + "\n\nSincerely Yours,\nIsa I Bisa Team";
             emailService.sendEmail(p.getEmail(), promotionStringStart + promotion.getDescription() + promotionStringEnd, "NEW PROMOTION");
         }
 
