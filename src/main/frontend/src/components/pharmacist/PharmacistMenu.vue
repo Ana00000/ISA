@@ -17,7 +17,7 @@
                 <router-link class="link" to="/pharmacistHomePage/prescriptions">Prescriptions</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/vacationsAndAbsences">Vacations and absences</router-link>
+                <router-link class="link" to="/pharmacistHomePage/vacationsAndAbsences/:id">Vacations and absences</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacistHomePage/profile/:id">Profile</router-link>
