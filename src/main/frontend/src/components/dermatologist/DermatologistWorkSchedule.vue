@@ -64,7 +64,7 @@ export default {
     setVacationInfo(item) {
       data.push({
             Id: item.id,
-            EventName: 'Vacation of doctor ' + item.doctor.name+' '+ item.doctor.lastName,
+            EventName: 'Vacation of dermatologist ' + item.doctor.name+' '+ item.doctor.lastName,
             StartTime: new Date(item.startTime),
             EndTime: new Date(item.endTime),
             Description: 'Vacation',
@@ -81,7 +81,7 @@ export default {
 
           data.push({
             Id: examination.id,
-            EventName: 'Examination of doctor ' + examination.doctor.name +' '+ examination.doctor.lastName,
+            EventName: 'Examination of dermatologist ' + examination.doctor.name +' '+ examination.doctor.lastName,
             StartTime: new Date(examination.startTime),
             EndTime: new Date(examination.endTime),
             Description: description

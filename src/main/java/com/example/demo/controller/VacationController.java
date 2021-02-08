@@ -59,7 +59,7 @@ public class VacationController {
 				vacation = v;
 
 		if (vacation == null) 
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.OK);
 		
 		return new ResponseEntity<>(new VacationDTO(vacation), HttpStatus.OK);
 	}
