@@ -7,6 +7,7 @@ import com.example.demo.service.MedicineReservationService;
 import com.example.demo.service.MedicineService;
 import com.example.demo.service.PatientService;
 import com.example.demo.service.PharmacyService;
+import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +27,9 @@ import java.util.List;
 public class MedicineReservationController {
     @Autowired
     private MedicineReservationService medicineReservationService;
+
+    @Autowired
+    private EmailServiceImpl emailService;
 
     @Autowired
     private PatientService patientService;
@@ -61,11 +65,11 @@ public class MedicineReservationController {
         Patient patient = patientService.findOne(4L);
         Medicine medicine = medicineService.findOne(reservationRequest.getMedicineDTO().getId());
         Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyDTO().getId());
-        PharmacyMedicine pharmacyMedicine = medicineReservationService.findOnePharmacyMedicine(
-                new PharmacyMedicinePK(medicine, pharmacy));
+        PharmacyMedicine pharmacyMedicine = medicineReservationService.findByMedicineAndPharmacy(medicine, pharmacy);
 
         if( pharmacyMedicine == null ){
             //This pharmacy doesn't contain this medicine, we need to send user to another pharmacy
+            System.out.println("pharmacy medicine = null");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         System.out.println("Hello there");
@@ -75,6 +79,7 @@ public class MedicineReservationController {
         //check if pharmacy has enough quantity
         if( reservationRequest.getQuantity() >= pharmacyMedicine.getQuantity() ){
             //Exception
+            System.out.println("too few quantity");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -91,6 +96,8 @@ public class MedicineReservationController {
         //Update quantity of medicine in pharmacy
         pharmacyMedicine.setQuantity(pharmacyMedicine.getQuantity() - reservationRequest.getQuantity());
         medicineReservationService.updatePharmacyMedicine(pharmacyMedicine);
+
+        emailService.sendEmail(patient.getEmail(), "New Reservation", "reservation");
 
         return new ResponseEntity<>(reservationRequest, HttpStatus.OK);
     }

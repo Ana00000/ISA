@@ -4,14 +4,27 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@IdClass(PharmacyMedicinePK.class)
+//@IdClass(PharmacyMedicinePK.class)
 public class PharmacyMedicine {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Medicine medicine;
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Pharmacy pharmacy;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Medicine medicine;
-    @Id
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Pharmacy pharmacy;
+
     @Column( nullable = false, unique = false)
     private Long quantity;
 
@@ -47,6 +60,14 @@ public class PharmacyMedicine {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
