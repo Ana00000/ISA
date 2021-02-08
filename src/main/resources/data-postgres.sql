@@ -11,13 +11,13 @@ INSERT INTO appointment_status(id, status_value) VALUES (10, 1);
 
  
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (1, 0);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (2, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (2, 0);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (3, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (4, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (5, 0);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (4, 0);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (5, 1);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (6, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (7, 0);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (8, 0);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (7, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (8, 1);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (9, 0);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (10, 1);
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <WorkingSchedule/>
+            <DermatologistWorkSchedule/>
         </div> 
         <div>
             <DermatologistMenu/>
@@ -10,12 +10,12 @@
 </template>
 
 <script>
-import WorkingSchedule from '../../components/doctor/WorkingSchedule.vue'
+import DermatologistWorkSchedule from '../../components/dermatologist/DermatologistWorkSchedule.vue'
 import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
 export default {
     name: 'DermatologistWorkingSchedule',    
     components : {   
-        WorkingSchedule,
+        DermatologistWorkSchedule,
         DermatologistMenu
     }
 }
