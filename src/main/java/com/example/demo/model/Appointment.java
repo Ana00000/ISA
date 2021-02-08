@@ -1,13 +1,18 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.AppointmentDTO;
+import com.example.demo.model.enums.AppointmentStatusValue;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Random;
 
 @Entity
 public class Appointment {
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointmentIdSeqGen")
+	@SequenceGenerator(name = "appointmentIdSeqGen", sequenceName = "appointmentIdSeq", initialValue = 20, allocationSize = 1)
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 
@@ -46,6 +51,22 @@ public class Appointment {
 		this.doctor = doctor;
 		this.startTime = startTime;
 		this.endTime = endTime;
+	}
+
+	public Appointment(AppointmentDTO appointmentDTO) {
+		super();
+		this.id = appointmentDTO.getId();
+		this.price = appointmentDTO.getPrice();
+		if (appointmentDTO.getAppointmentType() != null) this.appointmentType = new AppointmentType(appointmentDTO.getAppointmentType());
+		if (appointmentDTO.getStatus() != null) this.status = new AppointmentStatus(appointmentDTO.getStatus());
+		else {
+			this.status = new AppointmentStatus();
+			this.status.setStatusValue(AppointmentStatusValue.UPCOMING);
+		}
+		if (appointmentDTO.getPatient() != null) this.patient = new Patient(appointmentDTO.getPatient());
+		if (appointmentDTO.getDoctor() != null) this.doctor = new Doctor(appointmentDTO.getDoctor());
+		this.startTime = appointmentDTO.getStartTime();
+		this.endTime = appointmentDTO.getEndTime();
 	}
 
 	public Long getId() {

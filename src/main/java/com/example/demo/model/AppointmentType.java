@@ -2,14 +2,16 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
+import com.example.demo.dto.AppointmentTypeDTO;
 import com.example.demo.model.enums.AppointmentTypeValues;
 
 @Entity
 public class AppointmentType {
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    @Column(name="id", unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointmentTypeIdSeqGen")
+	@SequenceGenerator(name = "appointmentTypeIdSeqGen", sequenceName = "appointmentTypeIdSeqGen", initialValue = 20, allocationSize = 1)
+	@Column(name="id", unique=true, nullable=false)
     private Long id;
     
     @Column(name="appointmentTypeValue", unique=false, nullable=false)
@@ -23,8 +25,14 @@ public class AppointmentType {
 		this.id = id;
 		this.appointmentTypeValue = appointmentTypeValue;
 	}
-	
-	public Long getId() {
+
+	public AppointmentType(AppointmentTypeDTO appointmentTypeDTO) {
+		super();
+		this.id = appointmentTypeDTO.getId();
+		this.appointmentTypeValue = appointmentTypeDTO.getAppointmentTypeValue();
+	}
+
+    public Long getId() {
 		return id;
 	}
 

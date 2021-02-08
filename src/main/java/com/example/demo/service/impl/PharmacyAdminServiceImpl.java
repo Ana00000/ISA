@@ -31,6 +31,9 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
     }
 
     @Override
+    public PharmacyAdmin findOneByEmail(String email) { return pharmacyAdminRepository.findByEmail(email); }
+
+    @Override
     public List<PharmacyAdmin> findAll() {
         return pharmacyAdminRepository.findAll();
     }

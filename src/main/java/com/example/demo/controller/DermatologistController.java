@@ -1,33 +1,30 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.demo.dto.DermatologistDTO;
+import com.example.demo.model.Dermatologist;
+import com.example.demo.model.Pharmacy;
+import com.example.demo.service.DermatologistService;
+import com.example.demo.service.PharmacyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.dto.DermatologistDTO;
-import com.example.demo.model.Dermatologist;
-import com.example.demo.service.DermatologistService;
+import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/dermatologists", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DermatologistController {
 	
-	private DermatologistService dermatologistService;
-    
+	private final DermatologistService dermatologistService;
+	private final PharmacyService pharmacyService;
+
 	@Autowired
-	public DermatologistController(DermatologistService dermatologistService) {
+	public DermatologistController(DermatologistService dermatologistService, PharmacyService pharmacyService) {
 		this.dermatologistService = dermatologistService;
+		this.pharmacyService = pharmacyService;
 	}
 	
 	@GetMapping(value = "/all")
@@ -53,6 +50,28 @@ public class DermatologistController {
 		}
 
 		return new ResponseEntity<>(new DermatologistDTO(dermatologist), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getByPharmacy={id}")
+	public ResponseEntity<List<DermatologistDTO>> getDermatologistFromPharmacy(@PathVariable Long id) {
+		Pharmacy pharmacy = pharmacyService.findOne(id);
+		List<Pharmacy> pharmacyList = new ArrayList<>();
+		pharmacyList.add(pharmacy);
+		List<Dermatologist> dermatologists = dermatologistService.findAllByPharmacies(pharmacyList);
+		List<DermatologistDTO> dermatologistDTOS = new ArrayList<>();
+
+		if (dermatologists == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else {
+
+			for (Dermatologist d: dermatologists) {
+				DermatologistDTO dto = new DermatologistDTO(d);
+				dermatologistDTOS.add(dto);
+			}
+		}
+
+		return new ResponseEntity<>(dermatologistDTOS, HttpStatus.OK);
 	}
 	
 	@PutMapping(value="/update")

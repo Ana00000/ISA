@@ -12,6 +12,8 @@ public interface PharmacyAdminService  {
 
     PharmacyAdmin findOneByPassword(String password);
 
+    PharmacyAdmin findOneByEmail(String email);
+
     List<PharmacyAdmin> findAll();
 
     Page<PharmacyAdmin> findAll(Pageable page);
