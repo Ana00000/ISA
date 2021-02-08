@@ -13,7 +13,7 @@ public interface VacationService {
 	
 	Page<Vacation> findAll(Pageable page);
 
-	Vacation save(Vacation allergy);
+	Vacation save(Vacation vacation);
 
 	void remove(Long id);
 }
