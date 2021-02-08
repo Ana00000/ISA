@@ -51,8 +51,13 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
     }
 
     @Override
-    public PharmacyMedicine findOnePharmacyMedicine(PharmacyMedicinePK pharmacyMedicinePK) {
-        return pharmacyMedicineRepository.findById(pharmacyMedicinePK).orElse(null);
+    public PharmacyMedicine findOnePharmacyMedicine(Long key) {
+        return pharmacyMedicineRepository.findById(key).orElse(null);
+    }
+
+    @Override
+    public PharmacyMedicine findByMedicineAndPharmacy(Medicine medicine, Pharmacy pharmacy) {
+        return pharmacyMedicineRepository.findByMedicineAndPharmacy(medicine, pharmacy);
     }
 
     @Override
