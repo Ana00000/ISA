@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.Appointment;
+import com.example.demo.model.Doctor;
 import com.example.demo.model.Patient;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.service.AppointmentService;
@@ -50,6 +51,10 @@ public class ApointmentServiceImpl implements AppointmentService {
 	@Override
 	public List<Appointment> findAllByPatient(Patient patient) {
 		return appointmentRepository.findAllByPatient(patient);
+	}
+	
+	public List<Appointment> findAllByDoctor(Doctor doctor) {
+		return appointmentRepository.findAllByDoctor(doctor);
 	}
 
 	public Appointment save(Appointment appointment) {

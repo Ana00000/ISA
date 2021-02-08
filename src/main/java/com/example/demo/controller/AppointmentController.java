@@ -2,22 +2,24 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.demo.model.Patient;
-import com.example.demo.model.enums.AppointmentStatusValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.AppointmentDTO;
 import com.example.demo.model.Appointment;
+import com.example.demo.model.Patient;
+import com.example.demo.model.enums.AppointmentStatusValue;
 import com.example.demo.service.AppointmentService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/appointments", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppointmentController {
@@ -140,7 +142,25 @@ public class AppointmentController {
 
 		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/upcomingExaminations/{id}")
+	public ResponseEntity<List<AppointmentDTO>> getDermatologistUpcomingExaminations(@PathVariable Long id) {
+		
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll())
+			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("examination")
+			   & a.getDoctor().getId() == id
+			   & a.getStatus().getStatusValue() == AppointmentStatusValue.UPCOMING)
+				appointments.add(a);
+		
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
 
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/patientUpcomming")
 //	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<List<AppointmentDTO>> getUpcommingByPatient() {

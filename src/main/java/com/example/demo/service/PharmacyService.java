@@ -24,5 +24,4 @@ public interface PharmacyService {
     void update(Pharmacy pharmacy);
 
     void remove(Long id);
-
 }

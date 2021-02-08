@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/medicineReservation", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MedicineReservationController {

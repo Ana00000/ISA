@@ -12,7 +12,7 @@
                 <router-link class="link" to="/dermatologistHomePage/examinationsInfo">Examinations info</router-link>
             </div>
             <div>
-                <router-link class="link" to="/dermatologistHomePage/workingSchedule">Working schedule</router-link>
+                <router-link class="link" to="/dermatologistHomePage/workingSchedule/:id">Working schedule</router-link>
             </div>
             <div>
                 <router-link class="link" to="/dermatologistHomePage/vacationsAndAbsences">Vacations and absences</router-link>

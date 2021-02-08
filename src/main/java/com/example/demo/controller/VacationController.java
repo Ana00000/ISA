@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.VacationDTO;
@@ -33,11 +31,10 @@ public class VacationController {
 	public ResponseEntity<List<VacationDTO>> getAllVacations() {
 
 		List<Vacation> vacations = vacationService.findAll();
-
 		List<VacationDTO> vacationsDTO = new ArrayList<>();
-		for (Vacation v : vacations) {
+		
+		for (Vacation v : vacations) 
 			vacationsDTO.add(new VacationDTO(v));
-		}
 
 		return new ResponseEntity<>(vacationsDTO, HttpStatus.OK);
 	}
@@ -47,10 +44,23 @@ public class VacationController {
 
 		Vacation vacation = vacationService.findOne(id);
 
-		if (vacation == null) {
+		if (vacation == null) 
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
 
+		return new ResponseEntity<>(new VacationDTO(vacation), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "doctorVacation/{id}")
+	public ResponseEntity<VacationDTO> getDoctorVacation(@PathVariable Long id) {
+
+		Vacation vacation = null;
+		for(Vacation v : vacationService.findAll())
+			if(v.getDoctor().getId() == id)
+				vacation = v;
+
+		if (vacation == null) 
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
 		return new ResponseEntity<>(new VacationDTO(vacation), HttpStatus.OK);
 	}
 }

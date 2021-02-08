@@ -37,6 +37,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {

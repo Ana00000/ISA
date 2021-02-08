@@ -11,7 +11,7 @@
                 <router-link class="link" to="/pharmacistHomePage/consultationsInfo">Consultations info</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/workingSchedule">Working schedule</router-link>
+                <router-link class="link" to="/pharmacistHomePage/workingSchedule/:id">Working schedule</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacistHomePage/prescriptions">Prescriptions</router-link>

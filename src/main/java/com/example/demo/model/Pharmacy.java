@@ -63,14 +63,14 @@ public class Pharmacy {
             name = "MedicineInPharmacy",
             joinColumns = @JoinColumn(name = "PharmacyId", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "medicineId", referencedColumnName = "id"))
-    private Set<Medicine> medicines;
+    private Set<Medicine> medicines = new HashSet<Medicine>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "AppointmentInPharmacy",
             joinColumns = @JoinColumn(name = "PharmacyId", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "appointmentId", referencedColumnName = "id"))
-    private Set<Appointment> appointments;
+    private Set<Appointment> appointments = new HashSet<Appointment>();
 
     public Pharmacy() {
     }
