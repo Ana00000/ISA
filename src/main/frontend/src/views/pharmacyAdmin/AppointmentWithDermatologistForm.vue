@@ -8,7 +8,7 @@
       <h2 class="grid-item" style="color: black">Pick a dermatologist that works in pharmacy:</h2>
       <h1 class="grid-item" style="color: black">{{ this.adminsPharmacy.name }}</h1>
       <v-combobox hint="This is mandatory" :items="dermatologists" :item-text="text" @change="comboboxSelectionChange" v-model="pickedDermatologist" />
-      <h3 v-if="pickedDermatologist">Appointments that doctor has scheduled:</h3>
+      <h3 v-if="pickedDermatologist">Doctor is busy in the following periods:</h3>
       <v-layout justify-center align-baseline>
         <v-list v-if="pickedDermatologist" color="gray" >
           <v-list-item v-for="key in appointments" :key="key">
@@ -105,26 +105,30 @@ export default {
       console.log(this.pickedDermatologist);
 
       this.$http.post('http://localhost:8081/appointments/byDoctor', this.pickedDermatologist).then(resp => {
-        console.log('Proslo');
+        console.log('Appointments');
         console.log(resp.data);
         for (var i = 0; i < resp.data.length; ++i) {
           var app = resp.data[i];
-          console.log(i);
-          console.log(app);
-          console.log(app.startTime);
-          console.log(app.endTime);
-          //this.appStart = new Date(app.startTime);
           var start = new Date(app.startTime);
-          //this.appStart = this.appStart.toLocaleString();
-          //this.appEnd = new Date(app.endTime);
           var end = new Date(app.endTime);
           var appStruct = { 'startTime': start, 'endTime': end };
-          console.log(appStruct);
           this.appointments.push(appStruct);
         }
-        console.log(this.appointments);
       }).catch(err => {
-        console.log('Puklo');
+        console.log('Appointments error');
+        console.log(err.response.data);
+      })
+
+      this.$http.get('http://localhost:8081/vacations/doctorVacation/' + this.pickedDermatologist.id).then(resp => {
+        console.log('Vacation');
+        console.log(resp.data);
+
+        var start = new Date(resp.data.startTime);
+        var end = new Date(resp.data.endTime);
+        var appStruct = { 'startTime': start, 'endTime': end };
+        this.appointments.push(appStruct);
+      }).catch(err => {
+        console.log('Vacation error');
         console.log(err.response.data);
       })
     },

@@ -134,7 +134,7 @@ VALUES (5, 150.50, 2, 7, 5, 9, '2021-07-22 13:20', '2021-07-22 15:00');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
 VALUES (6, 850.50, 9, 2, 4, 8, '2021-03-03 01:00', '2021-03-03 01:50');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (7, 310.99, 3, 9, 6, 2, '2021-08-29 14:00', '2021-08-29 14:14');
+VALUES (7, 310.99, 3, 9, 6, 8, '2020-08-29 14:00', '2020-08-29 14:14');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
 VALUES (8, 261.80, 7, 3, 5, 2, '2021-12-02 16:20', '2021-12-02 17:00');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
@@ -231,6 +231,7 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_USER');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_DERMATOLOGIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACIST');
+INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACY_ADMIN');
 
 
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (101, 0, 1, '2021-02-17 00:00', '2021-02-18 00:00');
