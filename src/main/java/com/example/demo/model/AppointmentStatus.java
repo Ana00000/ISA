@@ -2,13 +2,15 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
+import com.example.demo.dto.AppointmentStatusDTO;
 import com.example.demo.model.enums.AppointmentStatusValue;
 
 @Entity
 public class AppointmentStatus {
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointmentStatusIdSeqGen")
+	@SequenceGenerator(name = "appointmentStatusIdSeqGen", sequenceName = "appointmentStatusIdSeqGen", initialValue = 20, allocationSize = 1)
     @Column(name="id", unique=true, nullable=false)
     private Long id;
     
@@ -22,6 +24,12 @@ public class AppointmentStatus {
 		super();
 		this.id = id;
 		this.statusValue = statusValue;
+	}
+
+	public AppointmentStatus(AppointmentStatusDTO appointmentStatusDTO) {
+		super();
+		this.id = appointmentStatusDTO.getId();
+		this.statusValue = appointmentStatusDTO.getStatusValue();
 	}
 
 	public Long getId() {

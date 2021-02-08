@@ -1,6 +1,8 @@
 package com.example.demo.service.impl;
 
 import java.util.List;
+
+import com.example.demo.model.Pharmacy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,6 +52,11 @@ public class DermatologistServiceImpl implements DermatologistService {
 	
 	public List<Dermatologist> findAllByEmail(String email) {
 		return dermatologistRepository.findAllByEmail(email);
+	}
+
+	@Override
+	public List<Dermatologist> findAllByPharmacies(List<Pharmacy> pharmacies) {
+		return dermatologistRepository.findAllByPharmaciesIsIn(pharmacies);
 	}
 
 	public Dermatologist save(Dermatologist dermatologist) {

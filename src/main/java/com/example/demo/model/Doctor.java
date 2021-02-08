@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.DoctorDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,11 @@ public class Doctor extends User {
 	public Doctor(String type) {
 		super();
 		this.type = type;
+	}
+
+	public Doctor(DoctorDTO doctorDTO) {
+		super(doctorDTO);
+		this.type = doctorDTO.getType();
 	}
 
 	public String getType() {
@@ -51,6 +58,8 @@ public class Doctor extends User {
 
 	@Override
 	public String toString() {
-		return "Doctor [type=" + type + "]";
+		return "Doctor [type=" + type + "]" + super.toString();
 	}
+
+
 }

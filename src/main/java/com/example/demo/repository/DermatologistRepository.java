@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import java.util.List;
 
+import com.example.demo.model.Pharmacy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +18,8 @@ public interface DermatologistRepository extends JpaRepository<Dermatologist, Lo
 	List<Dermatologist> findAllByName(String name);
 	
 	List<Dermatologist> findAllByLastName(String lastName);
+
+	List<Dermatologist> findAllByPharmaciesIsIn(List<Pharmacy> pharmacies);
 	
 	List<Dermatologist> findByNameAndLastNameAllIgnoringCase(String name, String lastName);
 

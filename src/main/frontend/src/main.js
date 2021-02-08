@@ -5,6 +5,7 @@ import vuetify from './plugins/vuetify'
 import axios from "axios"
 import DatetimePicker from 'vuetify-datetime-picker'
 import Statistics from "vue-chartjs"
+import Moment from "moment"
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
@@ -17,6 +18,7 @@ new Vue({
 
 Vue.use(DatetimePicker)
 Vue.use(Statistics)
+Vue.use(Moment)
 // Vue.use()
 // Vue.use(Boo)
 

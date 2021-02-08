@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApointmentServiceImpl implements AppointmentService {
 
-    private AppointmentRepository appointmentRepository;
+    private final AppointmentRepository appointmentRepository;
     
 	@Autowired
 	public ApointmentServiceImpl(AppointmentRepository appointmentRepository) {
@@ -52,10 +52,9 @@ public class ApointmentServiceImpl implements AppointmentService {
 	public List<Appointment> findAllByPatient(Patient patient) {
 		return appointmentRepository.findAllByPatient(patient);
 	}
-	
-	public List<Appointment> findAllByDoctor(Doctor doctor) {
-		return appointmentRepository.findAllByDoctor(doctor);
-	}
+
+	@Override
+	public List<Appointment> findAllByDoctor(Doctor doctor) { return appointmentRepository.findAllByDoctor(doctor); }
 
 	public Appointment save(Appointment appointment) {
 		return appointmentRepository.save(appointment);

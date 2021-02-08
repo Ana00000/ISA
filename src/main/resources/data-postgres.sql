@@ -1,6 +1,6 @@
 INSERT INTO appointment_status(id, status_value) VALUES (1, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (2, 2);
-INSERT INTO appointment_status(id, status_value) VALUES (3, 2);
+INSERT INTO appointment_status(id, status_value) VALUES (3, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (4, 1);
 INSERT INTO appointment_status(id, status_value) VALUES (5, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (6, 1);
