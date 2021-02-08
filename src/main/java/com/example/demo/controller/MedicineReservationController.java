@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.MedicineReservationDTO;
 import com.example.demo.model.*;
 import com.example.demo.model.enums.MedicineReservationStatusValue;
+import com.example.demo.security.TokenUtils;
 import com.example.demo.service.MedicineReservationService;
 import com.example.demo.service.MedicineService;
 import com.example.demo.service.PatientService;
@@ -12,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,6 +27,9 @@ import java.util.List;
 public class MedicineReservationController {
     @Autowired
     private MedicineReservationService medicineReservationService;
+
+    @Autowired
+    private TokenUtils tokenUtils;
 
     @Autowired
     private EmailServiceImpl emailService;
@@ -56,15 +59,17 @@ public class MedicineReservationController {
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<MedicineReservationDTO> createReservation(@RequestBody MedicineReservationDTO reservationRequest) {
+    public ResponseEntity<MedicineReservationDTO> createReservation(HttpServletRequest request, @RequestBody MedicineReservationDTO reservationRequest) {
         //Need to get patient from session
         //validate DTO data for null
-        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
 
-//        User user = (User)currentUser.getPrincipal();
-//        System.out.println(user.getName());
-        //Patient patient1 = patientService.findOne(Long.parseLong(authentication.getName()));
-        Patient patient = patientService.findOne(4L);
+        String token = tokenUtils.getToken(request);
+        if( token == null ){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        String username = tokenUtils.getUsernameFromToken(token);
+
+        Patient patient = patientService.findOneByEmail(username);
         Medicine medicine = medicineService.findOne(reservationRequest.getMedicineDTO().getId());
         Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyDTO().getId());
         PharmacyMedicine pharmacyMedicine = medicineReservationService.findByMedicineAndPharmacy(medicine, pharmacy);

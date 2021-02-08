@@ -23,6 +23,8 @@ public interface PatientService {
 	
 	List<Patient> findAllByEmail(String email);
 
+	Patient findOneByEmail(String email);
+
 	List<Patient> findAllBySubscribedToPromotions(Boolean subscribedToPromotions);
 
 	Patient save(Patient patient);

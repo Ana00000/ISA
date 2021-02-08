@@ -23,4 +23,5 @@ public class PatientDTO extends UserDTO implements Serializable {
 	public void setPenalties(Long penalties) {
 		this.penalties = penalties;
 	}
+
 }
