@@ -1,11 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.MedicineDTO;
 import com.example.demo.dto.PharmacyAdminDTO;
-import com.example.demo.model.Medicine;
 import com.example.demo.model.PharmacyAdmin;
 import com.example.demo.service.PharmacyAdminService;
-import com.example.demo.service.impl.PharmacyAdminServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

@@ -84,7 +84,7 @@ const routes = [
     component: () => import('../views/dermatologist/DermatologistWorkingSchedule.vue')
   },
   {
-    path: '/dermatologistHomePage/vacationsAndAbsences',
+    path: '/dermatologistHomePage/vacationsAndAbsences/:id',
     name: 'DermatologistVacationsAndAbsences',
     component: () => import('../views/dermatologist/DermatologistVacationsAndAbsences.vue')
   },
