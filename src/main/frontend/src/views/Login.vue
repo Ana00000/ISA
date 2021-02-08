@@ -33,6 +33,28 @@
 
 <script>
 import axios from 'axios';
+
+function redirectLogedUser(){
+      var tokenString= '';
+      tokenString = localStorage.getItem("token");
+      // const bodyParameters = {
+      //   key: "value"
+      // };
+      const config = {
+          headers: { Authorization: `Bearer ${tokenString}` }
+      };
+  axios.get( 
+        'http://localhost:8081/users/redirectMeToMyHomePage',
+        config
+      ).then((response) => {
+        console.log(response);
+        window.location.href = response.data;
+      }, (error) => {
+        console.log(error);
+      });
+      
+}
+
 export default {
   name: 'Login',
   data: () => ({
@@ -52,7 +74,7 @@ export default {
       .then(resp => {
         console.log(resp.data);
         localStorage.setItem("token", resp.data.accessToken);
-        window.location.href = "http://localhost:8080/";
+        redirectLogedUser();
       })
       .catch(er => {
         console.log('Error while logging in');
