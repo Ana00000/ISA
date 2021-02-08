@@ -49,11 +49,15 @@ export default {
         startTime: null,
         endTime: null,
     }),
+    created() {
+        this.$http.get('http://localhost:8081/pharmacists/' + this.$route.params.id).then(resp => {
+            this.doctor = resp.data;
+            console.log('prvo' +this.doctor);
+        }).catch(err => console.log(err));
+    },
     methods: {
         makeRequest() {
             this.confirmVacationInterval();
-            this.getDoctor();
-
             this.$http.post('http://localhost:8081/vacations/saveVacation', 
             {         
                 status : 'PENDING',
@@ -63,6 +67,7 @@ export default {
             }
             ).then(resp => {
                console.log(resp.data);
+                alert("Request is formed (if you already have request than you need to wait for it to finish first).");
             }).catch(err => console.log(err));
         },
         confirmVacationInterval() {
@@ -82,11 +87,6 @@ export default {
                 alert("End time has passed!");
                 return;
             }
-        },
-        getDoctor() {
-            this.$http.get('http://localhost:8081/pharmacists/' + this.$route.params.id).then(resp => {
-                this.doctor = resp.data;
-            }).catch(err => console.log(err));
         }
     }
 }
