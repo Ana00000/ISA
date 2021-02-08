@@ -20,6 +20,10 @@ public class Patient extends User implements Serializable{
     @JoinTable( name = "patientsOnPromotion", joinColumns = @JoinColumn(name="promotion_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"))
     private Set<Promotion> promotions = new HashSet<Promotion>();
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable( name = "allergiesOfPatient", joinColumns = @JoinColumn(name="allergy_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"))
+    private Set<Allergy> allergies = new HashSet<Allergy>();
+
     public Patient(){
     }
     
@@ -49,5 +53,13 @@ public class Patient extends User implements Serializable{
 
     public void setPromotions(Set<Promotion> promotions) {
         this.promotions = promotions;
+    }
+
+    public Set<Allergy> getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(Set<Allergy> allergies) {
+        this.allergies = allergies;
     }
 }
