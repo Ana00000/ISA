@@ -23,7 +23,7 @@
                 <router-link class="link" to="/pharmacies">Penalty insight</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Promotions</router-link>
+                <router-link class="link" to="/patientPromotions">Promotions</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacies">Write a complaint</router-link>

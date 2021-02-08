@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.PatientDTO;
+import com.example.demo.dto.PromotionDTO;
 import com.example.demo.model.Patient;
+import com.example.demo.model.Promotion;
 import com.example.demo.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +13,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -80,6 +84,25 @@ public class PatientController {
 		}
 
 		return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/getPromotions")
+	public ResponseEntity<Set<PromotionDTO>> getPromotions() {
+
+		//extract patient from session
+
+		Patient patient = patientService.findOne(4L);
+
+		if (patient == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		Set<PromotionDTO> promotionDTOS = new HashSet<>();
+		for( Promotion p : patient.getPromotions()){
+			promotionDTOS.add(new PromotionDTO(p));
+		}
+
+		return new ResponseEntity<>(promotionDTOS, HttpStatus.OK);
 	}
 	
 	// For this search is needed full name

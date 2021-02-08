@@ -1,13 +1,15 @@
 package com.example.demo.model;
 
 import com.example.demo.dto.PromotionDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class Promotion {
+public class Promotion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -22,6 +24,9 @@ public class Promotion {
 
     @Column(name="description", unique=false, nullable=true)
     private String description;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Pharmacy pharmacy;
 
     public Promotion() {
     }
@@ -76,6 +81,30 @@ public class Promotion {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
+    }
+
+    public Pharmacy getPharmacy() {
+        return pharmacy;
+    }
+
+    public void setPharmacy(Pharmacy pharmacy) {
+        this.pharmacy = pharmacy;
     }
 
     @Override
