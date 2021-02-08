@@ -82,7 +82,17 @@ public class MedicineReservationController {
         System.out.println("Hello there");
         System.out.println("Kolicina: " + pharmacyMedicine.getQuantity() + " / " + reservationRequest.getQuantity() );
         //check patients penalties
+        if( patient.getPenalties() > 3){
+            //not allowed
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         //check if patient is allergic
+        for(Allergy allergy : patient.getAllergies()){
+            if(medicine.getIngredients().contains(allergy.getMedicineIngredient())){
+                //If he is allergic he can't take the drug
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
         //check if pharmacy has enough quantity
         if( reservationRequest.getQuantity() >= pharmacyMedicine.getQuantity() ){
             //Exception
