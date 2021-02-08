@@ -124,7 +124,7 @@ const routes = [
     component: () => import('../views/pharmacist/Prescriptions.vue')
   },
   {
-    path: '/pharmacistHomePage/vacationsAndAbsences',
+    path: '/pharmacistHomePage/vacationsAndAbsences/:id',
     name: 'PharmacistVacationsAndAbsences',
     component: () => import('../views/pharmacist/PharmacistVacationsAndAbsences.vue')
   },

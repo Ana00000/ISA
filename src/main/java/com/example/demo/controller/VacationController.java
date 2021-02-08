@@ -72,11 +72,10 @@ public class VacationController {
 		return new ResponseEntity<>(new VacationDTO(vacation), HttpStatus.OK);
 	}
 	
-
 	@PostMapping(value = "/saveVacation")
     public ResponseEntity<VacationDTO> saveVacation(@RequestBody VacationDTO vacationDTO) {
 
-		Vacation vacation = new Vacation();
+        Vacation vacation = new Vacation();
 		vacation.setStartTime(vacationDTO.getStartTime());
 		vacation.setEndTime(vacationDTO.getEndTime());
 		vacation.setStatus(vacationDTO.getStatus());
@@ -84,6 +83,15 @@ public class VacationController {
 		Long doctorId = vacationDTO.getDoctor().getId();
 		Doctor doctor = doctorService.findOne(doctorId);
 		vacation.setDoctor(doctor);
+		
+		List<Vacation> vacations = vacationService.findAll();
+		for(Vacation v: vacations) {
+			if(v.getDoctor().getId().equals(doctorId)) {
+				System.out.println("Doctor can not make another vacation request if"
+						+ " there is already an existent one (from him)!");
+				return new ResponseEntity<>(null, HttpStatus.OK);
+			}
+		}
 
 		vacation = vacationService.save(vacation);
         return new ResponseEntity<>(new VacationDTO(vacation), HttpStatus.CREATED);

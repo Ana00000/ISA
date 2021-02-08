@@ -58,17 +58,28 @@ export default {
             {         
                 status : 'PENDING',
                 doctor : this.doctor,
-                startTime : this.startTime,
-                endTime : this.endTime
+                startTime : new Date(this.startTime),
+                endTime : new Date(this.endTime)
             }
             ).then(resp => {
                console.log(resp.data);
             }).catch(err => console.log(err));
         },
         confirmVacationInterval() {
-            if ((this.startTime > this.endTime) ||
-                (this.startTime < Date.now()) || (this.endTime < Date.now())) {
-                alert("Time span is not set correctly!");
+            if(this.endTime == null) {
+                alert("End time needs a value!");
+                return;
+            }else if(this.startTime == null) {
+                alert("Start time needs a value!");
+                return;
+            }else if ((this.startTime > this.endTime)) {
+                alert("Start time comes before end time!");
+                return;
+            }else if(this.startTime < Date.now()) {
+                alert("Start time has passed!");
+                return;
+            }else if(this.endTime < Date.now()) {
+                alert("End time has passed!");
                 return;
             }
         },
