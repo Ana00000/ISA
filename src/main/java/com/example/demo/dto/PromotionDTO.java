@@ -3,6 +3,7 @@ package com.example.demo.dto;
 import com.example.demo.model.Promotion;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class PromotionDTO {
@@ -13,7 +14,15 @@ public class PromotionDTO {
 
     private Timestamp end;
 
+    private LocalDateTime localStart;
+
+    private LocalDateTime localEnd;
+
     private String description;
+
+    private Long pharmacyID;
+
+    private String pharmacyName;
 
     public PromotionDTO() {
     }
@@ -30,6 +39,10 @@ public class PromotionDTO {
         this.start = promotion.getStart();
         this.end = promotion.getEnd();
         this.description = promotion.getDescription();
+        this.pharmacyID = promotion.getPharmacy().getId();
+        this.pharmacyName = promotion.getPharmacy().getName();
+        this.localStart = promotion.getStart().toLocalDateTime();
+        this.localEnd = promotion.getEnd().toLocalDateTime();
     }
 
     public Long getId() {
@@ -62,6 +75,38 @@ public class PromotionDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LocalDateTime getLocalEnd() {
+        return localEnd;
+    }
+
+    public void setLocalEnd(LocalDateTime localEnd) {
+        this.localEnd = localEnd;
+    }
+
+    public Long getPharmacyID() {
+        return pharmacyID;
+    }
+
+    public void setPharmacyID(Long pharmacyID) {
+        this.pharmacyID = pharmacyID;
+    }
+
+    public String getPharmacyName() {
+        return pharmacyName;
+    }
+
+    public void setPharmacyName(String pharmacyName) {
+        this.pharmacyName = pharmacyName;
+    }
+
+    public LocalDateTime getLocalStart() {
+        return localStart;
+    }
+
+    public void setLocalStart(LocalDateTime localStart) {
+        this.localStart = localStart;
     }
 
     @Override

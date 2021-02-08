@@ -118,8 +118,15 @@ INSERT INTO type_of_medicine(id, medicine_type) VALUES (9, 1);
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (10, 0);
 
 
-INSERT INTO promotion(id, start_time, end_time, description) VALUES (0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Promocija 123');
+INSERT INTO promotion(id, start_time, end_time, description, pharmacy_id) VALUES (1, '2021-09-25 12:00', '2021-12-02 17:00', 'Promocija 1', 13);
+INSERT INTO promotion(id, start_time, end_time, description, pharmacy_id) VALUES (2, '2021-10-25 12:00', '2021-03-02 17:00', 'Promocija 2', 13);
+INSERT INTO promotion(id, start_time, end_time, description, pharmacy_id) VALUES (3, '2021-07-25 12:00', '2021-10-02 17:00', 'Promocija 3', 14);
 
+INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (4, 1);
+INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (4, 2);
+INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (4, 3);
+INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (5, 1);
+INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 2);
 
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
 VALUES (1, 250.35, 8, 10, 6, 3, '2021-09-25 12:00', '2021-09-25 13:00');
