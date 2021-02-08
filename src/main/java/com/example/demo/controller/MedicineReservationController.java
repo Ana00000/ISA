@@ -61,7 +61,9 @@ public class MedicineReservationController {
         //validate DTO data for null
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
 
-//        Patient patient = patientService.findOne(Long.parseLong(currentUser.getName()));
+//        User user = (User)currentUser.getPrincipal();
+//        System.out.println(user.getName());
+        //Patient patient1 = patientService.findOne(Long.parseLong(authentication.getName()));
         Patient patient = patientService.findOne(4L);
         Medicine medicine = medicineService.findOne(reservationRequest.getMedicineDTO().getId());
         Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyDTO().getId());
@@ -104,6 +106,11 @@ public class MedicineReservationController {
 
     @PostMapping(value = "/cancel")
     public ResponseEntity<MedicineReservationDTO> cancelReservation(@RequestBody MedicineReservationDTO reservationRequest) {
+        Patient patient = patientService.findOne(4L);
+        Medicine medicine = medicineService.findOne(reservationRequest.getMedicineDTO().getId());
+        Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyDTO().getId());
+        PharmacyMedicine pharmacyMedicine = medicineReservationService.findByMedicineAndPharmacy(medicine, pharmacy);
+
         //check for the time
         Date date = new Date();
         Calendar c = Calendar.getInstance();
@@ -122,10 +129,10 @@ public class MedicineReservationController {
         medicineReservation.setReservationStatus(MedicineReservationStatusValue.CANCELED);
         medicineReservationService.save(medicineReservation);
 
-        //notify the doctor
+        //update medicine quantity in pharmacy
+        pharmacyMedicine.setQuantity(pharmacyMedicine.getQuantity() + reservationRequest.getQuantity());
+        medicineReservationService.updatePharmacyMedicine(pharmacyMedicine);
 
         return new ResponseEntity<>(reservationRequest, HttpStatus.OK);
     }
-
-
 }

@@ -12,7 +12,8 @@ import java.util.Objects;
 @Entity
 public class MedicineReservation implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "usersIdSeqGen", sequenceName = "usersIdSeq", initialValue = 100, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usersIdSeqGen")
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 

@@ -83,6 +83,11 @@ export default {
     },
     methods:{
         reserve: function(){
+
+            // const config = {
+            //     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            // };
+
             console.log("Heeej", this.request );
             if(this.quantity == '' || this.pharmacyDTO == '' || this.medicineDTO == '' || this.date == '')
             {
