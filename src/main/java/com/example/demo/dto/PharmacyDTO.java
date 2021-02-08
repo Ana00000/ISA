@@ -1,14 +1,20 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import com.example.demo.model.Appointment;
+import com.example.demo.model.Dermatologist;
+import com.example.demo.model.Medicine;
+import com.example.demo.model.Pharmacist;
+import com.example.demo.model.Pharmacy;
 
 public class PharmacyDTO implements Serializable {
 
     public PharmacyDTO() {}
 
-    public PharmacyDTO(Long id, String name, String contact, String country, String city, String street, int number, float longitude, float latitude, float averageGrade, Set<Dermatologist> dermatologists, Set<Pharmacist> pharmacists, Set<Medicine> medicines, Set<Appointment> appointments) {
+    public PharmacyDTO(Long id, String name, String contact, String country, String city, String street, int number, float longitude, float latitude, float averageGrade, Set<Dermatologist> dermatologists, Set<Pharmacist> pharmacists, List<MedicineDTO> medicines, List<AppointmentDTO> appointments) {
         this.id = id;
         this.name = name;
         this.contact = contact;
@@ -21,6 +27,8 @@ public class PharmacyDTO implements Serializable {
         this.averageGrade = averageGrade;
         this.dermatologists = dermatologists;
         this.pharmacists = pharmacists;
+        this.medicines = medicines;
+        this.appointments = appointments;
     }
 
     public PharmacyDTO(Pharmacy pharmacy) {
@@ -36,6 +44,16 @@ public class PharmacyDTO implements Serializable {
         this.averageGrade = pharmacy.getAverageGrade();
         this.dermatologists = pharmacy.getDermatologists();
         this.pharmacists = pharmacy.getPharmacists();
+        
+        List<MedicineDTO> medicines = new ArrayList<MedicineDTO>();
+        for(Medicine m: pharmacy.getMedicines())
+        	medicines.add(new MedicineDTO(m));
+        this.medicines = medicines;
+        
+        List<AppointmentDTO> appointments = new ArrayList<AppointmentDTO>();
+        for(Appointment a: pharmacy.getAppointments())
+        	appointments.add(new AppointmentDTO(a));
+        this.appointments = appointments;
     }
 
     private Long id;
@@ -62,9 +80,9 @@ public class PharmacyDTO implements Serializable {
 
     private Set<Pharmacist> pharmacists;
 
-    private Set<Medicine> medicines;
+    private List<MedicineDTO> medicines; 
 
-    private Set<Appointment> appointments;
+    private List<AppointmentDTO> appointments; 
 
     public Long getId() {
         return id;
@@ -162,19 +180,19 @@ public class PharmacyDTO implements Serializable {
         this.pharmacists = pharmacists;
     }
 
-    public Set<Medicine> getMedicines() {
-        return medicines;
-    }
+	public List<MedicineDTO> getMedicines() {
+		return medicines;
+	}
 
-    public void setMedicines(Set<Medicine> medicines) {
-        this.medicines = medicines;
-    }
+	public void setMedicines(List<MedicineDTO> medicines) {
+		this.medicines = medicines;
+	}
 
-    public Set<Appointment> getAppointments() {
-        return appointments;
-    }
+	public List<AppointmentDTO> getAppointments() {
+		return appointments;
+	}
 
-    public void setAppointments(Set<Appointment> appointments) {
-        this.appointments = appointments;
-    }
+	public void setAppointments(List<AppointmentDTO> appointments) {
+		this.appointments = appointments;
+	}
 }

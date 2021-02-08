@@ -190,7 +190,6 @@ export default {
                     if(dermatologist.id == this.id) 
                         this.workingInPharmacy.push(pharmacy.id);
                 });
-
             });
         },
         updateProfile() {

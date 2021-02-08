@@ -3,12 +3,13 @@ package com.example.demo.repository;
 import java.sql.Timestamp;
 import java.util.List;
 
-import com.example.demo.model.Patient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.model.Appointment;
+import com.example.demo.model.Doctor;
+import com.example.demo.model.Patient;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 	
@@ -21,4 +22,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 	List<Appointment> findAllByPrice(double price);
 
 	List<Appointment> findAllByPatient(Patient patient);
+
+	List<Appointment> findAllByDoctor(Doctor doctor);
 }
