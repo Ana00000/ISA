@@ -86,15 +86,23 @@ export default {
       var tokenString= '';
       tokenString = localStorage.getItem("token");
 
-      // const bodyParameters = {
-      //   key: "value"
-      // };
+      const bodyParameters = {
+        name: "stefan",
+        lastName: "petrovic"
+      };
       const config = {
           headers: { Authorization: `Bearer ${tokenString}` }
       };
 
-      axios.get( 
-        'http://localhost:8081/patients/all',
+      // axios.get( 
+      //   'http://localhost:8081/patients/all',
+      //   config
+      // ).then(console.log)
+      // .catch(console.log);
+
+      axios.post( 
+        'http://localhost:8081/users/test',
+        bodyParameters,
         config
       ).then(console.log)
       .catch(console.log);
