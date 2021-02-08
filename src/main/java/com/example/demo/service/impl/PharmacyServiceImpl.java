@@ -7,6 +7,8 @@ import com.example.demo.service.PharmacyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -57,5 +59,10 @@ public class PharmacyServiceImpl implements PharmacyService {
     @Override
     public void remove(Long id) {
         pharmacyRepository.deleteById(id);
+    }
+
+    @Override
+    public void findByFreePharmacists(Time startTime, Time endTime, Date date){
+
     }
 }
