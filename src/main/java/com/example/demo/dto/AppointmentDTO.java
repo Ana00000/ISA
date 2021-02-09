@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import java.sql.Timestamp;
 import com.example.demo.model.Appointment;
+import com.example.demo.model.TimeInterval;
 
 public class AppointmentDTO {
 	private Long id;
@@ -12,6 +13,7 @@ public class AppointmentDTO {
 	private DoctorDTO doctor;
 	private Timestamp startTime;
 	private Timestamp endTime;
+	private TimeInterval timeInterval;
 	 
 	public AppointmentDTO() {
 	}
@@ -23,8 +25,9 @@ public class AppointmentDTO {
 		this.status = new AppointmentStatusDTO(appointment.getStatus());
 		this.patient = new PatientDTO(appointment.getPatient());
 		this.doctor = new DoctorDTO(appointment.getDoctor(), appointment.getDoctor().getType());
-		this.startTime = appointment.getStartTime();
-		this.endTime = appointment.getEndTime();
+//		this.startTime = appointment.getStartTime();
+//		this.endTime = appointment.getEndTime();
+		this.timeInterval = appointment.getTimeInterval();
 	}
 
 	public AppointmentDTO(Long id, double price, AppointmentTypeDTO appointmentType, AppointmentStatusDTO status,
@@ -102,5 +105,13 @@ public class AppointmentDTO {
 
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
+	}
+
+	public TimeInterval getTimeInterval() {
+		return timeInterval;
+	}
+
+	public void setTimeInterval(TimeInterval timeInterval) {
+		this.timeInterval = timeInterval;
 	}
 }

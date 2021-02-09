@@ -26,11 +26,14 @@ public class Appointment {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Doctor doctor;
 
-    @Column(nullable = false)
-    private Timestamp startTime;
+//    @Column(nullable = false)
+//    private Timestamp startTime;
+//
+//    @Column(nullable = false)
+//    private Timestamp endTime;
 
-    @Column(nullable = false)
-    private Timestamp endTime;
+    @Embedded
+    private TimeInterval timeInterval;
 
 	public Appointment() {
 	}
@@ -44,8 +47,8 @@ public class Appointment {
 		this.status = status;
 		this.patient = patient;
 		this.doctor = doctor;
-		this.startTime = startTime;
-		this.endTime = endTime;
+//		this.startTime = startTime;
+//		this.endTime = endTime;
 	}
 
 	public Long getId() {
@@ -96,20 +99,28 @@ public class Appointment {
 		this.doctor = doctor;
 	}
 
-	public Timestamp getStartTime() {
-		return startTime;
+//	public Timestamp getStartTime() {
+//		return startTime;
+//	}
+//
+//	public void setStartTime(Timestamp startTime) {
+//		this.startTime = startTime;
+//	}
+//
+//	public Timestamp getEndTime() {
+//		return endTime;
+//	}
+//
+//	public void setEndTime(Timestamp endTime) {
+//		this.endTime = endTime;
+//	}
+
+	public TimeInterval getTimeInterval() {
+		return timeInterval;
 	}
 
-	public void setStartTime(Timestamp startTime) {
-		this.startTime = startTime;
-	}
-
-	public Timestamp getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Timestamp endTime) {
-		this.endTime = endTime;
+	public void setTimeInterval(TimeInterval timeInterval) {
+		this.timeInterval = timeInterval;
 	}
 
 	@Override
@@ -118,13 +129,13 @@ public class Appointment {
 		int result = 1;
 		result = prime * result + ((appointmentType == null) ? 0 : appointmentType.hashCode());
 		result = prime * result + ((doctor == null) ? 0 : doctor.hashCode());
-		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
+//		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((patient == null) ? 0 : patient.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
+//		result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -148,11 +159,11 @@ public class Appointment {
 				return false;
 		} else if (!doctor.equals(other.doctor))
 			return false;
-		if (endTime == null) {
-			if (other.endTime != null)
-				return false;
-		} else if (!endTime.equals(other.endTime))
-			return false;
+//		if (endTime == null) {
+//			if (other.endTime != null)
+//				return false;
+//		} else if (!endTime.equals(other.endTime))
+//			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -165,11 +176,11 @@ public class Appointment {
 			return false;
 		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;
-		if (startTime == null) {
-			if (other.startTime != null)
-				return false;
-		} else if (!startTime.equals(other.startTime))
-			return false;
+//		if (startTime == null) {
+//			if (other.startTime != null)
+//				return false;
+//		} else if (!startTime.equals(other.startTime))
+//			return false;
 		if (status == null) {
 			if (other.status != null)
 				return false;
@@ -181,7 +192,7 @@ public class Appointment {
 	@Override
 	public String toString() {
 		return "Appointment [id=" + id + ", price=" + price + ", appointmentType=" + appointmentType + ", status="
-				+ status + ", patient=" + patient + ", doctor=" + doctor + ", startTime=" + startTime + ", endTime="
-				+ endTime + "]";
+				+ status + ", patient=" + patient + ", doctor=" + doctor + ", startTime=" + timeInterval.getStart() + ", endTime="
+				+ timeInterval.getEnd() + "]";
 	}
 }

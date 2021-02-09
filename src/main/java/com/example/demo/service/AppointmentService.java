@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.example.demo.model.TimeInterval;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,10 +18,12 @@ public interface AppointmentService {
 	List<Appointment> findAll();
 	
 	Page<Appointment> findAll(Pageable page);
-	
-	List<Appointment> findAllByStartTime(Timestamp startTime);
 
-	List<Appointment> findAllByEndTime(Timestamp endTime);
+	List<Appointment> findAllByTimeInterval(TimeInterval timeInterval);
+
+//	List<Appointment> findAllByStartTime(Timestamp startTime);
+//
+//	List<Appointment> findAllByEndTime(Timestamp endTime);
 	
 	List<Appointment> findAllByPrice(double price);
 

@@ -1,6 +1,8 @@
 package com.example.demo.service.impl;
 
 import java.util.List;
+
+import com.example.demo.model.enums.AppointmentTypeValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +24,12 @@ public class AppointmentTypeServiceImpl implements AppointmentTypeService {
     public AppointmentType findOne(Long id) {
 		return appointmentTypeRepository.findById(id).orElseGet(null);
 	}
-    
+
+	@Override
+	public AppointmentType findByTypeValue(AppointmentTypeValues value) {
+		return this.appointmentTypeRepository.findByAppointmentTypeValue(value);
+	}
+
 	public List<AppointmentType> findAll() {
 		return appointmentTypeRepository.findAll();
 	}

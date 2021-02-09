@@ -1,6 +1,9 @@
 package com.example.demo.service.impl;
 
 import java.util.List;
+
+import com.example.demo.model.enums.AppointmentStatusValue;
+import com.example.demo.model.enums.AppointmentTypeValues;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +25,12 @@ public class AppointmentStatusServiceImpl implements AppointmentStatusService {
     public AppointmentStatus findOne(Long id) {
 		return appointmentStatusRepository.findById(id).orElseGet(null);
 	}
-    
+
+	@Override
+	public AppointmentStatus findByValue(AppointmentStatusValue value) {
+		return this.appointmentStatusRepository.findByStatusValue(value);
+	}
+
 	public List<AppointmentStatus> findAll() {
 		return appointmentStatusRepository.findAll();
 	}

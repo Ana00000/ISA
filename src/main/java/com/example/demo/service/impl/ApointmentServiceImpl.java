@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.Doctor;
 import com.example.demo.model.Patient;
+import com.example.demo.model.TimeInterval;
 import com.example.demo.repository.AppointmentRepository;
 import com.example.demo.service.AppointmentService;
 
@@ -35,14 +36,19 @@ public class ApointmentServiceImpl implements AppointmentService {
 	public Page<Appointment> findAll(Pageable page) {
 		return appointmentRepository.findAll(page);
 	}
-	
-	public List<Appointment> findAllByStartTime(Timestamp startTime) {
-		return appointmentRepository.findAllByStartTime(startTime);
+
+	@Override
+	public List<Appointment> findAllByTimeInterval(TimeInterval timeInterval) {
+		return appointmentRepository.findAllByTimeInterval(timeInterval);
 	}
 
-	public List<Appointment> findAllByEndTime(Timestamp endTime) {
-		return appointmentRepository.findAllByEndTime(endTime);
-	}
+//	public List<Appointment> findAllByStartTime(Timestamp startTime) {
+//		return appointmentRepository.findAllByStartTime(startTime);
+//	}
+//
+//	public List<Appointment> findAllByEndTime(Timestamp endTime) {
+//		return appointmentRepository.findAllByEndTime(endTime);
+//	}
 	
 	public List<Appointment> findAllByPrice(double price) {
 		return appointmentRepository.findAllByPrice(price);
