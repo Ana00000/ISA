@@ -176,6 +176,6 @@ export default {
 }
 
 .space {
-    height: 192px;
+    height: 122px;
 }
 </style>

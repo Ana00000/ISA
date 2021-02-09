@@ -12,6 +12,7 @@ public class AppointmentDTO {
 	private DoctorDTO doctor;
 	private Timestamp startTime;
 	private Timestamp endTime;
+	private int penalty;
 	 
 	public AppointmentDTO() {
 	}
@@ -30,10 +31,11 @@ public class AppointmentDTO {
 			this.patient = new PatientDTO(appointment.getPatient());
 		if (appointment.getDoctor() != null) 
 			this.doctor = new DoctorDTO(appointment.getDoctor(), appointment.getDoctor().getType());
+		this.penalty = appointment.getPenalty();
 	}
 
 	public AppointmentDTO(Long id, double price, AppointmentTypeDTO appointmentType, AppointmentStatusDTO status,
-			PatientDTO patient, DoctorDTO doctor, Timestamp startTime, Timestamp endTime) {
+			PatientDTO patient, DoctorDTO doctor, Timestamp startTime, Timestamp endTime, int penalty) {
 		super();
 		this.id = id;
 		this.price = price;
@@ -43,6 +45,7 @@ public class AppointmentDTO {
 		this.doctor = doctor;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.penalty = penalty;
 	}
 
 	public Long getId() {
@@ -107,5 +110,13 @@ public class AppointmentDTO {
 
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
+	}
+
+	public int getPenalty() {
+		return penalty;
+	}
+
+	public void setPenalty(int penalty) {
+		this.penalty = penalty;
 	}
 }
