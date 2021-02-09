@@ -1,31 +1,31 @@
-INSERT INTO appointment_status(id, status_value) VALUES (12, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (22, 2);
-INSERT INTO appointment_status(id, status_value) VALUES (32, 2);
-INSERT INTO appointment_status(id, status_value) VALUES (42, 1);
-INSERT INTO appointment_status(id, status_value) VALUES (52, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (62, 1);
-INSERT INTO appointment_status(id, status_value) VALUES (72, 2);
-INSERT INTO appointment_status(id, status_value) VALUES (82, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (92, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (102, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (112, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (122, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (132, 0);
+INSERT INTO appointment_status(id, status_value) VALUES (222, 2);
+INSERT INTO appointment_status(id, status_value) VALUES (322, 2);
+INSERT INTO appointment_status(id, status_value) VALUES (422, 1);
+INSERT INTO appointment_status(id, status_value) VALUES (522, 0);
+INSERT INTO appointment_status(id, status_value) VALUES (622, 1);
+INSERT INTO appointment_status(id, status_value) VALUES (722, 2);
+INSERT INTO appointment_status(id, status_value) VALUES (822, 0);
+INSERT INTO appointment_status(id, status_value) VALUES (922, 0);
+INSERT INTO appointment_status(id, status_value) VALUES (1022, 0);
+INSERT INTO appointment_status(id, status_value) VALUES (1122, 0);
+INSERT INTO appointment_status(id, status_value) VALUES (1222, 0);
+INSERT INTO appointment_status(id, status_value) VALUES (1322, 0);
 
  
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (11, 0);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (21, 0);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (31, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (41, 0);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (51, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (61, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (71, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (81, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (91, 0);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (101, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (111, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (121, 1);
-INSERT INTO appointment_type(id, appointment_type_value) VALUES (131, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (111, 0);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (211, 0);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (311, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (411, 0);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (511, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (611, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (711, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (811, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (911, 0);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (1011, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (1111, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (1211, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (1311, 1);
 
 /*password-mirina3982*/
 INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (1, 'Mirina', 'Ikaric', 'dermatologist', 'mirina456ikaric@gmail.com', '$2a$10$xhd/SpXVM6Kc15Jz2UPuNutpqR2LoJgr3.vbnEPwnNPoRKe0He26S','Beograd ulica 2','0658794', 'TRUE');
@@ -128,46 +128,46 @@ INSERT INTO promotion(id, start_time, end_time, description) VALUES (0, CURRENT_
 
 
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (10, 250.35, 81, 102, 6, 3, '2021-09-25 12:00', '2021-09-25 13:00');
+VALUES (1000, 250.35, 811, 1022, 6, 3, '2021-09-25 12:00', '2021-09-25 13:00');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (20, 450.50, 41, 92, 5, 1, '2021-12-31 15:35', '2021-12-31 17:05');
+VALUES (2000, 450.50, 411, 922, 5, 1, '2021-12-31 15:35', '2021-12-31 17:05');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (30, 259.99, 51, 22, 4, 2, '2021-05-04 10:10', '2021-05-04 11:11');
+VALUES (3000, 259.99, 511, 222, 4, 2, '2021-05-04 10:10', '2021-05-04 11:11');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (40, 300.00, 11, 52, 4, 7, '2021-01-01 23:05', '2021-12-31 23:35');
+VALUES (4000, 300.00, 111, 522, 4, 7, '2021-01-01 23:05', '2021-12-31 23:35');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (50, 150.50, 21, 72, 5, 9, '2021-07-22 13:20', '2021-07-22 15:00');
+VALUES (5000, 150.50, 211, 722, 5, 9, '2021-07-22 13:20', '2021-07-22 15:00');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (60, 850.50, 91, 22, 4, 8, '2021-03-03 01:00', '2021-03-03 01:50');
+VALUES (6000, 850.50, 911, 222, 4, 8, '2021-03-03 01:00', '2021-03-03 01:50');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (70, 310.99, 31, 92, 6, 2, '2021-08-29 14:00', '2021-08-29 14:14');
+VALUES (7000, 310.99, 311, 922, 6, 2, '2021-08-29 14:00', '2021-08-29 14:14');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (80, 261.80, 71, 32, 5, 2, '2021-12-02 16:20', '2021-12-02 17:00');
+VALUES (8000, 261.80, 711, 322, 5, 2, '2021-12-02 16:20', '2021-12-02 17:00');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (90, 700.00, 41, 52, 6, 9, '2021-05-17 08:05', '2021-05-17 09:00');
+VALUES (9000, 700.00, 411, 522, 6, 9, '2021-05-17 08:05', '2021-05-17 09:00');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (100, 451.00, 61, 92, 6, 3, '2021-02-13 00:20', '2021-02-13 00:50');
+VALUES (10000, 451.00, 611, 922, 6, 3, '2021-02-13 00:20', '2021-02-13 00:50');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (110, 251.00, 111, 112, null, 3, '2021-02-13 12:20', '2021-02-13 12:50');
+VALUES (11000, 251.00, 1111, 1122, null, 3, '2021-02-13 12:20', '2021-02-13 12:50');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (120, 150.00, 121, 122, null, 1, '2021-02-15 12:20', '2021-02-15 12:30');
+VALUES (12000, 150.00, 1211, 1222, null, 1, '2021-02-15 12:20', '2021-02-15 12:30');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-VALUES (130, 440.00, 131, 132, null, 2, '2021-02-13 12:50', '2021-02-13 14:50');
+VALUES (13000, 440.00, 1311, 1322, null, 2, '2021-02-13 12:50', '2021-02-13 14:50');
 
 
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 10);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 20);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (15, 30);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 40);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (15, 50);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 60);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 70);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 80);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (15, 90);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 100);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 110);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 120);
-INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 130);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 1000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 2000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (15, 3000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 4000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (15, 5000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 6000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 7000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 8000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (15, 9000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 10000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 11000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 12000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 13000);
 
 
 INSERT INTO medicine(id, name, recipe_need, medicine_manufacturer_id, medicine_shape_id)
