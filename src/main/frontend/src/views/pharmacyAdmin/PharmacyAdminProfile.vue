@@ -8,6 +8,9 @@
       <div class="grid-container1">
         <v-list style="background: transparent" class="display-4">
           <v-list-item>
+            <v-btn style="margin: 0 auto" class="buttons" v-on:click="goToPharmacyProfile">Pharmacy profile</v-btn>
+          </v-list-item>
+          <v-list-item>
             <v-btn style="margin: 0 auto" class="buttons">Reserve medicine</v-btn>
           </v-list-item>
           <v-list-item>
@@ -21,6 +24,9 @@
           </v-list-item>
           <v-list-item>
             <v-btn style="margin: 0 auto" class="buttons" v-on:click="definePromotion">define new promotion</v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn style="margin: 0 auto" class="buttons" v-on:click="defineMedicineOrder">define new medicine order</v-btn>
           </v-list-item>
         </v-list>
         <div>
@@ -78,7 +84,7 @@ name: "PharmacyAdminProfile",
       this.address = item.address;
       this.phoneNumber = item.phoneNumber;
       this.active = item.active;
-      this.workingInPharmacy = item.pharmacy.id;
+      this.workingInPharmacy = item.pharmacyId;
       this.pharmacyAdminId = item.pharmacyAdminId;
     },
     defineAppWithDermatologist() {
@@ -86,6 +92,12 @@ name: "PharmacyAdminProfile",
     },
     definePromotion() {
       this.$router.push('/pharmacyAdmin/definePromotion');
+    },
+    goToPharmacyProfile() {
+      this.$router.push('/pharmacy/profile/' + this.workingInPharmacy);
+    },
+    defineMedicineOrder() {
+      this.$router.push('/pharmacyAdmin/defineMedicineOrder');
     }
 
   }
