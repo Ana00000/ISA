@@ -3,13 +3,15 @@
     <span class="bg"/>
     <v-card width="70%" elevation="10" justify-center class="text-center">
       <v-card-title style="margin: 10px">
-        <h1>Define new Medicine Order for Pharmacy:</h1>
-        <h1>{{}}</h1>
+        <v-layout justify-center style="margin: 5px">
+          <h1>Define new Medicine Order for Pharmacy:</h1>
+        </v-layout>
+        <v-layout justify-center  style="margin: 5px">
+          <h2>{{this.adminsPharmacy.name}}</h2>
+        </v-layout>
       </v-card-title>
-      <v-layout>
-        <v-data-table calculate-widths height="100px">
-
-        </v-data-table>
+      <v-layout justify-center>
+        <h3>Medicines that allready are in this pharmacy:</h3>
       </v-layout>
     </v-card>
   </v-layout>
@@ -45,10 +47,13 @@ export default {
 
         this.$http.get('http://localhost:8081/pharmacies/' + this.admin.pharmacyId).then(resp2 => {
           this.adminsPharmacy = resp2.data;
+          console.log(this.adminsPharmacy);
         })
-
-        this.$http.get('http://localhost:8081/dermatologists/getByPharmacy=' + this.admin.pharmacyId).then(resp2 => {
-          this.dermatologists = resp2.data;
+        console.log(this.admin.pharmacyId);
+        this.$http.get('http://localhost:8081/medicine/findByPharmacyId=' + this.admin.pharmacyId).then(resp2 => {
+          this.medicinesInPharmacy = resp2.data;
+          console.log("Returned Medicine");
+          console.log(this.medicinesInPharmacy);
         })
       }).catch(console.log);
     }
