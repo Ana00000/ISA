@@ -134,7 +134,7 @@ const routes = [
     component: () => import('../views/pharmacist/PharmacistProfile.vue')
   },
   {
-    path: '/pharmacistHomePage/scheduleConsultation',
+    path: '/pharmacistHomePage/scheduleConsultation/:id',
     name: 'ScheduleConsultation',
     component: () => import('../views/pharmacist/ScheduleConsultation.vue')
   },

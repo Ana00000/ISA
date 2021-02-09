@@ -329,4 +329,33 @@ public class AppointmentController {
 		appointment = appointmentService.save(appointment);
         return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.CREATED);
     }
+	
+	@PostMapping(value = "/saveConsultation")
+    public ResponseEntity<AppointmentDTO> saveConsultation(@RequestBody AppointmentDTO appointmentDTO) {
+        
+        Appointment appointment = new Appointment();
+		appointment.setStartTime(appointmentDTO.getStartTime());
+		appointment.setEndTime(appointmentDTO.getEndTime());
+		
+		AppointmentType appointmentType = new AppointmentType();
+		appointmentType.setAppointmentTypeValue(AppointmentTypeValues.CONSULTATION);
+		appointmentType = appointmentTypeService.save(appointmentType);
+		appointment.setAppointmentType(appointmentType);
+		
+		AppointmentStatus appointmentStatus = new AppointmentStatus();
+		appointmentStatus.setStatusValue(AppointmentStatusValue.UPCOMING);
+		appointmentStatus = appointmentStatusService.save(appointmentStatus); 
+		appointment.setStatus(appointmentStatus);
+		
+		Long doctorId = appointmentDTO.getDoctor().getId();
+		Doctor doctor = doctorService.findOne(doctorId);
+		appointment.setDoctor(doctor);
+		
+		Long patientId = appointmentDTO.getPatient().getId();
+		Patient patient = patientService.findOne(patientId);
+		appointment.setPatient(patient);
+
+		appointment = appointmentService.save(appointment);
+        return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.CREATED);
+    }
 }

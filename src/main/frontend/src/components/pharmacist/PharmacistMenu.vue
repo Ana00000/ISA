@@ -23,7 +23,7 @@
                 <router-link class="link" to="/pharmacistHomePage/profile/:id">Profile</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/scheduleConsultation">Schedule consultation</router-link>
+                <router-link class="link" to="/pharmacistHomePage/scheduleConsultation/:id">Schedule consultation</router-link>
             </div>
         </v-layout>
     </v-container>
