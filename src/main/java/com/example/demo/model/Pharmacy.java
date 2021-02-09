@@ -53,10 +53,6 @@ public class Pharmacy implements Serializable {
     private Set<Dermatologist> dermatologists;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "pharmacistInPharmacy",
-            joinColumns = @JoinColumn(name = "PharmacyId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "pharmacistId", referencedColumnName = "id"))
     private Set<Pharmacist> pharmacists;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

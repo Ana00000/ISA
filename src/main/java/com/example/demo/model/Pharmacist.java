@@ -1,15 +1,13 @@
 package com.example.demo.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.sql.Timestamp;
 
 @Entity
-public class Pharmacist extends Doctor {
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+public class Pharmacist extends Doctor implements Serializable {
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Pharmacy pharmacy;
 
 	public Pharmacist(){

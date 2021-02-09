@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -49,11 +46,13 @@ public class ScheduleConsultationController {
 
     private void findAvailablePharmacists(TimeInterval timeInterval){
         TimeGenerator timeGenerator = new TimeGenerator(30, 10, timeInterval.getStart().toLocalDateTime().toLocalDate());
+
         Set<TimeInterval> timeIntervalSet = timeGenerator.generateForChosenPeriod(timeInterval);
         Map<Pharmacist, List<TimeInterval>> freePharmacists = new HashMap<>();
         List<Pharmacist> pharmacists =  pharmacistService.findAll();
         for( Pharmacist pharmacist : pharmacists ){
             List<Appointment> appointments = appointmentService.findAllByDoctor(pharmacist);
+            if(appointments == null) continue;
             List<TimeInterval> availbaleTimeIntervals = new ArrayList<>();
             for(TimeInterval ti : timeIntervalSet){
                 boolean overlaps = false;
@@ -70,34 +69,39 @@ public class ScheduleConsultationController {
             if(availbaleTimeIntervals.size() > 0){
                 freePharmacists.put(pharmacist, availbaleTimeIntervals);
             }
+
         }
         this.freePharmacists = freePharmacists;
     }
 
-    public ResponseEntity<Set<Pharmacy>> availablePharmacies(@RequestBody TimeInterval timeInterval){
+    @GetMapping("/pharmacies")
+    public ResponseEntity<Set<PharmacyDTO>> availablePharmacies(@RequestBody TimeInterval timeInterval){
         findAvailablePharmacists(timeInterval);
-        Set<Pharmacy> pharmacies = new HashSet<>();
+        Set<PharmacyDTO> pharmacies = new HashSet<>();
         for(Pharmacist pharmacist : freePharmacists.keySet()){
-            pharmacies.add(pharmacist.getPharmacy());
+
+            pharmacies.add(new PharmacyDTO(pharmacist.getPharmacy()));
         }
         return new ResponseEntity<>(pharmacies, HttpStatus.OK);
     }
 
-    public ResponseEntity<Set<Pharmacist>> availablePharmacists(@RequestBody PharmacyDTO pharmacyDTO){
+    @GetMapping("/pharmacists")
+    public ResponseEntity<Set<PharmacistDTO>> availablePharmacists(@RequestBody PharmacyDTO pharmacyDTO){
         if(freePharmacists == null){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        Set<Pharmacist> pharmacists = new HashSet<>();
+        Set<PharmacistDTO> pharmacists = new HashSet<>();
         for(Pharmacist pharmacist : freePharmacists.keySet()){
             if(pharmacist.getPharmacy().getId() == pharmacyDTO.getId()){
-                pharmacists.add(pharmacist);
+                pharmacists.add(new PharmacistDTO(pharmacist));
             }
         }
         return new ResponseEntity<>(pharmacists, HttpStatus.OK);
     }
 
-    public ResponseEntity<List<TimeInterval>> availableTimeIntervals(@RequestBody Pharmacist pharmacist){
-        Pharmacist p = pharmacistService.findOne(pharmacist.getId());
+    @GetMapping("/timeIntervals")
+    public ResponseEntity<List<TimeInterval>> availableTimeIntervals(@RequestBody PharmacistDTO pharmacistDTO){
+        Pharmacist p = pharmacistService.findOne(pharmacistDTO.getId());
         return new ResponseEntity<>(freePharmacists.get(p), HttpStatus.OK);
     }
 

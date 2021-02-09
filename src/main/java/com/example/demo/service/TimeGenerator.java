@@ -30,10 +30,10 @@ public class TimeGenerator {
         LocalDateTime start = LocalDateTime.of(localDate, localTimeStart);
         LocalDateTime end = LocalDateTime.of(localDate, localTimeEnd);
         LocalDateTime temp = start.plusMinutes(intervalDuration);
-        while(start.isAfter(end)){
-            timeIntervals.add(new TimeInterval(Timestamp.valueOf(start), Timestamp.valueOf(end)));
-            start = end.plusMinutes(breakDuration);
-            end = start.plusMinutes(intervalDuration);
+        while(start.isBefore(end)){
+            timeIntervals.add(new TimeInterval(Timestamp.valueOf(start), Timestamp.valueOf(temp)));
+            start = temp.plusMinutes(breakDuration);
+            temp = start.plusMinutes(intervalDuration);
         }
         return timeIntervals;
     }
