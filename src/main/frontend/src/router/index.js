@@ -187,6 +187,11 @@ const routes = [
     path: '/pharmacyAdmin/definePromotion',
     name: 'DefinePromotion',
     component: () => import('../views/pharmacyAdmin/DefinePromotion.vue')
+  },
+  {
+    path: '/pharmacyAdmin/defineMedicineOrder',
+    name: 'DefineMedicineOrder',
+    component: () => import('../views/pharmacyAdmin/DefineMedicineOrder.vue')
   }
 ]
 
