@@ -16,7 +16,7 @@ public class Appointment {
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 
-    @Column(name="price", unique=false, nullable=false)
+    @Column(name="price", unique=false)
     private double price;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

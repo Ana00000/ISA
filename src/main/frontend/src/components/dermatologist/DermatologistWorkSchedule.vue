@@ -74,7 +74,6 @@ export default {
       item.forEach(examination => {
           this.getPharmacy(examination.id);
           var description = 'Pharmacy is ' + this.pharmacies;
-          console.log(this.pharmacies);
 
           if(examination.status.statusValue == "UPCOMING")
              description += '. Patient on examination: '+ examination.patient.name +' '+ examination.patient.lastName;
@@ -90,11 +89,18 @@ export default {
     },
     setData(){
       data.push({
-            Id: 1,
-            EventName: 'ddas',
-            StartTime: new Date(2021, 1, 15, 17, 0),
-            EndTime: new Date(2021, 1, 15, 18, 30),
-            Description: 'copy again'
+            Id: 3,
+            EventName: 'Examination of dermatologist Janko Micic',
+            StartTime: new Date(2021, 4, 4, 10, 10),
+            EndTime: new Date(2021, 4, 4, 11, 11),
+            Description: 'Pharmacy is 15'
+      });
+      data.push({
+            Id: 7,
+            EventName: 'Examination of dermatologist Janko Micic',
+            StartTime: new Date(2021, 7, 29, 14, 0),
+            EndTime: new Date(2021, 7, 29, 14, 14),
+            Description: 'Pharmacy is 14. Patient on examination: Mirko Lazarevic'
       });
       console.log(data);
     }

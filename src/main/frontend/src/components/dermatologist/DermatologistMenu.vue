@@ -21,7 +21,7 @@
                 <router-link class="link" to="/dermatologistHomePage/profile/:id">Profile</router-link>
             </div>
             <div>
-                <router-link class="link" to="/dermatologistHomePage/scheduleExamination">Schedule examination</router-link>
+                <router-link class="link" to="/dermatologistHomePage/scheduleExamination/:id">Schedule examination</router-link>
             </div>
             <div/>
         </v-layout>

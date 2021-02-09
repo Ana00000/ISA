@@ -19,12 +19,17 @@ public class AppointmentDTO {
 	public AppointmentDTO(Appointment appointment) {
 		this.id = appointment.getId();
 		this.price = appointment.getPrice();
-		if (appointment.getAppointmentType() != null) this.appointmentType = new AppointmentTypeDTO(appointment.getAppointmentType());
-		if (appointment.getStatus() != null) this.status = new AppointmentStatusDTO(appointment.getStatus());
-		if (appointment.getPatient() != null) this.patient = new PatientDTO(appointment.getPatient());
-		if (appointment.getDoctor() != null) this.doctor = new DoctorDTO(appointment.getDoctor(), appointment.getDoctor().getType());
 		this.startTime = appointment.getStartTime();
 		this.endTime = appointment.getEndTime();
+		
+		if (appointment.getAppointmentType() != null) 
+			this.appointmentType = new AppointmentTypeDTO(appointment.getAppointmentType());
+		if (appointment.getStatus() != null)
+			this.status = new AppointmentStatusDTO(appointment.getStatus());
+		if (appointment.getPatient() != null) 
+			this.patient = new PatientDTO(appointment.getPatient());
+		if (appointment.getDoctor() != null) 
+			this.doctor = new DoctorDTO(appointment.getDoctor(), appointment.getDoctor().getType());
 	}
 
 	public AppointmentDTO(Long id, double price, AppointmentTypeDTO appointmentType, AppointmentStatusDTO status,
