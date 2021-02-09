@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-INSERT INTO appointment_status(id, status_value) VALUES (1, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (2, 2);
-INSERT INTO appointment_status(id, status_value) VALUES (3, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (4, 1);
-INSERT INTO appointment_status(id, status_value) VALUES (5, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (6, 1);
-INSERT INTO appointment_status(id, status_value) VALUES (7, 2);
-INSERT INTO appointment_status(id, status_value) VALUES (8, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (9, 0);
-INSERT INTO appointment_status(id, status_value) VALUES (10, 1);
-=======
 INSERT INTO appointment_status(id, status_value) VALUES (12, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (22, 2);
 INSERT INTO appointment_status(id, status_value) VALUES (32, 2);
@@ -23,7 +11,6 @@ INSERT INTO appointment_status(id, status_value) VALUES (102, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (112, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (122, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (132, 0);
->>>>>>> b38a09b... Allowed creating new examinations for patients on exam
 
  
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (11, 0);
@@ -153,11 +140,7 @@ VALUES (50, 150.50, 21, 72, 5, 9, '2021-07-22 13:20', '2021-07-22 15:00');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
 VALUES (60, 850.50, 91, 22, 4, 8, '2021-03-03 01:00', '2021-03-03 01:50');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
-<<<<<<< HEAD
-VALUES (7, 310.99, 3, 9, 6, 8, '2020-08-29 14:00', '2020-08-29 14:14');
-=======
 VALUES (70, 310.99, 31, 92, 6, 2, '2021-08-29 14:00', '2021-08-29 14:14');
->>>>>>> b38a09b... Allowed creating new examinations for patients on exam
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
 VALUES (80, 261.80, 71, 32, 5, 2, '2021-12-02 16:20', '2021-12-02 17:00');
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time)
