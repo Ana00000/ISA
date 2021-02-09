@@ -20,7 +20,12 @@
             <v-toolbar-title><router-link class="router" to="/">{{appTitle}}</router-link></v-toolbar-title>
             <v-btn flat class="hidden-sm-and-down ma-1" @click="drawer = !drawer">Menu</v-btn>
             <v-spacer class="hidden-sm-and-down"></v-spacer>
-            <v-btn flat class="hidden-sm-and-down"><router-link class="router" to="/login">Login</router-link></v-btn>
+            <div  v-if="!isLogged">
+                <v-btn flat class="hidden-sm-and-down"><router-link class="router" to="/login" >Login</router-link></v-btn>
+            </div>
+            <div v-else>
+                <v-btn flat class="hidden-sm-and-down" v-on:click="logoff">Logoff</v-btn>
+            </div>
             <v-btn color="brown lighten-3" class="hidden-sm-and-down ma-1"><router-link class="router" to="/register">Register</router-link></v-btn>
         </v-toolbar>
     </span>
@@ -32,11 +37,22 @@ export default {
     props: {
         msg: String
     },
+    computed:{
+        isLogged: function(){
+            var token = localStorage.getItem("token");
+            if(token !== ""){
+                return true;
+            }
+            return false;
+        },
+        
+    },
     data() {
         return {
             cat: 'Cat',
             appTitle: 'Pharmacy',
             drawer: false,
+            isUserLogged:false,
             items: [
                 { title: 'Search Pharmacies', path: '/' },
                 { title: 'Search Medicine', path: '/searchMedicine' },
@@ -44,6 +60,12 @@ export default {
                 { title: 'Contacts', path: '/' }
             ]
         }
+    },
+    methods:{
+        logoff() {
+            localStorage.setItem("token","");
+            window.location.href = "http://localhost:8080/login";
+    },
     }
 }
 </script>
