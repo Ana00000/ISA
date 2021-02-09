@@ -8,7 +8,7 @@
                 <router-link class="link" to="/pharmacistHomePage/clients">Clients</router-link>
             </div>
             <div >
-                <router-link class="link" to="/pharmacistHomePage/consultationsInfo">Consultations info</router-link>
+                <router-link class="link" to="/pharmacistHomePage/consultationsInfo/:id">Consultations info</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacistHomePage/workingSchedule/:id">Working schedule</router-link>

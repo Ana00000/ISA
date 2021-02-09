@@ -151,6 +151,40 @@ public class AppointmentController {
 		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/allNotEmptyExaminations/{id}")
+	public ResponseEntity<List<AppointmentDTO>> getAllNotEmptyDermatologistExaminations(@PathVariable Long id) {
+
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll())
+			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("examination")
+			   & a.getDoctor().getId() == id & a.getPatient() != null)
+				appointments.add(a);
+
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/allNotEmptyConsultations/{id}")
+	public ResponseEntity<List<AppointmentDTO>> getAllNotEmptyPharmacistConsultations(@PathVariable Long id) {
+
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll())
+			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("consultation")
+			   & a.getDoctor().getId() == id & a.getPatient() != null)
+				appointments.add(a);
+
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/allEmptyExaminations")
 	public ResponseEntity<List<AppointmentDTO>> getAllEmptyExaminations() {
 		

@@ -78,11 +78,18 @@ export default {
     },
     setData(){
       data.push({
-            Id: 1,
-            EventName: 'ddas',
-            StartTime: new Date(2021, 1, 15, 17, 0),
-            EndTime: new Date(2021, 1, 15, 18, 30),
-            Description: 'copy again'
+            Id: 3,
+            EventName: 'Consultation of pharmacist Sanja Petrovic',
+            StartTime: new Date(1626960000000),
+            EndTime: new Date(1626966000000),
+            Description: 'Patient on consultation: Klara Mitrovic'
+      });
+      data.push({
+            Id: 7,
+            EventName: 'Consultation of pharmacist Sanja Petrovic',
+            StartTime: new Date(1621238700000),
+            EndTime: new Date(1621242000000),
+            Description: 'Patient on consultation: Mirko Lazarevic'
       });
       console.log(data);
     }

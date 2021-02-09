@@ -36,12 +36,15 @@ public class Appointment {
 
     @Column(nullable = false)
     private Timestamp endTime;
+    
+    @Column(name="penalty", unique=false)
+    private int penalty;
 
 	public Appointment() {
 	}
 
 	public Appointment(Long id, double price, AppointmentType appointmentType, AppointmentStatus status, Patient patient,
-			Doctor doctor, Timestamp startTime, Timestamp endTime) {
+			Doctor doctor, Timestamp startTime, Timestamp endTime, int penalty) {
 		super();
 		this.id = id;
 		this.price = price;
@@ -51,6 +54,7 @@ public class Appointment {
 		this.doctor = doctor;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.penalty = penalty;
 	}
 
 	public Appointment(AppointmentDTO appointmentDTO) {
@@ -67,6 +71,7 @@ public class Appointment {
 		if (appointmentDTO.getDoctor() != null) this.doctor = new Doctor(appointmentDTO.getDoctor());
 		this.startTime = appointmentDTO.getStartTime();
 		this.endTime = appointmentDTO.getEndTime();
+		this.penalty = appointmentDTO.getPenalty();
 	}
 
 	public Long getId() {
@@ -133,6 +138,14 @@ public class Appointment {
 		this.endTime = endTime;
 	}
 
+	public int getPenalty() {
+		return penalty;
+	}
+
+	public void setPenalty(int penalty) {
+		this.penalty = penalty;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -142,6 +155,7 @@ public class Appointment {
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((patient == null) ? 0 : patient.hashCode());
+		result = prime * result + penalty;
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -184,6 +198,8 @@ public class Appointment {
 				return false;
 		} else if (!patient.equals(other.patient))
 			return false;
+		if (penalty != other.penalty)
+			return false;
 		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;
 		if (startTime == null) {
@@ -203,6 +219,6 @@ public class Appointment {
 	public String toString() {
 		return "Appointment [id=" + id + ", price=" + price + ", appointmentType=" + appointmentType + ", status="
 				+ status + ", patient=" + patient + ", doctor=" + doctor + ", startTime=" + startTime + ", endTime="
-				+ endTime + "]";
+				+ endTime + ", penalty=" + penalty + "]";
 	}
 }
