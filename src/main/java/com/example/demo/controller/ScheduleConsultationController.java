@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AppointmentDTO;
+import com.example.demo.dto.Hadzi.ConsultationScheduleDTO;
 import com.example.demo.dto.Hadzi.PharmacyDTOHadzi;
 import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.PharmacyDTO;
@@ -106,7 +107,7 @@ public class ScheduleConsultationController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Appointment> schedule(HttpServletRequest request, @RequestBody AppointmentDTO appointmentDTO){
+    public ResponseEntity<Appointment> schedule(HttpServletRequest request, @RequestBody ConsultationScheduleDTO consultationScheduleDTO){
 
         Appointment appointment = new Appointment();
 
@@ -117,9 +118,9 @@ public class ScheduleConsultationController {
         String username = tokenUtils.getUsernameFromToken(token);
         Patient patient = patientService.findOneByEmail(username);
 
-        appointment.setDoctor( pharmacistService.findOne(appointmentDTO.getDoctor().getId()));
-        appointment.setStartTime( appointmentDTO.getStartTime() );
-        appointment.setEndTime( appointmentDTO.getEndTime() );
+        appointment.setDoctor( pharmacistService.findOne(consultationScheduleDTO.getPharmacistID()));
+        appointment.setStartTime( consultationScheduleDTO.getTimeInterval().getStart() );
+        appointment.setEndTime( consultationScheduleDTO.getTimeInterval().getEnd() );
         appointment.setPatient( patient );
         appointment.setStatus( appointmentStatusService.findByValue(AppointmentStatusValue.UPCOMING) );
         appointment.setAppointmentType( appointmentTypeService.findByTypeValue(AppointmentTypeValues.CONSULTATION));

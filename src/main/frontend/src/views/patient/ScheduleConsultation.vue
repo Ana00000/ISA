@@ -90,6 +90,13 @@ export default {
                 "start" : this.timeStart,
                 "end" : this.timeEnd
             }
+        },
+        createRequest(){
+            return {
+                "pharmacyID": this.pharmacyDTO.id,
+                "pharmacistID": this.pharmacistDTO.id,
+                "timeInterval": this.timeInterval
+            }
         }
     },
     methods: {
@@ -135,6 +142,19 @@ export default {
         receiveTimeInterval: function(value){
             this.timeInterval = value;
             console.log(value);
+        },
+        createAppointment: function(){
+            const config = {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            };
+            axios.post('http://localhost:8081/scheduleConsultation/timeIntervals', this.createRequest, config)
+                .then(res => {
+                    this.availableTimeIntervals = res.data;
+                    console.log(res.data);
+                })
+                .catch(res => {
+                    console.log(res);
+                })
         }
     }
 }
