@@ -14,7 +14,7 @@ public class PharmacyDTO implements Serializable {
 
     public PharmacyDTO() {}
 
-    public PharmacyDTO(Long id, String name, String contact, String country, String city, String street, int number, float longitude, float latitude, float averageGrade, Set<Dermatologist> dermatologists, Set<Pharmacist> pharmacists, List<MedicineDTO> medicines, List<AppointmentDTO> appointments) {
+    public PharmacyDTO(Long id, String name, String contact, String country, String city, String street, int number, float longitude, float latitude, float averageGrade, Set<Dermatologist> dermatologists, List<PharmacistDTO> pharmacists, List<MedicineDTO> medicines, List<AppointmentDTO> appointments) {
         this.id = id;
         this.name = name;
         this.contact = contact;
@@ -43,7 +43,11 @@ public class PharmacyDTO implements Serializable {
         this.latitude = pharmacy.getLatitude();
         this.averageGrade = pharmacy.getAverageGrade();
         this.dermatologists = pharmacy.getDermatologists();
-        this.pharmacists = pharmacy.getPharmacists();
+        
+        List<PharmacistDTO> pharmacists = new ArrayList<PharmacistDTO>();
+        for(Pharmacist p: pharmacy.getPharmacists())
+        	pharmacists.add(new PharmacistDTO(p));
+        this.pharmacists = pharmacists;
         
         List<MedicineDTO> medicines = new ArrayList<MedicineDTO>();
         for(Medicine m: pharmacy.getMedicines())
@@ -78,7 +82,7 @@ public class PharmacyDTO implements Serializable {
 
     private Set<Dermatologist> dermatologists;
 
-    private Set<Pharmacist> pharmacists;
+    private List<PharmacistDTO> pharmacists;
 
     private List<MedicineDTO> medicines; 
 
@@ -172,11 +176,11 @@ public class PharmacyDTO implements Serializable {
         this.dermatologists = dermatologists;
     }
 
-    public Set<Pharmacist> getPharmacists() {
+    public List<PharmacistDTO> getPharmacists() {
         return pharmacists;
     }
 
-    public void setPharmacists(Set<Pharmacist> pharmacists) {
+    public void setPharmacists(List<PharmacistDTO> pharmacists) {
         this.pharmacists = pharmacists;
     }
 
