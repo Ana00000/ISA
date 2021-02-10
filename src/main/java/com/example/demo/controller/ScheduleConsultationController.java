@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AppointmentDTO;
 import com.example.demo.dto.Hadzi.PharmacyDTOHadzi;
+import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.PharmacyDTO;
 import com.example.demo.model.*;
 import com.example.demo.model.enums.AppointmentStatusValue;
@@ -90,11 +91,12 @@ public class ScheduleConsultationController {
         return new ResponseEntity<>(pharmacies, HttpStatus.OK);
     }
 
-    public ResponseEntity<Set<Pharmacist>> availablePharmacists(@RequestBody PharmacyDTO pharmacyDTO){
+    @PostMapping("/pharmacists")
+    public ResponseEntity<Set<PharmacistDTO>> availablePharmacists(@RequestBody PharmacyDTOHadzi pharmacyDTO){
         if(freePharmacists == null){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        Set<Pharmacist> pharmacists = new HashSet<>();
+        Set<PharmacistDTO> pharmacists = new HashSet<>();
         for(Pharmacist pharmacist : freePharmacists.keySet()){
 //            List<Pharmacy> pharmaciesByPharmacist = pharmacyService.findAllByPharmacist(pharmacist);
 //            for(Pharmacy ph : pharmaciesByPharmacist){
@@ -104,7 +106,7 @@ public class ScheduleConsultationController {
 //                }
 //            }
             if(pharmacist.getPharmacy().getId() == pharmacyDTO.getId()){
-                pharmacists.add(pharmacist);
+                pharmacists.add(new PharmacistDTO(pharmacist));
             }
         }
         return new ResponseEntity<>(pharmacists, HttpStatus.OK);

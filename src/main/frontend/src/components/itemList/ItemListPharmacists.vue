@@ -29,7 +29,7 @@
         multiple
       >
         <template v-for="(item, index) in renderingItems">
-          <v-list-item :key="item.title">
+          <v-list-item :key="item.id" @click="$emit('sendPharmacist', item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
                 <v-list-item-title  v-text="item.name + '-' + item.lastName"></v-list-item-title>
@@ -99,7 +99,6 @@
 </template>
 
 <script>
-import axios from 'axios';
   export default {
     data: () => ({
       selected: [2],
@@ -112,15 +111,11 @@ import axios from 'axios';
       filterCriteria: 'all',
       items: []
     }),
-    created(){
-      axios.get('http://localhost:8081/pharmacists/all')
-            .then(res => {
-              this.items = res.data;
-              this.renderingItems = res.data;
-              this.searchedItems = res.data;
-            })
-            .catch(err => console.log(err));
-    },
+    props: [
+      "items",
+      "renderingItems",
+      "searchedItems"
+    ],
     methods:{
       search: function(){
         var i;

@@ -36,13 +36,13 @@
                     <v-btn @click="getAvailablePharmacies" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose date and time</h2></v-btn>
                 </div>
                 <div style="background: none; border: none; margin-top: 50px;">
-                    <item-list-pharmacies v-bind:items="availablePharmacies" v-bind:renderingItems="availablePharmacies" v-bind:searchedItems="availablePharmacies"></item-list-pharmacies>
+                    <item-list-pharmacies @sendPharmacy="receivePharmacy" v-bind:items="availablePharmacies" v-bind:renderingItems="availablePharmacies" v-bind:searchedItems="availablePharmacies"></item-list-pharmacies>
                 </div>
                 <div style="margin-top: 50px;">
-                    <v-btn large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose Pharmacy</h2></v-btn>
+                    <v-btn @click="getAvailablePharmacists" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose Pharmacy</h2></v-btn>
                 </div>
                 <div style="background: none; border: none; margin-top: 50px;">
-                    <item-list-pharmacists></item-list-pharmacists>
+                    <item-list-pharmacists @sendPharmacist="receivePharmacist" v-bind:items="availablePharmacists" v-bind:renderingItems="availablePharmacists" v-bind:searchedItems="availablePharmacists"></item-list-pharmacists>
                 </div>
                 <div style="margin-top: 50px; margin-bottom: 200px;">
                     <v-btn large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose Pharmacist and schedule consultation</h2></v-btn>
@@ -68,7 +68,10 @@ export default {
         return {
             timeStart: '',
             timeEnd: '',
-            availablePharmacies: ''
+            availablePharmacies: '',
+            availablePharmacists: '',
+            pharmacyDTO: '',
+            pharmacistDTO: ''
         }
     },
     computed:{
@@ -77,8 +80,7 @@ export default {
                 "start" : this.timeStart,
                 "end" : this.timeEnd
             }
-        },
-
+        }
     },
     methods: {
         getAvailablePharmacies: function(){
@@ -91,7 +93,26 @@ export default {
                 .catch(res => {
                     console.log(res);
                 })
-        }
+        },
+        getAvailablePharmacists: function(){
+            console.log(this.timeStart + " " + this.timeEnd);
+            axios.post('http://localhost:8081/scheduleConsultation/pharmacists', this.pharmacyDTO)
+                .then(res => {
+                    this.availablePharmacists = res.data;
+                    console.log(res.data);
+                })
+                .catch(res => {
+                    console.log(res);
+                })
+        },
+        receivePharmacy: function(value){
+            this.pharmacyDTO = value;
+            console.log(value);
+        },
+        receivePharmacist: function(value){
+            this.pharmacistDTO = value;
+            console.log(value);
+        },
     }
 }
 </script>

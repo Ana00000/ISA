@@ -23,6 +23,10 @@ public class PharmacyDTOHadzi {
 
     private float averageGrade;
 
+    public PharmacyDTOHadzi(){
+
+    }
+
     public PharmacyDTOHadzi(Pharmacy pharmacy){
         this.id = pharmacy.getId();
         this.name = pharmacy.getName();
