@@ -1,12 +1,13 @@
 package com.example.demo.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import com.example.demo.model.enums.AppointmentStatusValue;
-import com.example.demo.model.enums.AppointmentTypeValues;
-import com.example.demo.service.AppointmentTypeService;
-import com.example.demo.service.DoctorService;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,18 +18,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.dto.AppointmentDTO;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.AppointmentStatus;
 import com.example.demo.model.AppointmentType;
+import com.example.demo.model.Dermatologist;
 import com.example.demo.model.Doctor;
 import com.example.demo.model.Patient;
+import com.example.demo.model.Pharmacy;
+import com.example.demo.model.Vacation;
+import com.example.demo.model.enums.AppointmentStatusValue;
+import com.example.demo.model.enums.AppointmentTypeValues;
 import com.example.demo.service.AppointmentService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import com.example.demo.service.AppointmentStatusService;
+import com.example.demo.service.AppointmentTypeService;
+import com.example.demo.service.DoctorService;
 import com.example.demo.service.PatientService;
+import com.example.demo.service.PharmacyService;
+import com.example.demo.service.VacationService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -40,17 +49,23 @@ public class AppointmentController {
 	private AppointmentStatusService appointmentStatusService;
 	private DoctorService doctorService;
 	private PatientService patientService;
+	private VacationService vacationService;
+    private PharmacyService pharmacyService;
     
 	@Autowired
 	public AppointmentController(AppointmentService appointmentService,
 			DoctorService doctorService, PatientService patientService,
 			AppointmentTypeService appointmentTypeService,
-			AppointmentStatusService appointmentStatusService) {
+			AppointmentStatusService appointmentStatusService,
+			VacationService vacationService,
+			PharmacyService pharmacyService) {
 		this.appointmentService = appointmentService;
 		this.appointmentTypeService = appointmentTypeService;
 		this.appointmentStatusService = appointmentStatusService;
 		this.doctorService = doctorService;
 		this.patientService = patientService;
+		this.vacationService = vacationService;
+		this.pharmacyService = pharmacyService;
 	}
 	
 	@GetMapping(value = "/all")
@@ -337,10 +352,12 @@ public class AppointmentController {
 	
 	@PostMapping(value = "/saveExamination")
     public ResponseEntity<AppointmentDTO> saveExamination(@RequestBody AppointmentDTO appointmentDTO) {
+		
+		if (appointmentDTO == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
         
         Appointment appointment = new Appointment();
-		appointment.setStartTime(appointmentDTO.getStartTime());
-		appointment.setEndTime(appointmentDTO.getEndTime());
 		
 		AppointmentType appointmentType = new AppointmentType();
 		appointmentType.setAppointmentTypeValue(AppointmentTypeValues.EXAMINATION);
@@ -356,10 +373,11 @@ public class AppointmentController {
 		Doctor doctor = doctorService.findOne(doctorId);
 		appointment.setDoctor(doctor);
 		
-		Long patientId = appointmentDTO.getPatient().getId();
-		Patient patient = patientService.findOne(patientId);
-		appointment.setPatient(patient);
-
+		setOfValidPatient(appointmentDTO, appointment);
+		setOfValidIntervalForExamination(appointmentDTO, appointment);
+		
+		addAppointmentInPharmacy(appointment);
+			
 		appointment = appointmentService.save(appointment);
         return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.CREATED);
     }
@@ -367,9 +385,11 @@ public class AppointmentController {
 	@PostMapping(value = "/saveConsultation")
     public ResponseEntity<AppointmentDTO> saveConsultation(@RequestBody AppointmentDTO appointmentDTO) {
         
+		if (appointmentDTO == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
         Appointment appointment = new Appointment();
-		appointment.setStartTime(appointmentDTO.getStartTime());
-		appointment.setEndTime(appointmentDTO.getEndTime());
 		
 		AppointmentType appointmentType = new AppointmentType();
 		appointmentType.setAppointmentTypeValue(AppointmentTypeValues.CONSULTATION);
@@ -385,11 +405,212 @@ public class AppointmentController {
 		Doctor doctor = doctorService.findOne(doctorId);
 		appointment.setDoctor(doctor);
 		
-		Long patientId = appointmentDTO.getPatient().getId();
-		Patient patient = patientService.findOne(patientId);
-		appointment.setPatient(patient);
+		setOfValidPatient(appointmentDTO, appointment);
+		setOfValidIntervalForConsultation(appointmentDTO, appointment);
 
 		appointment = appointmentService.save(appointment);
         return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.CREATED);
     }
+
+	private void setOfValidPatient(AppointmentDTO appointmentDTO, Appointment appointment) {
+		Long patientId = appointmentDTO.getPatient().getId();
+		Patient patient = patientService.findOne(patientId);
+		if(patient == null) {
+	    	 System.out.println("You did not select a patient.");
+	    	 return;
+	    }else
+	    	appointment.setPatient(patient);
+	}
+	
+	private void setOfValidIntervalForExamination(AppointmentDTO appointmentDTO, Appointment appointment) {
+		
+		Timestamp start = appointmentDTO.getStartTime();
+		Timestamp end = appointmentDTO.getEndTime();
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+		
+		int flag = isPatientOccupied(appointmentDTO, appointment, start, end);
+		flag += isDoctorBusy(appointment, start, end);
+		flag += isDoctorActive(appointmentDTO, appointment, start, end);
+		flag += isIntervalCorrect(appointmentDTO, appointment, start, end, currentTime);
+		
+		if(flag != 0)
+			return;
+		else {
+			appointment.setStartTime(appointmentDTO.getStartTime());
+			appointment.setEndTime(appointmentDTO.getEndTime());
+		}
+	}
+
+	private void setOfValidIntervalForConsultation(AppointmentDTO appointmentDTO, Appointment appointment) {
+		
+		Timestamp start = appointmentDTO.getStartTime();
+		Timestamp end = appointmentDTO.getEndTime();
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+		
+		int flag = isPatientOccupied(appointmentDTO, appointment, start, end);
+		flag += isDoctorBusy(appointment, start, end);
+		flag += isDoctorActive(appointmentDTO, appointment, start, end);
+		flag += isIntervalCorrect(appointmentDTO, appointment, start, end, currentTime);
+		
+		if(flag != 0)
+			return;
+		else {
+			appointment.setStartTime(appointmentDTO.getStartTime());
+			appointment.setEndTime(appointmentDTO.getEndTime());
+		}
+	}
+	
+	private void addAppointmentInPharmacy(Appointment appointment) {
+		
+		List<Pharmacy> pharmacies = new ArrayList<Pharmacy>();
+		for(Pharmacy p : pharmacyService.findAll()) {
+			for(Dermatologist d : p.getDermatologists()) { 
+				if(appointment.getDoctor() == d) {
+					pharmacies.add(p);
+				}
+			}
+		}
+		// appointment pharmacy table gets new appointment 
+		for(Pharmacy p : pharmacies) {
+			Set<Appointment> appointments = p.getAppointments();
+			appointments.add(appointment);
+			p.setAppointments(appointments);
+			break;
+		}
+	}
+	
+	private int isPatientOccupied(AppointmentDTO appointmentDTO, Appointment appointment, Timestamp start, Timestamp end) {
+		
+		for(Appointment a : appointmentService.findAll()) {
+			if(a.getPatient() == appointment.getPatient() & a != appointment 
+			& a.getStartTime().before(start) & a.getEndTime().after(start)) {
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getPatient() == appointment.getPatient() & a != appointment 
+					& a.getStartTime().before(end) & a.getEndTime().after(end)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getPatient() == appointment.getPatient() & a != appointment 
+					& a.getStartTime().before(start) & a.getEndTime().after(end)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getPatient() == appointment.getPatient() & a != appointment 
+					& a.getStartTime().after(start) & a.getEndTime().before(end)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getPatient() == appointment.getPatient() & a != appointment 
+					& a.getStartTime().after(start) & a.getEndTime().before(end)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getPatient() == appointment.getPatient() & a != appointment 
+					& a.getStartTime().equals(start)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getPatient() == appointment.getPatient() & a != appointment 
+					& a.getEndTime().equals(end)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}
+		}
+		
+		return 0;
+	}
+
+	private int isDoctorBusy(Appointment appointment, Timestamp start, Timestamp end) {
+		
+		for(Appointment a : appointmentService.findAll()) {
+			if(a.getDoctor() == appointment.getDoctor() & a != appointment 
+			& a.getStartTime().before(start) & a.getEndTime().after(start)
+			& a.getPatient() != null) {
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getDoctor() == appointment.getDoctor() & a != appointment 
+					& a.getStartTime().before(end) & a.getEndTime().after(end)
+					& a.getPatient() != null) {
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getDoctor() == appointment.getDoctor() & a != appointment 
+					& a.getStartTime().before(start) & a.getEndTime().after(end)
+					& a.getPatient() != null) {
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getDoctor() == appointment.getDoctor() & a != appointment 
+					& a.getStartTime().after(start) & a.getEndTime().before(end)
+					& a.getPatient() != null) {
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getDoctor() == appointment.getDoctor() & a != appointment 
+					& a.getStartTime().after(start) & a.getEndTime().before(end)
+					& a.getPatient() != null) {
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getDoctor() == appointment.getDoctor() & a != appointment 
+					& a.getStartTime().equals(start) & a.getPatient() != null) {
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(a.getDoctor() == appointment.getDoctor() & a != appointment 
+					& a.getEndTime().equals(end) & a.getPatient() != null) {
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}
+		}
+		
+		return 0;
+	}
+	
+	private int isDoctorActive(AppointmentDTO appointmentDTO, Appointment appointment, Timestamp start, Timestamp end) {
+		
+		for(Vacation v : vacationService.findAll()) {
+			if(v.getDoctor() == appointment.getDoctor() 
+			& v.getStartTime().before(start) & v.getEndTime().after(start)) {
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(v.getDoctor() == appointment.getDoctor() 
+					& v.getStartTime().before(end) & v.getEndTime().after(end)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(v.getDoctor() == appointment.getDoctor() 
+					& v.getStartTime().before(start) & v.getEndTime().after(end)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(v.getDoctor() == appointment.getDoctor() 
+					& v.getStartTime().after(start) & v.getEndTime().before(end)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(v.getDoctor() == appointment.getDoctor()
+					& v.getStartTime().equals(start)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}else if(v.getDoctor() == appointment.getDoctor() 
+					& v.getEndTime().equals(end)){
+				 System.out.println("Interval is occupied!");
+				 return 1;
+			}
+		}
+		
+		return 0;
+	}
+	
+	private int isIntervalCorrect(AppointmentDTO appointmentDTO, Appointment appointment, 
+			Timestamp start, Timestamp end, Timestamp currentTime) {
+		
+		if(end == null) {
+			 System.out.println("End time needs a value!");
+			 return 1;
+	    }else if(start == null) {
+	    	 System.out.println("Start time needs a value!");
+	    	 return 1;
+	    }else if (end.before(start)) {
+	    	 System.out.println("Start time comes before end time!");
+	    	 return 1;
+	    }else if(start.before(currentTime)) {
+	    	 System.out.println("Start time has passed!");
+	    	 return 1;
+	    }else if(end.before(currentTime)) {
+	    	 System.out.println("End time has passed!");
+	    	 return 1;
+	    }
+		
+		return 0;
+	}
 }

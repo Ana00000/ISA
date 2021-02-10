@@ -34,10 +34,14 @@ public class Report {
     @Column(nullable = false)
     private Timestamp endTime;
 
+    @Column(name="therapyInDays", unique=false)
+    private int therapyInDays;
+
 	public Report() {
 	}
 
-	public Report(Long id, Medicine medicine, Patient patient, Doctor doctor, Timestamp startTime, Timestamp endTime) {
+	public Report(Long id, Medicine medicine, Patient patient, Doctor doctor, 
+			Timestamp startTime, Timestamp endTime, int therapyInDays) {
 		super();
 		this.id = id;
 		this.medicine = medicine;
@@ -45,6 +49,7 @@ public class Report {
 		this.doctor = doctor;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.therapyInDays = therapyInDays;
 	}
 
 	public Long getId() {
@@ -95,6 +100,14 @@ public class Report {
 		this.endTime = endTime;
 	}
 
+	public int getTherapyInDays() {
+		return therapyInDays;
+	}
+
+	public void setTherapyInDays(int therapyInDays) {
+		this.therapyInDays = therapyInDays;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -105,6 +118,7 @@ public class Report {
 		result = prime * result + ((medicine == null) ? 0 : medicine.hashCode());
 		result = prime * result + ((patient == null) ? 0 : patient.hashCode());
 		result = prime * result + ((startTime == null) ? 0 : startTime.hashCode());
+		result = prime * result + therapyInDays;
 		return result;
 	}
 
@@ -147,12 +161,14 @@ public class Report {
 				return false;
 		} else if (!startTime.equals(other.startTime))
 			return false;
+		if (therapyInDays != other.therapyInDays)
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Report [id=" + id + ", medicine=" + medicine + ", patient=" + patient + ", doctor=" + doctor
-				+ ", startTime=" + startTime + ", endTime=" + endTime + "]";
+				+ ", startTime=" + startTime + ", endTime=" + endTime + ", therapyInDays=" + therapyInDays + "]";
 	}
 }

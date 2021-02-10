@@ -11,6 +11,7 @@ INSERT INTO appointment_status(id, status_value) VALUES (1022, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (1122, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (1222, 0);
 INSERT INTO appointment_status(id, status_value) VALUES (1322, 0);
+INSERT INTO appointment_status(id, status_value) VALUES (1422, 0);
 
  
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (111, 0);
@@ -26,6 +27,7 @@ INSERT INTO appointment_type(id, appointment_type_value) VALUES (1011, 1);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (1111, 1);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (1211, 1);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (1311, 1);
+INSERT INTO appointment_type(id, appointment_type_value) VALUES (1411, 1);
 
 /*password-mirina3982*/
 INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (1, 'Mirina', 'Ikaric', 'dermatologist', 'mirina456ikaric@gmail.com', '$2a$10$xhd/SpXVM6Kc15Jz2UPuNutpqR2LoJgr3.vbnEPwnNPoRKe0He26S','Beograd ulica 2','0658794', 'TRUE');
@@ -148,11 +150,13 @@ VALUES (9000, 700.00, 411, 522, 6, 9, '2021-05-17 08:05', '2021-05-17 09:00', 0)
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
 VALUES (10000, 451.00, 611, 922, 6, 3, '2021-02-13 00:20', '2021-02-13 00:50', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (11000, 251.00, 1111, 1122, null, 3, '2021-02-13 12:20', '2021-02-13 12:50', 0);
+VALUES (11000, 251.00, 1111, 1122, null, 3, '2022-07-13 12:20', '2022-07-13 12:50', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (12000, 150.00, 1211, 1222, null, 1, '2021-02-15 12:20', '2021-02-15 12:30', 0);
+VALUES (12000, 150.00, 1211, 1222, null, 1, '2023-05-15 12:20', '2023-05-15 12:30', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (13000, 440.00, 1311, 1322, null, 2, '2021-02-13 12:50', '2021-02-13 14:50', 0);
+VALUES (13000, 440.00, 1311, 1322, null, 2, '2022-03-13 12:50', '2022-03-13 14:50', 0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
+VALUES (14000, 240.00, 1411, 1422, null, 3, '2022-02-13 12:50', '2022-02-13 14:50', 0);
 
 
 INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 1000);
@@ -168,6 +172,7 @@ INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 100
 INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 11000);
 INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (14, 12000);
 INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 13000);
+INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 14000);
 
 
 INSERT INTO medicine(id, name, recipe_need, medicine_manufacturer_id, medicine_shape_id)
@@ -255,6 +260,6 @@ INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time)
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (105, 0, 7, '2021-02-19 00:00', '2021-02-20 00:00');
 
 
-INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id) VALUES (10001, '2021-01-13 12:50', '2021-01-13 13:50', 3, 8, 5);
-INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id) VALUES (10002, '2021-01-11 12:50', '2021-01-11 13:30', 9, 7, 4);
+INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id, therapy_in_days) VALUES (10001, '2021-01-13 12:50', '2021-01-13 13:50', 3, 8, 5, 2);
+INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id, therapy_in_days) VALUES (10002, '2021-01-11 12:50', '2021-01-11 13:30', 9, 7, 4, 4);
 

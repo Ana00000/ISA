@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.dto.ReportDTO;
 import com.example.demo.model.Doctor;
 import com.example.demo.model.Medicine;
@@ -73,8 +72,9 @@ public class ReportController {
     public ResponseEntity<ReportDTO> saveReport(@RequestBody ReportDTO reportDTO) {
 
 		Report report = new Report();
-		report.setStartTime(reportDTO.getStartTime());
-		report.setEndTime(reportDTO.getEndTime());
+
+		setOfValidInterval(reportDTO, report);
+		setOfValidTherapyDays(reportDTO, report);
 		
 		if(reportDTO.getMedicine() != null) {
 			Long medicineId = reportDTO.getMedicine().getId();
@@ -103,4 +103,38 @@ public class ReportController {
 		report = reportService.save(report);
         return new ResponseEntity<>(new ReportDTO(report), HttpStatus.CREATED);
     }
+
+	private void setOfValidTherapyDays(ReportDTO reportDTO, Report report) {
+		if(reportDTO.getTherapyInDays() < 0) {
+			 System.out.println("Therapy days can't be negative!");
+			 return;
+	    }else 
+	    	report.setTherapyInDays(reportDTO.getTherapyInDays());
+	}
+	
+	private void setOfValidInterval(ReportDTO reportDTO, Report report) {
+		Timestamp start = reportDTO.getStartTime();
+		Timestamp end = reportDTO.getEndTime();
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+		
+		if(end == null) {
+			 System.out.println("End time needs a value!");
+			 return;
+	    }else if(start == null) {
+	    	 System.out.println("Start time needs a value!");
+	    	 return;
+	    }else if (end.before(start)) {
+	    	 System.out.println("Start time comes before end time!");
+	    	 return;
+	    }else if(start.before(currentTime)) {
+	    	 System.out.println("Start time has passed!");
+	    	 return;
+	    }else if(end.before(currentTime)) {
+	    	 System.out.println("End time has passed!");
+	    	 return;
+	    }else {
+	    	report.setStartTime(reportDTO.getStartTime());
+	    	report.setEndTime(reportDTO.getEndTime());
+	    }
+	}
 }

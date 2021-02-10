@@ -2,10 +2,8 @@ package com.example.demo.model;
 
 import com.example.demo.dto.AppointmentDTO;
 import com.example.demo.model.enums.AppointmentStatusValue;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Random;
 
 @Entity
 public class Appointment {
