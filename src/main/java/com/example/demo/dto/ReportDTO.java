@@ -32,7 +32,6 @@ public class ReportDTO {
 
 	public ReportDTO(Long id, MedicineDTO medicine,	PatientDTO patient,
 			DoctorDTO doctor, Timestamp startTime, Timestamp endTime, int therapyInDays) {
-	}
 		super();
 		this.id = id;
 		this.medicine = medicine;
