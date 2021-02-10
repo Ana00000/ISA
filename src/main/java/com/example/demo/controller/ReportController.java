@@ -74,8 +74,8 @@ public class ReportController {
 
 		Report report = new Report();
 
-		setOfValidInterval(reportDTO, report);
 		setOfValidTherapyDays(reportDTO, report);
+		setOfValidInterval(reportDTO, report);
 		
 		if(reportDTO.getMedicine() != null) {
 			Long medicineId = reportDTO.getMedicine().getId();

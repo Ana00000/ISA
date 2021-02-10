@@ -126,8 +126,8 @@ export default {
             this.$http.post('http://localhost:8081/reports/saveReport', 
             {         
                 doctor : this.doctor,
-                startTime: new Date(1610545800000),
-                endTime: new Date(1610545800000)
+                startTime: new Date(2021, 10, 14),
+                endTime: new Date(2021, 10, 15)
             }
             ).then(resp => {
             console.log(resp.data);

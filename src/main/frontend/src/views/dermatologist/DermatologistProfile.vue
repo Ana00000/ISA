@@ -209,6 +209,7 @@ export default {
             }
             ).then(resp => {
                console.log(resp.data);
+               alert("Successfully updated profile informations!");
             }).catch(err => console.log(err));
         },
         validationOfInput() {
@@ -257,9 +258,9 @@ export default {
             {
                 alert("Your password should contain at least 3 characters!");
                 return;
-            }else if(this.password.length > 20)
+            }else if(this.password.length > 70)
             {
-                alert("Your password shouldn't contain more than 20 characters!");
+                alert("Your password shouldn't contain more than 70 characters!");
                 return;
             }
         },
@@ -279,13 +280,13 @@ export default {
             this.validationOfPhoneNumberElements();
         }, 
         validationOfPhoneNumberLength() {
-            if(this.phoneNumber.length < 6)
+            if(this.phoneNumber.length < 9)
             {
-                alert("Your phone number should contain at least 6 characters!");
+                alert("Your phone number should contain at least 9 characters!");
                 return;
-            }else if(this.phoneNumber.length > 10)
+            }else if(this.phoneNumber.length > 11)
             {
-                alert("Your phone number shouldn't contain more than 10 characters!");
+                alert("Your phone number shouldn't contain more than 11 characters!");
                 return;
             }
         },

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/dermatologists", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DermatologistController {
@@ -157,9 +158,9 @@ public class DermatologistController {
         {
         	System.out.println("Your password should contain at least 3 characters!");
             return;
-        }else if(password.length() > 20)
+        }else if(password.length() > 70)
         {
-        	System.out.println("Your password shouldn't contain more than 20 characters!");
+        	System.out.println("Your password shouldn't contain more than 70 characters!");
             return;
         }else 
         	dermatologist.setPassword(password);
@@ -197,13 +198,13 @@ public class DermatologistController {
 	}
 	
 	private int validationOfPhoneNumberLength(String phoneNumber) {
-		if(phoneNumber.length() < 6)
+		if(phoneNumber.length() < 9)
         {
-        	System.out.println("Your phone number should contain at least 6 characters!");
+        	System.out.println("Your phone number should contain at least 9 characters!");
             return 1;
-        }else if(phoneNumber.length() > 10)
+        }else if(phoneNumber.length() > 11)
         {
-        	System.out.println("Your phone number shouldn't contain more than 10 characters!");
+        	System.out.println("Your phone number shouldn't contain more than 11 characters!");
             return 1;
         }
 		return 0;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.model.Pharmacist;
 import com.example.demo.service.PharmacistService;
-import org.springframework.http.MediaType;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -138,9 +138,9 @@ public class PharmacistController {
         {
         	System.out.println("Your password should contain at least 3 characters!");
             return;
-        }else if(password.length() > 20)
+        }else if(password.length() > 70)
         {
-        	System.out.println("Your password shouldn't contain more than 20 characters!");
+        	System.out.println("Your password shouldn't contain more than 70 characters!");
             return;
         }else 
         	pharmacist.setPassword(password);
@@ -178,13 +178,13 @@ public class PharmacistController {
 	}
 	
 	private int validationOfPhoneNumberLength(String phoneNumber) {
-		if(phoneNumber.length() < 6)
+		if(phoneNumber.length() < 9)
         {
-        	System.out.println("Your phone number should contain at least 6 characters!");
+        	System.out.println("Your phone number should contain at least 9 characters!");
             return 1;
-        }else if(phoneNumber.length() > 10)
+        }else if(phoneNumber.length() > 11)
         {
-        	System.out.println("Your phone number shouldn't contain more than 10 characters!");
+        	System.out.println("Your phone number shouldn't contain more than 11 characters!");
             return 1;
         }
 		return 0;

@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.AppointmentDTO;
 import com.example.demo.dto.Hadzi.ConsultationScheduleDTO;
 import com.example.demo.dto.Hadzi.PharmacyDTOHadzi;
 import com.example.demo.dto.PharmacistDTO;
-import com.example.demo.dto.PharmacyDTO;
 import com.example.demo.model.*;
 import com.example.demo.model.enums.AppointmentStatusValue;
 import com.example.demo.model.enums.AppointmentTypeValues;

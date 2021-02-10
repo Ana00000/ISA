@@ -56,7 +56,7 @@ public class PharmacyDTO implements Serializable {
         this.appointments = appointments;
     }
 
-    private Long id;
+	private Long id;
 
     private String name;
 
