@@ -4,7 +4,8 @@
         background: -webkit-linear-gradient(to right, #5442ed, #cdc8fa, #13077d);
         background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);">
         <br/>
-        <div class="welcoming">Dermatologist you can find your empty examinations here, and even create new ones!</div>
+        <label class="welcoming">For creation of the examination choose patient and time interval!</label>
+        <div class="welcomingHint">If you select existent interval than there is no need for the time input. </div>
         <br/>
         <v-card
             class="emptyExams" style="width: 35%; overflow-y: scroll">
@@ -16,10 +17,9 @@
                 v-model="selected"
                 active-class="indigo--text">
                 <template v-for="(examination, id) in emptyExaminations">
-                <v-list-item :key="examination.id">
+                <v-list-item :key="examination.id" :value="examination">
                     <template>  
                     <v-list-item-content>
-                        <v-list-item-subtitle v-text="'Price: ' +examination.price+' dollars'"></v-list-item-subtitle>
                         <v-list-item-subtitle v-text="'Start time: '+ new Date(examination.startTime)"></v-list-item-subtitle>
                         <v-list-item-subtitle v-text="'End time: '+new Date(examination.endTime)"></v-list-item-subtitle>
                     </v-list-item-content>
@@ -31,6 +31,8 @@
             </v-list>
         </v-card>
 
+        <v-combobox :items="patients" :item-text="text" v-model="selectedPatient" :label="label" hint="Choose patient for scheduled examination."  class="comboPatients"/>
+
         <v-layout class="startExamination">
             <v-datetime-picker name="picker1" class="ti" v-model="startTime" min="minDate" label="From"> </v-datetime-picker>
         </v-layout>
@@ -38,8 +40,6 @@
         <v-layout class="endExamination">
             <v-datetime-picker name="picker2" class="ti" v-model="endTime" min="minDate" label="To" > </v-datetime-picker>
         </v-layout>
-
-        <v-combobox :items="patients" v-model="selectedPatient" />
 
         <div class="scheduleButton">
             <v-btn
@@ -74,7 +74,11 @@ export default {
         startTime: null,
         endTime: null,
         patients: [],
-        selectedPatient: null
+        selected: null,
+        selectedPatient: null,
+        label: 'Patients',
+        from: null,
+        to: null
     }),
     mounted() {
         this.init();
@@ -93,11 +97,19 @@ export default {
         },
         scheduleExamination() {
             this.validationOfInput();
+            
+            this.from = new Date(this.startTime);
+            this.to = new Date(this.endTime);
+            if(this.selected != null) {
+                this.from = new Date(this.selected.startTime);
+                this.to = new Date(this.selected.endTime);
+            }
+
             this.$http.post('http://localhost:8081/appointments/saveExamination', 
             {         
                 doctor : this.doctor,
-                startTime : new Date(this.startTime),
-                endTime : new Date(this.endTime),
+                startTime : this.from,
+                endTime : this.to,
                 patient: this.selectedPatient
             }
             ).then(resp => {
@@ -106,22 +118,22 @@ export default {
             }).catch(err => console.log(err));
         },
         validationOfInput() {
-            if(this.endTime == null) {
+            if(this.endTime == null & this.selected == null) {
                 alert("End time needs a value!");
                 return;
-            }else if(this.startTime == null) {
+            }else if(this.startTime == null & this.selected == null) {
                 alert("Start time needs a value!");
                 return;
-            }else if ((this.startTime > this.endTime)) {
+            }else if ((this.startTime > this.endTime & this.selected == null)) {
                 alert("Start time comes before end time!");
                 return;
-            }else if(this.startTime < Date.now()) {
+            }else if(this.startTime < Date.now() & this.selected == null) {
                 alert("Start time has passed!");
                 return;
-            }else if(this.endTime < Date.now()) {
+            }else if(this.endTime < Date.now() & this.selected == null) {
                 alert("End time has passed!");
                 return;
-            }else if (this.selectedPatient === null) {
+            }else if (this.selectedPatient === null & this.selected == null) {
                 alert('You did not select a patient.');
                 return;
             }
@@ -134,11 +146,11 @@ export default {
         getPatients() {
             this.$http.get('http://localhost:8081/appointments/upcomingPatients/' + this.$route.params.id).then(resp => {
                 resp.data.forEach(patient => {
-                    //this.patients.push(patient.name+' '+patient.lastName);
                     this.patients.push(patient);
                 });
             }).catch(err => console.log(err));
-        }
+        },
+        text: item => item.name + ' ' + item.lastName
     }
 }
 </script>
@@ -151,10 +163,22 @@ export default {
     height: 100px;
 }
 
+.welcomingHint {
+    font-weight: bolder;
+    font-size: 20px;
+    height: 50px;
+}
+
 .emptyExams {
     left: 150px;
     top: 0px;
     height: 500px;
+}
+
+.comboPatients { 
+    position: absolute;
+    right: 550px;
+    top: 200px;
 }
 
 .startExamination {
@@ -176,6 +200,6 @@ export default {
 }
 
 .space {
-    height: 122px;
+    height: 205px;
 }
 </style>

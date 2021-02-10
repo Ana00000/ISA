@@ -3,8 +3,11 @@
         background: #13077d;
         background: -webkit-linear-gradient(to right, #5442ed, #cdc8fa, #13077d);
         background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);">
+
+        <br/>
         <br/>
         <div class="welcoming">Pharmacist you can create new consultations here!</div>
+        <br/>
         <br/>
 
         <v-layout class="startConsultation">
@@ -12,10 +15,10 @@
         </v-layout>
 
         <v-layout class="endConsultation">
-            <v-datetime-picker name="picker2" class="ti" v-model="endTime" min="minDate" label="To" > </v-datetime-picker>
+            <v-datetime-picker name="picker2" class="ti" v-model="endTime" min="minDate" label="To"> </v-datetime-picker>
         </v-layout>
 
-        <v-combobox :items="patients" v-model="selectedPatient" />
+        <v-combobox :items="patients" :item-text="text" v-model="selectedPatient" :label="label" hint="Choose patient for scheduled consultation." class="comboPatients"/>
 
         <div class="scheduleButton">
             <v-btn
@@ -48,7 +51,8 @@ export default {
         startTime: null,
         endTime: null,
         patients: [],
-        selectedPatient: null
+        selectedPatient: null,
+        label: 'Patients'
     }),
     mounted() {
         this.init();
@@ -101,11 +105,11 @@ export default {
         getPatients() {
             this.$http.get('http://localhost:8081/appointments/upcomingPatients/' + this.$route.params.id).then(resp => {
                 resp.data.forEach(patient => {
-                    //this.patients.push(patient.name+' '+patient.lastName);
                     this.patients.push(patient);
                 });
             }).catch(err => console.log(err));
-        }
+        },
+        text: item => item.name + ' ' + item.lastName
     }
 }
 </script>
@@ -120,23 +124,29 @@ export default {
 
 .startConsultation {
     position: absolute;
-    right: 550px;
+    left: 900px;
     top: 300px;
 }
 
 .endConsultation {
     position: absolute;
-    right: 550px;
-    top: 350px;
+    left: 1300px;
+    top: 300px;
+}
+
+.comboPatients { 
+    position: absolute;
+    left: 450px;
+    top: 300px;
 }
 
 .scheduleButton {
     position: absolute;
-    right: 585px;
+    left: 900px;
     top: 500px;
 }
 
 .space {
-    height: 622px;
+    height: 644px;
 }
 </style>

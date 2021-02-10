@@ -17,8 +17,6 @@
                 <v-datetime-picker name="picker2" class="ti" v-model="endTime" min="minDate" label="To" > </v-datetime-picker>
             </v-layout>
 
-            <v-combobox :items="patients" :item-text="text" @change="comboboxSelectionChange" v-model="pickedPatient" />
-
             <div class="requestButton">
                 <v-btn
                     v-on:click="makeRequest" 
@@ -49,8 +47,7 @@ export default {
         vacationImage: vacationImage,
         doctor: null,
         startTime: null,
-        endTime: null,
-        patients: []
+        endTime: null
     }),
     created() {
         this.$http.get('http://localhost:8081/dermatologists/' + this.$route.params.id).then(resp => {

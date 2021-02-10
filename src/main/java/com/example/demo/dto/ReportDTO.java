@@ -10,6 +10,7 @@ public class ReportDTO {
 	private DoctorDTO doctor;
 	private Timestamp startTime;
 	private Timestamp endTime;
+	private int therapyInDays;
 	 
 	public ReportDTO() {
 	}
@@ -26,10 +27,12 @@ public class ReportDTO {
 
 		this.startTime = report.getStartTime();
 		this.endTime = report.getEndTime();
+		this.therapyInDays = report.getTherapyInDays();
 	}
 
 	public ReportDTO(Long id, MedicineDTO medicine,	PatientDTO patient,
-			DoctorDTO doctor, Timestamp startTime, Timestamp endTime) {
+			DoctorDTO doctor, Timestamp startTime, Timestamp endTime, int therapyInDays) {
+	}
 		super();
 		this.id = id;
 		this.medicine = medicine;
@@ -37,6 +40,7 @@ public class ReportDTO {
 		this.doctor = doctor;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.therapyInDays = therapyInDays;
 	}
 
 	public Long getId() {
@@ -85,5 +89,13 @@ public class ReportDTO {
 
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
+	}
+	
+	public int getTherapyInDays() {
+		return therapyInDays;
+	}
+
+	public void setTherapyInDays(int therapyInDays) {
+		this.therapyInDays = therapyInDays;
 	}
 }
