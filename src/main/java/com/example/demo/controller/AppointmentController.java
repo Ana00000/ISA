@@ -39,6 +39,7 @@ import com.example.demo.service.DoctorService;
 import com.example.demo.service.PatientService;
 import com.example.demo.service.PharmacyService;
 import com.example.demo.service.VacationService;
+import com.example.demo.service.email.EmailServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -56,6 +57,7 @@ public class AppointmentController {
 	private PatientService patientService;
 	private VacationService vacationService;
     private PharmacyService pharmacyService;
+    private final EmailServiceImpl emailService;
     
 	@Autowired
 	public AppointmentController(AppointmentService appointmentService,
@@ -63,7 +65,8 @@ public class AppointmentController {
 			AppointmentTypeService appointmentTypeService,
 			AppointmentStatusService appointmentStatusService,
 			VacationService vacationService,
-			PharmacyService pharmacyService) {
+			PharmacyService pharmacyService,
+			EmailServiceImpl emailService) {
 		this.appointmentService = appointmentService;
 		this.appointmentTypeService = appointmentTypeService;
 		this.appointmentStatusService = appointmentStatusService;
@@ -71,6 +74,7 @@ public class AppointmentController {
 		this.patientService = patientService;
 		this.vacationService = vacationService;
 		this.pharmacyService = pharmacyService;
+		this.emailService = emailService;
 	}
 	
 	@GetMapping(value = "/all")
@@ -385,6 +389,12 @@ public class AppointmentController {
 		addAppointmentInPharmacy(appointment);
 			
 		appointment = appointmentService.save(appointment);
+		
+		emailService.sendEmail(appointment.getPatient().getEmail(),
+				"Greetings, new examination is scheduled from "+appointment.getStartTime()+" to "+appointment.getEndTime()
+				+". Regards, "+appointment.getDoctor().getName()+' '+appointment.getDoctor().getLastName(), 
+				"New examination");
+		
         return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.CREATED);
     }
 	
@@ -415,6 +425,12 @@ public class AppointmentController {
 		setOfValidIntervalForConsultation(appointmentDTO, appointment);
 
 		appointment = appointmentService.save(appointment);
+		
+		emailService.sendEmail(appointment.getPatient().getEmail(),
+				"Greetings, new consultation is scheduled from "+appointment.getStartTime()+" to "+appointment.getEndTime()
+				+". Regards, "+appointment.getDoctor().getName()+' '+appointment.getDoctor().getLastName(), 
+				"New consultation");
+    
         return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.CREATED);
     }
 
@@ -468,21 +484,19 @@ public class AppointmentController {
 	
 	private void addAppointmentInPharmacy(Appointment appointment) {
 		
-		List<Pharmacy> pharmacies = new ArrayList<Pharmacy>();
-		for(Pharmacy p : pharmacyService.findAll()) {
-			for(Dermatologist d : p.getDermatologists()) { 
-				if(appointment.getDoctor() == d) {
-					pharmacies.add(p);
-				}
-			}
-		}
-		// appointment pharmacy table gets new appointment 
-		for(Pharmacy p : pharmacies) {
-			Set<Appointment> appointments = p.getAppointments();
-			appointments.add(appointment);
-			p.setAppointments(appointments);
-			break;
-		}
+		Pharmacy pharmacy = null;
+		for(Pharmacy p : pharmacyService.findAll()) 
+			for(Dermatologist d : p.getDermatologists()) 
+				if(appointment.getDoctor() == d) 
+					for(Appointment a : appointmentService.findAll()) 
+						if(a.getPatient() == appointment.getPatient() 
+						& a.getStatus().getStatusValue() == AppointmentStatusValue.UPCOMING
+						& a != appointment & a.getDoctor() == d) 
+							pharmacy = p;	
+		
+		Set<Appointment> appointments = pharmacy.getAppointments();
+		appointments.add(appointment);
+		pharmacy.setAppointments(appointments);
 	}
 	
 	private int isPatientOccupied(AppointmentDTO appointmentDTO, Appointment appointment, Timestamp start, Timestamp end) {

@@ -4,12 +4,32 @@
         background: -webkit-linear-gradient(to right, #5442ed, #cdc8fa, #13077d);
         background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);">
 
+        <v-card
+            class="notEmptyExams" style="width: 35%; height: 650px; overflow-y: scroll">
+            <v-toolbar
+            color="#13077d" dark>
+            </v-toolbar>
+            <v-list two-line>
+            <v-list-item-group
+                active-class="indigo--text">
+                <template v-for="(examination, id) in examinations">
+                <v-list-item :key="examination.id">
+                    <template>  
+                    <v-list-item-content>
+                        <v-list-item-subtitle v-text="'Id: '+examination.id + ' , Patient: '+examination.patient.name + ' ' + examination.patient.lastName"></v-list-item-subtitle>
+                        <v-list-item-subtitle v-text="'Start time: '+new Date(examination.startTime)"></v-list-item-subtitle>
+                        <v-list-item-subtitle v-text="'End time: '+new Date(examination.endTime)"></v-list-item-subtitle>
+                    </v-list-item-content>
+                    </template>
+                </v-list-item>
+                <v-divider v-if="id <examinations.length-1" :key="id"/>
+                </template>
+            </v-list-item-group>
+            </v-list>
+        </v-card>
+
         <div class="pagePlacing">
             <br/><br/>
-            
-            <div class="userImage">
-                <img :src="userImage" width="600px" height="500px"/>
-            </div>
 
             <v-container fluid class="container">
                 <v-row>
@@ -107,8 +127,8 @@
                 <br/><br/>
             </v-container>
 
-            <div class="updatePng">
-                <img :src="updatePng" width="350px" height="350px"/>
+            <div class="userImage">
+                <img :src="userImage" width="350px" height="350px"/>
             </div>
 
             <div class="updateButton">
@@ -130,8 +150,8 @@
 </template>
 
 <script>
+import axios from 'axios';
 import userImage from "../../assets/user_profile.jpg"
-import updatePng from "../../assets/update_profile.png"
 import DermatologistMenu from '../../components/dermatologist/DermatologistMenu.vue'
 export default {
     name: 'DermatologistProfile',
@@ -149,11 +169,18 @@ export default {
         active: true,
         type: '',
         workingInPharmacy: [],
-        userImage: userImage,
-        updatePng: updatePng
+        userImage: userImage,        
+        examinations: []
     }),
     mounted() {
         this.init();
+    },
+    created(){
+        axios.get('http://localhost:8081/appointments/allNotEmptyExaminations/' + this.$route.params.id)
+            .then(res => {
+              this.examinations = res.data;
+            })
+            .catch(err => console.log(err));
     },
     methods: {
         init() {
@@ -310,13 +337,13 @@ export default {
     height: 840px;
 }
 
-.userImage {
+.notEmptyExams {
     position: absolute;
-    left: 110px;
-    top: 150px;
+    left: 80px;
+    top: 100px;
 }
 
-.updatePng {
+.userImage {
     position: absolute;
     right: 160px;
     top: 100px;

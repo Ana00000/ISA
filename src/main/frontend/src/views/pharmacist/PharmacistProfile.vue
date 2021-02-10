@@ -4,13 +4,33 @@
         background: -webkit-linear-gradient(to right, #5442ed, #cdc8fa, #13077d);
         background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);">
 
+        <v-card
+                class="notEmptyCons" style="width: 35%; height: 600px; overflow-y: scroll">
+                <v-toolbar
+                color="#13077d" dark>
+                </v-toolbar>
+                <v-list two-line>
+                <v-list-item-group
+                    active-class="indigo--text">
+                    <template v-for="(consultation, id) in consultations">
+                    <v-list-item :key="consultation.id">
+                        <template>  
+                        <v-list-item-content>
+                            <v-list-item-subtitle v-text="'Id: '+consultation.id + ' , Patient: '+consultation.patient.name + ' ' + consultation.patient.lastName"></v-list-item-subtitle>
+                            <v-list-item-subtitle v-text="'Start time: '+new Date(consultation.startTime)"></v-list-item-subtitle>
+                            <v-list-item-subtitle v-text="'End time: '+new Date(consultation.endTime)"></v-list-item-subtitle>
+                        </v-list-item-content>
+                        </template>
+                    </v-list-item>
+                    <v-divider v-if="id <consultations.length-1" :key="id"/>
+                    </template>
+                </v-list-item-group>
+                </v-list>
+        </v-card>
+
         <div class="pagePlacing">
             <br/><br/>
             
-            <div class="userImage">
-                <img :src="userImage" width="600px" height="500px"/>
-            </div>
-
             <v-container fluid class="container">
                 <v-row>
                 <v-col cols="5"/>
@@ -107,8 +127,8 @@
                 <br/><br/>
             </v-container>
 
-            <div class="updatePng">
-                <img :src="updatePng" width="350px" height="350px"/>
+            <div class="userImage">
+                <img :src="userImage" width="350px" height="350px"/>
             </div>
 
             <div class="updateButton">
@@ -130,8 +150,8 @@
 </template>
 
 <script>
+import axios from 'axios';
 import userImage from "../../assets/user_profile.jpg"
-import updatePng from "../../assets/update_profile.png"
 import PharmacistMenu from '../../components/pharmacist/PharmacistMenu.vue'
 export default {
     name: 'PharmacistProfile',
@@ -150,8 +170,15 @@ export default {
         active: true,
         workingInPharmacy: null,
         userImage: userImage,
-        updatePng: updatePng
+        consultations: [],
     }),
+    created(){
+        axios.get('http://localhost:8081/appointments/allNotEmptyConsultations/' + this.$route.params.id)
+            .then(res => {
+              this.consultations = res.data;
+            })
+            .catch(err => console.log(err));
+    },
     mounted() {
         this.init();
     },
@@ -311,13 +338,13 @@ export default {
     height: 840px;
 }
 
-.userImage {
+.notEmptyCons {
     position: absolute;
-    left: 110px;
-    top: 150px;
+    left: 80px;
+    top: 100px;
 }
 
-.updatePng {
+.userImage {
     position: absolute;
     right: 160px;
     top: 100px;
