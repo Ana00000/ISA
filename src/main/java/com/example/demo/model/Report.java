@@ -34,6 +34,7 @@ public class Report {
     @Column(nullable = false)
     private Timestamp endTime;
 
+
     @Column(name="therapyInDays", unique=false)
     private int therapyInDays;
 
@@ -99,7 +100,7 @@ public class Report {
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
-
+  
 	public int getTherapyInDays() {
 		return therapyInDays;
 	}
@@ -107,7 +108,7 @@ public class Report {
 	public void setTherapyInDays(int therapyInDays) {
 		this.therapyInDays = therapyInDays;
 	}
-
+  
 	@Override
 	public int hashCode() {
 		final int prime = 31;
