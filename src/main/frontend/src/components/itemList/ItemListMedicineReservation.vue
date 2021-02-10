@@ -32,10 +32,10 @@
           <v-list-item :key="item.id" @click="$emit('sendReservedMedicine',item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
-                <v-list-item-title  v-text="item.medicineDTO.name"></v-list-item-title>
-                <v-list-item-subtitle v-text="'Pharmacy: ' + item.pharmacyDTO.name"></v-list-item-subtitle>
+                <v-list-item-title  v-text="item.medicineName"></v-list-item-title>
+                <v-list-item-subtitle v-text="'Pharmacy: ' + item.pharmacyName"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Date: ' + item.pickUpDate"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Patient: ' + item.patient.name + ' ' + item.patient.lastName"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Patient: ' + item.patientName + ' ' + item.patientLastName"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Quantity: ' + item.quantity"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Status: ' + item.reservationStatus"></v-list-item-subtitle>
               </v-list-item-content>
@@ -121,7 +121,7 @@
         var i;
         var newArray = [];
         for(i = 0; i < this.items.length; i++){
-          if(this.searchString == '' || this.items[i].name.indexOf(this.searchString) !== -1 ){
+          if(this.searchString == '' || this.items[i].medicineName.indexOf(this.searchString) !== -1 ){
             newArray.push(this.items[i]);
           }
         }
@@ -141,7 +141,7 @@
       sort: function(){
         if(this.sortCriteria == 'name'){
           this.renderingItems.sort(function(a, b){
-            return a.medicineDTO.name.localeCompare(b.medicineDTO.name);
+            return a.medicineName.localeCompare(b.medicineName);
           })
         }else{
           this.renderingItems.sort(function(a, b){

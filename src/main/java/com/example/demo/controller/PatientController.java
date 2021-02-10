@@ -4,6 +4,7 @@ import com.example.demo.dto.PatientDTO;
 import com.example.demo.dto.PromotionDTO;
 import com.example.demo.model.Patient;
 import com.example.demo.model.Promotion;
+import com.example.demo.security.TokenUtils;
 import com.example.demo.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +23,8 @@ import java.util.Set;
 @RestController
 @RequestMapping(value = "/patients", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PatientController {
+	@Autowired
+	private TokenUtils tokenUtils;
 	
 	private PatientService patientService;
     
@@ -73,11 +77,14 @@ public class PatientController {
 	}
 
 	@GetMapping(value = "/getInfo")
-	public ResponseEntity<PatientDTO> getInfo() {
-
+	public ResponseEntity<PatientDTO> getInfo(HttpServletRequest request) {
 		//extract patient from session
-
-		Patient patient = patientService.findOne(4L);
+		String token = tokenUtils.getToken(request);
+		if( token == null ){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String username = tokenUtils.getUsernameFromToken(token);
+		Patient patient = patientService.findOneByEmail(username);
 
 		if (patient == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 public class Patient extends User implements Serializable{
 
-    @Column(name = "subscribedToPromotions", unique = false, nullable = false)
+    @Column(name = "subscribedToPromotions", unique = false, nullable = true)
     private Boolean subscribedToPromotions;
 
     @Column(name = "penalties", unique = false)

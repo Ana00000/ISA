@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.Hadzi.MedicineReservationDTOHadzi;
 import com.example.demo.dto.MedicineReservationDTO;
 import com.example.demo.model.*;
 import com.example.demo.model.enums.MedicineReservationStatusValue;
@@ -59,7 +60,7 @@ public class MedicineReservationController {
     }
 
     @GetMapping(value = "/patient")
-    public ResponseEntity<List<MedicineReservationDTO>> getAllByPatient(HttpServletRequest request) {
+    public ResponseEntity<List<MedicineReservationDTOHadzi>> getAllByPatient(HttpServletRequest request) {
         Appointment appointment = new Appointment();
 
         String token = tokenUtils.getToken(request);
@@ -70,13 +71,10 @@ public class MedicineReservationController {
         Patient patient = patientService.findOneByEmail(username);
 
         List<MedicineReservation> reservations = medicineReservationService.findAll();
-        if( reservations == null ){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        List<MedicineReservationDTO> reservationDTOS = new ArrayList<>();
+        List<MedicineReservationDTOHadzi> reservationDTOS = new ArrayList<>();
         for (MedicineReservation mr : reservations) {
             if(mr.getPatient().getId() == patient.getId()){
-                reservationDTOS.add(new MedicineReservationDTO());
+                reservationDTOS.add(new MedicineReservationDTOHadzi(mr));
             }
         }
 
@@ -84,7 +82,7 @@ public class MedicineReservationController {
     }
 
     @PostMapping(value = "/create")
-    public ResponseEntity<MedicineReservationDTO> createReservation(HttpServletRequest request, @RequestBody MedicineReservationDTO reservationRequest) {
+    public ResponseEntity<MedicineReservationDTOHadzi> createReservation(HttpServletRequest request, @RequestBody MedicineReservationDTOHadzi reservationRequest) {
         //Need to get patient from session
         //validate DTO data for null
 
@@ -95,8 +93,8 @@ public class MedicineReservationController {
         String username = tokenUtils.getUsernameFromToken(token);
 
         Patient patient = patientService.findOneByEmail(username);
-        Medicine medicine = medicineService.findOne(reservationRequest.getMedicineDTO().getId());
-        Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyDTO().getId());
+        Medicine medicine = medicineService.findOne(reservationRequest.getMedicineID());
+        Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyID());
         PharmacyMedicine pharmacyMedicine = medicineReservationService.findByMedicineAndPharmacy(medicine, pharmacy);
 
         if( pharmacyMedicine == null ){
