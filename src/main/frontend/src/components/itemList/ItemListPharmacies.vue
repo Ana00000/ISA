@@ -9,7 +9,6 @@
       dark
     >
 
-      <!-- <v-toolbar-title>{{title}}</v-toolbar-title> -->
       <v-text-field
         hide-details
         prepend-icon="mdi-magnify"

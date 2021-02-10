@@ -9,7 +9,7 @@
         <div height="300px">
           <v-container>
             <v-layout column>
-                <item-list-pharmacies v-bind:items="items"></item-list-pharmacies>
+                <item-list-pharmacies v-bind:items="items" v-bind:renderingItems="items" v-bind:searchedItems="items"></item-list-pharmacies>
             </v-layout>
           </v-container>
         </div>

@@ -4,6 +4,7 @@ import com.example.demo.model.Pharmacist;
 import com.example.demo.model.Pharmacy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -29,6 +30,6 @@ public interface PharmacyService {
 
     void findByFreePharmacists(Time startTime, Time endTime, Date date);
 
-    //List<Pharmacy> findAllByPharmacist(Pharmacist pharmacist);
+    List<Pharmacy> findAllPharmaciesByDermatologist(Long dermatologistId);
 
 }
