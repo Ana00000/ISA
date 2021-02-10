@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -76,14 +73,18 @@ public class ScheduleConsultationController {
         this.freePharmacists = freePharmacists;
     }
 
+    @GetMapping("/pharmacies")
     public ResponseEntity<Set<Pharmacy>> availablePharmacies(@RequestBody TimeInterval timeInterval){
         findAvailablePharmacists(timeInterval);
         Set<Pharmacy> pharmacies = new HashSet<>();
+//        for(Pharmacist pharmacist : freePharmacists.keySet()){
+//            List<Pharmacy> pharmaciesByPharmacist = pharmacyService.findAllByPharmacist(pharmacist);
+//            for(Pharmacy ph : pharmaciesByPharmacist){
+//                pharmacies.add(ph);
+//            }
+//        }
         for(Pharmacist pharmacist : freePharmacists.keySet()){
-            List<Pharmacy> pharmaciesByPharmacist = pharmacyService.findAllByPharmacist(pharmacist);
-            for(Pharmacy ph : pharmaciesByPharmacist){
-                pharmacies.add(ph);
-            }
+            pharmacies.add(pharmacist.getPharmacy());
         }
         return new ResponseEntity<>(pharmacies, HttpStatus.OK);
     }
@@ -94,12 +95,15 @@ public class ScheduleConsultationController {
         }
         Set<Pharmacist> pharmacists = new HashSet<>();
         for(Pharmacist pharmacist : freePharmacists.keySet()){
-            List<Pharmacy> pharmaciesByPharmacist = pharmacyService.findAllByPharmacist(pharmacist);
-            for(Pharmacy ph : pharmaciesByPharmacist){
-                if(ph.getId() == pharmacyDTO.getId()){
-                    pharmacists.add(pharmacist);
-                    break;
-                }
+//            List<Pharmacy> pharmaciesByPharmacist = pharmacyService.findAllByPharmacist(pharmacist);
+//            for(Pharmacy ph : pharmaciesByPharmacist){
+//                if(ph.getId() == pharmacyDTO.getId()){
+//                    pharmacists.add(pharmacist);
+//                    break;
+//                }
+//            }
+            if(pharmacist.getPharmacy().getId() == pharmacyDTO.getId()){
+                pharmacists.add(pharmacist);
             }
         }
         return new ResponseEntity<>(pharmacists, HttpStatus.OK);

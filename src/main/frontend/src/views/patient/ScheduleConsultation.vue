@@ -6,43 +6,39 @@
             </div>
             <div class="panelDiv" style="width:75%;">
                 <div style="margin: 50px"><h2 class="display-3">Schedule Consultation</h2></div>
-                <div style="margin-left:20%;">
+                <div>
                     <v-container>
                         <v-layout row wrap>
-                            <div style="width:20%">
+                            <div style="margin-left: 35%; margin-right: 50px;">
                                 <h2 class="display-1">Start Time</h2>
                                 <v-row justify="space-around">
-                                    <v-time-picker
-                                    v-model="timeStep"
+                                    <v-datetime-picker
+                                    v-model="timeStart"
                                     :allowed-minutes="allowedStep"
                                     class="mt-4"
                                     format="24hr"
-                                    ></v-time-picker>
+                                    ></v-datetime-picker>
                                 </v-row>
                             </div>
-                            <div style="width:20%; margin-right: 10px;">
+                            <div>
                                 <h2 class="display-1">End Time</h2>
                                 <v-row justify="space-around">
-                                    <v-time-picker
-                                    v-model="timeStep"
+                                    <v-datetime-picker
+                                    v-model="timeEnd"
                                     :allowed-minutes="allowedStep"
                                     class="mt-4"
                                     format="24hr"
-                                    ></v-time-picker>
+                                    ></v-datetime-picker>
                                 </v-row>
                             </div>
-                            <v-card style="width:20%; margin-top:30px; background: linear-gradient(to right, pink, #cdc8fa, pink);">
-                                <h2 class="display-1" style="margin-bottom: 30px;">Date</h2>
-                                <date-picker-text @Hello="receiveDatePicker"></date-picker-text>
-                            </v-card>
                         </v-layout>
                     </v-container>
                 </div>
                 <div style="margin-top: 50px;">
-                    <v-btn large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose date and time</h2></v-btn>
+                    <v-btn @click="getAvailablePharmacies" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose date and time</h2></v-btn>
                 </div>
                 <div style="background: none; border: none; margin-top: 50px;">
-                    <item-list-pharmacies></item-list-pharmacies>
+                    <item-list-pharmacies v-bind:items="availablePharmacies"></item-list-pharmacies>
                 </div>
                 <div style="margin-top: 50px;">
                     <v-btn large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose Pharmacy</h2></v-btn>
@@ -60,21 +56,45 @@
 
 <script>
 import PatientMenu from '@/components/PatientMenu.vue'
-import DatePickerText from '../../components/DatePickerText.vue'
 import ItemListPharmacies from '../../components/itemList/ItemListPharmacies.vue'
 import ItemListPharmacists from '../../components/itemList/ItemListPharmacists.vue'
+import axios from 'axios'
 export default {
     name : 'ScheduleConsultation',
     components : {
         PatientMenu,
-        DatePickerText,
         ItemListPharmacies,
         ItemListPharmacists
     },
     data() {
         return {
+            timeStart: '',
+            timeEnd: '',
+            availablePharmacies: ''
         }
     },
+    computed:{
+        pharmaciesRequest(){
+            return {
+                "start" : this.timeStart,
+                "end" : this.timeEnd
+            }
+        },
+
+    },
+    methods: {
+        getAvailablePharmacies: function(){
+            console.log(this.timeStart + " " + this.timeEnd);
+            axios.get('http://localhost:8081/scheduleConsultation/pharmacies', this.request)
+                .then(res => {
+                    this.availablePharmacies = res;
+                    console.log(res);
+                })
+                .catch(res => {
+                    console.log(res);
+                })
+        }
+    }
 }
 </script>
 

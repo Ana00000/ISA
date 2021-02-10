@@ -29,6 +29,6 @@ public interface PharmacyService {
 
     void findByFreePharmacists(Time startTime, Time endTime, Date date);
 
-    List<Pharmacy> findAllByPharmacist(Pharmacist pharmacist);
+    //List<Pharmacy> findAllByPharmacist(Pharmacist pharmacist);
 
 }

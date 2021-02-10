@@ -15,6 +15,6 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
 
     List<Pharmacy> findAllByCity(String city);
 
-    List<Pharmacy> findAllByPharmacist(Pharmacist pharmacist);
+//    List<Pharmacy> findAllByPharmacist(Pharmacist pharmacist);
 
 }

@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import com.example.demo.dto.PharmacyDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.junit.Ignore;
 import org.springframework.context.annotation.Primary;
 import javax.persistence.*;
@@ -52,11 +53,8 @@ public class Pharmacy implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "DermatologistId", referencedColumnName = "id"))
     private Set<Dermatologist> dermatologists;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "pharmacistInPharmacy",
-            joinColumns = @JoinColumn(name = "PharmacyId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "pharmacistId", referencedColumnName = "id"))
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pharmacy")
+    @JsonBackReference//this will not serialize
     private Set<Pharmacist> pharmacists;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -81,17 +81,16 @@ INSERT INTO patient(id, name, last_name, email, password, address, phone_number,
 INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions) VALUES (6, 'Mirko', 'Lazarevic', 'xdotdotx422@gmail.com', '$2a$10$C5Fl8.LEF.nfIDcSr8F/uOZUPon.2MmUDfJ1UIAich6gwV79W6D3S', 'Novi sad Futoska 23', '06489714', 'TRUE', 'TRUE');
 
 
-/*password-jovana437334*/
-INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana30356stefanovic@gmail.com', '$2a$10$jE2y9.zdTbKRg9usCa7mP.Gbda96riobY/v8gtM6Kj6SLM65e99GW', 'Smederevo Smederevska 14', '06489489489', 'TRUE');
-/*password-igor397829785*/
-INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (8, 'Igor', 'Ostojic', 'pharmacist', 'igor3259ostojic@gmail.com', '$2a$10$12UAB/2GFEuVdoFk55SJFuYbHem61cbMjj5PtKhaPFph/Q5CdXUc.', 'Smederevo Smederevska 15', '06484165', 'TRUE');
-/*password-sanja3523*/
-INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (9, 'Sanja', 'Petrovic', 'pharmacist', 'sanja205petrovic@gmail.com', '$2a$10$pZxrk6lTEFPp8mJf4KO06.80cekPFgss4LvNOyFxpcBtxXmqIDZw6', 'Smederevo Smederevska 28', '064894648', 'TRUE');
-
-
 INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (13, 'Lekic', '021765873', 'Serbia', 'Novi Sad', 'Danila Kisa', '1', 19.83766985, 45.249441, 0);
 INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (14, 'Zegin', '021643251', 'Serbia', 'Novi Sad', 'Kralja Petra', '12', 19.83478635, 45.26154741, 0);
 INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (15, 'Ivancic i sinovi', '02106958', 'Serbia', 'Novi Sad', 'Slobodana Jovanovica', '22', 19.8035717, 45.254534, 0);
+
+/*password-jovana437334*/
+INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana30356stefanovic@gmail.com', '$2a$10$jE2y9.zdTbKRg9usCa7mP.Gbda96riobY/v8gtM6Kj6SLM65e99GW', 'Smederevo Smederevska 14', '06489489489', 'TRUE', 13);
+/*password-igor397829785*/
+INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (8, 'Igor', 'Ostojic', 'pharmacist', 'igor3259ostojic@gmail.com', '$2a$10$12UAB/2GFEuVdoFk55SJFuYbHem61cbMjj5PtKhaPFph/Q5CdXUc.', 'Smederevo Smederevska 15', '06484165', 'TRUE', 14);
+/*password-sanja3523*/
+INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (9, 'Sanja', 'Petrovic', 'pharmacist', 'sanja205petrovic@gmail.com', '$2a$10$pZxrk6lTEFPp8mJf4KO06.80cekPFgss4LvNOyFxpcBtxXmqIDZw6', 'Smederevo Smederevska 28', '064894648', 'TRUE', 15);
 
 
 /*password-markovic*/
@@ -109,9 +108,9 @@ INSERT INTO dermatologist_in_pharmacy(pharmacy_id, dermatologist_id) VALUES (15,
 INSERT INTO dermatologist_in_pharmacy(pharmacy_id, dermatologist_id) VALUES (13, 3);
 
 
-INSERT INTO pharmacist_in_pharmacy(pharmacy_id, pharmacist_id) VALUES (13, 7);
-INSERT INTO pharmacist_in_pharmacy(pharmacy_id, pharmacist_id) VALUES (14, 8);
-INSERT INTO pharmacist_in_pharmacy(pharmacy_id, pharmacist_id) VALUES (15, 9);
+--INSERT INTO pharmacist_in_pharmacy(pharmacy_id, pharmacist_id) VALUES (13, 7);
+--INSERT INTO pharmacist_in_pharmacy(pharmacy_id, pharmacist_id) VALUES (14, 8);
+--INSERT INTO pharmacist_in_pharmacy(pharmacy_id, pharmacist_id) VALUES (15, 9);
 
 
 INSERT INTO type_of_medicine(id, medicine_type) VALUES (1, 1);
