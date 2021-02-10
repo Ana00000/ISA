@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.model.Pharmacist;
 import com.example.demo.model.Pharmacy;
 import com.example.demo.repository.PharmacistRepository;
 import com.example.demo.repository.PharmacyRepository;
@@ -64,5 +65,10 @@ public class PharmacyServiceImpl implements PharmacyService {
     @Override
     public void findByFreePharmacists(Time startTime, Time endTime, Date date){
 
+    }
+
+    @Override
+    public List<Pharmacy> findAllByPharmacist(Pharmacist pharmacist) {
+        return pharmacyRepository.findAllByPharmacist(pharmacist);
     }
 }
