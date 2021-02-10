@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.UserDTO;
+import com.example.demo.model.Dermatologist;
 import com.example.demo.model.Patient;
 import com.example.demo.model.Pharmacist;
 import com.example.demo.model.PharmacyAdmin;
