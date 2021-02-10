@@ -108,9 +108,8 @@ public class UserServiceImpl implements UserService {
 
     public User findByEmail(String email) {
     	List<User> users = findAll();
-    	List<UserDTO> retList = new ArrayList<UserDTO>();
     	for (User user : users) {
-			if(user.getEmail().toLowerCase().equals(email.toLowerCase())) {
+			if(user.getEmail().equals(email)) {
 				return user;
 			}
 		}

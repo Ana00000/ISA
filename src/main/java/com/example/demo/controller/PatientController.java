@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +31,9 @@ public class PatientController {
 	@GetMapping(value = "/all")
 	//@PreAuthorize("hasRole('ADMIN')")
 	//@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<List<PatientDTO>> getAllPatients() {
-
+	public ResponseEntity<List<PatientDTO>> getAllPatients(Authentication authentication) {
+		
+		System.out.println(authentication.getName());
 		List<Patient> patients = patientService.findAll();
 
 		List<PatientDTO> patientDTO = new ArrayList<>();

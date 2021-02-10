@@ -1,15 +1,23 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.UserDTO;
+import com.example.demo.model.Dermatologist;
 import com.example.demo.model.Patient;
+import com.example.demo.model.Pharmacist;
+import com.example.demo.model.PharmacyAdmin;
 import com.example.demo.model.User;
 import com.example.demo.security.ResourceConflictException;
+import com.example.demo.security.TokenBasedAuthentication;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.security.UserTokenState;
 import com.example.demo.service.DermatologistService;
 import com.example.demo.service.PatientService;
+import com.example.demo.service.PharmacyAdminService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.CustomUserDetailsService;
+import io.jsonwebtoken.Jwt;
+import junit.framework.Test;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,10 +27,17 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 import java.util.Random;
+
+import java.net.InetSocketAddress;
+import java.util.List;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -47,11 +62,16 @@ public class UserController {
 	
 	@Autowired
 	private final DermatologistService dermatologistService;
+	
+	@Autowired
+	private final PharmacyAdminService pharmacyAdminService;
+
 
 	 
     @Autowired
-    public UserController(UserService userService, PatientService patientService, DermatologistService dermatologistService) {
-        this.dermatologistService = dermatologistService;
+    public UserController(UserService userService, PatientService patientService, DermatologistService dermatologistService, PharmacyAdminService pharmacyAdminService) {
+        this.pharmacyAdminService = pharmacyAdminService;
+		this.dermatologistService = dermatologistService;
 		this.userService = userService;
         this.patientService = patientService;
     }
@@ -63,6 +83,49 @@ public class UserController {
 
     public ResponseEntity<User> findByEmail(String email) {
         return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
+    }
+    
+    @PostMapping("/test")
+    public void Test(HttpServletRequest request,@RequestBody UserDTO userDTO) {
+    	String emailString = getUserEmail(request);
+    	System.out.println(emailString);
+//    	InetSocketAddress host = headers.getHost();
+//    	headers.get
+//    	System.out.println("Probaaaaaa   "+headers.getHost().getHostName());
+//        String url = "http://" + host.getHostName() + ":" + host.getPort();
+//        System.out.println(url);
+    	System.out.println(userDTO.getName()+" "+userDTO.getLastName());
+    }
+
+	private String getUserEmail(HttpServletRequest request) {
+		String username="";
+		String authToken = tokenUtils.getToken(request);
+		if (authToken != null) {
+			// uzmi username iz tokena
+			username = tokenUtils.getUsernameFromToken(authToken);
+		}
+		return username;
+	}
+    
+    @GetMapping("/redirectMeToMyHomePage")
+    public String GetLoggedUser(Authentication authentication) {
+    	String email = authentication.getName();
+    	User user = userService.findByEmail(email);
+    	if(user.getClass() == Dermatologist.class) {
+    		return "http://localhost:8080/";
+    	}
+    	if (user.getClass() == Patient.class) {
+    		return "http://localhost:8080/patientHomePage";
+    	}
+    	if(user.getClass() == Pharmacist.class) {
+    		return "http://localhost:8080/";
+    	}
+    	if(user.getClass() == PharmacyAdmin.class) {
+//    		User user2 = pharmacyAdminService.findByEmail(email);
+//    		return "http://localhost:8080/pharmacyAdmin/profile/"+user2.getId();
+    		return "http://localhost:8080/pharmacyAdmin/profile/11";
+    	}
+    	return "http://localhost:8080/";
     }
     
     @PostMapping("/login")

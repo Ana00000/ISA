@@ -33,6 +33,28 @@
 
 <script>
 import axios from 'axios';
+
+function redirectLogedUser(){
+      var tokenString= '';
+      tokenString = localStorage.getItem("token");
+      // const bodyParameters = {
+      //   key: "value"
+      // };
+      const config = {
+          headers: { Authorization: `Bearer ${tokenString}` }
+      };
+  axios.get( 
+        'http://localhost:8081/users/redirectMeToMyHomePage',
+        config
+      ).then((response) => {
+        console.log(response);
+        window.location.href = response.data;
+      }, (error) => {
+        console.log(error);
+      });
+      
+}
+
 export default {
   name: 'Login',
   data: () => ({
@@ -52,7 +74,7 @@ export default {
       .then(resp => {
         console.log(resp.data);
         localStorage.setItem("token", resp.data.accessToken);
-        window.location.href = "http://localhost:8080/";
+        redirectLogedUser();
       })
       .catch(er => {
         console.log('Error while logging in');
@@ -64,15 +86,23 @@ export default {
       var tokenString= '';
       tokenString = localStorage.getItem("token");
 
-      // const bodyParameters = {
-      //   key: "value"
-      // };
+      const bodyParameters = {
+        name: "stefan",
+        lastName: "petrovic"
+      };
       const config = {
           headers: { Authorization: `Bearer ${tokenString}` }
       };
 
-      axios.get( 
-        'http://localhost:8081/patients/all',
+      // axios.get( 
+      //   'http://localhost:8081/patients/all',
+      //   config
+      // ).then(console.log)
+      // .catch(console.log);
+
+      axios.post( 
+        'http://localhost:8081/users/test',
+        bodyParameters,
         config
       ).then(console.log)
       .catch(console.log);

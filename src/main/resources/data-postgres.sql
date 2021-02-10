@@ -259,7 +259,7 @@ INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time)
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (103, 2, 8, '2021-03-21 00:00', '2021-03-24 00:00');
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (105, 0, 7, '2021-02-19 00:00', '2021-02-20 00:00');
 
-
 INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id, therapy_in_days) VALUES (10001, '2021-01-13 12:50', '2021-01-13 13:50', 3, 8, 5, 2);
 INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id, therapy_in_days) VALUES (10002, '2021-01-11 12:50', '2021-01-11 13:30', 9, 7, 4, 4);
+
 
