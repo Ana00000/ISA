@@ -28,12 +28,27 @@ public class PatientController {
 		this.patientService = patientService;
 	}
 	
-	@GetMapping(value = "/all")
+	@GetMapping(value = "/allPatients")
 	//@PreAuthorize("hasRole('ADMIN')")
 	//@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<List<PatientDTO>> getAllPatients(Authentication authentication) {
 		
 		System.out.println(authentication.getName());
+		List<Patient> patients = patientService.findAll();
+
+		List<PatientDTO> patientDTO = new ArrayList<>();
+		for (Patient p : patients) {
+			patientDTO.add(new PatientDTO(p));
+		}
+
+		return new ResponseEntity<>(patientDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/all")
+	//@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<List<PatientDTO>> getAllPatients() {
+
 		List<Patient> patients = patientService.findAll();
 
 		List<PatientDTO> patientDTO = new ArrayList<>();
