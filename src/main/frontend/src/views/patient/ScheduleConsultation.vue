@@ -44,8 +44,14 @@
                 <div style="background: none; border: none; margin-top: 50px;">
                     <item-list-pharmacists @sendPharmacist="receivePharmacist" v-bind:items="availablePharmacists" v-bind:renderingItems="availablePharmacists" v-bind:searchedItems="availablePharmacists"></item-list-pharmacists>
                 </div>
+                <div style="margin-top: 50px;">
+                    <v-btn @click="getAvailableTimeIntervals" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose Pharmacist</h2></v-btn>
+                </div>
+                <div style="background: none; border: none; margin-top: 50px;">
+                    <item-list-time-intervals @sendTimeInterval="receiveTimeInterval" v-bind:items="availableTimeIntervals" v-bind:renderingItems="availableTimeIntervals" v-bind:searchedItems="availableTimeIntervals"></item-list-time-intervals>
+                </div>
                 <div style="margin-top: 50px; margin-bottom: 200px;">
-                    <v-btn large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose Pharmacist and schedule consultation</h2></v-btn>
+                    <v-btn large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Schedule Consultation</h2></v-btn>
                 </div>
             </div>
         </v-layout>
@@ -57,12 +63,14 @@ import PatientMenu from '@/components/PatientMenu.vue'
 import ItemListPharmacies from '../../components/itemList/ItemListPharmacies.vue'
 import ItemListPharmacists from '../../components/itemList/ItemListPharmacists.vue'
 import axios from 'axios'
+import ItemListTimeIntervals from '../../components/itemList/ItemListTimeIntervals.vue'
 export default {
     name : 'ScheduleConsultation',
     components : {
         PatientMenu,
         ItemListPharmacies,
-        ItemListPharmacists
+        ItemListPharmacists,
+        ItemListTimeIntervals
     },
     data() {
         return {
@@ -70,8 +78,10 @@ export default {
             timeEnd: '',
             availablePharmacies: '',
             availablePharmacists: '',
+            availableTimeIntervals: '',
             pharmacyDTO: '',
-            pharmacistDTO: ''
+            pharmacistDTO: '',
+            timeInterval: ''
         }
     },
     computed:{
@@ -95,10 +105,19 @@ export default {
                 })
         },
         getAvailablePharmacists: function(){
-            console.log(this.timeStart + " " + this.timeEnd);
             axios.post('http://localhost:8081/scheduleConsultation/pharmacists', this.pharmacyDTO)
                 .then(res => {
                     this.availablePharmacists = res.data;
+                    console.log(res.data);
+                })
+                .catch(res => {
+                    console.log(res);
+                })
+        },
+        getAvailableTimeIntervals: function(){
+            axios.post('http://localhost:8081/scheduleConsultation/timeIntervals', this.pharmacistDTO)
+                .then(res => {
+                    this.availableTimeIntervals = res.data;
                     console.log(res.data);
                 })
                 .catch(res => {
@@ -113,6 +132,10 @@ export default {
             this.pharmacistDTO = value;
             console.log(value);
         },
+        receiveTimeInterval: function(value){
+            this.timeInterval = value;
+            console.log(value);
+        }
     }
 }
 </script>

@@ -79,12 +79,6 @@ public class ScheduleConsultationController {
     public ResponseEntity<Set<PharmacyDTOHadzi>> availablePharmacies(@RequestBody TimeInterval timeInterval){
         findAvailablePharmacists(timeInterval);
         Set<PharmacyDTOHadzi> pharmacies = new HashSet<>();
-//        for(Pharmacist pharmacist : freePharmacists.keySet()){
-//            List<Pharmacy> pharmaciesByPharmacist = pharmacyService.findAllByPharmacist(pharmacist);
-//            for(Pharmacy ph : pharmaciesByPharmacist){
-//                pharmacies.add(ph);
-//            }
-//        }
         for(Pharmacist pharmacist : freePharmacists.keySet()){
             pharmacies.add(new PharmacyDTOHadzi(pharmacist.getPharmacy()));
         }
@@ -98,13 +92,6 @@ public class ScheduleConsultationController {
         }
         Set<PharmacistDTO> pharmacists = new HashSet<>();
         for(Pharmacist pharmacist : freePharmacists.keySet()){
-//            List<Pharmacy> pharmaciesByPharmacist = pharmacyService.findAllByPharmacist(pharmacist);
-//            for(Pharmacy ph : pharmaciesByPharmacist){
-//                if(ph.getId() == pharmacyDTO.getId()){
-//                    pharmacists.add(pharmacist);
-//                    break;
-//                }
-//            }
             if(pharmacist.getPharmacy().getId() == pharmacyDTO.getId()){
                 pharmacists.add(new PharmacistDTO(pharmacist));
             }
@@ -112,7 +99,8 @@ public class ScheduleConsultationController {
         return new ResponseEntity<>(pharmacists, HttpStatus.OK);
     }
 
-    public ResponseEntity<List<TimeInterval>> availableTimeIntervals(@RequestBody Pharmacist pharmacist){
+    @PostMapping("/timeIntervals")
+    public ResponseEntity<List<TimeInterval>> availableTimeIntervals(@RequestBody PharmacistDTO pharmacist){
         Pharmacist p = pharmacistService.findOne(pharmacist.getId());
         return new ResponseEntity<>(freePharmacists.get(p), HttpStatus.OK);
     }
