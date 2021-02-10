@@ -2,14 +2,12 @@
   <v-container>
   <v-layout row wrap>
   <v-card
-    class="mx-auto" style="width: 50%; max-height: 500px; overflow-y: scroll"
+    class="mx-auto" style="width: 50%; max-height: 700px; overflow-y: scroll"
   >
     <v-toolbar
       color="#3949AB"
       dark
     >
-
-      <!-- <v-toolbar-title>{{title}}</v-toolbar-title> -->
       <v-text-field
         hide-details
         prepend-icon="mdi-magnify"
@@ -31,14 +29,16 @@
         single
       >
         <template v-for="(item, index) in renderingItems">
-          <v-list-item :key="item.title" @click="$emit('sendPharmacy', item)">
+          <v-list-item :key="item.id" @click="$emit('sendReservedMedicine',item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
-                <v-list-item-title  v-text="item.name"></v-list-item-title>
-                <v-list-item-subtitle v-text="item.street + ', ' + item.city"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Grade: ' + item.averageGrade"></v-list-item-subtitle>
+                <v-list-item-title  v-text="item.medicineDTO.name"></v-list-item-title>
+                <v-list-item-subtitle v-text="'Pharmacy: ' + item.pharmacyDTO.name"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Date: ' + item.pickUpDate"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Patient: ' + item.patient.name + ' ' + item.patient.lastName"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Quantity: ' + item.quantity"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Status: ' + item.reservationStatus"></v-list-item-subtitle>
               </v-list-item-content>
-
 
               <v-list-item-action>
                 <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
@@ -76,8 +76,7 @@
     <div style="margin: 0 auto; width: 100px">
       <v-radio-group v-model="sortCriteria" column>
         <v-radio value="name" label="Name"></v-radio>
-        <v-radio value="address" label="Address"></v-radio>
-        <v-radio value = "grade" label="Grade"></v-radio>
+        <v-radio value="quantity" label="Quantity"></v-radio>
       </v-radio-group>
     </div>
     <v-btn v-on:click="sort">Sort</v-btn>
@@ -87,27 +86,30 @@
       <h2>Filter</h2>
     </div>
     <v-divider></v-divider>
-    <div style="margin: 10px">
-      <label>Grade: </label> 
-      <input style="background:pink; border" type="number" min="0" max="10" placeholder="" v-model="filterGrade"/>
-    </div>
-    <v-btn v-on:click="filter" style="margin: 20px;">Filter</v-btn>
+      <div style="margin: 0 auto; width: 100px">
+        <h3 style="margin-top: 20px;">Status</h3>
+        <v-radio-group v-model="filterCriteria" column>
+          <v-radio value="all" label="All"></v-radio>
+          <v-radio value="ACTIVE" label="Active"></v-radio>
+          <v-radio value="CANCELED" label="Canceled"></v-radio>
+        </v-radio-group>
+      </div>
+    <v-btn v-on:click="filter" >Filter</v-btn>
   </v-card>
   
   </v-layout>
   </v-container>
 </template>
 
-
 <script>
-// import axios from 'axios';
   export default {
     data: () => ({
       selected: [2],
       drawer: false,
       searchString: '',
       filterGrade: 0,
-      sortCriteria: 'name',
+      sortCriteria: 'date',
+      filterCriteria: 'all',
     }),
     props: [
       "items",
@@ -119,7 +121,7 @@
         var i;
         var newArray = [];
         for(i = 0; i < this.items.length; i++){
-          if(this.searchString == '' || this.items[i].name.indexOf(this.searchString) !== -1 || this.items[i].street.indexOf(this.searchString) !== -1 ){
+          if(this.searchString == '' || this.items[i].name.indexOf(this.searchString) !== -1 ){
             newArray.push(this.items[i]);
           }
         }
@@ -130,7 +132,7 @@
         var i;
         var newArray = [];
         for(i = 0; i < this.searchedItems.length; i++){
-          if( this.filterGrade == '' || this.searchedItems[i].averageGrade == this.filterGrade ){
+          if( this.filterCriteria == 'all' || this.searchedItems[i].reservationStatus == this.filterCriteria ){
             newArray.push(this.items[i]);
           }
         }
@@ -139,16 +141,11 @@
       sort: function(){
         if(this.sortCriteria == 'name'){
           this.renderingItems.sort(function(a, b){
-            return a.name.localeCompare(b.name);
+            return a.medicineDTO.name.localeCompare(b.medicineDTO.name);
           })
-        }else if(this.sortCriteria == 'address'){
+        }else{
           this.renderingItems.sort(function(a, b){
-            return a.street.localeCompare(b.street);
-          })
-        }
-        else{
-          this.renderingItems.sort(function(a, b){
-            return a.averageGrade - b.averageGrade;
+            return a.quantity-b.quantity;
           })
         }
       }

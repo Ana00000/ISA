@@ -8,8 +8,6 @@
       color="#3949AB"
       dark
     >
-
-      <!-- <v-toolbar-title>{{title}}</v-toolbar-title> -->
       <v-text-field
         hide-details
         prepend-icon="mdi-magnify"
@@ -31,12 +29,10 @@
         single
       >
         <template v-for="(item, index) in renderingItems">
-          <v-list-item :key="item.title" @click="$emit('sendPharmacy', item)">
+          <v-list-item :key="item.title" @click="$emit('sendItemInterval', item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
-                <v-list-item-title  v-text="item.name"></v-list-item-title>
-                <v-list-item-subtitle v-text="item.street + ', ' + item.city"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Grade: ' + item.averageGrade"></v-list-item-subtitle>
+                <v-list-item-title  v-text="item.start + ' / ' + item.end"></v-list-item-title>
               </v-list-item-content>
 
 
@@ -68,21 +64,21 @@
       </v-list-item-group>
     </v-list>
   </v-card>
-  <v-card v-bind:class="{'cardClass':drawer}" width="25%">
+  <v-card v-bind:class="{'cardClass':drawer}" width="50%">
     <div>
       <h2>Sort</h2>
     </div>
     <v-divider></v-divider>
     <div style="margin: 0 auto; width: 100px">
       <v-radio-group v-model="sortCriteria" column>
-        <v-radio value="name" label="Name"></v-radio>
-        <v-radio value="address" label="Address"></v-radio>
-        <v-radio value = "grade" label="Grade"></v-radio>
+        <v-radio value="start" label="Start time"></v-radio>
+        <v-radio value="end" label="End time"></v-radio>
+        <v-radio value = "duration" label="Duration"></v-radio>
       </v-radio-group>
     </div>
     <v-btn v-on:click="sort">Sort</v-btn>
   </v-card>
-  <v-card v-bind:class="{'cardClass':drawer}" width="25%">
+  <!-- <v-card v-bind:class="{'cardClass':drawer}" width="25%">
     <div>
       <h2>Filter</h2>
     </div>
@@ -92,7 +88,7 @@
       <input style="background:pink; border" type="number" min="0" max="10" placeholder="" v-model="filterGrade"/>
     </div>
     <v-btn v-on:click="filter" style="margin: 20px;">Filter</v-btn>
-  </v-card>
+  </v-card> -->
   
   </v-layout>
   </v-container>
@@ -100,7 +96,6 @@
 
 
 <script>
-// import axios from 'axios';
   export default {
     data: () => ({
       selected: [2],
@@ -137,18 +132,18 @@
         this.renderingItems = newArray;
       },
       sort: function(){
-        if(this.sortCriteria == 'name'){
+        if(this.sortCriteria == 'start'){
           this.renderingItems.sort(function(a, b){
-            return a.name.localeCompare(b.name);
+            return a.start - b.start;
           })
-        }else if(this.sortCriteria == 'address'){
+        }else if(this.sortCriteria == 'end'){
           this.renderingItems.sort(function(a, b){
-            return a.street.localeCompare(b.street);
+            return a.end - b.end;
           })
         }
         else{
           this.renderingItems.sort(function(a, b){
-            return a.averageGrade - b.averageGrade;
+            return Math.abs(a.start - a.end) - Math.abs(b.start - b.end);
           })
         }
       }

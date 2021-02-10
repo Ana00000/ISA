@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pink lighten-2 white--text">
+    <v-container class="pink lighten-3 white--text">
         <v-layout style="padding:0px" column>
             <div>
                 <router-link class="link" to="/patientPharmacies">Pharmacies</router-link>
@@ -14,16 +14,16 @@
                 <router-link class="link" to="/pharmacies">eRecipes</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Reserved medicine</router-link>
+                <router-link class="link" to="/pharmacies">Issued e-medicine</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/patientReservedMedicine">Medicine Reservations</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacies">Penalty insight</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Issued medicine</router-link>
-            </div>
-            <div>
-                <router-link class="link" to="/pharmacies">Promotions</router-link>
+                <router-link class="link" to="/patientPromotions">Promotions</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacies">Write a complaint</router-link>
@@ -32,10 +32,10 @@
                 <router-link class="link" to="/patientReserveMedicine">Reserve medicine</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Schedule appointment</router-link>
+                <router-link class="link" to="/patientScheduleConsultation">Schedule consultation with pharmacist</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Profile</router-link>
+                <router-link class="link" to="/patientProfile">Profile</router-link>
             </div>
         </v-layout>
     </v-container>
@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 div {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     justify-content: center;
     display: flex;
 }
@@ -59,6 +59,28 @@ div {
     text-decoration: none;
     font-weight: bold;
     font-size: 30px;
+}
+
+.pagePlacing {
+    height: 840px;
+}
+
+.userImage {
+    position: absolute;
+    left: 110px;
+    top: 150px;
+}
+
+.updatePng {
+    position: absolute;
+    right: 160px;
+    top: 100px;
+}
+
+.updateButton {
+    position: absolute;
+    right: 250px;
+    top: 600px;
 }
 
 .menuDiv {

@@ -5,6 +5,8 @@ import com.example.demo.model.Pharmacy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 public interface PharmacyService {
@@ -24,4 +26,9 @@ public interface PharmacyService {
     void update(Pharmacy pharmacy);
 
     void remove(Long id);
+
+    void findByFreePharmacists(Time startTime, Time endTime, Date date);
+
+    //List<Pharmacy> findAllByPharmacist(Pharmacist pharmacist);
+
 }

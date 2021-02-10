@@ -1,16 +1,18 @@
 package com.example.demo.model;
 
 import com.example.demo.dto.PharmacyDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.junit.Ignore;
 import org.springframework.context.annotation.Primary;
 import javax.persistence.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Pharmacy {
+public class Pharmacy implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,11 +53,8 @@ public class Pharmacy {
             inverseJoinColumns = @JoinColumn(name = "DermatologistId", referencedColumnName = "id"))
     private Set<Dermatologist> dermatologists;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "pharmacistInPharmacy",
-            joinColumns = @JoinColumn(name = "PharmacyId", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "pharmacistId", referencedColumnName = "id"))
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pharmacy")
+    @JsonBackReference//this will not serialize
     private Set<Pharmacist> pharmacists;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

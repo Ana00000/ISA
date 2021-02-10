@@ -112,6 +112,10 @@ public class Medicine implements Serializable {
 		this.ingredients = ingredients;
 	}
 
+	public boolean isRecipeNeed() {
+		return recipeNeed;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

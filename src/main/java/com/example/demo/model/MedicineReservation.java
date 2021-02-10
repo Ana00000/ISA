@@ -4,14 +4,16 @@ import com.example.demo.dto.MedicineReservationDTO;
 import com.example.demo.model.enums.MedicineReservationStatusValue;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-public class MedicineReservation {
+public class MedicineReservation implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "usersIdSeqGen", sequenceName = "usersIdSeq", initialValue = 100, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usersIdSeqGen")
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 
@@ -21,7 +23,7 @@ public class MedicineReservation {
     @Column(nullable = false)
     private Long quantity;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Patient patient;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

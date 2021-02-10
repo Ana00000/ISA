@@ -22,12 +22,12 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 
     @Override
     public MedicineReservation findOne(Long id) {
-        return null;
+        return medicineReservationRepository.findById(id).orElse(null);
     }
 
     @Override
     public List<MedicineReservation> findAll() {
-        return null;
+        return medicineReservationRepository.findAll();
     }
 
     @Override
@@ -51,8 +51,13 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
     }
 
     @Override
-    public PharmacyMedicine findOnePharmacyMedicine(PharmacyMedicinePK medicineReservationPK) {
-        return pharmacyMedicineRepository.findById(medicineReservationPK).orElse(null);
+    public PharmacyMedicine findOnePharmacyMedicine(Long key) {
+        return pharmacyMedicineRepository.findById(key).orElse(null);
+    }
+
+    @Override
+    public PharmacyMedicine findByMedicineAndPharmacy(Medicine medicine, Pharmacy pharmacy) {
+        return pharmacyMedicineRepository.findByMedicineAndPharmacy(medicine, pharmacy);
     }
 
     @Override

@@ -83,13 +83,18 @@ export default {
     },
     methods:{
         reserve: function(){
+
+            const config = {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            };
+
             console.log("Heeej", this.request );
             if(this.quantity == '' || this.pharmacyDTO == '' || this.medicineDTO == '' || this.date == '')
             {
                 alert("Please enter all data needed for search :)");
                 return;
             }
-            axios.post('http://localhost:8081/medicineReservation/create', this.request)
+            axios.post('http://localhost:8081/medicineReservation/create', this.request, config)
                 .then(res => {
                     console.log(res);
                 })

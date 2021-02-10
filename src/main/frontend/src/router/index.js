@@ -59,6 +59,26 @@ const routes = [
     component: () => import('../views/patient/ReserveMedicine.vue')
   },
   {
+    path: '/patientReservedMedicine',
+    name: 'PatientReservedMedicine',
+    component: () => import('../views/patient/ReservedMedicine.vue')
+  },
+  {
+    path: '/patientProfile',
+    name: 'PatientProfile',
+    component: () => import('../views/patient/PatientProfile.vue')
+  },
+  {
+    path: '/patientScheduleConsultation',
+    name: 'PatientScheduleConsultation',
+    component: () => import('../views/patient/ScheduleConsultation.vue')
+  },
+  {
+    path: '/patientPromotions',
+    name: 'PatientPromotions',
+    component: () => import('../views/patient/Promotions.vue')
+  },
+  {
     path: '/searchMedicine',
     name: 'SearchMedicine',
     component: () => import('../views/SearchMedicine.vue')
