@@ -14,8 +14,8 @@ public class MedicineDTO implements Serializable {
     private boolean recipeNeed;
     private MedicineManufacturerDTO medicineManufacturer;
     private MedicineShapeDTO medicineShape;
-    private List<MedicineIngredientDTO> medicinesIngredients; 
-    
+    private List<MedicineIngredientDTO> medicinesIngredients;
+
 	public MedicineDTO() {
 	}
 	
@@ -25,7 +25,7 @@ public class MedicineDTO implements Serializable {
 		this.recipeNeed = medicine.isRecipeNeeded();
 		this.medicineManufacturer = new MedicineManufacturerDTO(medicine.getMedicineManufacturer());
 		this.medicineShape = new MedicineShapeDTO(medicine.getMedicineShape());
-		
+
 		List<MedicineIngredientDTO> medicinesIngredients = new ArrayList<MedicineIngredientDTO>();
         for(MedicineIngredient mi: medicine.getIngredients())
         	medicinesIngredients.add(new MedicineIngredientDTO(mi));
@@ -71,9 +71,7 @@ public class MedicineDTO implements Serializable {
 		return medicineManufacturer;
 	}
 	
-	public void setMedicineManufacturer(MedicineManufacturerDTO medicineManufacturer) {
-		this.medicineManufacturer = medicineManufacturer;
-	}
+	public void setMedicineManufacturer(MedicineManufacturerDTO medicineManufacturer) { this.medicineManufacturer = medicineManufacturer; }
 	
 	public MedicineShapeDTO getMedicineShape() {
 		return medicineShape;

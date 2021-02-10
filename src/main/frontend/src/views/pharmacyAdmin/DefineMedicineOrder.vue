@@ -11,7 +11,54 @@
         </v-layout>
       </v-card-title>
       <v-layout justify-center>
-        <h3>Medicines that allready are in this pharmacy:</h3>
+        <h3>Medicines that are already in this pharmacy:</h3>
+      </v-layout>
+      <v-layout justify-center>
+        <v-data-table :items="medicinesInPharmacy" :headers="headers1">
+          <template v-slot:item="row">
+            <tr>
+              <td>{{row.item.id}}</td>
+              <td>{{row.item.name}}</td>
+              <td>
+                <v-checkbox v-model="row.item.recipeNeed" readonly>
+                </v-checkbox>
+              </td>
+              <td>{{row.item.quantity}}</td>
+              <td>
+                <v-text-field type="number" color="black"/>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-layout>
+      <v-layout justify-center class="mt-5 mb-5">
+        <h3>Insert New Medicines For Order</h3>
+      </v-layout>
+      <v-layout justify-center>
+        <v-data-table :items="allMedicines" :headers="headers2">
+          <template v-slot:item="row">
+            <tr>
+              <td>{{row.item.id}}</td>
+              <td>{{row.item.name}}</td>
+              <td>
+                <v-checkbox v-model="row.item.recipeNeed" readonly>
+                </v-checkbox>
+              </td>
+              <td>
+                <v-text-field type="number" color="black"/>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-layout>
+      <v-layout justify-center class="mt-5 mb-5">
+        <h3>Insert Order Deadline</h3>
+      </v-layout>
+      <v-layout justify-center class="mt-5 mb-5" >
+        <v-datetime-picker v-model="dateAndTime"  />
+      </v-layout>
+      <v-layout justify-center class="mt-5 mb-5">
+        <v-btn v-on:click="onConfirm" color="#7f7f7f">confirm order</v-btn>
       </v-layout>
     </v-card>
   </v-layout>
@@ -27,6 +74,21 @@ export default {
     admin: null,
     adminsPharmacy: null,
     medicinesInPharmacy: null,
+    allMedicines: null,
+    headers1: [
+      { text: 'ID', value: 'name'},
+      { text: 'Name', value: 'calories' },
+      { text: 'Need Recipe', value: 'fat' },
+      { text: 'Quantity', value: 'carbs' },
+      { text: 'Order New Quantity ', value: 'protein' }
+    ],
+    headers2: [
+      { text: 'ID', value: 'name'},
+      { text: 'Name', value: 'calories' },
+      { text: 'Need Recipe', value: 'fat' },
+      { text: 'Order New Quantity ', value: 'protein' }
+    ],
+    dateAndTime: null,
   }),
   methods: {
     init() {
@@ -43,19 +105,48 @@ export default {
           'http://localhost:8081/pharmacyAdmins/findLoggedPharmacyAdmin',
           config
       ).then(resp => {
-        this.admin = resp.data
+        this.admin = resp.data;
 
         this.$http.get('http://localhost:8081/pharmacies/' + this.admin.pharmacyId).then(resp2 => {
           this.adminsPharmacy = resp2.data;
-          console.log(this.adminsPharmacy);
-        })
-        console.log(this.admin.pharmacyId);
+        });
         this.$http.get('http://localhost:8081/medicine/findByPharmacyId=' + this.admin.pharmacyId).then(resp2 => {
           this.medicinesInPharmacy = resp2.data;
-          console.log("Returned Medicine");
-          console.log(this.medicinesInPharmacy);
-        })
-      }).catch(console.log);
+          var indexes = [];
+
+          for (var i = 0; i < this.medicinesInPharmacy.length; ++i) {
+            indexes.push(this.medicinesInPharmacy[i].id);
+          }
+
+          this.$http.get('http://localhost:8081/medicine').then(resp2 => {
+            this.allMedicines = resp2.data;
+            console.log(this.allMedicines);
+            var k = 1;
+            for ( var i = 0; i < this.medicinesInPharmacy.length; ++i ) {
+              var med = this.medicinesInPharmacy[i];
+              for ( var j = 0; j < indexes.length; ++j ) {
+                if (med.id === indexes[i]) {
+                  console.log(med.id);
+                  console.log("k = " + k);
+                  this.allMedicines.splice(med.id - k, 1);
+                  ++k;
+                  break;
+                }
+              }
+            }
+          });
+        });
+
+      }).catch(err => {
+        console.log('Neki error');
+        console.log(err);
+      });
+    },
+    onMedicineButtonClick(medicine) {
+      console.log(medicine);
+    },
+    onConfirm() {
+
     }
   }
 }

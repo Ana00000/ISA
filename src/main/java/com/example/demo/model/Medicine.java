@@ -34,7 +34,10 @@ public class Medicine implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable( name = "ingredientsOfMedicine", joinColumns = @JoinColumn(name="ingredient_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "id"))
     private Set<MedicineIngredient> ingredients = new HashSet<MedicineIngredient>();
-    
+
+	@Column(name="quantity", unique=false, nullable=false)
+	private int quantity;
+
     public Medicine() {
     }
 
@@ -45,7 +48,7 @@ public class Medicine implements Serializable {
 
 	public Medicine(Long id, String name, boolean recipeNeed, Set<Medicine> alternativeMedicine,
 			MedicineManufacturer medicineManufacturer, MedicineShape medicineShape,
-			Set<MedicineIngredient> ingredients) {
+			Set<MedicineIngredient> ingredients, int quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -54,6 +57,7 @@ public class Medicine implements Serializable {
 		this.medicineManufacturer = medicineManufacturer;
 		this.medicineShape = medicineShape;
 		this.ingredients = ingredients;
+		this.quantity = quantity;
 	}
 
 	public Long getId() {
@@ -111,6 +115,10 @@ public class Medicine implements Serializable {
 	public void setIngredients(Set<MedicineIngredient> ingredients) {
 		this.ingredients = ingredients;
 	}
+
+	public int getQuantity() { return quantity; }
+
+	public void setQuantity(int quantity) { this.quantity = quantity; }
 
 	public boolean isRecipeNeed() {
 		return recipeNeed;
@@ -178,6 +186,6 @@ public class Medicine implements Serializable {
 	public String toString() {
 		return "Medicine [id=" + id + ", name=" + name + ", recipeNeed=" + recipeNeed + ", alternativeMedicine="
 				+ alternativeMedicine + ", medicineManufacturer=" + medicineManufacturer + ", medicineShape="
-				+ medicineShape + ", ingredients=" + ingredients + "]";
+				+ medicineShape + ", ingredients=" + ingredients + ", quantity=" + quantity + "]";
 	}
 }
