@@ -14,7 +14,6 @@
                                 <v-row justify="space-around">
                                     <v-datetime-picker
                                     v-model="timeStart"
-                                    :allowed-minutes="allowedStep"
                                     class="mt-4"
                                     format="24hr"
                                     ></v-datetime-picker>
@@ -25,7 +24,6 @@
                                 <v-row justify="space-around">
                                     <v-datetime-picker
                                     v-model="timeEnd"
-                                    :allowed-minutes="allowedStep"
                                     class="mt-4"
                                     format="24hr"
                                     ></v-datetime-picker>
@@ -38,7 +36,7 @@
                     <v-btn @click="getAvailablePharmacies" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose date and time</h2></v-btn>
                 </div>
                 <div style="background: none; border: none; margin-top: 50px;">
-                    <item-list-pharmacies v-bind:items="availablePharmacies"></item-list-pharmacies>
+                    <item-list-pharmacies v-bind:items="availablePharmacies" v-bind:renderingItems="availablePharmacies" v-bind:searchedItems="availablePharmacies"></item-list-pharmacies>
                 </div>
                 <div style="margin-top: 50px;">
                     <v-btn large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose Pharmacy</h2></v-btn>
@@ -85,10 +83,10 @@ export default {
     methods: {
         getAvailablePharmacies: function(){
             console.log(this.timeStart + " " + this.timeEnd);
-            axios.get('http://localhost:8081/scheduleConsultation/pharmacies', this.request)
+            axios.post('http://localhost:8081/scheduleConsultation/pharmacies', this.pharmaciesRequest)
                 .then(res => {
-                    this.availablePharmacies = res;
-                    console.log(res);
+                    this.availablePharmacies = res.data;
+                    console.log(res.data);
                 })
                 .catch(res => {
                     console.log(res);

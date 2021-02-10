@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AppointmentDTO;
+import com.example.demo.dto.Hadzi.PharmacyDTOHadzi;
 import com.example.demo.dto.PharmacyDTO;
 import com.example.demo.model.*;
 import com.example.demo.model.enums.AppointmentStatusValue;
@@ -73,10 +74,10 @@ public class ScheduleConsultationController {
         this.freePharmacists = freePharmacists;
     }
 
-    @GetMapping("/pharmacies")
-    public ResponseEntity<Set<Pharmacy>> availablePharmacies(@RequestBody TimeInterval timeInterval){
+    @PostMapping("/pharmacies")
+    public ResponseEntity<Set<PharmacyDTOHadzi>> availablePharmacies(@RequestBody TimeInterval timeInterval){
         findAvailablePharmacists(timeInterval);
-        Set<Pharmacy> pharmacies = new HashSet<>();
+        Set<PharmacyDTOHadzi> pharmacies = new HashSet<>();
 //        for(Pharmacist pharmacist : freePharmacists.keySet()){
 //            List<Pharmacy> pharmaciesByPharmacist = pharmacyService.findAllByPharmacist(pharmacist);
 //            for(Pharmacy ph : pharmaciesByPharmacist){
@@ -84,7 +85,7 @@ public class ScheduleConsultationController {
 //            }
 //        }
         for(Pharmacist pharmacist : freePharmacists.keySet()){
-            pharmacies.add(pharmacist.getPharmacy());
+            pharmacies.add(new PharmacyDTOHadzi(pharmacist.getPharmacy()));
         }
         return new ResponseEntity<>(pharmacies, HttpStatus.OK);
     }

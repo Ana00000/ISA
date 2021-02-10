@@ -113,11 +113,8 @@ import axios from 'axios';
       filterGrade: 0,
       sortCriteria: 'date',
       filterCriteria: 'all',
-      //items: []
+      items: []
     }),
-    props: [
-      "items"
-    ],
     created(){
       axios.get('http://localhost:8081/appointments/patient')
             .then(res => {
