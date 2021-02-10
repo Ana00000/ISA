@@ -7,7 +7,7 @@
             <div class="panelDiv">
                 <div style="margin: 50px"><h2 class="display-3">Reserved Medicine</h2></div>
                 <div style="background: none; border: none;">
-                    <item-list-reserved-medicine @sendReservedMedicine="receiveReservedMedicine"></item-list-reserved-medicine>
+                    <item-list-medicine-reservation @sendReservedMedicine="receiveReservedMedicine" v-bind:items="reservations" v-bind:renderingItems="reservations" v-bind:searchedItems="reservations"></item-list-medicine-reservation>
                 </div>
                 <div style="margin-top: 30px">
                     <v-btn class="pink lighten-3" large @click="cancelReservation"><h2 display-1>Cancel Reservation</h2></v-btn>
@@ -19,18 +19,29 @@
 
 <script>
 import PatientMenu from '@/components/PatientMenu.vue'
-import ItemListReservedMedicine from '../../components/itemList/ItemListReservedMedicine.vue'
 import axios from 'axios';
+import ItemListMedicineReservation from '../../components/itemList/ItemListMedicineReservation.vue';
 export default {
     name : 'AppointmentHistory',
     components : {
         PatientMenu,
-        ItemListReservedMedicine
+        ItemListMedicineReservation
     },
     data() {
         return {
-            reservedMedicine: ''
+            reservedMedicine: '',
+            reservations: ''
         }
+    },
+    created(){
+        const config = {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        };
+        axios.get('http://localhost:8081/medicineReservation/patient', config)
+            .then(res => {
+                this.reservations = res.data;
+            })
+            .catch(err => console.log(err));
     },
     methods:{
         receiveReservedMedicine: function(value){

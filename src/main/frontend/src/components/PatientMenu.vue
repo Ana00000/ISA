@@ -17,7 +17,7 @@
                 <router-link class="link" to="/pharmacies">Issued e-medicine</router-link>
             </div>
             <div>
-                <router-link class="link" to="/patientReservedMedicine">Reserved medicine</router-link>
+                <router-link class="link" to="/patientReservedMedicine">Medicine Reservations</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacies">Penalty insight</router-link>

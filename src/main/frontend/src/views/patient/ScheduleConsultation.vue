@@ -51,7 +51,7 @@
                     <item-list-time-intervals @sendTimeInterval="receiveTimeInterval" v-bind:items="availableTimeIntervals" v-bind:renderingItems="availableTimeIntervals" v-bind:searchedItems="availableTimeIntervals"></item-list-time-intervals>
                 </div>
                 <div style="margin-top: 50px; margin-bottom: 200px;">
-                    <v-btn large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Schedule Consultation</h2></v-btn>
+                    <v-btn @click="createAppointment" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Schedule Consultation</h2></v-btn>
                 </div>
             </div>
         </v-layout>
@@ -147,7 +147,7 @@ export default {
             const config = {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             };
-            axios.post('http://localhost:8081/scheduleConsultation/timeIntervals', this.createRequest, config)
+            axios.post('http://localhost:8081/scheduleConsultation/new', this.createRequest, config)
                 .then(res => {
                     this.availableTimeIntervals = res.data;
                     console.log(res.data);

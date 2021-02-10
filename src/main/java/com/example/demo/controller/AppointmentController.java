@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.example.demo.security.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,11 +40,15 @@ import com.example.demo.service.PatientService;
 import com.example.demo.service.PharmacyService;
 import com.example.demo.service.VacationService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/appointments", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppointmentController {
-	
+	@Autowired
+	private TokenUtils tokenUtils;
+
 	private AppointmentService appointmentService;
 	private AppointmentTypeService appointmentTypeService;
 	private AppointmentStatusService appointmentStatusService;
@@ -271,14 +276,15 @@ public class AppointmentController {
 
 	@GetMapping(value = "/patient")
 //	@PreAuthorize("hasRole('USER')")
-	public ResponseEntity<List<AppointmentDTO>> getDoneByPatient() {
+	public ResponseEntity<List<AppointmentDTO>> getDoneByPatient(HttpServletRequest request) {
+		//Get patient from session
+		String token = tokenUtils.getToken(request);
+		if( token == null ){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String username = tokenUtils.getUsernameFromToken(token);
+		Patient patient = patientService.findOneByEmail(username);
 
-		//Izdvojimo pacijenta iz sesije
-		Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("OOOOOO" + currentUser.getName());
-		Patient patient = new Patient();
-		patient.setEmail(currentUser.getName());
-		patient.setId(6L);
 		List<Appointment> appointments = appointmentService.findAllByPatient(patient);
 
 		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();

@@ -7,7 +7,7 @@
             <div class="panelDiv">
                 <div style="margin: 50px"><h2 class="display-3">Appointment History</h2></div>
                 <div style="background: none; border: none;">
-                    <item-list-appointments></item-list-appointments>
+                    <item-list-appointments v-bind:items="appointments" v-bind:renderingItems="appointments" v-bind:searchedItems="appointments"></item-list-appointments>
                 </div>
             </div>
         </v-layout>
@@ -17,6 +17,7 @@
 <script>
 import PatientMenu from '@/components/PatientMenu.vue'
 import ItemListAppointments from '@/components/itemList/ItemListAppointments.vue'
+import axios from 'axios'
 export default {
     name : 'AppointmentHistory',
     components : {
@@ -25,8 +26,22 @@ export default {
     },
     data() {
         return {
+            appointments: ''
         }
     },
+    created(){
+        const config = {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        };
+        axios.post('http://localhost:8081/appointments/patient', config)
+            .then(res => {
+                this.appointments = res.data;
+                console.log(res.data);
+            })
+            .catch(res => {
+                console.log(res);
+            })
+}
 }
 </script>
 

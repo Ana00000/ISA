@@ -58,6 +58,31 @@ public class MedicineReservationController {
         return new ResponseEntity<>(reservationDTOS, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/patient")
+    public ResponseEntity<List<MedicineReservationDTO>> getAllByPatient(HttpServletRequest request) {
+        Appointment appointment = new Appointment();
+
+        String token = tokenUtils.getToken(request);
+        if( token == null ){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        String username = tokenUtils.getUsernameFromToken(token);
+        Patient patient = patientService.findOneByEmail(username);
+
+        List<MedicineReservation> reservations = medicineReservationService.findAll();
+        if( reservations == null ){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        List<MedicineReservationDTO> reservationDTOS = new ArrayList<>();
+        for (MedicineReservation mr : reservations) {
+            if(mr.getPatient().getId() == patient.getId()){
+                reservationDTOS.add(new MedicineReservationDTO());
+            }
+        }
+
+        return new ResponseEntity<>(reservationDTOS, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/create")
     public ResponseEntity<MedicineReservationDTO> createReservation(HttpServletRequest request, @RequestBody MedicineReservationDTO reservationRequest) {
         //Need to get patient from session

@@ -102,28 +102,20 @@
 </template>
 
 <script>
-import axios from 'axios';
   export default {
     data: () => ({
       selected: [2],
       drawer: false,
       searchString: '',
-      renderingItems: [],
-      searchedItems: [],
       filterGrade: 0,
       sortCriteria: 'date',
       filterCriteria: 'all',
-      items: []
     }),
-    created(){
-      axios.get('http://localhost:8081/appointments/patient')
-            .then(res => {
-              this.items = res.data;
-              this.renderingItems = res.data;
-              this.searchedItems = res.data;
-            })
-            .catch(err => console.log(err));
-    },
+    props: [
+      "items",
+      "renderingItems",
+      "searchedItems"
+    ],
     methods:{
       search: function(){
         var i;
