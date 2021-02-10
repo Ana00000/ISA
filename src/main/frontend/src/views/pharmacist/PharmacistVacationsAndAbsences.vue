@@ -66,9 +66,12 @@ export default {
                 endTime : new Date(this.endTime)
             }
             ).then(resp => {
-               console.log(resp.data);
-                alert("Request is formed (if you already have request than you need to wait for it to finish first).");
-            }).catch(err => console.log(err));
+                console.log(resp.data);
+                alert("Request is formed!");
+            }).catch(err => {
+                alert("You already have one vacation request!");
+                console.log(err.response.data);
+            })
         },
         confirmVacationInterval() {
             if(this.endTime == null) {

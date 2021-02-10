@@ -20,6 +20,7 @@ import com.example.demo.model.Doctor;
 import com.example.demo.model.Vacation;
 import com.example.demo.service.DoctorService;
 import com.example.demo.service.VacationService;
+import com.example.demo.service.email.EmailServiceImpl;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -28,11 +29,14 @@ public class VacationController {
 	
 	private VacationService vacationService;
 	private DoctorService doctorService;
+    private final EmailServiceImpl emailService;
     
 	@Autowired
-	public VacationController(VacationService vacationService, DoctorService doctorService) {
+	public VacationController(VacationService vacationService,
+			DoctorService doctorService, EmailServiceImpl emailService) {
 		this.vacationService = vacationService;
 		this.doctorService = doctorService;
+		this.emailService = emailService;
 	}
 	
 	@GetMapping(value = "/all")
@@ -89,11 +93,17 @@ public class VacationController {
 			if(v.getDoctor().getId().equals(doctorId)) {
 				System.out.println("Doctor can not make another vacation request if"
 						+ " there is already an existent one (from him)!");
-				return new ResponseEntity<>(null, HttpStatus.OK);
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 		}
-
+		
 		vacation = vacationService.save(vacation);
+		
+		emailService.sendEmail(vacation.getDoctor().getEmail(),
+				"Greetings, your request was sent. Selected time interval is from "+vacation.getStartTime()+" to "+vacation.getEndTime()
+				+". Regards, Hospital IsaIBisa", 
+				"Vacation");
+		
         return new ResponseEntity<>(new VacationDTO(vacation), HttpStatus.CREATED);
     }
 }

@@ -72,9 +72,12 @@ export default {
                 patient: this.selectedPatient
             }
             ).then(resp => {
-               console.log(resp.data);
+                console.log(resp.data);
                 alert("Examination is created.");
-            }).catch(err => console.log(err));
+            }).catch(err => {
+                alert("Doctor or patient is busy at this time.");
+                console.log(err.response.data);
+            })
         },
         validationOfInput() {
             if(this.endTime == null) {
