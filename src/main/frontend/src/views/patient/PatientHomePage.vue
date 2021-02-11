@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div  class="backgroundDiv">
         <div class = "panelDiv">
             <PatientMenu/>
         </div>
@@ -22,6 +22,15 @@ export default {
 <style scoped>
 .panelDiv {
     float: left;
-    /* display: inline-block; */
+    /* display: in
+    
+    line-block; */
+}
+
+.backgroundDiv {
+  background: url('https://wallup.net/wp-content/uploads/2017/11/17/260979-pills-pharmacy.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 }
 </style>

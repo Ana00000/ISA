@@ -124,8 +124,11 @@ export default {
             this.setPatient();
         },
         setPatient() {
+            const config = {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            };
             this.id = this.$route.params.id;
-            this.$http.get('http://localhost:8081/patients/getInfo').then(resp => {
+            this.$http.get('http://localhost:8081/patients/getInfo', config).then(resp => {
                 console.log(resp.data);
                 this.setPatientInfo(resp.data);
             }).catch(err => console.log(err));

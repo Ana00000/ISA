@@ -34,12 +34,14 @@ export default {
         }
     },
     created(){
+        console.log("In created");
         const config = {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         };
         axios.get('http://localhost:8081/medicineReservation/patient', config)
             .then(res => {
                 this.reservations = res.data;
+                console.log("After get");
             })
             .catch(err => console.log(err));
     },

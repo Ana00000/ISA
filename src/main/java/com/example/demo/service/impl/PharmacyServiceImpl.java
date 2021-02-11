@@ -67,8 +67,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 
     }
 
-//    @Override
-//    public List<Pharmacy> findAllByPharmacist(Pharmacist pharmacist) {
-//        return pharmacyRepository.findAllByPharmacist(pharmacist);
-//    }
+    @Override
+    public List<Pharmacy> findAllPharmaciesByDermatologist(Long dermatologistId) {
+        return pharmacyRepository.findAllPharmaciesByDermatologist(dermatologistId);
+    }
 }

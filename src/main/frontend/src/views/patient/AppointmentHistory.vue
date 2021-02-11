@@ -33,7 +33,7 @@ export default {
         const config = {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         };
-        axios.post('http://localhost:8081/appointments/patient', config)
+        axios.get('http://localhost:8081/appointments/patient/done', config)
             .then(res => {
                 this.appointments = res.data;
                 console.log(res.data);
@@ -41,7 +41,7 @@ export default {
             .catch(res => {
                 console.log(res);
             })
-}
+    }
 }
 </script>
 

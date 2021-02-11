@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -313,9 +314,31 @@ public class AppointmentController {
 		return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/patient")
-//	@PreAuthorize("hasRole('USER')")
+	@GetMapping(value = "/patient/active")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<List<AppointmentDTO>> getDoneByPatient(HttpServletRequest request) {
+		//Get patient from session
+		String token = tokenUtils.getToken(request);
+		if( token == null ){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String username = tokenUtils.getUsernameFromToken(token);
+		Patient patient = patientService.findOneByEmail(username);
+
+		List<Appointment> appointments = appointmentService.findAllByPatient(patient);
+
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			if(a.getStatus().getStatusValue() == AppointmentStatusValue.UPCOMING)
+				appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/patient/done")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<List<AppointmentDTO>> getDoneByPatientDone(HttpServletRequest request) {
 		//Get patient from session
 		String token = tokenUtils.getToken(request);
 		if( token == null ){

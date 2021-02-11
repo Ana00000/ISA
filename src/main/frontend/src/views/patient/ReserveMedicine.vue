@@ -8,11 +8,11 @@
                 <div style="margin: 50px"><h2 class="display-3">Medicine Reservation</h2></div>
                 <div style="background: none; border: none;">
                     <v-card style="margin-left: 90px; margin-right: 90px; padding: 10px;background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Medicine</h2></v-card>
-                    <item-list-medicine @sendMedicine="receiveMedicine" ></item-list-medicine>
+                    <item-list-medicine @sendMedicine="receiveMedicine" v-bind:items="medicine" v-bind:renderingItems="medicine" v-bind:searchedItems="medicine"></item-list-medicine>
                 </div>
                 <div>
                     <v-card style="margin-left: 90px; margin-right: 90px; padding: 10px; background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Pharmacy</h2></v-card>
-                    <item-list-pharmacies @sendPharmacy="receivePharmacy"></item-list-pharmacies>
+                    <item-list-pharmacies @sendPharmacy="receivePharmacy" v-bind:items="pharmacies" v-bind:renderingItems="pharmacies" v-bind:searchedItems="pharmacies" ></item-list-pharmacies>
                 </div>
                 <v-container>
                     <v-layout row>
@@ -68,18 +68,32 @@ export default {
             quantity: '',
             prahmacyDTO: '',
             medicineDTO: '',
-            date: ''
+            date: '',
+            pharmacies: '',
+            medicine: ''
         }
     },
     computed:{
         request(){
             return {
                 'quantity': this.quantity,
-                'pharmacyDTO': this.pharmacyDTO,
-                'medicineDTO': this.medicineDTO,
+                'pharmacyID': this.pharmacyDTO.id,
+                'medicineID': this.medicineDTO.id,
                 'pickUpDate': this.date
             }
         }
+    },
+    created(){
+        axios.get('http://localhost:8081/pharmacies/all')
+            .then(res => {
+                this.pharmacies = res.data;
+            })
+            .catch(err => console.log(err));
+        axios.get('http://localhost:8081/medicine')
+            .then(res => {
+                this.medicine = res.data;
+            })
+            .catch(err => console.log(err));
     },
     methods:{
         reserve: function(){

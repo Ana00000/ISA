@@ -2,14 +2,12 @@
   <v-container>
   <v-layout row wrap>
   <v-card
-    class="mx-auto" style="width: 50%; max-height: 400px; overflow-y: scroll"
+    class="mx-auto" style="width: 50%; max-height: 700px; overflow-y: scroll"
   >
     <v-toolbar
       color="#3949AB"
       dark
     >
-
-      <!-- <v-toolbar-title>{{title}}</v-toolbar-title> -->
       <v-text-field
         hide-details
         prepend-icon="mdi-magnify"
@@ -31,13 +29,14 @@
         single
       >
         <template v-for="(item, index) in renderingItems">
-          <v-list-item :key="item.title" @click="$emit('sendMedicine',item)" >
+          <v-list-item :key="item.title">
             <template v-slot:default="{ active }">
               <v-list-item-content >
-                <v-list-item-title  v-text="item.name"></v-list-item-title>
-                <v-list-item-subtitle v-text="'Manufacturer: ' + item.medicineManufacturer.name"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Shape: ' + item.medicineShape.shapeValue"></v-list-item-subtitle>
-                <v-list-item-subtitle v-text="'Needs recipe: ' + item.recipeNeed"></v-list-item-subtitle>
+                <v-list-item-title  v-text="item.medicineName"></v-list-item-title>
+                <v-list-item-subtitle v-text="'Doctor: ' + item.doctorName + ' ' + item.doctorLastName"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Doctor type: ' + item.doctorType"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Date: ' + item.date"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Status: ' + item.prescriptionStatus"></v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-action>
@@ -75,8 +74,9 @@
     <v-divider></v-divider>
     <div style="margin: 0 auto; width: 100px">
       <v-radio-group v-model="sortCriteria" column>
-        <v-radio value="name" label="Name"></v-radio>
-        <v-radio value="manufacturer" label="Manufacturer"></v-radio>
+        <v-radio value="date" label="Date"></v-radio>
+        <v-radio value="doctorName" label="Doctor name"></v-radio>
+        <v-radio value = "medicineName" label="Medicine name"></v-radio>
       </v-radio-group>
     </div>
     <v-btn v-on:click="sort">Sort</v-btn>
@@ -87,12 +87,12 @@
     </div>
     <v-divider></v-divider>
       <div style="margin: 0 auto; width: 100px">
-        <h3 style="margin-top: 20px;">Shape</h3>
+        <h3 style="margin-top: 20px;">Status</h3>
         <v-radio-group v-model="filterCriteria" column>
           <v-radio value="all" label="All"></v-radio>
-          <v-radio value="PILL" label="Pill"></v-radio>
-          <v-radio value="TABLET" label="Tablet"></v-radio>
-          <v-radio value="SYRUP" label="Syrup"></v-radio>
+          <v-radio value="NEW" label="New"></v-radio>
+          <v-radio value="PROCESSED" label="Processed"></v-radio>
+          <v-radio value="DENIED" label="Denied"></v-radio>
         </v-radio-group>
       </div>
     <v-btn v-on:click="filter" >Filter</v-btn>
@@ -105,7 +105,7 @@
 <script>
   export default {
     data: () => ({
-      selected: [],
+      selected: [2],
       drawer: false,
       searchString: '',
       filterGrade: 0,
@@ -122,7 +122,7 @@
         var i;
         var newArray = [];
         for(i = 0; i < this.items.length; i++){
-          if(this.searchString == '' || this.items[i].name.indexOf(this.searchString) !== -1 ){
+          if(this.searchString == '' || this.items[i].medicineName.indexOf(this.searchString) !== -1 ){
             newArray.push(this.items[i]);
           }
         }
@@ -133,20 +133,25 @@
         var i;
         var newArray = [];
         for(i = 0; i < this.searchedItems.length; i++){
-          if( this.filterCriteria == 'all' || this.searchedItems[i].medicineShape.shapeValue == this.filterCriteria ){
+          if( this.filterCriteria == 'all' || this.searchedItems[i].prescriptionStatus == this.filterCriteria ){
             newArray.push(this.items[i]);
           }
         }
         this.renderingItems = newArray;
       },
       sort: function(){
-        if(this.sortCriteria == 'name'){
+        if(this.sortCriteria == 'date'){
           this.renderingItems.sort(function(a, b){
-            return a.name.localeCompare(b.name);
+            return a.date < b.date;
           })
-        }else{
+        }else if(this.sortCriteria == 'doctorName'){
           this.renderingItems.sort(function(a, b){
-            return a.medicineManufacturer.name.localeCompare(b.medicineManufacturer.name);
+            return a.doctorName.localeCompare(b.doctorName);
+          })
+        }
+        else{
+          this.renderingItems.sort(function(a, b){
+            return a.medicineName.localeCompare(b.medicineName);
           })
         }
       }

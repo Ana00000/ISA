@@ -11,10 +11,10 @@
                 <router-link class="link" to="/patientScheduledAppointments">Scheduled appointments</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">eRecipes</router-link>
+                <router-link class="link" to="/patientMedicinePrescriptions">Medicine Prescriptions</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Issued e-medicine</router-link>
+                <router-link class="link" to="/patientIssuedMedicine">Issued e-medicine</router-link>
             </div>
             <div>
                 <router-link class="link" to="/patientReservedMedicine">Medicine Reservations</router-link>
