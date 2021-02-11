@@ -5,15 +5,7 @@ import java.io.Serializable;
 
 @Entity
 public class PharmacyMedicine implements Serializable {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Medicine medicine;
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Pharmacy pharmacy;
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +30,15 @@ public class PharmacyMedicine implements Serializable {
         this.pharmacy = pharmacy;
         this.quantity = quantity;
     }
+    
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public Medicine getMedicine() {
         return medicine;
     }
@@ -53,14 +53,6 @@ public class PharmacyMedicine implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 	public Pharmacy getPharmacy() {

@@ -20,18 +20,12 @@ public class PharmacyMedicineServiceImpl implements PharmacyMedicineService {
         this.pharmacyMedicineRepository =  pharmacyMedicineRepository;
     }
     
-	@Override
 	public List<PharmacyMedicine> findAll() {
 		return pharmacyMedicineRepository.findAll();
 	}
 	
 	public PharmacyMedicine findOne(Long id) {
 		return pharmacyMedicineRepository.findById(id).orElseGet(null);
-	}
-	
-	@Override
-	public PharmacyMedicine findByMedicineAndPharmacy(Medicine medicine, Pharmacy pharmacy) {
-		return pharmacyMedicineRepository.findByMedicineAndPharmacy(medicine, pharmacy);
 	}
 	
 	@Override

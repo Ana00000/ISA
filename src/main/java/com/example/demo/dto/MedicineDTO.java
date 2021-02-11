@@ -90,4 +90,56 @@ public class MedicineDTO implements Serializable {
 	public void setMedicinesIngredients(List<MedicineIngredientDTO> medicinesIngredients) {
 		this.medicinesIngredients = medicinesIngredients;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((medicineManufacturer == null) ? 0 : medicineManufacturer.hashCode());
+		result = prime * result + ((medicineShape == null) ? 0 : medicineShape.hashCode());
+		result = prime * result + ((medicinesIngredients == null) ? 0 : medicinesIngredients.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (recipeNeed ? 1231 : 1237);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MedicineDTO other = (MedicineDTO) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (medicineManufacturer == null) {
+			if (other.medicineManufacturer != null)
+				return false;
+		} else if (!medicineManufacturer.equals(other.medicineManufacturer))
+			return false;
+		if (medicineShape == null) {
+			if (other.medicineShape != null)
+				return false;
+		} else if (!medicineShape.equals(other.medicineShape))
+			return false;
+		if (medicinesIngredients == null) {
+			if (other.medicinesIngredients != null)
+				return false;
+		} else if (!medicinesIngredients.equals(other.medicinesIngredients))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (recipeNeed != other.recipeNeed)
+			return false;
+		return true;
+	}
 }

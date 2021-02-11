@@ -8,11 +8,9 @@ import com.example.demo.model.PharmacyMedicine;
 
 public interface PharmacyMedicineService {
 	
-    List<PharmacyMedicine> findAll();
-    
 	PharmacyMedicine findOne(Long id);
-	
-    PharmacyMedicine findByMedicineAndPharmacy(Medicine medicine, Pharmacy pharmacy);
 
+	List<PharmacyMedicine> findAll();
+	
     PharmacyMedicine findByMedicineId(Long medicineId);
 }
