@@ -20,7 +20,7 @@
                 <item-list-pharmacies @sendPharmacy="receivePharmacy" v-bind:items="pharmacies" v-bind:renderingItems="pharmacies" v-bind:searchedItems="pharmacies"></item-list-pharmacies>
             </div>
             <div>
-                <v-textarea style="border: solid black 2px; background: white; margin-top: 50px;" v-bind="complaintText">
+                <v-textarea style="border: solid black 2px; background: white; margin-top: 50px;" v-model="complaintText">
                 </v-textarea>
             </div>
             <div>
@@ -64,7 +64,7 @@ export default {
         request2(){
             return {
                 'text': this.complaintText,
-                'pharmacistID': this.pharmacistDTO.id,
+                'doctorID': this.pharmacistDTO.id,
                 'type': this.itemList
             }
         }
