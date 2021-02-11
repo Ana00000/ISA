@@ -25,4 +25,6 @@ public interface MedicineReservationService {
     PharmacyMedicine findByMedicineAndPharmacy(Medicine medicine, Pharmacy Pharmacy);
 
     PharmacyMedicine updatePharmacyMedicine(PharmacyMedicine pharmacyMedicine);
+
+    List<MedicineReservation> findAllByPatient(Patient patient);
 }

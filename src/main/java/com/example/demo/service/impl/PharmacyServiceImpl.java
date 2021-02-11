@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.Medicine;
+import com.example.demo.model.Patient;
 import com.example.demo.model.Pharmacy;
 import com.example.demo.repository.PharmacyRepository;
 import com.example.demo.service.PharmacyService;
@@ -72,5 +73,10 @@ public class PharmacyServiceImpl implements PharmacyService {
     @Override
     public List<Pharmacy> findAllPharmaciesByDermatologist(Long dermatologistId) {
         return pharmacyRepository.findAllPharmaciesByDermatologist(dermatologistId);
+    }
+
+    @Override
+    public List<Pharmacy> findAllPharmaciesByPatient(Patient patient) {
+        return null;
     }
 }

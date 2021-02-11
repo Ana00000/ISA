@@ -64,4 +64,9 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
     public PharmacyMedicine updatePharmacyMedicine(PharmacyMedicine pharmacyMedicine){
         return pharmacyMedicineRepository.save(pharmacyMedicine);
     }
+
+    @Override
+    public List<MedicineReservation> findAllByPatient(Patient patient) {
+        return medicineReservationRepository.findAllByPatient(patient);
+    }
 }
