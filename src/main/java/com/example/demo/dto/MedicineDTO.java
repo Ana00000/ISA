@@ -1,8 +1,12 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.Medicine;
-
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import com.example.demo.model.Medicine;
+import com.example.demo.model.MedicineIngredient;
 
 public class MedicineDTO implements Serializable {
     private Long id;
@@ -10,6 +14,7 @@ public class MedicineDTO implements Serializable {
     private boolean recipeNeed;
     private MedicineManufacturerDTO medicineManufacturer;
     private MedicineShapeDTO medicineShape;
+    private List<MedicineIngredientDTO> medicinesIngredients; 
     
 	public MedicineDTO() {
 	}
@@ -20,16 +25,22 @@ public class MedicineDTO implements Serializable {
 		this.recipeNeed = medicine.isRecipeNeeded();
 		this.medicineManufacturer = new MedicineManufacturerDTO(medicine.getMedicineManufacturer());
 		this.medicineShape = new MedicineShapeDTO(medicine.getMedicineShape());
+		
+		List<MedicineIngredientDTO> medicinesIngredients = new ArrayList<MedicineIngredientDTO>();
+        for(MedicineIngredient mi: medicine.getIngredients())
+        	medicinesIngredients.add(new MedicineIngredientDTO(mi));
+        this.medicinesIngredients = medicinesIngredients;
 	}
 	
 	public MedicineDTO(Long id, String name, boolean recipeNeed, MedicineManufacturerDTO medicineManufacturer,
-			MedicineShapeDTO medicineShape) {
+			MedicineShapeDTO medicineShape, List<MedicineIngredientDTO> medicinesIngredients) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.recipeNeed = recipeNeed;
 		this.medicineManufacturer = medicineManufacturer;
 		this.medicineShape = medicineShape;
+		this.medicinesIngredients = medicinesIngredients;
 	}
 	
 	public Long getId() {
@@ -70,5 +81,13 @@ public class MedicineDTO implements Serializable {
 	
 	public void setMedicineShape(MedicineShapeDTO medicineShape) {
 		this.medicineShape = medicineShape;
+	}
+
+	public List<MedicineIngredientDTO> getMedicinesIngredients() {
+		return medicinesIngredients;
+	}
+
+	public void setMedicinesIngredients(List<MedicineIngredientDTO> medicinesIngredients) {
+		this.medicinesIngredients = medicinesIngredients;
 	}
 }

@@ -32,7 +32,7 @@ public class Medicine implements Serializable {
     private MedicineShape medicineShape;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable( name = "ingredientsOfMedicine", joinColumns = @JoinColumn(name="ingredientName", referencedColumnName="name"), inverseJoinColumns = @JoinColumn(name = "medicineName", referencedColumnName = "name"))
+    @JoinTable( name = "ingredientsOfMedicine", joinColumns = @JoinColumn(name="ingredient_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "id"))
     private Set<MedicineIngredient> ingredients = new HashSet<MedicineIngredient>();
     
     public Medicine() {

@@ -66,7 +66,7 @@
         </v-layout>
         </v-container>
 
-        <v-container fluid class="descriptionInput">
+        <v-container fluid class="descriptionInput" v-on:click="getMedicines">
             <v-row>
             <v-col cols="7"/>
             <v-col cols="3">
@@ -78,8 +78,33 @@
             </v-col>
             </v-row>
         </v-container>
-
-        <v-combobox :items="medicines" :item-text="text" v-model="selectedMedicine" :label="label" hint="Choose medicine for the therapy." class="comboMedicines"/>
+        
+        <v-container>
+        <v-layout row wrap>
+            <v-card
+                style="width: 35%; height: 350px; overflow-y: scroll" class="comboMedicines">
+                <v-list two-line>
+                <v-list-item-group
+                    v-model="selectedMedicine"
+                    active-class="indigo--text">
+                    <template v-for="(medicine, id) in medicines">
+                    <v-list-item :key="medicine.id" :value="medicine">
+                        <template>  
+                        <v-list-item-content>
+                            <v-list-item-subtitle v-text="'Name: '+medicine.name"/>
+                            <v-list-item-subtitle v-text="'Manufacturer: '+medicine.medicineManufacturer.name "/>
+                            <v-list-item-subtitle v-text="'Shape: '+medicine.medicineShape.shapeValue "/>
+                            <v-list-item-subtitle v-text="'Recipe need: '+medicine.recipeNeed "/>
+                        </v-list-item-content>
+                        </template>
+                    </v-list-item>
+                    <v-divider v-if="id <medicines.length-1" :key="id"/>
+                    </template>
+                </v-list-item-group>
+                </v-list>
+            </v-card>
+        </v-layout>
+        </v-container>
 
         <v-container fluid class="days">
                 <v-row>
@@ -93,6 +118,17 @@
                 </v-col>
                 </v-row>
         </v-container>
+
+        <div class="availabilityButton">
+            <v-btn
+                v-on:click="isAvailable" 
+                color="#aba7ff"
+                elevation="24"
+                x-large
+                raised
+                rounded
+            >Check availability</v-btn>
+        </div>
 
         <div class="penalButton">
             <v-btn
@@ -145,7 +181,6 @@ export default {
         description: null,
         medicines: [],
         selectedMedicine: null,
-        label: 'Medicine',
         therapyInDays: 0
     }),
     mounted() {
@@ -155,7 +190,6 @@ export default {
         init() {
             this.getExams();
             this.getDoctor();
-            this.getMedicines();
         },
         searchQuery() {
             var resultOfSearch = [];
@@ -195,7 +229,6 @@ export default {
                 return;
             }
 
-
             this.$http.post('http://localhost:8081/reports/saveReport', 
             {         
                 doctor : this.doctor,
@@ -233,8 +266,7 @@ export default {
             {         
                 id : this.patient.id,
                 penalties : this.patient.penalties
-            }
-            ).then(resp => {
+            }).then(resp => {
                 console.log(resp.data);
                 alert("Penalty is given.");
             }).catch(err => console.log(err));
@@ -263,7 +295,7 @@ export default {
             .catch(err => console.log(err));
         },
         getMedicines() {
-            this.$http.get('http://localhost:8081/medicine').then(resp => {
+            this.$http.get('http://localhost:8081/medicine/healthyMedicineForPatient/' + this.selected.patient.id).then(resp => {
                 resp.data.forEach(medicine => {
                     this.medicines.push(medicine);
                 });
@@ -295,14 +327,20 @@ export default {
 
 .comboMedicines { 
     position: absolute;
-    right: 650px;
+    right: 200px;
     top: 240px;
 }
 
 .days {
     position: absolute;
-    right: 412px;
-    top: 340px;
+    right: 260px;
+    top: 620px;
+}
+
+.availabilityButton {
+    position: absolute;
+    right: 300px;
+    bottom: 220px;
 }
 
 .penalButton {
@@ -322,6 +360,6 @@ export default {
 }
 
 .space {
-    height: 155px;
+    height: 131px;
 }
 </style>

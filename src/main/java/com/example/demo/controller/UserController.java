@@ -112,13 +112,13 @@ public class UserController {
     	String email = authentication.getName();
     	User user = userService.findByEmail(email);
     	if(user.getClass() == Dermatologist.class) {
-    		return "http://localhost:8080/";
+    		return "http://localhost:8080/dermatologistHomePage";
     	}
     	if (user.getClass() == Patient.class) {
     		return "http://localhost:8080/patientHomePage";
     	}
     	if(user.getClass() == Pharmacist.class) {
-    		return "http://localhost:8080/";
+    		return "http://localhost:8080/pharmacistHomePage";
     	}
     	if(user.getClass() == PharmacyAdmin.class) {
 //    		User user2 = pharmacyAdminService.findByEmail(email);

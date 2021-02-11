@@ -1,9 +1,7 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.Patient;
-import com.example.demo.model.User;
-
 import java.io.Serializable;
+import com.example.demo.model.Patient;
 
 public class PatientDTO extends UserDTO implements Serializable {
 	
@@ -24,5 +22,4 @@ public class PatientDTO extends UserDTO implements Serializable {
 	public void setPenalties(int penalties) {
 		this.penalties = penalties;
 	}
-
 }
