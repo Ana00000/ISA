@@ -61,7 +61,8 @@ name: "PharmacyAdminProfile",
     phoneNumber: null,
     active: true,
     workingInPharmacy: null,
-    pharmacyAdminId: null
+    pharmacyAdminId: null,
+    pharmacyId: null
   }),
   mounted() {
     this.init();
@@ -84,7 +85,11 @@ name: "PharmacyAdminProfile",
       this.address = item.address;
       this.phoneNumber = item.phoneNumber;
       this.active = item.active;
-      this.workingInPharmacy = item.pharmacyId;
+      this.pharmacyId = item.pharmacyId;
+      this.$http.get('http://localhost:8081/pharmacies/' + item.pharmacyId)
+      .then(resp => {
+        this.workingInPharmacy = resp.data.name;
+      })
       this.pharmacyAdminId = item.pharmacyAdminId;
     },
     defineAppWithDermatologist() {
@@ -94,7 +99,7 @@ name: "PharmacyAdminProfile",
       this.$router.push('/pharmacyAdmin/definePromotion');
     },
     goToPharmacyProfile() {
-      this.$router.push('/pharmacy/profile/' + this.workingInPharmacy);
+      this.$router.push('/pharmacy/profile/' + this.pharmacyId);
     },
     defineMedicineOrder() {
       this.$router.push('/pharmacyAdmin/defineMedicineOrder');
