@@ -112,7 +112,7 @@ export default {
                     id : this.id
                 }).then(resp => {
                     console.log(resp.data);
-                    alert("Nestao.");
+                    alert("Examination is being scheduled.");
                 }).catch(err => console.log(err));
             }
 

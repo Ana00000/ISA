@@ -64,6 +64,7 @@ export default {
         },
         scheduleConsultation() {
             this.validationOfInput();
+
             this.$http.post('http://localhost:8081/appointments/saveConsultation', 
             {         
                 doctor : this.doctor,

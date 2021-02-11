@@ -295,14 +295,14 @@ export default {
 
 .comboMedicines { 
     position: absolute;
-    right: 550px;
-    top: 250px;
+    right: 650px;
+    top: 240px;
 }
 
 .days {
     position: absolute;
-    left: 75px;
-    top: 242px;
+    right: 412px;
+    top: 340px;
 }
 
 .penalButton {
