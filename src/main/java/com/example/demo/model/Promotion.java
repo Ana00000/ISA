@@ -12,7 +12,8 @@ import java.util.Set;
 public class Promotion implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "promotionIdSeqGen", sequenceName = "promotionIdSeqGen", initialValue = 5, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "promotionIdSeqGen")
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 
