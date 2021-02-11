@@ -219,12 +219,12 @@ INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (14, 5);
 INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (15, 6);
 
 
-INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (13, 1, 20);
-INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (14, 2, 30);
-INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (15, 3, 10);
-INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (13, 4, 25);
-INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (14, 5, 4);
-INSERT INTO pharmacy_medicine(pharmacy_id, medicine_id, quantity) VALUES (15, 6, 100);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (701, 13, 1, 20);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (702, 14, 2, 30);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (703, 15, 3, 10);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (704, 13, 4, 25);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (705, 14, 5, 4);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (706, 15, 6, 100);
 
 
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (1, 3);

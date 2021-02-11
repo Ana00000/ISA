@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import com.example.demo.security.TokenUtils;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +32,7 @@ import com.example.demo.model.Pharmacy;
 import com.example.demo.model.Vacation;
 import com.example.demo.model.enums.AppointmentStatusValue;
 import com.example.demo.model.enums.AppointmentTypeValues;
+import com.example.demo.security.TokenUtils;
 import com.example.demo.service.AppointmentService;
 import com.example.demo.service.AppointmentStatusService;
 import com.example.demo.service.AppointmentTypeService;
@@ -40,7 +41,6 @@ import com.example.demo.service.PatientService;
 import com.example.demo.service.PharmacyService;
 import com.example.demo.service.VacationService;
 import com.example.demo.service.email.EmailServiceImpl;
-import javax.servlet.http.HttpServletRequest;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -560,7 +560,7 @@ public class AppointmentController {
 			appointment.setEndTime(appointmentDTO.getEndTime());
 		}
 	}
-	
+
 	private void addAppointmentInPharmacy(Appointment appointment) {
 		
 		Pharmacy pharmacy = null;

@@ -181,7 +181,8 @@ export default {
         description: null,
         medicines: [],
         selectedMedicine: null,
-        therapyInDays: 0
+        therapyInDays: 0,
+        pharmacy: null
     }),
     mounted() {
         this.init();
@@ -299,6 +300,13 @@ export default {
                 resp.data.forEach(medicine => {
                     this.medicines.push(medicine);
                 });
+            }).catch(err => console.log(err));
+        },
+        isAvailable() {
+            this.$http.get('http://localhost:8081/pharmacies/pharmacyByAppointment/' + this.selected.id)
+            .then(resp => {
+                this.pharmacy = resp.data;
+                console.log(this.pharmacy);
             }).catch(err => console.log(err));
         },
         text: item => item.name

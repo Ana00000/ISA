@@ -3,15 +3,23 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.dto.Hadzi.PharmacyDTOHadzi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.dto.PharmacyDTO;
+import com.example.demo.dto.Hadzi.PharmacyDTOHadzi;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.Pharmacy;
+import com.example.demo.model.PharmacyMedicine;
+import com.example.demo.service.AppointmentService;
 import com.example.demo.service.PharmacyService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -20,10 +28,12 @@ import com.example.demo.service.PharmacyService;
 public class PharmacyController {
 
     private PharmacyService pharmacyService;
+    private AppointmentService appointmentService;
     
 	@Autowired
-    public PharmacyController(PharmacyService pharmacyService) {
+    public PharmacyController(PharmacyService pharmacyService, AppointmentService appointmentService) {
         this.pharmacyService = pharmacyService;
+        this.appointmentService = appointmentService;
     }
 
     @GetMapping(value = "/allHadzi")
@@ -66,13 +76,13 @@ public class PharmacyController {
     
     @GetMapping(value = "/pharmacyByAppointment/{id}")
     public ResponseEntity<PharmacyDTO> getPharmacyByAppointment(@PathVariable Long id) {
-
+    	
+    	Appointment appointment = appointmentService.findOne(id);
     	Pharmacy pharmacy = null;
-		for(Pharmacy p : pharmacyService.findAll())
-			for(Appointment a : p.getAppointments())
-				if(a.getId() == id)
-					pharmacy = p;
-		
+		for(Pharmacy p : pharmacyService.findAll()) 
+			if(p.getAppointments().contains(appointment)) 
+				pharmacy = p;
+			
 		return new ResponseEntity<>(new PharmacyDTO(pharmacy), HttpStatus.OK);
     }
 

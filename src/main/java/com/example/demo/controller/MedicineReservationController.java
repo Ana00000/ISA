@@ -80,7 +80,7 @@ public class MedicineReservationController {
 
         return new ResponseEntity<>(reservationDTOS, HttpStatus.OK);
     }
-
+   
     @PostMapping(value = "/create")
     public ResponseEntity<MedicineReservationDTOHadzi> createReservation(HttpServletRequest request, @RequestBody MedicineReservationDTOHadzi reservationRequest) {
         //Need to get patient from session
@@ -134,7 +134,7 @@ public class MedicineReservationController {
         MedicineReservation retValue = medicineReservationService.save(medicineReservation);
 
         //Update quantity of medicine in pharmacy
-        pharmacyMedicine.setQuantity(pharmacyMedicine.getQuantity() - reservationRequest.getQuantity());
+        pharmacyMedicine.setQuantity((int) (pharmacyMedicine.getQuantity() - reservationRequest.getQuantity()));
         medicineReservationService.updatePharmacyMedicine(pharmacyMedicine);
 
         emailService.sendEmail(patient.getEmail(), "New Reservation", "reservation");
@@ -168,7 +168,7 @@ public class MedicineReservationController {
         medicineReservationService.save(medicineReservation);
 
         //update medicine quantity in pharmacy
-        pharmacyMedicine.setQuantity(pharmacyMedicine.getQuantity() + reservationRequest.getQuantity());
+        pharmacyMedicine.setQuantity((int) (pharmacyMedicine.getQuantity() + reservationRequest.getQuantity()));
         medicineReservationService.updatePharmacyMedicine(pharmacyMedicine);
 
         return new ResponseEntity<>(reservationRequest, HttpStatus.OK);

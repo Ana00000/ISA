@@ -1,16 +1,14 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.Pharmacist;
-import com.example.demo.model.Pharmacy;
-import com.example.demo.repository.PharmacistRepository;
-import com.example.demo.repository.PharmacyRepository;
-import com.example.demo.service.PharmacyService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.example.demo.model.Pharmacy;
+import com.example.demo.model.PharmacyMedicine;
+import com.example.demo.repository.PharmacyRepository;
+import com.example.demo.service.PharmacyService;
 
 @Service
 public class PharmacyServiceImpl implements PharmacyService {
@@ -21,13 +19,13 @@ public class PharmacyServiceImpl implements PharmacyService {
     public PharmacyServiceImpl(PharmacyRepository pharmacyRepository) {
         this.pharmacyRepository = pharmacyRepository;
     }
-
+    
     @Override
     public Pharmacy findOne(Long id) {
         return pharmacyRepository.findById(id).orElseGet(null);
     }
 
-    @Override
+    //@Override
     public List<Pharmacy> findAll() {
         return pharmacyRepository.findAll();
     }

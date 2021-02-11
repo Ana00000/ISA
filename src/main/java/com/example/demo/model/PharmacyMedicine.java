@@ -1,11 +1,10 @@
 package com.example.demo.model;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.io.Serializable;
 
 @Entity
-//@IdClass(PharmacyMedicinePK.class)
-public class PharmacyMedicine {
+public class PharmacyMedicine implements Serializable {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -18,6 +17,7 @@ public class PharmacyMedicine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Medicine medicine;
@@ -26,13 +26,14 @@ public class PharmacyMedicine {
     private Pharmacy pharmacy;
 
     @Column( nullable = false, unique = false)
-    private Long quantity;
+    private int quantity;
 
     public PharmacyMedicine(){
-
     }
 
-    public PharmacyMedicine(Medicine medicine, Pharmacy pharmacy, Long quantity) {
+    public PharmacyMedicine(Long id, Medicine medicine, Pharmacy pharmacy, int quantity) {
+		super();
+    	this.id = id;
         this.medicine = medicine;
         this.pharmacy = pharmacy;
         this.quantity = quantity;
@@ -46,19 +47,11 @@ public class PharmacyMedicine {
         this.medicine = medicine;
     }
 
-    public Pharmacy getPharmacy() {
-        return pharmacy;
-    }
-
-    public void setPharmacy(Pharmacy pharmacy) {
-        this.pharmacy = pharmacy;
-    }
-
-    public Long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -70,27 +63,57 @@ public class PharmacyMedicine {
         this.id = id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PharmacyMedicine that = (PharmacyMedicine) o;
-        return Objects.equals(medicine, that.medicine) &&
-                Objects.equals(pharmacy, that.pharmacy) &&
-                Objects.equals(quantity, that.quantity);
-    }
+	public Pharmacy getPharmacy() {
+		return pharmacy;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(medicine, pharmacy, quantity);
-    }
+	public void setPharmacy(Pharmacy pharmacy) {
+		this.pharmacy = pharmacy;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((medicine == null) ? 0 : medicine.hashCode());
+		result = prime * result + ((pharmacy == null) ? 0 : pharmacy.hashCode());
+		result = prime * result + quantity;
+		return result;
+	}
 
-    @Override
-    public String toString() {
-        return "PharmacyMedicine{" +
-                "medicine=" + medicine +
-                ", pharmacy=" + pharmacy +
-                ", quantity=" + quantity +
-                '}';
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PharmacyMedicine other = (PharmacyMedicine) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (medicine == null) {
+			if (other.medicine != null)
+				return false;
+		} else if (!medicine.equals(other.medicine))
+			return false;
+		if (pharmacy == null) {
+			if (other.pharmacy != null)
+				return false;
+		} else if (!pharmacy.equals(other.pharmacy))
+			return false;
+		if (quantity != other.quantity)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "PharmacyMedicine [id=" + id + ", medicine=" + medicine + ", pharmacy=" + pharmacy + ", quantity="
+				+ quantity + "]";
+	}
 }
