@@ -25,7 +25,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping(value = "/appointments", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/prescriptions", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MedicinePrescriptionController {
     @Autowired
     private TokenUtils tokenUtils;

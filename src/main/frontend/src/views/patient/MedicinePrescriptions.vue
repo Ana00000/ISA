@@ -5,9 +5,9 @@
                 <PatientMenu/>
             </div>
             <div class="panelDiv">
-                <div style="margin: 50px"><h2 class="display-3">Appointment History</h2></div>
+                <div style="margin: 50px"><h2 class="display-3">Medicine Prescriptions</h2></div>
                 <div style="background: none; border: none;">
-                    <item-list-appointments v-bind:items="appointments" v-bind:renderingItems="appointments" v-bind:searchedItems="appointments"></item-list-appointments>
+                    <item-list-medicine-prescriptions v-bind:items="prescriptions" v-bind:renderingItems="prescriptions" v-bind:searchedItems="prescriptions"></item-list-medicine-prescriptions>
                 </div>
             </div>
         </v-layout>
@@ -16,26 +16,26 @@
 
 <script>
 import PatientMenu from '@/components/PatientMenu.vue'
-import ItemListAppointments from '@/components/itemList/ItemListAppointments.vue'
 import axios from 'axios'
+import ItemListMedicinePrescriptions from '../../components/itemList/ItemListMedicinePrescriptions.vue'
 export default {
-    name : 'AppointmentHistory',
+    name : 'MedicinePrescriptions',
     components : {
         PatientMenu,
-        ItemListAppointments
+        ItemListMedicinePrescriptions
     },
     data() {
         return {
-            appointments: ''
+            prescriptions: ''
         }
     },
     created(){
         const config = {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         };
-        axios.get('http://localhost:8081/appointments/patient/done', config)
+        axios.get('http://localhost:8081/prescriptions/patient', config)
             .then(res => {
-                this.appointments = res.data;
+                this.prescriptions = res.data;
                 console.log(res.data);
             })
             .catch(res => {
