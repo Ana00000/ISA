@@ -12,6 +12,5 @@ public interface PharmacyMedicineRepository extends JpaRepository<PharmacyMedici
     PharmacyMedicine findByMedicineAndPharmacy(Medicine medicine, Pharmacy pharmacy);
     
     @Query(value="SELECT pm FROM PharmacyMedicine pm JOIN pm.medicine med WHERE med.id=:medicineId")
-    
     PharmacyMedicine findByMedicineId(@Param("medicineId") Long medicineId);
 }
