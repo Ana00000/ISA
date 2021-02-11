@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AppointmentDTO;
+import com.example.demo.dto.MedicineDTO;
 import com.example.demo.dto.MedicinePrescriptionDTO;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.MedicinePrescription;
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -55,5 +58,35 @@ public class MedicinePrescriptionController {
         }
 
         return new ResponseEntity<>(medicinePrescriptionsDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/medicine")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Set<MedicineDTO>> getIssuedMedicine(HttpServletRequest request) {
+        //Get patient from session
+        String token = tokenUtils.getToken(request);
+        if( token == null ){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        String username = tokenUtils.getUsernameFromToken(token);
+        Patient patient = patientService.findOneByEmail(username);
+
+        List<MedicinePrescription> medicinePrescriptions = medicinePrescriptionService.findAllByPatient(patient);
+
+        Set<MedicineDTO> medicineDTO = new HashSet<>();
+        for (MedicinePrescription medicinePrescription : medicinePrescriptions) {
+            MedicineDTO med = new MedicineDTO(medicinePrescription.getMedicine());
+            Boolean contains = false;
+            for(MedicineDTO m : medicineDTO){
+                if(m.getId() == med.getId()){
+                    contains = true;
+                    break;
+                }
+            }
+            if( !contains)
+                medicineDTO.add(med);
+        }
+
+        return new ResponseEntity<>(medicineDTO, HttpStatus.OK);
     }
 }
