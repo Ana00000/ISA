@@ -9,22 +9,22 @@
             <div style="margin: 0 auto; width: 100px">
                 <h3 style="margin-top: 20px;">Type</h3>
                 <v-radio-group v-model="itemList" row>
-                    <v-radio value="dermatologist" label="Dermatologist"></v-radio>
+                    <v-radio value="doctor" label="Doctor"></v-radio>
                     <v-radio value="pharmacy" label="Pharmacy"></v-radio>
                 </v-radio-group>
             </div>
-            <div style="background: none; border: none;" v-if="itemList=='dermatologist'">
-                <item-list-pharmacists v-bind:items="doctors" v-bind:renderingItems="doctors" v-bind:searchedItems="doctors"></item-list-pharmacists>
+            <div style="background: none; border: none;" v-if="itemList=='doctor'">
+                <item-list-pharmacists @sendPharmacist="receivePharmacist" v-bind:items="doctors" v-bind:renderingItems="doctors" v-bind:searchedItems="doctors"></item-list-pharmacists>
             </div>
             <div style="background: none; border: none;" v-else>
-                <item-list-pharmacies v-bind:items="pharmacies" v-bind:renderingItems="pharmacies" v-bind:searchedItems="pharmacies"></item-list-pharmacies>
+                <item-list-pharmacies @sendPharmacy="receivePharmacy" v-bind:items="pharmacies" v-bind:renderingItems="pharmacies" v-bind:searchedItems="pharmacies"></item-list-pharmacies>
             </div>
             <div>
                 <v-textarea style="border: solid black 2px; background: white; margin-top: 50px;" v-bind="complaintText">
                 </v-textarea>
             </div>
             <div>
-                <v-btn large>Submit</v-btn>
+                <v-btn large @click="createComplaint">Submit</v-btn>
             </div>
         </div>
         </v-layout>
@@ -48,7 +48,25 @@ export default {
             itemList: '',
             doctors: '',
             pharmacies: '',
-            complaintText: ''
+            complaintText: '',
+            pharmacistDTO: '',
+            pharmacyDTO: ''
+        }
+    },
+    computed:{
+        request(){
+            return {
+                'text': this.complaintText,
+                'pharmacyID': this.pharmacyDTO.id,
+                'type': this.itemList
+            }
+        },
+        request2(){
+            return {
+                'text': this.complaintText,
+                'pharmacistID': this.pharmacistDTO.id,
+                'type': this.itemList
+            }
         }
     },
     created(){
@@ -65,6 +83,31 @@ export default {
             console.log(resp.data);
             this.pharmacies = resp.data;
         }).catch(err => console.log(err));
+    },
+    methods:{
+        createComplaint: function(){
+            const config = {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            };
+            var reqq = '';
+            if(this.itemList == "doctor"){
+                reqq = this.request2;
+            }else{
+                reqq = this.request;
+            }
+            this.$http.post('http://localhost:8081/complaint/new', reqq, config).then(resp => {
+            console.log(resp.data);
+            this.pharmacies = resp.data;
+        }).catch(err => console.log(err));
+        },
+        receivePharmacist: function(value){
+            this.pharmacistDTO = value;
+            console.log(value);
+        },
+        receivePharmacy: function(value){
+            this.pharmacyDTO = value;
+            console.log(value);
+        },
     }
 }
 </script>
