@@ -73,11 +73,14 @@ INSERT INTO medicine_shape(id, shape_value) VALUES (2, 1);
 INSERT INTO medicine_shape(id, shape_value) VALUES (3, 2);
 
 
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions, penalties) VALUES (4, 'Marko', 'Gojkovic', 'mile.knezevic98@gmail.com', '$2a$10$1bC7jlRWy07HDwy0/.NDm.N5J5Z17nKm4bFb4nDJvBVT.4kmdW.4m', 'Novi sad Futoska 2', '06489745', 'TRUE', 'TRUE', 0);
+/*password-marko040234*/
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (4, 'Marko', 'Gojkovic', 'mile.knezevic98@gmail.com', '$2a$10$1bC7jlRWy07HDwy0/.NDm.N5J5Z17nKm4bFb4nDJvBVT.4kmdW.4m', 'Novi sad Futoska 2', '061497607', 'TRUE', 0, 'TRUE');
 /*password-klara2352892*/
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions, penalties) VALUES (5, 'Klara', 'Mitrovic', 'klara56mitrov@gmail.com', '$2a$10$lJD44wzUcg16lKdLQ2e9Gur8.DOQo/MuQ6Qob6azFdWL94W2dStQi', 'Novi sad Futoska 22', '06489713', 'TRUE', 'FALSE', 1);
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (5, 'Klara', 'Mitrovic', 'klara56mitrov@gmail.com', '$2a$10$lJD44wzUcg16lKdLQ2e9Gur8.DOQo/MuQ6Qob6azFdWL94W2dStQi', 'Novi sad Futoska 22', '061/637603', 'TRUE', 1, 'FALSE');
+/*password-mirko329855324*/
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (6, 'Mirko', 'Lazarevic', 'xdotdotx422@gmail.com', '$2a$10$C5Fl8.LEF.nfIDcSr8F/uOZUPon.2MmUDfJ1UIAich6gwV79W6D3S', 'Novi sad Futoska 23', '061/387-007', 'TRUE', 0, 'TRUE');
 /*password-hadziCar*/
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, subscribed_to_promotions, penalties) VALUES (6, 'Aleksandar', 'Hadzibabic', 'hadziCar@gmail.com', '$2a$10$xmmsjxIhhY/CXRbdhcHOBuWgx7F16ef7OU8axXNw1VnA2dGwJs/km', 'Branimira Cosica 33', '06138909132', 'TRUE', 'FALSE', 1);
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (7, 'Aleksandar', 'Hadzibabic', 'hadziCar@gmail.com', '$2a$10$xmmsjxIhhY/CXRbdhcHOBuWgx7F16ef7OU8axXNw1VnA2dGwJs/km', 'Branimira Cosica 33', '06138909132', 'TRUE', 1, 'FALSE');
 
 
 INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (13, 'Lekic', '021765873', 'Serbia', 'Novi Sad', 'Danila Kisa', '1', 19.83766985, 45.249441, 0);
@@ -129,6 +132,7 @@ INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (4, 3);
 INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (5, 1);
 INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 2);
 
+
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
 VALUES (1000, 250.35, 811, 1022, 6, 3, '2021-09-25 12:00', '2021-09-25 13:00', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
@@ -150,13 +154,13 @@ VALUES (9000, 700.00, 411, 522, 6, 9, '2021-05-17 08:05', '2021-05-17 09:00', 0)
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
 VALUES (10000, 451.00, 611, 922, 6, 3, '2021-02-13 00:20', '2021-02-13 00:50', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (11000, 251.00, 1111, 1122, 6, 3, '2022-07-13 12:20', '2022-07-13 12:50', 0);
+VALUES (11000, 251.00, 1111, 1122, null, 3, '2022-07-13 12:20', '2022-07-13 12:50', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (12000, 150.00, 1211, 1222, 6, 1, '2023-05-15 12:20', '2023-05-15 12:30', 0);
+VALUES (12000, 150.00, 1211, 1222, null, 1, '2023-05-15 12:20', '2023-05-15 12:30', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (13000, 440.00, 1311, 422, 6, 2, '2022-03-13 12:50', '2022-03-13 14:50', 0);
+VALUES (13000, 440.00, 1311, 1322, null, 2, '2022-03-13 12:50', '2022-03-13 14:50', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (14000, 240.00, 1411, 222, 6, 3, '2022-02-13 12:50', '2022-02-13 14:50', 0);
+VALUES (14000, 240.00, 1411, 1422, null, 3, '2022-02-13 12:50', '2022-02-13 14:50', 0);
 
 
 INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 1000);

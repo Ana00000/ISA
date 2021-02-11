@@ -26,14 +26,27 @@ public class PharmacyController {
         this.pharmacyService = pharmacyService;
     }
 
-    @GetMapping(value = "/all")
-    public ResponseEntity<List<PharmacyDTOHadzi>> getAllPharmacies() {
+    @GetMapping(value = "/allHadzi")
+    public ResponseEntity<List<PharmacyDTOHadzi>> getAllPharmaciesHadzi() {
 
         List<Pharmacy> pharmacies = pharmacyService.findAll();
 
         List<PharmacyDTOHadzi> pharmacistsDTO = new ArrayList<>();
         for (Pharmacy p : pharmacies) {
             pharmacistsDTO.add(new PharmacyDTOHadzi(p));
+        }
+        
+        return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
+    }
+    
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<PharmacyDTO>> getAllPharmacies() {
+
+        List<Pharmacy> pharmacies = pharmacyService.findAll();
+
+        List<PharmacyDTO> pharmacistsDTO = new ArrayList<>();
+        for (Pharmacy p : pharmacies) {
+            pharmacistsDTO.add(new PharmacyDTO(p));
         }
         
         return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
