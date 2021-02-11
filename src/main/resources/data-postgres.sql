@@ -258,6 +258,8 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_DERMATOLOGIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACY_ADMIN');
 
+INSERT INTO user_authority (user_id, authority_id) VALUES (6, 1);
+
 
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (101, 0, 1, '2021-02-17 00:00', '2021-02-18 00:00');
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (102, 0, 2, '2021-02-13 00:00', '2021-02-20 00:00');
@@ -267,4 +269,7 @@ INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time)
 INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id, therapy_in_days, description) VALUES (10001, '2021-01-13 12:50', '2021-01-13 13:50', 3, 8, 5, 2, 'For therapy I recommend medicine Sinemet. Therapy should last 2 days.');
 INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id, therapy_in_days, description) VALUES (10002, '2021-01-11 12:50', '2021-01-11 13:30', 9, 7, 4, 4, 'For therapy I recommend medicine Vitamin B1. Therapy should last 4 days.');
 
-
+INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (1, 7, 6, 3, '2021-01-11', 'NEW');
+INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (2, 8, 6, 3, '2021-03-11', 'DENIED');
+INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (3, 7, 6, 9, '2021-02-20', 'PROCESSED');
+INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (4, 8, 6, 9, '2021-05-14', 'NEW');
