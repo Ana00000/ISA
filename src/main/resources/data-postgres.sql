@@ -96,7 +96,7 @@ INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude
 
 
 /*password-jovana437334*/
-INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana30356stefanovic@gmail.com', '$2a$10$jE2y9.zdTbKRg9usCa7mP.Gbda96riobY/v8gtM6Kj6SLM65e99GW', 'Smederevo Smederevska 14', '065856-880', 'TRUE', 13);
+--INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana30356stefanovic@gmail.com', '$2a$10$jE2y9.zdTbKRg9usCa7mP.Gbda96riobY/v8gtM6Kj6SLM65e99GW', 'Smederevo Smederevska 14', '065856-880', 'TRUE', 13);
 /*password-igor397829785*/
 INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (8, 'Igor', 'Ostojic', 'pharmacist', 'igor3259ostojic@gmail.com', '$2a$10$12UAB/2GFEuVdoFk55SJFuYbHem61cbMjj5PtKhaPFph/Q5CdXUc.', 'Smederevo Smederevska 15', '061/785587', 'TRUE', 14);
 /*password-sanja3523*/
@@ -149,7 +149,7 @@ VALUES (2000, 450.50, 411, 922, 5, 1, '2021-12-31 15:35', '2021-12-31 17:05', 0)
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
 VALUES (3000, 259.99, 511, 222, 4, 2, '2021-05-04 10:10', '2021-05-04 11:11', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (4000, 300.00, 111, 522, 4, 7, '2021-01-01 23:05', '2021-12-31 23:35', 0);
+VALUES (4000, 300.00, 111, 522, 4, 8, '2021-01-01 23:05', '2021-12-31 23:35', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
 VALUES (5000, 150.50, 211, 722, 5, 9, '2021-07-22 13:20', '2021-07-22 15:00', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
