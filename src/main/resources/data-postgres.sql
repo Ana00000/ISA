@@ -47,7 +47,6 @@ INSERT INTO medicine_ingredient(id, name) VALUES (7, 'Magnesium');
 INSERT INTO medicine_ingredient(id, name) VALUES (8, 'Cellulose');
 INSERT INTO medicine_ingredient(id, name) VALUES (9, 'Betaholol');
 INSERT INTO medicine_ingredient(id, name) VALUES (10, 'Adapalene');
- 
 
 INSERT INTO allergy(id, medicine_ingredient_id) VALUES (1, 9);
 INSERT INTO allergy(id, medicine_ingredient_id) VALUES (2, 7);
@@ -62,8 +61,8 @@ INSERT INTO allergy(id, medicine_ingredient_id) VALUES (10, 3);
 
 
 INSERT INTO medicine_manufacturer(id, name) VALUES (1, 'Allergan India Pvt Ltd');
-INSERT INTO medicine_manufacturer(id, name) VALUES (2, 'Haffkine Bio-pharmaceuticals Corporation Ltd');
-INSERT INTO medicine_manufacturer(id, name) VALUES (3, 'Bharat Serums & Vaccines Ltd');
+INSERT INTO medicine_manufacturer(id, name) VALUES (2, 'Haffkine Bio pharmaceuticals Corporation Ltd');
+INSERT INTO medicine_manufacturer(id, name) VALUES (3, 'Bharat Serums and Vaccines Ltd');
 INSERT INTO medicine_manufacturer(id, name) VALUES (4, 'Walter Bushnell');
 INSERT INTO medicine_manufacturer(id, name) VALUES (5, 'Torrent Pharmaceuticals Ltd');
 
@@ -287,6 +286,13 @@ INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time)
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (105, 0, 7, '2021-02-19 00:00', '2021-02-20 00:00');
 
 
+INSERT INTO medicine_order (id, deadline) VALUES (1, '2021-02-17 10:00');
+
+
+INSERT INTO medicine_order_mapping (order_id, medicine_id, medicine_order_amount) VALUES (1, 3, 30);
+INSERT INTO medicine_order_mapping (order_id, medicine_id, medicine_order_amount) VALUES (1, 1, 25);
+
+
 INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id, therapy_in_days, description) VALUES (10001, '2021-01-13 12:50', '2021-01-13 13:50', 3, 8, 5, 2, 'For therapy I recommend medicine Sinemet. Therapy should last 2 days.');
 INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id, therapy_in_days, description) VALUES (10002, '2021-01-11 12:50', '2021-01-11 13:30', 9, 7, 4, 4, 'For therapy I recommend medicine Vitamin B1. Therapy should last 4 days.');
 
@@ -295,4 +301,3 @@ INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_
 INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (2, 8, 6, 3, '2021-03-11', 'DENIED');
 INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (3, 7, 6, 9, '2021-02-20', 'PROCESSED');
 INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (4, 8, 6, 9, '2021-05-14', 'NEW');
-
