@@ -99,6 +99,7 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.6.0</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.MedicineDTO;
+import com.example.demo.dto.MedicineOrderDTO;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -9,15 +12,15 @@ import java.util.Map;
 public class MedicineOrder {
 
     @Id
-    @SequenceGenerator(name = "orderIdSeqGen", sequenceName = "orderIdSeqGen", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "orderIdSeqGen", sequenceName = "orderIdSeqGen", initialValue = 5, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orderIdSeqGen")
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 
     @ElementCollection
-    @CollectionTable(name = "order_medicine_mapping", joinColumns = @JoinColumn(name = "order_id"))
+    @CollectionTable(name = "medicine_order_mapping", joinColumns = @JoinColumn(name = "order_id"))
     @MapKeyJoinColumn(name = "medicine_id", referencedColumnName = "id")
-    @Column(name = "order_medicine_amount")
+    @Column(name = "medicine_order_amount")
     private Map<Medicine, Integer> medicineAmount = new HashMap<>();
 
     @Column(name="deadline", unique=true, nullable=false)
@@ -31,6 +34,16 @@ public class MedicineOrder {
         this.medicineAmount = medicineAmount;
         this.deadline = deadline;
     }
+
+    public MedicineOrder(MedicineOrderDTO medicineOrderDTO) {
+        this.id = medicineOrderDTO.getId();
+        for (Map.Entry<MedicineDTO, Integer> entry: medicineOrderDTO.getMedicineAmount().entrySet()) {
+            Medicine med = new Medicine(entry.getKey());
+            this.medicineAmount.put(med, entry.getValue());
+        }
+        this.deadline = medicineOrderDTO.getDeadline();
+    }
+
 
     public Long getId() {
         return id;

@@ -47,6 +47,8 @@ export default {
         return;
       }
 
+      alert("Sending emails will take a few moments.");
+
       this.promotionId = Math.floor((Math.random() * 1000000) + 1);
       this.$http.post('http://localhost:8081/promotions/save', this.Promotion)
       .then(resp => {
