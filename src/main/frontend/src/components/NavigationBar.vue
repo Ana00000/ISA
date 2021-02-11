@@ -88,7 +88,7 @@ export default {
 
         this.$http.get('http://localhost:8081/users/redirectMeToMyHomePage', config)
         .then(resp => {
-          this.$router.push(resp.data);
+          window.location.href = resp.data;
         })
         .catch(err => {
           alert('Profile error');
