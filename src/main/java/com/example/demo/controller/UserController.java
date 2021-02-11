@@ -111,9 +111,9 @@ public class UserController {
     		return "http://localhost:8080/pharmacistHomePage";
     	}
     	if(user.getClass() == PharmacyAdmin.class) {
-//    		User user2 = pharmacyAdminService.findByEmail(email);
-//    		return "http://localhost:8080/pharmacyAdmin/profile/"+user2.getId();
-    		return "http://localhost:8080/pharmacyAdmin/profile/11";
+    		User user2 = pharmacyAdminService.findOneByEmail(email);
+    		return "http://localhost:8080/pharmacyAdmin/profile/"+user2.getId();
+//    		return "http://localhost:8080/pharmacyAdmin/profile/11";
     	}
     	return "http://localhost:8080/";
     }

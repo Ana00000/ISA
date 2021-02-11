@@ -21,12 +21,24 @@
             <v-btn flat class="hidden-sm-and-down ma-1" @click="drawer = !drawer">Menu</v-btn>
             <v-spacer class="hidden-sm-and-down"></v-spacer>
             <div  v-if="!isLogged">
-                <v-btn flat class="hidden-sm-and-down"><router-link class="router" to="/login" >Login</router-link></v-btn>
+                <v-btn flat class="hidden-sm-and-down">
+                  <router-link class="router" to="/login">Login</router-link>
+                </v-btn>
             </div>
             <div v-else>
                 <v-btn flat class="hidden-sm-and-down" v-on:click="logoff">Logoff</v-btn>
             </div>
-            <v-btn color="brown lighten-3" class="hidden-sm-and-down ma-1"><router-link class="router" to="/register">Register</router-link></v-btn>
+            <div v-if="!isLogged">
+                <v-btn color="brown lighten-3" class="hidden-sm-and-down ma-1">
+                  <router-link class="router" to="/register">Register</router-link>
+                </v-btn>
+            </div>
+            <div v-else>
+                <v-btn color="brown lighten-3" class="hidden-sm-and-down ma-1" v-on:click="profileFun">
+                  Profile
+                </v-btn>
+            </div>
+
         </v-toolbar>
     </span>
 </template>
@@ -62,10 +74,28 @@ export default {
         }
     },
     methods:{
-        logoff() {
-            localStorage.setItem("token","");
-            window.location.href = "http://localhost:8080/login";
-    },
+      logoff() {
+        localStorage.setItem("token","");
+        window.location.href = "http://localhost:8080/login";
+      },
+      profileFun() {
+        var tokenString= '';
+        tokenString = localStorage.getItem("token");
+
+        const config = {
+          headers: { Authorization: `Bearer ${tokenString}` }
+        };
+
+        this.$http.get('http://localhost:8081/users/redirectMeToMyHomePage', config)
+        .then(resp => {
+          this.$router.push(resp.data);
+        })
+        .catch(err => {
+          alert('Profile error');
+          console.log(err.response.data);
+        })
+
+      }
     }
 }
 </script>
