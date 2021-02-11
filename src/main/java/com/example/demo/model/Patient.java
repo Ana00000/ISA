@@ -14,7 +14,8 @@ public class Patient extends User implements Serializable{
     @Column(name = "subscribedToPromotions", unique = false, nullable = false)
     private Boolean subscribedToPromotions;
 
-    private Long penalties;
+    @Column(name = "penalties", unique = false)
+    private int penalties;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable( name = "patientsOnPromotion", joinColumns = @JoinColumn(name="promotion_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"))
@@ -31,11 +32,11 @@ public class Patient extends User implements Serializable{
     	super(userDTO);
     }
 
-    public Long getPenalties() {
+    public int getPenalties() {
         return penalties;
     }
 
-    public void setPenalties(Long penalties) {
+    public void setPenalties(int penalties) {
         this.penalties = penalties;
     }
 

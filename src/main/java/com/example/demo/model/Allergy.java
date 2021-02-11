@@ -1,12 +1,14 @@
 package com.example.demo.model;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
-public class Allergy {
+public class Allergy implements Serializable {
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 

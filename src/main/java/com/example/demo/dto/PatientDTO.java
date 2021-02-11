@@ -6,7 +6,8 @@ import com.example.demo.model.User;
 import java.io.Serializable;
 
 public class PatientDTO extends UserDTO implements Serializable {
-	private Long penalties;
+	
+	private int penalties;
 
 	public PatientDTO() {
 	}
@@ -16,11 +17,11 @@ public class PatientDTO extends UserDTO implements Serializable {
 		this.penalties = patient.getPenalties();
 	}
 
-	public Long getPenalties() {
+	public int getPenalties() {
 		return penalties;
 	}
 
-	public void setPenalties(Long penalties) {
+	public void setPenalties(int penalties) {
 		this.penalties = penalties;
 	}
 

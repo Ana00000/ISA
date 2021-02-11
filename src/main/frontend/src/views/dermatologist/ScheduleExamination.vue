@@ -78,22 +78,24 @@ export default {
         selectedPatient: null,
         label: 'Patients',
         from: null,
-        to: null
+        to: null,
+        id: null
     }),
     mounted() {
         this.init();
     },
-    created(){
-       axios.get('http://localhost:8081/appointments/allEmptyExaminations/' + this.$route.params.id)
+    methods: {
+        init(){
+            this.getExams();
+            this.getDoctor();
+            this.getPatients();
+        },
+        getExams() {
+            axios.get('http://localhost:8081/appointments/allEmptyExaminations/' + this.$route.params.id)
             .then(res => {
               this.emptyExaminations = res.data;
             })
             .catch(err => console.log(err));
-    },
-    methods: {
-        init(){
-            this.getDoctor();
-            this.getPatients();
         },
         scheduleExamination() {
             this.validationOfInput();
@@ -103,6 +105,15 @@ export default {
             if(this.selected != null) {
                 this.from = new Date(this.selected.startTime);
                 this.to = new Date(this.selected.endTime);
+                this.id = this.selected.id;
+
+                this.$http.put('http://localhost:8081/appointments/setAppointmentAsDone', 
+                {         
+                    id : this.id
+                }).then(resp => {
+                    console.log(resp.data);
+                    alert("Nestao.");
+                }).catch(err => console.log(err));
             }
 
             this.$http.post('http://localhost:8081/appointments/saveExamination', 
@@ -111,14 +122,15 @@ export default {
                 startTime : this.from,
                 endTime : this.to,
                 patient: this.selectedPatient
-            }
-            ).then(resp => {
+            }).then(resp => {
                console.log(resp.data);
-                alert("Examination is created.");
+                alert("Examination is scheduled.");
             }).catch(err => {
                 alert("Doctor or patient is busy at this time.");
                 console.log(err.response.data);
             })
+            
+            setTimeout(this.getExams, 3000);
         },
         validationOfInput() {
             if(this.endTime == null & this.selected == null) {

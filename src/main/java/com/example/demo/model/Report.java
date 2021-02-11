@@ -34,15 +34,17 @@ public class Report {
     @Column(nullable = false)
     private Timestamp endTime;
 
-
     @Column(name="therapyInDays", unique=false)
     private int therapyInDays;
+
+	@Column(name="description", unique=false, nullable=false)
+    private String description;
 
 	public Report() {
 	}
 
 	public Report(Long id, Medicine medicine, Patient patient, Doctor doctor, 
-			Timestamp startTime, Timestamp endTime, int therapyInDays) {
+			Timestamp startTime, Timestamp endTime, int therapyInDays, String description) {
 		super();
 		this.id = id;
 		this.medicine = medicine;
@@ -51,6 +53,7 @@ public class Report {
 		this.startTime = startTime;
 		this.endTime = endTime;
 		this.therapyInDays = therapyInDays;
+		this.description = description;
 	}
 
 	public Long getId() {
@@ -108,11 +111,20 @@ public class Report {
 	public void setTherapyInDays(int therapyInDays) {
 		this.therapyInDays = therapyInDays;
 	}
-  
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((doctor == null) ? 0 : doctor.hashCode());
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -132,6 +144,11 @@ public class Report {
 		if (getClass() != obj.getClass())
 			return false;
 		Report other = (Report) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
 		if (doctor == null) {
 			if (other.doctor != null)
 				return false;
@@ -170,6 +187,7 @@ public class Report {
 	@Override
 	public String toString() {
 		return "Report [id=" + id + ", medicine=" + medicine + ", patient=" + patient + ", doctor=" + doctor
-				+ ", startTime=" + startTime + ", endTime=" + endTime + ", therapyInDays=" + therapyInDays + "]";
+				+ ", startTime=" + startTime + ", endTime=" + endTime + ", therapyInDays=" + therapyInDays
+				+ ", description=" + description + "]";
 	}
 }

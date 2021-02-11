@@ -160,6 +160,22 @@ public class PatientController {
 		patient = patientService.save(patient);
 		return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
 	}
+	
+	@PutMapping(value="/givePenalty")
+	public ResponseEntity<PatientDTO> givePenalty(@RequestBody PatientDTO patientDTO) {
+
+		Patient patient = patientService.findOne(patientDTO.getId());
+
+		if (patient == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		patient.setId(patientDTO.getId());
+		patient.setPenalties(patientDTO.getPenalties()+1);
+			
+		patient = patientService.save(patient);
+		return new ResponseEntity<>(new PatientDTO(patient), HttpStatus.OK);
+	}
 
 	private void setOfValidInputs(Patient patient, PatientDTO patientDTO) {
 		setOfValidName(patient, patientDTO.getName());

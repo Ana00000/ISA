@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import com.example.demo.security.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +15,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.dto.AppointmentDTO;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.model.Appointment;
@@ -40,7 +39,6 @@ import com.example.demo.service.PatientService;
 import com.example.demo.service.PharmacyService;
 import com.example.demo.service.VacationService;
 import com.example.demo.service.email.EmailServiceImpl;
-
 import javax.servlet.http.HttpServletRequest;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -192,6 +190,24 @@ public class AppointmentController {
 		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/allNotEmptyUpcomingExaminations/{id}")
+	public ResponseEntity<List<AppointmentDTO>> getAllNotEmptyUpcomingExaminations(@PathVariable Long id) {
+
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll())
+			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("examination")
+			   & a.getDoctor().getId() == id & a.getPatient() != null
+			   & a.getStatus().getStatusValue() == AppointmentStatusValue.UPCOMING)
+				appointments.add(a);
+
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+	
 	@GetMapping(value = "/allNotEmptyConsultations/{id}")
 	public ResponseEntity<List<AppointmentDTO>> getAllNotEmptyPharmacistConsultations(@PathVariable Long id) {
 
@@ -199,6 +215,24 @@ public class AppointmentController {
 		for(Appointment a : appointmentService.findAll())
 			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("consultation")
 			   & a.getDoctor().getId() == id & a.getPatient() != null)
+				appointments.add(a);
+
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/allNotEmptyUpcomingConsultations/{id}")
+	public ResponseEntity<List<AppointmentDTO>> getAllNotEmptyUpcomingConsultations(@PathVariable Long id) {
+
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll())
+			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("consultation")
+			   & a.getDoctor().getId() == id & a.getPatient() != null
+			   & a.getStatus().getStatusValue() == AppointmentStatusValue.UPCOMING)
 				appointments.add(a);
 
 		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
@@ -231,7 +265,8 @@ public class AppointmentController {
 		
 		List<Appointment> appointments = new ArrayList<>();
 		for(Appointment a : appointmentService.findAll())
-			if(a.getPatient() == null & a.getDoctor().getId() == id)
+			if(a.getPatient() == null & a.getDoctor().getId() == id
+				& a.getStatus().getStatusValue() == AppointmentStatusValue.UPCOMING)
 				appointments.add(a);
 		
 		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
@@ -338,6 +373,7 @@ public class AppointmentController {
 
 		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
 	}
+	
 	@PostMapping(value = "/byDoctor")
 //	@PreAuthorize("hasRole('PHARMACY_ADMIN')")
 	public ResponseEntity<List<AppointmentDTO>> getUpcommingByDoctor(@RequestBody Doctor doctor) {
@@ -358,6 +394,26 @@ public class AppointmentController {
 		}
 
 		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+	
+	@PutMapping(value="/setAppointmentAsDone")
+	public ResponseEntity<AppointmentDTO> setAppointmentAsDone(@RequestBody AppointmentDTO appointmentDTO) {
+
+		Appointment appointment = appointmentService.findOne(appointmentDTO.getId());
+		
+		if (appointment == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
+		appointment.setId(appointmentDTO.getId());
+		
+		AppointmentStatus appointmentStatus = new AppointmentStatus();
+		appointmentStatus.setStatusValue(AppointmentStatusValue.DONE);
+		appointmentStatus = appointmentStatusService.save(appointmentStatus); 
+		appointment.setStatus(appointmentStatus);
+			
+		appointment = appointmentService.save(appointment);
+        return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/saveExamination")
