@@ -150,13 +150,13 @@ VALUES (9000, 700.00, 411, 522, 6, 9, '2021-05-17 08:05', '2021-05-17 09:00', 0)
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
 VALUES (10000, 451.00, 611, 922, 6, 3, '2021-02-13 00:20', '2021-02-13 00:50', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (11000, 251.00, 1111, 1122, null, 3, '2022-07-13 12:20', '2022-07-13 12:50', 0);
+VALUES (11000, 251.00, 1111, 1122, 6, 3, '2022-07-13 12:20', '2022-07-13 12:50', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (12000, 150.00, 1211, 1222, null, 1, '2023-05-15 12:20', '2023-05-15 12:30', 0);
+VALUES (12000, 150.00, 1211, 1222, 6, 1, '2023-05-15 12:20', '2023-05-15 12:30', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (13000, 440.00, 1311, 1322, null, 2, '2022-03-13 12:50', '2022-03-13 14:50', 0);
+VALUES (13000, 440.00, 1311, 422, 6, 2, '2022-03-13 12:50', '2022-03-13 14:50', 0);
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (14000, 240.00, 1411, 1422, null, 3, '2022-02-13 12:50', '2022-02-13 14:50', 0);
+VALUES (14000, 240.00, 1411, 222, 6, 3, '2022-02-13 12:50', '2022-02-13 14:50', 0);
 
 
 INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 1000);

@@ -26,13 +26,13 @@
       <v-list-item-group
         v-model="selected"
         active-class="pink--text"
-        multiple
+        single
       >
         <template v-for="(item, index) in renderingItems">
           <v-list-item :key="item.title">
             <template v-slot:default="{ active }">
               <v-list-item-content >
-                <v-list-item-title  v-text="item.startTime + '-' + item.endTime"></v-list-item-title>
+                <v-list-item-title  v-text="item.localStart + '-' + item.localEnd"></v-list-item-title>
                 <v-list-item-subtitle v-text="'Price: ' + item.price"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Type: ' + item.appointmentType.appointmentTypeValue"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Doctor: ' + item.doctor.name + ' ' + item.doctor.lastName"></v-list-item-subtitle>

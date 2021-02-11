@@ -1,6 +1,8 @@
 package com.example.demo.dto;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import com.example.demo.model.Appointment;
 
 public class AppointmentDTO {
@@ -13,6 +15,8 @@ public class AppointmentDTO {
 	private Timestamp startTime;
 	private Timestamp endTime;
 	private int penalty;
+	private LocalDateTime localStart;
+	private LocalDateTime localEnd;
 	 
 	public AppointmentDTO() {
 	}
@@ -32,6 +36,9 @@ public class AppointmentDTO {
 		if (appointment.getDoctor() != null) 
 			this.doctor = new DoctorDTO(appointment.getDoctor(), appointment.getDoctor().getType());
 		this.penalty = appointment.getPenalty();
+
+		this.localStart = appointment.getStartTime().toLocalDateTime();
+		this.localEnd = appointment.getEndTime().toLocalDateTime();
 	}
 
 	public AppointmentDTO(Long id, double price, AppointmentTypeDTO appointmentType, AppointmentStatusDTO status,
@@ -118,5 +125,21 @@ public class AppointmentDTO {
 
 	public void setPenalty(int penalty) {
 		this.penalty = penalty;
+	}
+
+	public LocalDateTime getLocalStart() {
+		return localStart;
+	}
+
+	public void setLocalStart(LocalDateTime localStart) {
+		this.localStart = localStart;
+	}
+
+	public LocalDateTime getLocalEnd() {
+		return localEnd;
+	}
+
+	public void setLocalEnd(LocalDateTime localEnd) {
+		this.localEnd = localEnd;
 	}
 }
