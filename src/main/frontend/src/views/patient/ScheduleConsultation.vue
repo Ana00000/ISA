@@ -35,22 +35,22 @@
                 <div style="margin-top: 50px;">
                     <v-btn @click="getAvailablePharmacies" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose date and time</h2></v-btn>
                 </div>
-                <div style="background: none; border: none; margin-top: 50px;">
+                <div v-if="pharmacyDiv" style="background: none; border: none; margin-top: 50px;">
                     <item-list-pharmacies @sendPharmacy="receivePharmacy" v-bind:items="availablePharmacies" v-bind:renderingItems="availablePharmacies" v-bind:searchedItems="availablePharmacies"></item-list-pharmacies>
                 </div>
-                <div style="margin-top: 50px;">
+                <div v-if="pharmacyDiv" style="margin-top: 50px;">
                     <v-btn @click="getAvailablePharmacists" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose Pharmacy</h2></v-btn>
                 </div>
-                <div style="background: none; border: none; margin-top: 50px;">
+                <div v-if="pharmacistsDiv" style="background: none; border: none; margin-top: 50px;">
                     <item-list-pharmacists @sendPharmacist="receivePharmacist" v-bind:items="availablePharmacists" v-bind:renderingItems="availablePharmacists" v-bind:searchedItems="availablePharmacists"></item-list-pharmacists>
                 </div>
-                <div style="margin-top: 50px;">
+                <div v-if="pharmacistsDiv" style="margin-top: 50px;">
                     <v-btn @click="getAvailableTimeIntervals" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Choose Pharmacist</h2></v-btn>
                 </div>
-                <div style="background: none; border: none; margin-top: 50px;">
+                <div v-if="timeIntervalDiv" style="background: none; border: none; margin-top: 50px;">
                     <item-list-time-intervals @sendTimeInterval="receiveTimeInterval" v-bind:items="availableTimeIntervals" v-bind:renderingItems="availableTimeIntervals" v-bind:searchedItems="availableTimeIntervals"></item-list-time-intervals>
                 </div>
-                <div style="margin-top: 50px; margin-bottom: 200px;">
+                <div v-if="timeIntervalDiv" style="margin-top: 50px; margin-bottom: 200px;">
                     <v-btn @click="createAppointment" large style="background: linear-gradient(to right, pink, #cdc8fa, pink);"><h2>Schedule Consultation</h2></v-btn>
                 </div>
             </div>
@@ -81,7 +81,10 @@ export default {
             availableTimeIntervals: '',
             pharmacyDTO: '',
             pharmacistDTO: '',
-            timeInterval: ''
+            timeInterval: '',
+            pharmacyDiv: false,
+            pharmacistsDiv: false,
+            timeIntervalDiv: false
         }
     },
     computed:{
@@ -102,6 +105,11 @@ export default {
     methods: {
         getAvailablePharmacies: function(){
             console.log(this.timeStart + " " + this.timeEnd);
+            if(this.timeStart == '' || this.timeStart == "undefined" || this.timeEnd == '' || this.timeEnd == "undefined"){
+                alert("Please enter start and end time");
+                return;
+            }
+            
             axios.post('http://localhost:8081/scheduleConsultation/pharmacies', this.pharmaciesRequest)
                 .then(res => {
                     this.availablePharmacies = res.data;
@@ -110,8 +118,15 @@ export default {
                 .catch(res => {
                     console.log(res);
                 })
+
+            this.pharmacyDiv = !this.pharmacyDiv;
         },
         getAvailablePharmacists: function(){
+            if(this.pharmacyDTO == '' || this.pharmacyDTO == "undefined"){
+                alert("Please choose pharmacy");
+                return;
+            }
+
             axios.post('http://localhost:8081/scheduleConsultation/pharmacists', this.pharmacyDTO)
                 .then(res => {
                     this.availablePharmacists = res.data;
@@ -120,8 +135,14 @@ export default {
                 .catch(res => {
                     console.log(res);
                 })
+
+            this.pharmacistsDiv = !this.pharmacistsDiv;
         },
         getAvailableTimeIntervals: function(){
+            if(this.pharmacistDTO == '' || this.pharmacistDTO == "undefined"){
+                alert("Please choose pharmacist");
+                return;
+            }
             axios.post('http://localhost:8081/scheduleConsultation/timeIntervals', this.pharmacistDTO)
                 .then(res => {
                     this.availableTimeIntervals = res.data;
@@ -130,6 +151,8 @@ export default {
                 .catch(res => {
                     console.log(res);
                 })
+
+            this.timeIntervalDiv = !this.timeIntervalDiv;
         },
         receivePharmacy: function(value){
             this.pharmacyDTO = value;

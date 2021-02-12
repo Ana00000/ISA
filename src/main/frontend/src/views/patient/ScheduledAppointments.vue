@@ -4,7 +4,7 @@
             <div style="width:25%;">
                 <PatientMenu/>
             </div>
-            <div class="panelDiv">
+            <div class="panelDiv" style="width:75%;">
                 <div style="margin: 50px"><h2 class="display-3">Scheduled Appointments</h2></div>
                 <div style="background: none; border: none;">
                     <item-list-appointments v-bind:items="appointments" v-bind:renderingItems="appointments" v-bind:searchedItems="appointments"></item-list-appointments>

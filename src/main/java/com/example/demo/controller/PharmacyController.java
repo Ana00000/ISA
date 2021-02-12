@@ -1,31 +1,41 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.demo.dto.Hadzi.PharmacyDTOHadzi;
+import com.example.demo.dto.PharmacyDTO;
+import com.example.demo.model.*;
+import com.example.demo.security.TokenUtils;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.dto.PharmacyDTO;
-import com.example.demo.dto.Hadzi.PharmacyDTOHadzi;
-import com.example.demo.model.Appointment;
-import com.example.demo.model.Pharmacy;
-import com.example.demo.service.AppointmentService;
-import com.example.demo.service.PharmacyService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/pharmacies", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PharmacyController {
+    @Autowired
+    MedicineReservationService medicineReservationService;
+
+    @Autowired
+    MedicinePrescriptionService medicinePrescriptionService;
+
+    @Autowired
+    PatientService patientService;
+
+    @Autowired
+    AppointmentService appointmentService;
+
+    @Autowired
+    private TokenUtils tokenUtils;
 
     private PharmacyService pharmacyService;
-    private AppointmentService appointmentService;
     
 	@Autowired
     public PharmacyController(PharmacyService pharmacyService, AppointmentService appointmentService) {
@@ -106,4 +116,33 @@ public class PharmacyController {
         }
         return new ResponseEntity<>( pharmaciesDTO, HttpStatus.OK );
 	}
+
+    @GetMapping(value = "/patient")
+    public ResponseEntity<List<PharmacyDTOHadzi>> getAllByPatient(HttpServletRequest request) {
+        String token = tokenUtils.getToken(request);
+        if( token == null ){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        String username = tokenUtils.getUsernameFromToken(token);
+        Patient patient = patientService.findOneByEmail(username);
+
+        List<Pharmacy> pharmacies = pharmacyService.findAll();
+        List<MedicineReservation> medicineReservations = medicineReservationService.findAllByPatient(patient);
+        List<MedicinePrescription> medicinePrescriptions = medicinePrescriptionService.findAllByPatient(patient);
+        List<Appointment> appointments = appointmentService.findAllByPatient(patient);
+
+        List<PharmacyDTOHadzi> pharmacistsDTO = new ArrayList<>();
+        for (Pharmacy p : pharmacies) {
+//            boolean shouldAdd = false;
+//            for(MedicineReservation mr : medicineReservations){
+//                if(mr.getPharmacy().getId() == p.getId()){
+//                    shouldAdd = true;
+//                    break;
+//                }
+//            }
+            pharmacistsDTO.add(new PharmacyDTOHadzi(p));
+        }
+
+        return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
+    }
 }

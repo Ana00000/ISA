@@ -1,10 +1,14 @@
 package com.example.demo.controller;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
+import com.example.demo.dto.AppointmentDTO;
+import com.example.demo.dto.DoctorDTO;
+import com.example.demo.dto.PatientDTO;
+import com.example.demo.model.*;
+import com.example.demo.model.enums.AppointmentStatusValue;
+import com.example.demo.model.enums.AppointmentTypeValues;
+import com.example.demo.security.TokenUtils;
+import com.example.demo.service.*;
+import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,35 +16,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.dto.AppointmentDTO;
-import com.example.demo.dto.PatientDTO;
-import com.example.demo.model.Appointment;
-import com.example.demo.model.AppointmentStatus;
-import com.example.demo.model.AppointmentType;
-import com.example.demo.model.Dermatologist;
-import com.example.demo.model.Doctor;
-import com.example.demo.model.Patient;
-import com.example.demo.model.Pharmacy;
-import com.example.demo.model.Vacation;
-import com.example.demo.model.enums.AppointmentStatusValue;
-import com.example.demo.model.enums.AppointmentTypeValues;
-import com.example.demo.security.TokenUtils;
-import com.example.demo.service.AppointmentService;
-import com.example.demo.service.AppointmentStatusService;
-import com.example.demo.service.AppointmentTypeService;
-import com.example.demo.service.DoctorService;
-import com.example.demo.service.PatientService;
-import com.example.demo.service.PharmacyService;
-import com.example.demo.service.VacationService;
-import com.example.demo.service.email.EmailServiceImpl;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -138,6 +121,44 @@ public class AppointmentController {
 		}
 
 		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+
+	//@PreAuthorize("hasRole('USER')")
+	@GetMapping(value = "/allExaminations/null")
+	public ResponseEntity<List<AppointmentDTO>> getAllExaminationsNull() {
+
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll())
+			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("examination")){
+				if( a.getPatient() == null)
+					appointments.add(a);
+			}
+
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+
+	//@PreAuthorize("hasRole('USER')")
+	@PostMapping("/scheduleExaminationPatient")
+	public ResponseEntity<AppointmentDTO> scheduleExaminationPatient(HttpServletRequest request, @RequestBody  AppointmentDTO appointmentDTO){
+		String token = tokenUtils.getToken(request);
+		if( token == null ){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String username = tokenUtils.getUsernameFromToken(token);
+		Patient patient = patientService.findOneByEmail(username);
+
+		Appointment appointment = appointmentService.findOne(appointmentDTO.getId());
+		appointment.setPatient(patient);
+		appointmentService.save(appointment);
+
+		emailService.sendEmail(patient.getEmail(), "You successfully scheduled examination", "examination");
+
+		return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/allConsultations/{id}")
@@ -711,5 +732,37 @@ public class AppointmentController {
 	    }
 		
 		return 0;
+	}
+
+	@GetMapping(value = "/doctors")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<Set<DoctorDTO>> getDoctorsByPatient(HttpServletRequest request) {
+		//Get patient from session
+		String token = tokenUtils.getToken(request);
+		if( token == null ){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String username = tokenUtils.getUsernameFromToken(token);
+		Patient patient = patientService.findOneByEmail(username);
+
+		List<Appointment> appointments = appointmentService.findAllByPatient(patient);
+
+		Set<DoctorDTO> doctorDTOS = new HashSet<>();
+		for (Appointment a : appointments) {
+			if(a.getStatus().getStatusValue() == AppointmentStatusValue.DONE){
+				DoctorDTO doc = new DoctorDTO(a.getDoctor());
+				Boolean contains = false;
+				for(DoctorDTO d : doctorDTOS){
+					if(d.getId() == doc.getId()){
+						contains = true;
+						break;
+					}
+				}
+				if(!contains)
+					doctorDTOS.add(doc);
+			}
+		}
+
+		return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
 	}
 }

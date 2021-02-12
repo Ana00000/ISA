@@ -20,19 +20,22 @@
                 <router-link class="link" to="/patientReservedMedicine">Medicine Reservations</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Penalty insight</router-link>
+                <router-link class="link" to="/patientPenaltyInsight">Penalty insight</router-link>
             </div>
             <div>
                 <router-link class="link" to="/patientPromotions">Promotions</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacies">Write a complaint</router-link>
+                <router-link class="link" to="/patientWriteComplaint">Write a complaint</router-link>
             </div>
             <div>
                 <router-link class="link" to="/patientReserveMedicine">Reserve medicine</router-link>
             </div>
             <div>
                 <router-link class="link" to="/patientScheduleConsultation">Schedule consultation with pharmacist</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/patientScheduleExamination">Schedule examination with dermatologist</router-link>
             </div>
             <div>
                 <router-link class="link" to="/patientProfile">Profile</router-link>

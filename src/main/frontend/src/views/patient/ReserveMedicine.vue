@@ -4,7 +4,7 @@
             <div style="width:25%;">
                 <PatientMenu/>
             </div>
-            <div class="panelDiv">
+            <div class="panelDiv" style="width:75%;" >
                 <div style="margin: 50px"><h2 class="display-3">Medicine Reservation</h2></div>
                 <div style="background: none; border: none;">
                     <v-card style="margin-left: 90px; margin-right: 90px; padding: 10px;background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Medicine</h2></v-card>

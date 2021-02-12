@@ -32,7 +32,7 @@
           <v-list-item :key="item.title" @click="$emit('sendItemInterval', item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
-                <v-list-item-title  v-text="item.start + ' / ' + item.end"></v-list-item-title>
+                <v-list-item-title  v-text="item.startTime + ' / ' + item.endTime"></v-list-item-title>
               </v-list-item-content>
 
 

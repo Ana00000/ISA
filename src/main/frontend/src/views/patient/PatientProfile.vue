@@ -4,7 +4,7 @@
             <div style="width:25%;">
                 <PatientMenu/>
             </div>
-            <div class="panelDiv">
+            <div class="panelDiv" style="width:50%;">
                 <div style="margin: 50px;"><h2 class="display-3">Personal Data</h2></div>
                 <div style="background: none; border: none; margin-right: 100px;">
                     <v-container fluid class="container">
@@ -74,7 +74,7 @@
                     </v-container>
                 </div>
             </div>
-            <div style="width:25%; margin-top: 10%; margin-right: 10%; ">
+            <div style="width:25%; margin-top: 10%; padding-right: 10%;">
                 <div class="updatePng">
                     <img :src="updatePng" width="350px" height="350px"/>
                 </div>

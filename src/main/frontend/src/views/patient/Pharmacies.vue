@@ -4,7 +4,7 @@
             <div style="width:25%;">
                 <PatientMenu/>
             </div>
-            <div class="panelDiv">
+            <div class="panelDiv" style="width:75%;">
                 <div style="margin: 50px"><h2 class="display-3">Search Pharmacies</h2></div>
                 <div style="background: none; border: none;">
                     <item-list-pharmacies v-bind:items="pharmacies" v-bind:renderingItems="pharmacies" v-bind:searchedItems="pharmacies"></item-list-pharmacies>

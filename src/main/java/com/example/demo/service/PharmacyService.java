@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Medicine;
+import com.example.demo.model.Patient;
 import com.example.demo.model.Pharmacy;
+
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
@@ -29,4 +31,6 @@ public interface PharmacyService {
     void findByFreePharmacists(Time startTime, Time endTime, Date date);
 
     List<Pharmacy> findAllPharmaciesByDermatologist(Long dermatologistId);
+
+    List<Pharmacy> findAllPharmaciesByPatient(Patient patient);
 }
