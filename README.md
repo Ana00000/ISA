@@ -22,6 +22,14 @@ Link to the Trello board:
 Link to YouTube short demo playlist:
 - https://www.youtube.com/playlist?list=PLcsp4ZA6bZLwf49Mknwih-o5vBNujg4ZL - Like, don't share, subscribe :)
 
+In order to run the app entirely follow next instructions:
+
+- Backend must be running on port 8081
+- Frontend must be running on port 8080
+
+
+Database ER model:
+- https://app.diagrams.net/#G1NugbVAyJQ_d3I9LRfwckP5BwQ6tmNoZY
 
 [![Build Status](https://travis-ci.com/Ana00000/ISA.svg?branch=develop)](https://travis-ci.com/Ana00000/ISA)
 
