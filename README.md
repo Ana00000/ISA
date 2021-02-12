@@ -19,6 +19,9 @@ We are working with:
 Link to the Trello board:
 - https://trello.com/b/NXeqJSsg/isa
 
+Link to YouTube short demo playlist:
+- https://www.youtube.com/playlist?list=PLcsp4ZA6bZLwf49Mknwih-o5vBNujg4ZL - Like, don't share, subscribe :)
+
 
 [![Build Status](https://travis-ci.com/Ana00000/ISA.svg?branch=develop)](https://travis-ci.com/Ana00000/ISA)
 
