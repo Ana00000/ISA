@@ -26,14 +26,15 @@
       <v-list-item-group
         v-model="selected"
         active-class="pink--text"
-        multiple
+        single
       >
         <template v-for="(item, index) in renderingItems">
           <v-list-item :key="item.id" @click="$emit('sendPharmacist', item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
                 <v-list-item-title  v-text="item.name + '-' + item.lastName"></v-list-item-title>
-                <v-list-item-subtitle v-text="'Grade: ' + item.grade"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Grade: ' + 4"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Pharmacy: ' + item.pharmacyName"></v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-action>
@@ -71,9 +72,9 @@
     <v-divider></v-divider>
     <div style="margin: 0 auto; width: 100px">
       <v-radio-group v-model="sortCriteria" column>
-        <v-radio value="date" label="Date"></v-radio>
-        <v-radio value="price" label="Price"></v-radio>
-        <v-radio value = "duration" label="Duration"></v-radio>
+        <v-radio value="grade" label="Grade"></v-radio>
+        <v-radio value="name" label="Name"></v-radio>
+        <v-radio value = "pharmacyName" label="PharmacyName"></v-radio>
       </v-radio-group>
     </div>
     <v-btn v-on:click="sort">Sort</v-btn>
@@ -84,14 +85,10 @@
     </div>
     <v-divider></v-divider>
       <div style="margin: 0 auto; width: 100px">
-        <h3 style="margin-top: 20px;">Type</h3>
-        <v-radio-group v-model="filterCriteria" column>
-          <v-radio value="all" label="All"></v-radio>
-          <v-radio value="EXAMINATION" label="Examination"></v-radio>
-          <v-radio value="CONSULTATION" label="Consultation"></v-radio>
-        </v-radio-group>
+        <h3 style="margin-top: 20px;">Pharmacy Name</h3>
+        <input style="background: pink" type="text" v-model="filterCriteria">
       </div>
-    <v-btn v-on:click="filter" >Filter</v-btn>
+    <v-btn style="margin-top:10px;" v-on:click="filter" >Filter</v-btn>
   </v-card>
   
   </v-layout>
@@ -108,7 +105,7 @@
       searchedItems: [],
       filterGrade: 0,
       sortCriteria: 'date',
-      filterCriteria: 'all',
+      filterCriteria: '',
       items: []
     }),
     props: [
@@ -121,7 +118,7 @@
         var i;
         var newArray = [];
         for(i = 0; i < this.items.length; i++){
-          if(this.searchString == '' || this.items[i].name.indexOf(this.searchString) !== -1 || this.items[i].street.indexOf(this.searchString) !== -1 ){
+          if(this.searchString == '' || this.items[i].name.indexOf(this.searchString) !== -1 || this.items[i].pharmacyName.indexOf(this.searchString) !== -1 ){
             newArray.push(this.items[i]);
           }
         }
@@ -132,26 +129,26 @@
         var i;
         var newArray = [];
         for(i = 0; i < this.searchedItems.length; i++){
-          if( this.filterCriteria == 'all' || this.searchedItems[i].appointmentType.appointmentTypeValue == this.filterCriteria ){
+          if( this.filterCriteria == '' || this.searchedItems[i].pharmacyName == this.filterCriteria ){
             newArray.push(this.items[i]);
           }
         }
         this.renderingItems = newArray;
       },
       sort: function(){
-        if(this.sortCriteria == 'date'){
+        if(this.sortCriteria == 'name'){
           this.renderingItems.sort(function(a, b){
-            return a.startTime-b.startTime;
+            return a.name.localCompare(b.name);
           })
-        }else if(this.sortCriteria == 'price'){
+        }else if(this.sortCriteria == 'pharmacyName'){
           this.renderingItems.sort(function(a, b){
-            return a.price - b.price;
+            return a.pharmacyName.localCompare(b.pharmacyName);
           })
         }
         else{
-          this.renderingItems.sort(function(a, b){
-            return Math.abs(a.startTime - a.endTime) - Math.abs(b.startTime - b.endTime);
-          })
+          // this.renderingItems.sort(function(a, b){
+          //   return Math.abs(a.startTime - a.endTime) - Math.abs(b.startTime - b.endTime);
+          // })
         }
       }
     }
