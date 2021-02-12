@@ -26,7 +26,6 @@
       <v-list-item-group
         v-model="selected"
         active-class="pink--text"
-        multiple
       >
         <template v-for="(item, index) in renderingItems">
           <v-list-item :key="item.id">

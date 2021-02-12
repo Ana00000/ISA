@@ -177,7 +177,7 @@ export default {
             axios.post('http://localhost:8081/scheduleConsultation/new', this.createRequest, config)
                 .then(res => {
                     console.log(res);
-                    alert("Successfuly created appointment")
+                    alert("Successfuly created appointment");
                     location.reload();
                 })
                 .catch(res => {

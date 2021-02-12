@@ -66,7 +66,7 @@ export default {
     data() {
         return {
             quantity: '',
-            prahmacyDTO: '',
+            pharmacyDTO: '',
             medicineDTO: '',
             date: '',
             pharmacies: '',
@@ -103,7 +103,8 @@ export default {
             };
 
             console.log("Heeej", this.request );
-            if(this.quantity == '' || this.pharmacyDTO == '' || this.medicineDTO == '' || this.date == '')
+            if(this.quantity == '' || this.pharmacyDTO == '' || this.medicineDTO == '' || this.date == '' ||
+            this.quantity == 'undefined' || this.pharmacyDTO == 'undefined' || this.medicineDTO == 'undefined' || this.date == 'undefined')
             {
                 alert("Please enter all data needed for search :)");
                 return;
