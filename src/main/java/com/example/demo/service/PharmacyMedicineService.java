@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
-import java.util.List;
+import com.example.demo.model.Medicine;
 import com.example.demo.model.PharmacyMedicine;
+
+import java.util.List;
 
 public interface PharmacyMedicineService {
 	
@@ -10,6 +12,8 @@ public interface PharmacyMedicineService {
 	List<PharmacyMedicine> findAll();
 	
     PharmacyMedicine findByMedicineId(Long medicineId);
+
+    List<Medicine> findMedicineByPharmacyId(Long id);
 
 	PharmacyMedicine save(PharmacyMedicine pharmacyMedicine);
 }

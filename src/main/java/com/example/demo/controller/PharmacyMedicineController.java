@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.dto.MedicineDTO;
+import com.example.demo.model.Medicine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,10 +29,10 @@ import com.example.demo.service.email.EmailServiceImpl;
 @RequestMapping(value = "/pharmacyMedicines", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PharmacyMedicineController {
 
-    private PharmacyMedicineService pharmacyMedicineService;
+    private final PharmacyMedicineService pharmacyMedicineService;
     private final EmailServiceImpl emailService;
-    private final PharmacyAdminService pharmacyAdminService;    
-    
+    private final PharmacyAdminService pharmacyAdminService;
+
 	@Autowired
     public PharmacyMedicineController(PharmacyMedicineService pharmacyMedicineService, EmailServiceImpl emailService,
     		PharmacyAdminService pharmacyAdminService) {
@@ -75,23 +77,23 @@ public class PharmacyMedicineController {
 
 		return new ResponseEntity<>(new PharmacyMedicineDTO(pharmacyMedicine), HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/sendMedicineNotification/{id}")
     public ResponseEntity<Void> sendMedicineNotification(@PathVariable Long id) {
-		
+
     	PharmacyMedicine pharmacyMedicine = pharmacyMedicineService.findOne(id);
-		
+
 		for(PharmacyAdmin pa : pharmacyAdminService.findAll()) {
 			if(pharmacyMedicine.getPharmacy().getId() == pa.getPharmacy().getId()) {
 				emailService.sendEmail(pa.getEmail(),"Greetings, there are no more medicine "
 						+pharmacyMedicine.getMedicine().getName()+" in pharmacy "+
-						pharmacyMedicine.getPharmacy().getName()+". Regards, Hospital IsaIBisa", 
+						pharmacyMedicine.getPharmacy().getName()+". Regards, Hospital IsaIBisa",
 					"Medicine need");
 			}
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 	@PutMapping(value="/update")
 	public ResponseEntity<PharmacyMedicineDTO> updatePharmacyMedicine(@RequestBody PharmacyMedicineDTO pharmacyMedicineDTO) {
 
@@ -100,11 +102,25 @@ public class PharmacyMedicineController {
 		if (pharmacyMedicine == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 		pharmacyMedicine.setId(pharmacyMedicineDTO.getId());
 		pharmacyMedicine.setQuantity(pharmacyMedicineDTO.getQuantity()-1);
 
 		pharmacyMedicine = pharmacyMedicineService.save(pharmacyMedicine);
 		return new ResponseEntity<>(new PharmacyMedicineDTO(pharmacyMedicine), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/findMedicineByPharmacyId={id}")
+	public ResponseEntity<List<MedicineDTO>> getMedicineByPharmacyId(@PathVariable Long id) {
+
+		List<Medicine> pharmacyMedicine = pharmacyMedicineService.findMedicineByPharmacyId(id);
+
+		List<MedicineDTO> pharmacyMedicineDTOS = new ArrayList<>();
+		for (Medicine med : pharmacyMedicine) {
+			MedicineDTO medicineDTO = new MedicineDTO(med);
+			pharmacyMedicineDTOS.add(medicineDTO);
+		}
+
+		return new ResponseEntity<>(pharmacyMedicineDTOS, HttpStatus.OK);
 	}
 }

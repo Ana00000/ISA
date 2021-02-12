@@ -23,7 +23,6 @@
                 <v-checkbox v-model="row.item.recipeNeed" readonly>
                 </v-checkbox>
               </td>
-              <td>{{row.item.quantity}}</td>
               <td>
                 <v-text-field v-model="row.item.newQuantity" type="number" color="black">{{row.item.newQuantity}}</v-text-field>
               </td>
@@ -81,7 +80,6 @@ export default {
       { text: 'ID', value: 'id'},
       { text: 'Name', value: 'name' },
       { text: 'Need Recipe', value: 'needRecipe' },
-      { text: 'Quantity', value: 'quantity' },
       { text: 'Order New Quantity ', value: 'newQuantity' }
     ],
     headers2: [
@@ -120,58 +118,58 @@ export default {
         this.$http.get('http://localhost:8081/pharmacies/' + this.admin.pharmacyId).then(resp2 => {
           this.adminsPharmacy = resp2.data;
         });
-        this.$http.get('http://localhost:8081/medicine/findByPharmacyId=' + this.admin.pharmacyId).then(resp2 => {
+
+        var indexes = [];
+        this.$http.get('http://localhost:8081/pharmacyMedicines/findMedicineByPharmacyId=' + this.admin.pharmacyId).then(resp2 => {
           this.medicinesInPharmacy = resp2.data;
-          var indexes = [];
+
 
           for (var i = 0; i < this.medicinesInPharmacy.length; ++i) {
             indexes.push(this.medicinesInPharmacy[i].id);
           }
 
-          this.$http.get('http://localhost:8081/medicine').then(resp2 => {
-            this.allMedicines = resp2.data;
-            console.log(this.allMedicines);
-            var k = 1;
-            for ( var i = 0; i < this.medicinesInPharmacy.length; ++i ) {
-              var med = this.medicinesInPharmacy[i];
-              for ( var j = 0; j < indexes.length; ++j ) {
-                if (med.id === indexes[i]) {
-                  console.log(med.id);
-                  console.log("k = " + k);
-                  this.allMedicines.splice(med.id - k, 1);
-                  ++k;
-                  break;
-                }
-              }
-            }
-          });
+        });
 
-          this.$http.get('http://localhost:8081/medicine').then(resp2 => {
-            this.allMedicineCopy = resp2.data;
-            console.log(this.allMedicineCopy);
-            var k = 1;
-            for ( var i = 0; i < this.medicinesInPharmacy.length; ++i ) {
-              var med = this.medicinesInPharmacy[i];
-              for ( var j = 0; j < indexes.length; ++j ) {
-                if (med.id === indexes[i]) {
-                  console.log(med.id);
-                  console.log("k = " + k);
-                  this.allMedicineCopy.splice(med.id - k, 1);
-                  ++k;
-                  break;
-                }
+        this.$http.get('http://localhost:8081/medicine').then(resp2 => {
+          this.allMedicines = resp2.data;
+          console.log(this.allMedicines);
+          var k = 1;
+          for ( var i = 0; i < this.medicinesInPharmacy.length; ++i ) {
+            var med = this.medicinesInPharmacy[i];
+            for ( var j = 0; j < indexes.length; ++j ) {
+              if (med.id === indexes[i]) {
+                console.log(med.id);
+                console.log("k = " + k);
+                this.allMedicines.splice(med.id - k, 1);
+                ++k;
+                break;
               }
             }
-          });
+          }
+        });
+
+        this.$http.get('http://localhost:8081/medicine').then(resp2 => {
+          this.allMedicineCopy = resp2.data;
+          console.log(this.allMedicineCopy);
+          var k = 1;
+          for ( var i = 0; i < this.medicinesInPharmacy.length; ++i ) {
+            var med = this.medicinesInPharmacy[i];
+            for ( var j = 0; j < indexes.length; ++j ) {
+              if (med.id === indexes[i]) {
+                console.log(med.id);
+                console.log("k = " + k);
+                this.allMedicineCopy.splice(med.id - k, 1);
+                ++k;
+                break;
+              }
+            }
+          }
         });
 
       }).catch(err => {
         console.log('Neki error');
         console.log(err);
       });
-    },
-    onMedicineButtonClick(medicine) {
-      console.log(medicine);
     },
     onConfirm() {
       this.keys = [];

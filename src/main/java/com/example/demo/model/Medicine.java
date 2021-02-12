@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import com.example.demo.dto.MedicineDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.junit.Ignore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,6 +36,10 @@ public class Medicine implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable( name = "ingredientsOfMedicine", joinColumns = @JoinColumn(name="ingredient_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "id"))
     private Set<MedicineIngredient> ingredients = new HashSet<MedicineIngredient>();
+
+//    @JsonIgnore
+//	@Column(name="quantity", unique=false, nullable=true)
+//    private int quantity;
 
     public Medicine() {
     }
