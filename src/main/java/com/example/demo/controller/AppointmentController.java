@@ -123,6 +123,44 @@ public class AppointmentController {
 		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
 	}
 
+	//@PreAuthorize("hasRole('USER')")
+	@GetMapping(value = "/allExaminations/null")
+	public ResponseEntity<List<AppointmentDTO>> getAllExaminationsNull() {
+
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll())
+			if(a.getAppointmentType().getAppointmentTypeValue().getText().contentEquals("examination")){
+				if( a.getPatient() == null)
+					appointments.add(a);
+			}
+
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+
+	//@PreAuthorize("hasRole('USER')")
+	@PostMapping("/scheduleExaminationPatient")
+	public ResponseEntity<AppointmentDTO> scheduleExaminationPatient(HttpServletRequest request, @RequestBody  AppointmentDTO appointmentDTO){
+		String token = tokenUtils.getToken(request);
+		if( token == null ){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String username = tokenUtils.getUsernameFromToken(token);
+		Patient patient = patientService.findOneByEmail(username);
+
+		Appointment appointment = appointmentService.findOne(appointmentDTO.getId());
+		appointment.setPatient(patient);
+		appointmentService.save(appointment);
+
+		emailService.sendEmail(patient.getEmail(), "You successfully scheduled examination", "examination");
+
+		return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
+	}
+
 	@GetMapping(value = "/allConsultations/{id}")
 	public ResponseEntity<List<AppointmentDTO>> getAllPharmacistConsultations(@PathVariable Long id) {
 

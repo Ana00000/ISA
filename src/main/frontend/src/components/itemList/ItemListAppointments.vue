@@ -29,7 +29,7 @@
         single
       >
         <template v-for="(item, index) in renderingItems">
-          <v-list-item :key="item.title">
+          <v-list-item :key="item.id" @click="$emit('sendAppointment',item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
                 <v-list-item-title  v-text="item.localStart + '-' + item.localEnd"></v-list-item-title>

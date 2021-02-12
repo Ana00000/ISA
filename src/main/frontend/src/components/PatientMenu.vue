@@ -35,6 +35,9 @@
                 <router-link class="link" to="/patientScheduleConsultation">Schedule consultation with pharmacist</router-link>
             </div>
             <div>
+                <router-link class="link" to="/patientScheduleExamination">Schedule examination with dermatologist</router-link>
+            </div>
+            <div>
                 <router-link class="link" to="/patientProfile">Profile</router-link>
             </div>
         </v-layout>
