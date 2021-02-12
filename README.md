@@ -35,6 +35,8 @@ Database ER model:
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=62adfa5916c38802afea330d937327c322642b84&metric=alert_status)](https://sonarcloud.io/dashboard?id=62adfa5916c38802afea330d937327c322642b84)
 
+-https://app.diagrams.net/#G1NugbVAyJQ_d3I9LRfwckP5BwQ6tmNoZY
+
 
 
 
