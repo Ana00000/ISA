@@ -107,7 +107,7 @@ INSERT INTO pharmacy_admin(id, name, last_name, email, password, address, phone_
 /*password-jevtic*/
 INSERT INTO pharmacy_admin(id, name, last_name, email, password, address, phone_number, active, pharmacy_id) VALUES (11, 'Atanasije', 'Jevtic', 'jevtic@gmail.com', '$2a$10$WiRklAMPLmZOMenKcpRj0eD/ETboMv.R023hcJqM8RDdA2O6GI8au', 'Novi Sad, Baje Pivljanina 2', '063123456', 'TRUE', 14);
 /*password-nikolovic*/
-INSERT INTO pharmacy_admin(id, name, last_name, email, password, address, phone_number, active, pharmacy_id) VALUES (12, 'Milan', 'Nikolovic', 'nikolovic@gmail.com', '$2a$10$/7WZ6z4KabOS6YucNOESqOuTBnkwUxtddeoEKbFO1ibziiBCSFYtu', 'Novi Sad, Marka Miljanova 21', '062875621', 'TRUE', 15);
+INSERT INTO pharmacy_admin(id, name, last_name, email, password, address, phone_number, active, pharmacy_id) VALUES (12, 'Milan', 'Nikolovic', 'nikolovic@gmail.com', '$2a$10$/7WZ6z4KabOS6YucNOESqOuTBnkwUxtddeoEKbFO1ibziiBCSFYtu', 'Novi Sad, Marka Miljanova 21', '062875621', 'TRUE', 14);
 
 
 INSERT INTO dermatologist_in_pharmacy(pharmacy_id, dermatologist_id) VALUES (14, 1);
@@ -302,11 +302,13 @@ INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time)
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (105, 0, 7, '2021-02-19 00:00', '2021-02-20 00:00');
 
 
-INSERT INTO medicine_order (id, deadline) VALUES (1, '2021-02-17 10:00');
+INSERT INTO medicine_order (id, deadline, pharmacy_admin_id) VALUES (1, '2021-02-11 10:00', 11);
+INSERT INTO medicine_order (id, deadline, pharmacy_admin_id) VALUES (2, '2021-02-12 15:00', 12);
 
 
 INSERT INTO medicine_order_mapping (order_id, medicine_id, medicine_order_amount) VALUES (1, 3, 30);
 INSERT INTO medicine_order_mapping (order_id, medicine_id, medicine_order_amount) VALUES (1, 1, 25);
+INSERT INTO medicine_order_mapping (order_id, medicine_id, medicine_order_amount) VALUES (2, 1, 250);
 
 
 INSERT INTO report(id, end_time, start_time, doctor_id, medicine_id, patient_id, therapy_in_days, description) VALUES (10001, '2021-01-13 12:50', '2021-01-13 13:50', 3, 8, 5, 2, 'For therapy I recommend medicine Sinemet. Therapy should last 2 days.');
@@ -320,3 +322,14 @@ INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_
 INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (5, 8, 4, 9, '2021-05-14', 'NEW');
 INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (6, 8, 5, 9, '2021-05-14', 'NEW');
 INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (7, 8, 6, 9, '2021-05-14', 'NEW');
+
+
+/*password-nenadovic*/
+INSERT INTO supplier(id, name, last_name, email, password, address, phone_number, active) VALUES (19, 'Aleksa', 'Nenadovic', 'nenadovic@gmail.com', '$2a$10$x1WBCRVmwfkjetdsSYcSj.zUVGq2QIvUWKRlHJw4JhcQi.ccgb8t.', 'Kneza Lazara 76', '061343145', 'TRUE');
+/*password-nenadovic*/
+INSERT INTO supplier(id, name, last_name, email, password, address, phone_number, active) VALUES (20, 'Mateja', 'Nenadovic', 'nenadovic.mateja@gmail.com', '$2a$10$x1WBCRVmwfkjetdsSYcSj.zUVGq2QIvUWKRlHJw4JhcQi.ccgb8t.', 'Kneza Lazara 76', '062343145', 'TRUE');
+
+
+INSERT INTO medicine_offer(id, supplier_id, medicine_order_id, cost) VALUES (1, 19, 1, 500);
+INSERT INTO medicine_offer(id, supplier_id, medicine_order_id, cost) VALUES (2, 20, 1, 750);
+INSERT INTO medicine_offer(id, supplier_id, medicine_order_id, cost) VALUES (3, 20, 2, 350);

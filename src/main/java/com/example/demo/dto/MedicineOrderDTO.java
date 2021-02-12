@@ -26,20 +26,32 @@ public class MedicineOrderDTO implements Serializable{
 
     private Timestamp deadline;
 
+    private Long pharmacyAdminId;
+
     public MedicineOrderDTO() {
     }
 
-    public MedicineOrderDTO(Long id, List<MedicineDTO> keys, List<Integer> values, Timestamp deadline) {
+    public MedicineOrderDTO(Long id, List<MedicineDTO> keys, List<Integer> values, Timestamp deadline, Long pharmacyAdminId) {
         this.id = id;
         this.keys = keys;
         this.values = values;
         this.deadline = deadline;
+        this.pharmacyAdminId = pharmacyAdminId;
     }
 
     public MedicineOrderDTO(MedicineOrder medicineOrder) {
         this.id = medicineOrder.getId();
         //this.medicineAmount = medicineOrder.getMedicineAmount();
         this.deadline = medicineOrder.getDeadline();
+        this.pharmacyAdminId = medicineOrder.getPharmacyAdminId();
+    }
+
+    public Long getPharmacyAdminId() {
+        return pharmacyAdminId;
+    }
+
+    public void setPharmacyAdminId(Long pharmacyAdminId) {
+        this.pharmacyAdminId = pharmacyAdminId;
     }
 
     public Long getId() {

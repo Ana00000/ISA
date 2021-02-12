@@ -52,10 +52,7 @@ export default {
     computed:{
         isLogged: function(){
             var token = localStorage.getItem("token");
-            if(token !== ""){
-                return true;
-            }
-            return false;
+            return token !== "";
         },
         
     },

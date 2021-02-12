@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.MedicineDTO;
+import com.example.demo.dto.MedicineOfferDTO;
 import com.example.demo.dto.MedicineOrderDTO;
 import com.example.demo.dto.PatientDTO;
+import com.example.demo.model.MedicineOffer;
 import com.example.demo.model.MedicineOrder;
 import com.example.demo.model.Patient;
+import com.example.demo.service.MedicineOfferService;
 import com.example.demo.service.MedicineOrderService;
 import com.example.demo.service.impl.MedicineOrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +28,12 @@ import java.util.Map;
 public class MedicineOrderController {
 
     private final MedicineOrderService medicineOrderService;
+    private final MedicineOfferService medicineOfferService;
 
     @Autowired
-    public MedicineOrderController(MedicineOrderService medicineOrderService) {
+    public MedicineOrderController(MedicineOrderService medicineOrderService, MedicineOfferService medicineOfferService) {
         this.medicineOrderService = medicineOrderService;
+        this.medicineOfferService = medicineOfferService;
     }
 
     @GetMapping(value = "/all")
@@ -45,6 +50,20 @@ public class MedicineOrderController {
         return new ResponseEntity<>(medicineOrderDTOs, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getAllOrdersByPharmacyId={id}")
+    public ResponseEntity<List<MedicineOrderDTO>> getAllOrdersByPharmacyId(@PathVariable Long id) {
+        System.out.println("------- Get all Orders by Pharmacy ID: " + id + " -------");
+
+        List<MedicineOrder> medicineOrders = medicineOrderService.findAllByPharmacyId(id);
+
+        List<MedicineOrderDTO> medicineOrderDTOs = new ArrayList<>();
+        for (MedicineOrder mo : medicineOrders) {
+            medicineOrderDTOs.add(new MedicineOrderDTO(mo));
+        }
+
+        return new ResponseEntity<>(medicineOrderDTOs, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<MedicineOrderDTO> getOrderById(@PathVariable Long id) {
         System.out.println("------- Get Order by " + id + " -------");
@@ -52,6 +71,22 @@ public class MedicineOrderController {
         MedicineOrderDTO medicineOrderDTO = new MedicineOrderDTO(medicineOrderService.findOne(id));
 
         return new ResponseEntity<>(medicineOrderDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getOffersByMedicineOrderId={id}")
+    public ResponseEntity<List<MedicineOfferDTO>> getOffersByOrderId(@PathVariable Long id) {
+        System.out.println("------- Get Offers by Order Id: " + id + " -------");
+
+        List<MedicineOffer> medicineOffers = medicineOfferService.findAllByOrderId(id);
+
+        List<MedicineOfferDTO> medicineOffersDtos = new ArrayList<>();
+        for (MedicineOffer medicineOffer: medicineOffers) {
+            MedicineOfferDTO medicineOfferDTO = new MedicineOfferDTO(medicineOffer);
+
+            medicineOffersDtos.add(medicineOfferDTO);
+        }
+
+        return new ResponseEntity<>(medicineOffersDtos, HttpStatus.OK);
     }
 
     @PostMapping(value = "/saveOrder")

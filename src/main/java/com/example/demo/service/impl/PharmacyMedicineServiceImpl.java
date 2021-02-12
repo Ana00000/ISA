@@ -43,4 +43,14 @@ public class PharmacyMedicineServiceImpl implements PharmacyMedicineService {
 	public PharmacyMedicine save(PharmacyMedicine pharmacyMedicine) {
 		return pharmacyMedicineRepository.save(pharmacyMedicine);
 	}
+
+	@Override
+	public PharmacyMedicine findByPharmacyIdAndMedicineId(Long pharmacyId, Long medicineId) {
+		return pharmacyMedicineRepository.findByPharmacyIdAndMedicineId(pharmacyId, medicineId);
+	}
+
+	@Override
+	public void updatePharmacyMedicine(PharmacyMedicine pharmacyMedicine) {
+		pharmacyMedicineRepository.updatePharmacyMedicine(pharmacyMedicine);
+	}
 }

@@ -83,6 +83,7 @@ export default {
       this.$http.post('http://localhost:8081/users/register', this.user)
       .then(resp => {
         console.log(resp.data);
+        window.location.href = 'http://localhost:8080/login';
       })
       .catch(er => {
         console.log('Error while registering in');

@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.dto.MedicineDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.example.demo.model.Medicine;
@@ -21,5 +22,11 @@ public interface PharmacyMedicineRepository extends JpaRepository<PharmacyMedici
 
     @Query(value="SELECT med as medicine FROM PharmacyMedicine pm JOIN pm.medicine med JOIN pm.pharmacy ph WHERE ph.id=:pharmacyId")
     List<Medicine> findMedicineByPharmacyId(@Param("pharmacyId") Long id);
+
+    PharmacyMedicine findByPharmacyIdAndMedicineId(Long pharmacyId, Long medicineId);
+
+    @Modifying
+    @Query("UPDATE PharmacyMedicine pm SET pm=:pharmacyMedicine where pm.id=:pharmacyMedicine")
+    void updatePharmacyMedicine(@Param("pharmacyMedicine") PharmacyMedicine pharmacyMedicine);
 
 }
