@@ -141,8 +141,7 @@ INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (5, 1);
 INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 2);
 INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 1);
 INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 3);
-INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 1);
-INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 2);
+
 
 
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
