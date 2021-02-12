@@ -13,6 +13,7 @@ public class MedicineDTO implements Serializable {
     private MedicineManufacturerDTO medicineManufacturer;
     private MedicineShapeDTO medicineShape;
     private List<MedicineIngredientDTO> medicinesIngredients;
+    private List<MedicineDTO> alternativeMedicines;
 
 	public MedicineDTO() {
 	}
@@ -28,10 +29,15 @@ public class MedicineDTO implements Serializable {
         for(MedicineIngredient mi: medicine.getIngredients())
         	medicinesIngredients.add(new MedicineIngredientDTO(mi));
         this.medicinesIngredients = medicinesIngredients;
+   
+		List<MedicineDTO> alternativeMedicines = new ArrayList<MedicineDTO>();
+        for(Medicine m: medicine.getAlternativeMedicine())
+        	alternativeMedicines.add(new MedicineDTO(m));
+        this.alternativeMedicines = alternativeMedicines;
 	}
 	
 	public MedicineDTO(Long id, String name, boolean recipeNeed, MedicineManufacturerDTO medicineManufacturer,
-			MedicineShapeDTO medicineShape, List<MedicineIngredientDTO> medicinesIngredients) {
+			MedicineShapeDTO medicineShape, List<MedicineIngredientDTO> medicinesIngredients, List<MedicineDTO> alternativeMedicines) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,6 +45,7 @@ public class MedicineDTO implements Serializable {
 		this.medicineManufacturer = medicineManufacturer;
 		this.medicineShape = medicineShape;
 		this.medicinesIngredients = medicinesIngredients;
+		this.alternativeMedicines = alternativeMedicines;
 	}
 	
 	public Long getId() {
@@ -69,7 +76,9 @@ public class MedicineDTO implements Serializable {
 		return medicineManufacturer;
 	}
 	
-	public void setMedicineManufacturer(MedicineManufacturerDTO medicineManufacturer) { this.medicineManufacturer = medicineManufacturer; }
+	public void setMedicineManufacturer(MedicineManufacturerDTO medicineManufacturer) { 
+		this.medicineManufacturer = medicineManufacturer; 
+	}
 	
 	public MedicineShapeDTO getMedicineShape() {
 		return medicineShape;
@@ -87,10 +96,19 @@ public class MedicineDTO implements Serializable {
 		this.medicinesIngredients = medicinesIngredients;
 	}
 
+	public List<MedicineDTO> getAlternativeMedicines() {
+		return alternativeMedicines;
+	}
+
+	public void setAlternativeMedicines(List<MedicineDTO> alternativeMedicines) {
+		this.alternativeMedicines = alternativeMedicines;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((alternativeMedicines == null) ? 0 : alternativeMedicines.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((medicineManufacturer == null) ? 0 : medicineManufacturer.hashCode());
 		result = prime * result + ((medicineShape == null) ? 0 : medicineShape.hashCode());
@@ -109,6 +127,11 @@ public class MedicineDTO implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		MedicineDTO other = (MedicineDTO) obj;
+		if (alternativeMedicines == null) {
+			if (other.alternativeMedicines != null)
+				return false;
+		} else if (!alternativeMedicines.equals(other.alternativeMedicines))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;

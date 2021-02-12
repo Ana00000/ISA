@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.demo.service.PharmacyService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.dto.MedicineDTO;
 import com.example.demo.model.Allergy;
 import com.example.demo.model.Medicine;
 import com.example.demo.service.AllergyService;
 import com.example.demo.service.MedicineService;
 import com.example.demo.service.PatientService;
+import com.example.demo.service.PharmacyService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -80,6 +82,40 @@ public class MedicineController {
 
 		List<MedicineDTO> medicinesDTO = new ArrayList<>();
 		for(Medicine m : medicines){
+			medicinesDTO.add(new MedicineDTO(m));
+		}
+		return new ResponseEntity<>(medicinesDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/healthyAlternativeMedicineForPatient/{id}")
+	public ResponseEntity<List<MedicineDTO>> getHealthyAlternativeMedicineForPatient(@PathVariable Long id) {
+
+		List<Medicine> healthyMedicines = new ArrayList<Medicine>();
+		
+		for(Medicine m: medicineService.findAll()) {
+        	if(m.getAlternativeMedicine() != null) {
+        		for(Medicine am : m.getAlternativeMedicine()) {
+        				healthyMedicines.add(am);
+        		}
+        	}	
+        }
+
+        for(Medicine m: medicineService.findAll()) {
+        	if(m.getAlternativeMedicine() != null) {
+        		for(Medicine am : m.getAlternativeMedicine()) {
+			        for(Allergy a: allergyService.findAll()) {
+			        	if(am.getIngredients().contains(a.getMedicineIngredient())
+			        	& patientService.findOne(id).getAllergies().contains(a)) {
+			        		healthyMedicines.remove(am);
+			        	}
+			        }
+        		}
+        	}
+        }
+
+		List<MedicineDTO> medicinesDTO = new ArrayList<>();
+		for(Medicine m : healthyMedicines){
+			//System.out.println(m.getAlternativeMedicine());
 			medicinesDTO.add(new MedicineDTO(m));
 		}
 		return new ResponseEntity<>(medicinesDTO, HttpStatus.OK);

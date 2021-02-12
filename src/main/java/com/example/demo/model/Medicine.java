@@ -37,10 +37,6 @@ public class Medicine implements Serializable {
     @JoinTable( name = "ingredientsOfMedicine", joinColumns = @JoinColumn(name="ingredient_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "id"))
     private Set<MedicineIngredient> ingredients = new HashSet<MedicineIngredient>();
 
-//    @JsonIgnore
-//	@Column(name="quantity", unique=false, nullable=true)
-//    private int quantity;
-
     public Medicine() {
     }
 

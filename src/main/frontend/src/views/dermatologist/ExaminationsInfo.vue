@@ -10,6 +10,25 @@
         <div class="welcomingHint">Double click that button :)</div>
         <br/>
 
+         <v-card width="10%" height="120px" class="sort">
+            <div>
+            <h2>Sort by</h2>
+            </div>
+            <v-divider/>
+            <v-radio-group v-model="sortOption" column class="sortChoice">
+                <v-radio class="optionButtons" value="startTime" label="Date of examination" color="#aba7ff"/>
+            </v-radio-group>
+            <br/><br/>
+            <v-btn v-on:click="sortExams" 
+                color="#aba7ff"
+                elevation="24"
+                x-large
+                raised
+                rounded>
+                    Sort
+            </v-btn>
+        </v-card>
+
         <v-container>
         <v-layout row wrap>
             <v-card
@@ -38,7 +57,7 @@
             </v-card>
 
             <v-card
-                class="notEmptyIds" style="width: 10%; height: 550px; overflow-y: scroll">
+                class="notEmptyIds" style="width: 10%; height: 320px; overflow-y: scroll">
                 <v-toolbar
                 color="#13077d" dark>
                 <v-text-field
@@ -173,7 +192,8 @@ export default {
         selectedMedicine: null,
         therapyInDays: 0,
         pharmacy: null,
-        pharmacyMedicine: null
+        pharmacyMedicine: null,
+        sortOption: 'startTime'
     }),
     mounted() {
         this.init();
@@ -236,10 +256,12 @@ export default {
                 }else if(this.pharmacy.id != this.pharmacyMedicine.pharmacy.id){
                     alert("Medicine is not in current pharmacy. Choose another one!");
                     this.$http.get('http://localhost:8081/pharmacyMedicines/sendMedicineNotification/'+this.pharmacyMedicine.id).then().catch(err => console.log(err));
+                    this.getAlternativeMedicines();
                     return;
                 }else if(this.pharmacyMedicine.quantity < 0){
                     alert("There is no more of this medicine. Choose another one!")
                     this.$http.get('http://localhost:8081/pharmacyMedicines/sendMedicineNotification/'+this.pharmacyMedicine.id).then().catch(err => console.log(err));
+                    this.getAlternativeMedicines();
                     return;
                 }
 
@@ -323,6 +345,16 @@ export default {
                     this.medicines = resp.data;
             }).catch(err => console.log(err));
         },
+        getAlternativeMedicines() {
+            this.$http.get('http://localhost:8081/medicine/healthyAlternativeMedicineForPatient/' + this.selected.patient.id).then(resp => {
+                    this.medicines = resp.data;
+            }).catch(err => console.log(err));
+        },
+        sortExams() {
+            if(this.sortOption == 'startTime'){
+                return this.examinations.sort((a, b) => new Date(a.startTime) - new Date(b.startTime))
+            }
+        },
         text: item => item.name
     }
 }
@@ -373,6 +405,18 @@ export default {
 
 .notEmptyIds {
     left: 70px;
+}
+
+.sort {
+    position: absolute;
+    left: 745px;
+    bottom: 200px;
+}
+
+.sortChoice {
+    padding-top: 15px;
+    padding-left: 5px;
+    padding-bottom: 5px;
 }
 
 .space {
