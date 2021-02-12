@@ -1,16 +1,15 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.AppointmentDTO;
-import com.example.demo.dto.DoctorDTO;
-import com.example.demo.dto.Hadzi.MedicineReservationDTOHadzi;
-import com.example.demo.dto.PatientDTO;
-import com.example.demo.model.*;
-import com.example.demo.model.enums.AppointmentStatusValue;
-import com.example.demo.model.enums.AppointmentTypeValues;
-import com.example.demo.model.enums.MedicineReservationStatusValue;
-import com.example.demo.security.TokenUtils;
-import com.example.demo.service.*;
-import com.example.demo.service.email.EmailServiceImpl;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,11 +17,37 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
-import java.util.*;
+import com.example.demo.dto.AppointmentDTO;
+import com.example.demo.dto.DoctorDTO;
+import com.example.demo.dto.PatientDTO;
+import com.example.demo.model.Appointment;
+import com.example.demo.model.AppointmentStatus;
+import com.example.demo.model.AppointmentType;
+import com.example.demo.model.Dermatologist;
+import com.example.demo.model.Doctor;
+import com.example.demo.model.Patient;
+import com.example.demo.model.Pharmacy;
+import com.example.demo.model.Vacation;
+import com.example.demo.model.enums.AppointmentStatusValue;
+import com.example.demo.model.enums.AppointmentTypeValues;
+import com.example.demo.security.TokenUtils;
+import com.example.demo.service.AppointmentService;
+import com.example.demo.service.AppointmentStatusService;
+import com.example.demo.service.AppointmentTypeService;
+import com.example.demo.service.DoctorService;
+import com.example.demo.service.PatientService;
+import com.example.demo.service.PharmacyService;
+import com.example.demo.service.VacationService;
+import com.example.demo.service.email.EmailServiceImpl;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -289,6 +314,50 @@ public class AppointmentController {
 			if(a.getPatient() == null & a.getDoctor().getId() == id
 				& a.getStatus().getStatusValue() == AppointmentStatusValue.UPCOMING)
 				appointments.add(a);
+		
+		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
+		for (Appointment a : appointments) {
+			appointmentsDTO.add(new AppointmentDTO(a));
+		}
+
+		return new ResponseEntity<>(appointmentsDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/patientsFromDoneAppointmentsByDoctor/{id}")
+	public ResponseEntity<List<PatientDTO>> getPatientsFromDoneAppointmentsByDoctor(@PathVariable Long id) {
+		
+		List<Patient> patients = new ArrayList<>();
+		
+		for(Appointment a : appointmentService.findAll()) {
+			if(a.getDoctor().getId() == id
+				& a.getStatus().getStatusValue() == AppointmentStatusValue.DONE) {
+					patients.add(a.getPatient());
+			}
+		}
+		
+		List<PatientDTO> patientsDTO = new ArrayList<>();
+		for (Patient p : patients) {
+			patientsDTO.add(new PatientDTO(p));
+		}
+
+		return new ResponseEntity<>(patientsDTO, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/appointmentsOfPatientsByDoctor/{id}")
+	public ResponseEntity<List<AppointmentDTO>> getAppointmentsOfPatientsByDoctor(@PathVariable Long id) {
+		
+		List<Patient> patients = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll()) 
+			if(a.getDoctor().getId() == id
+				& a.getStatus().getStatusValue() == AppointmentStatusValue.DONE) 
+					patients.add(a.getPatient());
+		
+		List<Appointment> appointments = new ArrayList<>();
+		for(Appointment a : appointmentService.findAll()) 
+			if(a.getPatient() != null) 
+				for(Patient p : patients)
+					if(a.getPatient().getId() == p.getId())
+						appointments.add(a);
 		
 		List<AppointmentDTO> appointmentsDTO = new ArrayList<>();
 		for (Appointment a : appointments) {

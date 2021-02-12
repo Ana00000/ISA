@@ -6,7 +6,7 @@
                 <router-link class="link" to="/dermatologistHomePage">Home page</router-link>
             </div>
             <div>
-                <router-link class="link" to="/dermatologistHomePage/clients">Clients</router-link>
+                <router-link class="link" to="/dermatologistHomePage/clients/:id">Clients</router-link>
             </div>
             <div >
                 <router-link class="link" to="/dermatologistHomePage/examinationsInfo/:id">Examinations info</router-link>

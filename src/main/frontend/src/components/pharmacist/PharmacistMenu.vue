@@ -5,7 +5,7 @@
                 <router-link class="link" to="/pharmacistHomePage">Home page</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/clients">Clients</router-link>
+                <router-link class="link" to="/pharmacistHomePage/clients/:id">Clients</router-link>
             </div>
             <div >
                 <router-link class="link" to="/pharmacistHomePage/consultationsInfo/:id">Consultations info</router-link>
