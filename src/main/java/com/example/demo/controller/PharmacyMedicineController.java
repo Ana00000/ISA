@@ -10,14 +10,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.PharmacyMedicineDTO;
+import com.example.demo.model.PharmacyAdmin;
 import com.example.demo.model.PharmacyMedicine;
-import com.example.demo.service.MedicineService;
+import com.example.demo.service.PharmacyAdminService;
 import com.example.demo.service.PharmacyMedicineService;
-import com.example.demo.service.PharmacyService;
+import com.example.demo.service.email.EmailServiceImpl;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -25,15 +28,15 @@ import com.example.demo.service.PharmacyService;
 public class PharmacyMedicineController {
 
     private PharmacyMedicineService pharmacyMedicineService;
-    private MedicineService medicineService;
-    private PharmacyService pharmacyService;
+    private final EmailServiceImpl emailService;
+    private final PharmacyAdminService pharmacyAdminService;    
     
 	@Autowired
-    public PharmacyMedicineController(PharmacyMedicineService pharmacyMedicineService,
-    		MedicineService medicineService, PharmacyService pharmacyService) {
+    public PharmacyMedicineController(PharmacyMedicineService pharmacyMedicineService, EmailServiceImpl emailService,
+    		PharmacyAdminService pharmacyAdminService) {
         this.pharmacyMedicineService = pharmacyMedicineService;
-        this.medicineService = medicineService;
-        this.pharmacyService = pharmacyService;
+        this.emailService = emailService;
+        this.pharmacyAdminService = pharmacyAdminService;
     }
 	
 	@GetMapping(value = "/all")
@@ -70,6 +73,38 @@ public class PharmacyMedicineController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
+		return new ResponseEntity<>(new PharmacyMedicineDTO(pharmacyMedicine), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/sendMedicineNotification/{id}")
+    public ResponseEntity<Void> sendMedicineNotification(@PathVariable Long id) {
+		
+    	PharmacyMedicine pharmacyMedicine = pharmacyMedicineService.findOne(id);
+		
+		for(PharmacyAdmin pa : pharmacyAdminService.findAll()) {
+			if(pharmacyMedicine.getPharmacy().getId() == pa.getPharmacy().getId()) {
+				emailService.sendEmail(pa.getEmail(),"Greetings, there are no more medicine "
+						+pharmacyMedicine.getMedicine().getName()+" in pharmacy "+
+						pharmacyMedicine.getPharmacy().getName()+". Regards, Hospital IsaIBisa", 
+					"Medicine need");
+			}
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@PutMapping(value="/update")
+	public ResponseEntity<PharmacyMedicineDTO> updatePharmacyMedicine(@RequestBody PharmacyMedicineDTO pharmacyMedicineDTO) {
+
+		PharmacyMedicine pharmacyMedicine = pharmacyMedicineService.findOne(pharmacyMedicineDTO.getId());
+
+		if (pharmacyMedicine == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		pharmacyMedicine.setId(pharmacyMedicineDTO.getId());
+		pharmacyMedicine.setQuantity(pharmacyMedicineDTO.getQuantity()-1);
+
+		pharmacyMedicine = pharmacyMedicineService.save(pharmacyMedicine);
 		return new ResponseEntity<>(new PharmacyMedicineDTO(pharmacyMedicine), HttpStatus.OK);
 	}
 }

@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,12 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.dto.PharmacyDTO;
 import com.example.demo.dto.Hadzi.PharmacyDTOHadzi;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.Pharmacy;
-import com.example.demo.model.PharmacyMedicine;
 import com.example.demo.service.AppointmentService;
 import com.example.demo.service.PharmacyService;
 

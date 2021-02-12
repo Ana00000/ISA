@@ -7,6 +7,7 @@
         <br/>
         <label class="welcoming">For selected examination you can give penal for absence of the patient or create report!</label>
         <div class="welcomingHint">If you choose report than you can add a medicine therapy in it. Therapy is optional!</div>
+        <div class="welcomingHint">Double click that button :)</div>
         <br/>
 
         <v-container>
@@ -21,7 +22,7 @@
                     v-model="selected"
                     active-class="indigo--text">
                     <template v-for="(examination, id) in examinations">
-                    <v-list-item :key="examination.id" :value="examination">
+                    <v-list-item :key="examination.id" :value="examination" @mouseover="getMedicines">
                         <template>  
                         <v-list-item-content>
                             <v-list-item-subtitle v-text="'Id: '+examination.id + ' , Patient: '+examination.patient.name + ' ' + examination.patient.lastName"></v-list-item-subtitle>
@@ -58,7 +59,7 @@
                         </v-list-item-content>
                         </template>
                     </v-list-item>
-                    <v-divider v-if="id <examinations.length-1" :key="id"/>
+                    <v-divider v-if="`A-${id}` <examinations.length-1" :key="`A-${id}`"/>
                     </template>
                 </v-list-item-group>
                 </v-list>
@@ -66,7 +67,7 @@
         </v-layout>
         </v-container>
 
-        <v-container fluid class="descriptionInput" v-on:click="getMedicines">
+        <v-container fluid class="descriptionInput">
             <v-row>
             <v-col cols="7"/>
             <v-col cols="3">
@@ -98,7 +99,7 @@
                         </v-list-item-content>
                         </template>
                     </v-list-item>
-                    <v-divider v-if="id <medicines.length-1" :key="id"/>
+                    <v-divider v-if="`B-${id}` <medicines.length-1" :key="`B-${id}`"/>
                     </template>
                 </v-list-item-group>
                 </v-list>
@@ -118,17 +119,6 @@
                 </v-col>
                 </v-row>
         </v-container>
-
-        <div class="availabilityButton">
-            <v-btn
-                v-on:click="isAvailable" 
-                color="#aba7ff"
-                elevation="24"
-                x-large
-                raised
-                rounded
-            >Check availability</v-btn>
-        </div>
 
         <div class="penalButton">
             <v-btn
@@ -182,7 +172,8 @@ export default {
         medicines: [],
         selectedMedicine: null,
         therapyInDays: 0,
-        pharmacy: null
+        pharmacy: null,
+        pharmacyMedicine: null
     }),
     mounted() {
         this.init();
@@ -225,11 +216,43 @@ export default {
             }else if(this.selectedMedicine != null & this.therapyInDays <= 0){
                 alert("Therapy length isn't valid.");
                 return;
-            }else if(this.selectedMedicine != null & !(this.therapyInDays >= 0)){
-                alert("Therapy days are incorrect.");
-                return;
             }
 
+            if(this.selectedMedicine != null & this.therapyInDays != 0){
+                this.$http.get('http://localhost:8081/pharmacies/pharmacyByAppointment/' + this.selected.id)
+                .then(resp => {
+                    this.pharmacy = resp.data;
+                }).catch(err => console.log(err));
+            
+                this.$http.get('http://localhost:8081/pharmacyMedicines/findPharmacyMedicineByMedicine/' + this.selectedMedicine.id)
+                .then(resp => {
+                    this.pharmacyMedicine = resp.data;
+                }).catch(err => console.log(err));
+            }
+
+            if(this.selectedMedicine != null & this.therapyInDays != 0){
+                if(this.pharmacy.id == this.pharmacyMedicine.pharmacy.id & this.pharmacyMedicine.quantity > 0){
+                    alert("Medicine is available!");
+                }else if(this.pharmacy.id != this.pharmacyMedicine.pharmacy.id){
+                    alert("Medicine is not in current pharmacy. Choose another one!");
+                    this.$http.get('http://localhost:8081/pharmacyMedicines/sendMedicineNotification/'+this.pharmacyMedicine.id).then().catch(err => console.log(err));
+                    return;
+                }else if(this.pharmacyMedicine.quantity < 0){
+                    alert("There is no more of this medicine. Choose another one!")
+                    this.$http.get('http://localhost:8081/pharmacyMedicines/sendMedicineNotification/'+this.pharmacyMedicine.id).then().catch(err => console.log(err));
+                    return;
+                }
+
+                this.$http.put('http://localhost:8081/pharmacyMedicines/update', 
+                {         
+                    id : this.pharmacyMedicine.id,
+                    quantity : this.pharmacyMedicine.quantity
+                }
+                ).then(resp => {
+                    console.log(resp.data);
+                }).catch(err => console.log(err));
+            }
+            
             this.$http.post('http://localhost:8081/reports/saveReport', 
             {         
                 doctor : this.doctor,
@@ -252,7 +275,7 @@ export default {
                 alert("Appointment is finished.");
             }).catch(err => console.log(err));
 
-            setTimeout(this.getExams, 2000);
+            setTimeout(this.getExams, 3000);
         },
         givePenal() {
             if(this.selected != null) {
@@ -297,16 +320,7 @@ export default {
         },
         getMedicines() {
             this.$http.get('http://localhost:8081/medicine/healthyMedicineForPatient/' + this.selected.patient.id).then(resp => {
-                resp.data.forEach(medicine => {
-                    this.medicines.push(medicine);
-                });
-            }).catch(err => console.log(err));
-        },
-        isAvailable() {
-            this.$http.get('http://localhost:8081/pharmacies/pharmacyByAppointment/' + this.selected.id)
-            .then(resp => {
-                this.pharmacy = resp.data;
-                console.log(this.pharmacy);
+                    this.medicines = resp.data;
             }).catch(err => console.log(err));
         },
         text: item => item.name
@@ -341,14 +355,8 @@ export default {
 
 .days {
     position: absolute;
-    right: 260px;
+    right: 140px;
     top: 620px;
-}
-
-.availabilityButton {
-    position: absolute;
-    right: 300px;
-    bottom: 220px;
 }
 
 .penalButton {
@@ -359,7 +367,7 @@ export default {
 
 .reportButton {
     position: absolute;
-    right: 400px;
+    right: 440px;
     bottom: 100px;
 }
 
@@ -368,6 +376,6 @@ export default {
 }
 
 .space {
-    height: 131px;
+    height: 81px;
 }
 </style>

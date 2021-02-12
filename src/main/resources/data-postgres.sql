@@ -225,6 +225,10 @@ INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (70
 INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (704, 13, 4, 25);
 INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (705, 14, 5, 4);
 INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (706, 15, 6, 100);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (707, 14, 7, 56);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (708, 14, 8, 11);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (709, 13, 9, 2);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (710, 15, 10, 17);
 
 
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (1, 3);

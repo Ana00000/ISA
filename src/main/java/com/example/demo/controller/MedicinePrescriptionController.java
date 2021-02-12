@@ -1,12 +1,9 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.AppointmentDTO;
 import com.example.demo.dto.MedicineDTO;
 import com.example.demo.dto.MedicinePrescriptionDTO;
-import com.example.demo.model.Appointment;
 import com.example.demo.model.MedicinePrescription;
 import com.example.demo.model.Patient;
-import com.example.demo.model.enums.AppointmentStatusValue;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.service.MedicinePrescriptionService;
 import com.example.demo.service.PatientService;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashSet;

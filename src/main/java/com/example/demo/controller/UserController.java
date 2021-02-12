@@ -7,7 +7,6 @@ import com.example.demo.model.Pharmacist;
 import com.example.demo.model.PharmacyAdmin;
 import com.example.demo.model.User;
 import com.example.demo.security.ResourceConflictException;
-import com.example.demo.security.TokenBasedAuthentication;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.security.UserTokenState;
 import com.example.demo.service.DermatologistService;
@@ -15,9 +14,6 @@ import com.example.demo.service.PatientService;
 import com.example.demo.service.PharmacyAdminService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.CustomUserDetailsService;
-import io.jsonwebtoken.Jwt;
-import junit.framework.Test;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,16 +23,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 import java.util.Random;
-
-import java.net.InetSocketAddress;
-import java.util.List;
-import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

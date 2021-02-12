@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.example.demo.model.Pharmacy;
-import com.example.demo.model.PharmacyMedicine;
 
 public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
 

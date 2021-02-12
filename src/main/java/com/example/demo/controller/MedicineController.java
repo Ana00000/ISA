@@ -67,5 +67,4 @@ public class MedicineController {
 		}
 		return new ResponseEntity<>(medicinesDTO, HttpStatus.OK);
 	}
-
 }
