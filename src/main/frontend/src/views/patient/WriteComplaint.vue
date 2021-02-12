@@ -105,7 +105,8 @@ export default {
             }
             this.$http.post('http://localhost:8081/complaint/new', reqq, config).then(resp => {
             console.log(resp.data);
-            this.pharmacies = resp.data;
+            alert("Successful complaint");
+            location.reload();
         }).catch(err => console.log(err));
         },
         receivePharmacist: function(value){
