@@ -145,9 +145,11 @@ export default {
 
       console.log(this.selectedOffer);
 
+      alert("This action will take a few moments");
+
       this.$http.post('http://localhost:8081/medicineOffers/chosenOffer', this.selectedOffer)
       .then(resp => {
-          alert("You have successfuly chosen on of the offers");
+          alert("You have successfuly chosen on of the offers. E-mails have been sent.");
           console.log(resp.data);
           this.$router.back();
       })

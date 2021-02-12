@@ -2,11 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.MedicineOfferDTO;
 import com.example.demo.dto.MedicineOrderDTO;
-import com.example.demo.model.Medicine;
-import com.example.demo.model.MedicineOffer;
-import com.example.demo.model.MedicineOrder;
-import com.example.demo.model.PharmacyMedicine;
+import com.example.demo.model.*;
+import com.example.demo.repository.SupplierRepository;
 import com.example.demo.service.*;
+import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
@@ -26,21 +25,24 @@ public class MedicineOfferController {
 
     private final MedicineOrderService medicineOrderService;
     private final MedicineOfferService medicineOfferService;
-    private final MedicineService medicineService;
+    private final EmailServiceImpl emailService;
     private final PharmacyMedicineService pharmacyMedicineService;
     private final PharmacyService pharmacyService;
+    private final SupplierService supplierService;
 
     @Autowired
     public MedicineOfferController(MedicineOrderService medicineOrderService,
                                    MedicineOfferService medicineOfferService,
-                                   MedicineService medicineService,
+                                   EmailServiceImpl emailService,
                                    PharmacyMedicineService pharmacyMedicineService,
-                                   PharmacyService pharmacyService) {
+                                   PharmacyService pharmacyService,
+                                   SupplierService supplierService) {
         this.medicineOrderService = medicineOrderService;
         this.medicineOfferService = medicineOfferService;
-        this.medicineService = medicineService;
+        this.emailService = emailService;
         this.pharmacyMedicineService = pharmacyMedicineService;
         this.pharmacyService = pharmacyService;
+        this.supplierService = supplierService;
     }
 
     @GetMapping(value = "/all")
@@ -61,8 +63,36 @@ public class MedicineOfferController {
     public ResponseEntity<MedicineOfferDTO> chosenOffer(@RequestBody List<MedicineOfferDTO> medicineOfferDTOs) {
         System.out.println("------- Chosen offer -------");
 
+
+
         MedicineOfferDTO medicineOfferDTO = medicineOfferDTOs.get(0);
         System.out.println(medicineOfferDTO.toString());
+
+        List<MedicineOffer> deniedMedicineOffers = medicineOfferService.findAllByOrderId(medicineOfferDTO.getMedicineOrder().getId());
+
+        MedicineOffer acceptedMedicineOffer = medicineOfferService.findOne(medicineOfferDTO.getId());
+
+        deniedMedicineOffers.remove(acceptedMedicineOffer);
+
+        System.out.println("=============================================");
+        Supplier acceptedSupplier = supplierService.findOne(acceptedMedicineOffer.getSupplier().getId());
+
+        System.out.println("Accepted:" + acceptedSupplier.getEmail());
+        String body = " Dear " + acceptedSupplier.getName() + " " + acceptedSupplier.getLastName() + ",\n" +
+                "Hereby We want to inform you that your application for our order under number: " + acceptedMedicineOffer.getMedicineOrder().getId() +
+                "\n\nhas been ACCEPTED. Thank You for being our partner.\n\n Sincerely Yours,\nIsaIBisa Team";
+        String topic = "Your offer has been ACCEPTED!";
+        emailService.sendEmail(acceptedSupplier.getEmail(), body, topic);
+
+        for(MedicineOffer medicineOffer : deniedMedicineOffers){
+            Supplier deniedSupplier = supplierService.findOne(medicineOffer.getSupplier().getId());
+            System.out.println("Denied: " + deniedSupplier.getEmail());
+            String body1 = "Dear " + acceptedSupplier.getName() + " " + acceptedSupplier.getLastName() + ",\n" +
+                    "Hereby We want to inform you that your application for our order under number: " + acceptedMedicineOffer.getMedicineOrder().getId() +
+                    "\n\nhas been DENIED. Thank You for being our partner.\n\n Sincerely Yours,\nIsaIBisa Team";
+            String topic1 = "Your offer has been DENIED!";
+            emailService.sendEmail(deniedSupplier.getEmail(), body1, topic1);
+        }
 
         MedicineOrder medicineOrder = medicineOrderService.findOne(medicineOfferDTO.getMedicineOrder().getId());
 
@@ -106,6 +136,8 @@ public class MedicineOfferController {
         catch (Exception e) {
             System.out.println("Medicine Order already deleted!");
         }
+
+        supplierService.save(acceptedSupplier);
 
         return new ResponseEntity<>(medicineOfferDTO, HttpStatus.OK);
     }
