@@ -22,9 +22,6 @@
         <v-btn color="success" class="mx-auto mb-5" v-on:click="login">
           Login
         </v-btn>
-        <v-btn color="success" class="mx-auto mb-5" v-on:click="proba">
-          Proba
-        </v-btn>
       </v-card-actions>
     </v-card>
     
@@ -80,33 +77,33 @@ export default {
         console.log('Error while logging in');
         console.log(er.response.data);
       })
-    },
-    proba() {
-      alert("radi");
-      var tokenString= '';
-      tokenString = localStorage.getItem("token");
-
-      const bodyParameters = {
-        name: "stefan",
-        lastName: "petrovic"
-      };
-      const config = {
-          headers: { Authorization: `Bearer ${tokenString}` }
-      };
-
-      // axios.get( 
-      //   'http://localhost:8081/patients/all',
-      //   config
-      // ).then(console.log)
-      // .catch(console.log);
-
-      axios.post( 
-        'http://localhost:8081/users/test',
-        bodyParameters,
-        config
-      ).then(console.log)
-      .catch(console.log);
     }
+    // proba() {
+    //   alert("radi");
+    //   var tokenString= '';
+    //   tokenString = localStorage.getItem("token");
+    //
+    //   const bodyParameters = {
+    //     name: "stefan",
+    //     lastName: "petrovic"
+    //   };
+    //   const config = {
+    //       headers: { Authorization: `Bearer ${tokenString}` }
+    //   };
+    //
+    //   // axios.get(
+    //   //   'http://localhost:8081/patients/all',
+    //   //   config
+    //   // ).then(console.log)
+    //   // .catch(console.log);
+    //
+    //   axios.post(
+    //     'http://localhost:8081/users/test',
+    //     bodyParameters,
+    //     config
+    //   ).then(console.log)
+    //   .catch(console.log);
+    // }
   }
 };
 

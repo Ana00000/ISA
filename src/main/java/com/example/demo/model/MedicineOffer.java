@@ -11,13 +11,13 @@ import javax.persistence.*;
 public class MedicineOffer {
 
     @Id
-    @SequenceGenerator(name = "medicineOfferIdSeqGen", sequenceName = "medicineOfferIdSeqGen", initialValue = 100, allocationSize = 1)
+    @SequenceGenerator(name = "medicineOfferIdSeqGen", sequenceName = "medicineOfferIdSeqGen", initialValue = 10, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "medicineOfferIdSeqGen")
     @Column(name="id", unique=true, nullable=false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="pharmacy_id", referencedColumnName = "id")
+    @JoinColumn(name="supplier_id", referencedColumnName = "id")
     @JsonManagedReference //this will be serialized
     private Supplier supplier;
 
