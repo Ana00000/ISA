@@ -793,6 +793,7 @@ public class AppointmentController {
 
 		//if good, cancel it
 		appointment.setStatus(appointmentStatusService.findOne(222L));
+		appointment.setPatient(null);
 		appointmentService.save(appointment);
 
 		return new ResponseEntity<>("success", HttpStatus.OK);
