@@ -95,7 +95,7 @@ export default {
   }),
   computed: {
     order() {
-      return { 'deadline': this.dateAndTime, 'keys': this.keys, 'values': this.values }
+      return { 'deadline': this.dateAndTime, 'keys': this.keys, 'values': this.values, 'pharmacyAdminId': this.admin.id }
     }
   },
   methods: {

@@ -26,13 +26,17 @@ public class MedicineOrder {
     @Column(name="deadline", unique=false, nullable=false)
     private Timestamp deadline;
 
+    @Column(name="pharmacyAdminId", unique=false, nullable=false)
+    private Long pharmacyAdminId;
+
     public MedicineOrder() {
     }
 
-    public MedicineOrder(Long id, Map<Medicine, Integer> medicineAmount, Timestamp deadline) {
+    public MedicineOrder(Long id, Map<Medicine, Integer> medicineAmount, Timestamp deadline, Long pharmacyAdminId) {
         this.id = id;
         this.medicineAmount = medicineAmount;
         this.deadline = deadline;
+        this.pharmacyAdminId = pharmacyAdminId;
     }
 
     public MedicineOrder(MedicineOrderDTO medicineOrderDTO) {
@@ -42,8 +46,16 @@ public class MedicineOrder {
             this.medicineAmount.put(med, entry.getValue());
         }
         this.deadline = medicineOrderDTO.getDeadline();
+        this.pharmacyAdminId = medicineOrderDTO.getPharmacyAdminId();
     }
 
+    public Long getPharmacyAdminId() {
+        return pharmacyAdminId;
+    }
+
+    public void setPharmacyAdminId(Long pharmacyAdminId) {
+        this.pharmacyAdminId = pharmacyAdminId;
+    }
 
     public Long getId() {
         return id;
