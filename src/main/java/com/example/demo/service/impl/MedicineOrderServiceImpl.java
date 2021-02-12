@@ -3,15 +3,18 @@ package com.example.demo.service.impl;
 
 import com.example.demo.model.Medicine;
 import com.example.demo.model.MedicineOrder;
-import com.example.demo.model.User;
 import com.example.demo.repository.MedicineOrderRepository;
 import com.example.demo.service.MedicineOrderService;
+import org.postgresql.core.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MedicineOrderServiceImpl implements MedicineOrderService {
@@ -27,6 +30,19 @@ public class MedicineOrderServiceImpl implements MedicineOrderService {
     @Override
     public MedicineOrder findOne(Long id) {
         return medicineOrderRepository.findFirstById(id);
+    }
+
+    @Override
+    public List<MedicineOrder> findAllByPharmacyId(Long pharmacyAdminId) { return medicineOrderRepository.findAllByPharmacyId(pharmacyAdminId); }
+
+    @Override
+    public List<HashMap<Medicine, Integer>> findMedicineAmountById(Long medicineOrderId) {
+//        List<Tuple> list = medicineOrderRepository.findMedicineAmountById(medicineOrderId);
+//        HashMap<Medicine, Integer> hashMap = new HashMap<>();
+//        for (Tuple tuple : list) {
+//            hashMap.put();
+//        }
+        return medicineOrderRepository.findMedicineAmountById(medicineOrderId);
     }
 
     @Override

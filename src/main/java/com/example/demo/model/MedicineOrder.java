@@ -2,10 +2,14 @@ package com.example.demo.model;
 
 import com.example.demo.dto.MedicineDTO;
 import com.example.demo.dto.MedicineOrderDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -79,6 +83,16 @@ public class MedicineOrder {
 
     public void setDeadline(Timestamp deadline) {
         this.deadline = deadline;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicineOrder{" +
+                "id=" + id +
+                ", medicineAmount=" + medicineAmount +
+                ", deadline=" + deadline +
+                ", pharmacyAdminId=" + pharmacyAdminId +
+                '}';
     }
 }
 

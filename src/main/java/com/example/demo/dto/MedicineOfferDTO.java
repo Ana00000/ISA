@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.MedicineOffer;
 import com.example.demo.model.MedicineOrder;
 import com.example.demo.model.PharmacyAdmin;
 import com.example.demo.model.Supplier;
@@ -21,6 +22,13 @@ public class MedicineOfferDTO implements Serializable {
     private PharmacyAdminDTO pharmacyAdmin;
 
     public MedicineOfferDTO() {
+    }
+
+    public MedicineOfferDTO(MedicineOffer medicineOffer) {
+        this.id = medicineOffer.getId();
+        this.cost = medicineOffer.getCost();
+        this.medicineOrder = new MedicineOrderDTO(medicineOffer.getMedicineOrder());
+        this.supplier = new SupplierDTO(medicineOffer.getSupplier());
     }
 
     public MedicineOfferDTO(Long id, SupplierDTO supplier, MedicineOrderDTO medicineOrder, int cost, PharmacyAdminDTO pharmacyAdmin) {
@@ -69,5 +77,16 @@ public class MedicineOfferDTO implements Serializable {
 
     public void setPharmacyAdmin(PharmacyAdminDTO pharmacyAdmin) {
         this.pharmacyAdmin = pharmacyAdmin;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicineOfferDTO{" +
+                "id=" + id +
+                ", supplier=" + supplier +
+                ", medicineOrder=" + medicineOrder +
+                ", cost=" + cost +
+                ", pharmacyAdmin=" + pharmacyAdmin +
+                '}';
     }
 }

@@ -11,15 +11,6 @@
             <v-btn style="margin: 0 auto" class="buttons" v-on:click="goToPharmacyProfile">Pharmacy profile</v-btn>
           </v-list-item>
           <v-list-item>
-            <v-btn style="margin: 0 auto" class="buttons">Reserve medicine</v-btn>
-          </v-list-item>
-          <v-list-item>
-            <v-btn style="margin: 0 auto" class="buttons">check if medicine is available via E-Receipt</v-btn>
-          </v-list-item>
-          <v-list-item>
-            <v-btn style="margin: 0 auto" class="buttons">define new appointment with pharmacist</v-btn>
-          </v-list-item>
-          <v-list-item>
             <v-btn style="margin: 0 auto" class="buttons" v-on:click="defineAppWithDermatologist">define new appointment with dermatologist</v-btn>
           </v-list-item>
           <v-list-item>
@@ -27,6 +18,9 @@
           </v-list-item>
           <v-list-item>
             <v-btn style="margin: 0 auto" class="buttons" v-on:click="defineMedicineOrder">define new medicine order</v-btn>
+          </v-list-item>
+          <v-list-item>
+            <v-btn style="margin: 0 auto" class="buttons" v-on:click="chooseMedicineOffer">Choose medicine offer</v-btn>
           </v-list-item>
         </v-list>
         <div>
@@ -103,6 +97,9 @@ name: "PharmacyAdminProfile",
     },
     defineMedicineOrder() {
       this.$router.push('/pharmacyAdmin/defineMedicineOrder');
+    },
+    chooseMedicineOffer() {
+      this.$router.push('/pharmacyAdmin/chooseMedicineOffer');
     }
 
   }
