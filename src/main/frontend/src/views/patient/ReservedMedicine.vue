@@ -50,7 +50,10 @@ export default {
             this.reservedMedicine = value;
         },
         cancelReservation: function(){
-            axios.post('http://localhost:8081/medicineReservation/cancel', this.reservedMedicine)
+            const config = {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            };
+            axios.post('http://localhost:8081/medicineReservation/cancel', this.reservedMedicine, config)
                 .then(res => {
                     console.log(res);
                     location.reload();

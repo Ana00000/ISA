@@ -82,7 +82,7 @@ public class MedicineReservationController {
     }
    
     @PostMapping(value = "/create")
-    public ResponseEntity<MedicineReservationDTOHadzi> createReservation(HttpServletRequest request, @RequestBody MedicineReservationDTOHadzi reservationRequest) {
+    public ResponseEntity<String> createReservation(HttpServletRequest request, @RequestBody MedicineReservationDTOHadzi reservationRequest) {
         //Need to get patient from session
         //validate DTO data for null
 
@@ -100,27 +100,29 @@ public class MedicineReservationController {
         if( pharmacyMedicine == null ){
             //This pharmacy doesn't contain this medicine, we need to send user to another pharmacy
             System.out.println("pharmacy medicine = null");
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("This pharmacy doesn't contain chosen medicine, try another one",HttpStatus.INTERNAL_SERVER_ERROR);
         }
         System.out.println("Hello there");
         System.out.println("Kolicina: " + pharmacyMedicine.getQuantity() + " / " + reservationRequest.getQuantity() );
         //check patients penalties
         if( patient.getPenalties() > 3){
             //not allowed
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("You are not allowed to reserve medicine, you have 3 or more penalties :/", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //check if patient is allergic
         for(Allergy allergy : patient.getAllergies()){
-            if(medicine.getIngredients().contains(allergy.getMedicineIngredient())){
-                //If he is allergic he can't take the drug
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            for(MedicineIngredient mi : medicine.getIngredients()){
+                if(mi.getId() == allergy.getMedicineIngredient().getId()){
+                    //If he is allergic he can't take the drug
+                    return new ResponseEntity<>("You can't reserve the medicine, you are allergic to it. Care of yourself.", HttpStatus.INTERNAL_SERVER_ERROR);
+                }
             }
         }
         //check if pharmacy has enough quantity
         if( reservationRequest.getQuantity() >= pharmacyMedicine.getQuantity() ){
             //Exception
             System.out.println("too few quantity");
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Not enough quantity. You can reserve " + pharmacyMedicine.getQuantity(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         //save reservation
@@ -139,12 +141,18 @@ public class MedicineReservationController {
 
         emailService.sendEmail(patient.getEmail(), "New Reservation", "reservation");
 
-        return new ResponseEntity<>(reservationRequest, HttpStatus.OK);
+        return new ResponseEntity<>("successful", HttpStatus.OK);
     }
 
     @PostMapping(value = "/cancel")
-    public ResponseEntity<MedicineReservationDTO> cancelReservation(@RequestBody MedicineReservationDTO reservationRequest) {
-        Patient patient = patientService.findOne(4L);
+    public ResponseEntity<MedicineReservationDTO> cancelReservation(HttpServletRequest request, @RequestBody MedicineReservationDTO reservationRequest) {
+        String token = tokenUtils.getToken(request);
+        if( token == null ){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        String username = tokenUtils.getUsernameFromToken(token);
+
+        Patient patient = patientService.findOneByEmail(username);
         Medicine medicine = medicineService.findOne(reservationRequest.getMedicineDTO().getId());
         Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyDTO().getId());
         PharmacyMedicine pharmacyMedicine = medicineReservationService.findByMedicineAndPharmacy(medicine, pharmacy);
@@ -158,6 +166,8 @@ public class MedicineReservationController {
 
         if(reservationRequest.getPickUpDate().before(date)){
             //cannot cancel reservation, If patient don't pick up medicine he get's one penalty
+            patient.setPenalties(patient.getPenalties() + 1);
+            patientService.save(patient);
             System.out.println("Invalid date");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
