@@ -5,25 +5,25 @@
                 <router-link class="link" to="/pharmacistHomePage">Home page</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/clients/:id">Clients</router-link>
+                <router-link class="link" to="/pharmacistHomePage/clients">Clients</router-link>
             </div>
             <div >
-                <router-link class="link" to="/pharmacistHomePage/consultationsInfo/:id">Consultations info</router-link>
+                <router-link class="link" to="/pharmacistHomePage/consultationsInfo">Consultations info</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/workingSchedule/:id">Working schedule</router-link>
+                <router-link class="link" to="/pharmacistHomePage/workingSchedule">Working schedule</router-link>
             </div>
             <div>
                 <router-link class="link" to="/pharmacistHomePage/prescriptions">Prescriptions</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/vacationsAndAbsences/:id">Vacations and absences</router-link>
+                <router-link class="link" to="/pharmacistHomePage/vacationsAndAbsences">Vacations and absences</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/profile/:id">Profile</router-link>
+                <router-link class="link" to="/pharmacistHomePage/profile">Profile</router-link>
             </div>
             <div>
-                <router-link class="link" to="/pharmacistHomePage/scheduleConsultation/:id">Schedule consultation</router-link>
+                <router-link class="link" to="/pharmacistHomePage/scheduleConsultation">Schedule consultation</router-link>
             </div>
         </v-layout>
     </v-container>

@@ -30,11 +30,11 @@ INSERT INTO appointment_type(id, appointment_type_value) VALUES (1311, 1);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (1411, 1);
 
 /*password-mirina3982*/
-INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (1, 'Mirina', 'Ikaric', 'dermatologist', 'mirina456ikaric@gmail.com', '$2a$10$xhd/SpXVM6Kc15Jz2UPuNutpqR2LoJgr3.vbnEPwnNPoRKe0He26S','Beograd ulica 2','065870094', 'TRUE');
+INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (1, 'Mirina', 'Ikaric', 'dermatologist', 'mirina46ikaric@gmail.com', '$2a$10$QqMGdVGgZ1/4XfawMUObzOhTbHNa2rBb.PnNf1t6reW7yFmEhMzn2','Beograd ulica 2','065870094', 'TRUE');
 /*password-janko320923*/
-INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (2, 'Janko', 'Micic', 'dermatologist', 'janko307micic@gmail.com', '$2a$10$0dWKPjlB0zzJRjSNWzOuFuuCCW5Ds./Jof7cO75SEjSgHyzvhjMI6','Beograd ulica 3','021888654', 'TRUE');
+INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (2, 'Janko', 'Micic', 'dermatologist', 'janko307micic@gmail.com', '$2a$10$QIr3Owwuak7feKrEdQiN.u8RNQkbzbnTqmY50uCAtpOB6Ene.BxZu','Beograd ulica 3','021888654', 'TRUE');
 /*password-sofija25323*/
-INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (3, 'Sofija', 'Josipovic', 'dermatologist', 'sofija2242josipovic@gmail.com', '$2a$10$kQnV8QlLXyHLayldfTd0ney0fJscvCxN6HVlfAXKqD7fUMr7Q0Ye.','Beograd ulica 4','063870637', 'TRUE');
+INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (3, 'Sofija', 'Josipovic', 'dermatologist', 'sofija2242josipovic@gmail.com', '$2a$10$OD1CAVFcuoeq3jFpd/DKS.UXOo.mPMAYsj2zdymtEAZcr/hNpJCim','Beograd ulica 4','063870637', 'TRUE');
 
 
 INSERT INTO medicine_ingredient(id, name) VALUES (1, 'Ceftaroline');
@@ -95,11 +95,11 @@ INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude
 
 
 /*password-jovana437334*/
-INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana30356stefanovic@gmail.com', '$2a$10$jE2y9.zdTbKRg9usCa7mP.Gbda96riobY/v8gtM6Kj6SLM65e99GW', 'Smederevo Smederevska 14', '065856-880', 'TRUE', 13);
-/*password-igor397829785*/
-INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (8, 'Igor', 'Ostojic', 'pharmacist', 'igor3259ostojic@gmail.com', '$2a$10$12UAB/2GFEuVdoFk55SJFuYbHem61cbMjj5PtKhaPFph/Q5CdXUc.', 'Smederevo Smederevska 15', '061/785587', 'TRUE', 14);
+INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana3035stefanovic@gmail.com', '$2a$10$.YCwwaB.Kk97ooP8fTPbweefVgoc5gWmGCJ9rjm15dOCbgSK0ppiy', 'Smederevo Smederevska 14', '065856-880', 'TRUE', 13);
+/*password-gojkic*/
+INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (8, 'Gojko', 'Ostojic', 'pharmacist', 'gojko@gmail.com', '$2a$10$yBd0w059I67GfhwwOIN8YOsmhBF2TF9TL3tBpizUyCcPb2gynAYpW', 'Smederevo Smederevska 15', '061/785587', 'TRUE', 14);
 /*password-sanja3523*/
-INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (9, 'Sanja', 'Petrovic', 'pharmacist', 'sanja205petrovic@gmail.com', '$2a$10$pZxrk6lTEFPp8mJf4KO06.80cekPFgss4LvNOyFxpcBtxXmqIDZw6', 'Smederevo Smederevska 28', '063/956-231', 'TRUE', 15);
+INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (9, 'Sanja', 'Petrovic', 'pharmacist', 'sanja20petrovic@gmail.com', '$2a$10$ubZ6XLKqO6WMyiS/pV9sjelyLxKKuWG7SfK4.g4HWJw0jj/tgh4Ve', 'Smederevo Smederevska 28', '063/956-231', 'TRUE', 15);
 
 
 /*password-markovic*/
@@ -289,9 +289,18 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACY_ADMIN');
 
 
+INSERT INTO user_authority (user_id, authority_id) VALUES (1, 3);
+INSERT INTO user_authority (user_id, authority_id) VALUES (2, 3);
+INSERT INTO user_authority (user_id, authority_id) VALUES (3, 3);
 INSERT INTO user_authority (user_id, authority_id) VALUES (4, 1);
 INSERT INTO user_authority (user_id, authority_id) VALUES (5, 1);
 INSERT INTO user_authority (user_id, authority_id) VALUES (6, 1);
+INSERT INTO user_authority (user_id, authority_id) VALUES (7, 4);
+INSERT INTO user_authority (user_id, authority_id) VALUES (8, 4);
+INSERT INTO user_authority (user_id, authority_id) VALUES (9, 4);
+INSERT INTO user_authority (user_id, authority_id) VALUES (10, 5);
+INSERT INTO user_authority (user_id, authority_id) VALUES (11, 5);
+INSERT INTO user_authority (user_id, authority_id) VALUES (12, 5);
 
 
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (101, 0, 1, '2021-02-17 00:00', '2021-02-18 00:00');

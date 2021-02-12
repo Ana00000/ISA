@@ -170,26 +170,37 @@ export default {
         type: '',
         workingInPharmacy: [],
         userImage: userImage,        
-        examinations: []
+        examinations: [],
+        dermatologist: []
     }),
     mounted() {
         this.init();
     },
-    created(){
-        axios.get('http://localhost:8081/appointments/allNotEmptyExaminations/' + this.$route.params.id)
+    methods: {
+        init() {
+          var tokenString = '';
+          tokenString = localStorage.getItem("token");
+          const config = {
+            headers: {Authorization: `Bearer ${tokenString}`}
+          };
+          
+          this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+          ).then(resp => {
+              this.dermatologist = resp.data
+              this.setDermatologist();
+              this.getExams();
+              this.setPharmacy();
+          }).catch(console.log);
+        },
+        getExams(){
+            axios.get('http://localhost:8081/appointments/allNotEmptyExaminations/' + this.dermatologist.id)
             .then(res => {
               this.examinations = res.data;
             })
             .catch(err => console.log(err));
-    },
-    methods: {
-        init() {
-            this.setDermatologist();
-            this.setPharmacy();
         },
         setDermatologist() {
-            this.id = this.$route.params.id;
-            this.$http.get('http://localhost:8081/dermatologists/' + this.id).then(resp => {
+            this.$http.get('http://localhost:8081/dermatologists/' + this.dermatologist.id).then(resp => {
                 console.log(resp.data);
                 this.setDermatologistInfo(resp.data);
             }).catch(err => console.log(err));

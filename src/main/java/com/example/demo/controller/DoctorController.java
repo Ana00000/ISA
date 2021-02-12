@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,21 @@ public class DoctorController {
 	public DoctorController(DoctorService doctorService) {
 		this.doctorService = doctorService;
 	}
+	
+	@GetMapping("/findLoggedDoctor")
+    public ResponseEntity<DoctorDTO> findLoggedDoctor(Authentication authentication) {
+
+        System.out.println("User: " + authentication.getName());
+
+        Doctor doctor = doctorService.findOneByEmail(authentication.getName());
+
+        if (doctorService == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+        DoctorDTO doctorDTO = new DoctorDTO(doctor);
+        return new ResponseEntity<>(doctorDTO, HttpStatus.OK);
+    }
 	
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<DoctorDTO>> getAllDoctors() {

@@ -193,15 +193,26 @@ export default {
         therapyInDays: 0,
         pharmacy: null,
         pharmacyMedicine: null,
-        sortOption: 'startTime'
+        sortOption: 'startTime',
+        dermatologist: null
     }),
     mounted() {
         this.init();
     },
     methods: {
         init() {
-            this.getExams();
-            this.getDoctor();
+          var tokenString = '';
+          tokenString = localStorage.getItem("token");
+          const config = {
+            headers: {Authorization: `Bearer ${tokenString}`}
+          };
+          
+          this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+          ).then(resp => {
+              this.dermatologist = resp.data
+              this.getExams();
+              this.getDoctor();
+          }).catch(console.log);
         },
         searchQuery() {
             var resultOfSearch = [];
@@ -328,12 +339,12 @@ export default {
             setTimeout(this.getExams, 2000);
         },
         getDoctor() {
-            this.$http.get('http://localhost:8081/dermatologists/' + this.$route.params.id).then(resp => {
+            this.$http.get('http://localhost:8081/dermatologists/' + this.dermatologist.id).then(resp => {
                 this.doctor = resp.data;
             }).catch(err => console.log(err));
         },
         getExams() {
-             axios.get('http://localhost:8081/appointments/allNotEmptyUpcomingExaminations/' + this.$route.params.id)
+             axios.get('http://localhost:8081/appointments/allNotEmptyUpcomingExaminations/' + this.dermatologist.id)
             .then(res => {
               this.examinations = res.data;
               this.examinationsCopy = res.data

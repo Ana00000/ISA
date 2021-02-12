@@ -30,7 +30,8 @@ export default {
         }
       },
       selectedDate: new Date(2021, 1, 15),
-      pharmacies: []
+      pharmacies: [],
+      dermatologist: null
   }),
   mounted() {
       this.init();
@@ -43,16 +44,26 @@ export default {
   },
   methods: {
     init() {
-      this.getVacation();
-      this.getExaminations();
+      var tokenString = '';
+      tokenString = localStorage.getItem("token");
+      const config = {
+        headers: {Authorization: `Bearer ${tokenString}`}
+      };
+      
+      this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+      ).then(resp => {
+        this.dermatologist = resp.data
+        this.getVacation();
+        this.getExaminations();
+      }).catch(console.log);
     },
     getVacation() {
-      axios.get('http://localhost:8081/vacations/doctorVacation/' + this.$route.params.id).then(resp => {
+      axios.get('http://localhost:8081/vacations/doctorVacation/' +  this.dermatologist.id).then(resp => {
           this.setVacationInfo(resp.data);
       }).catch(err => console.log(err));
     },
     getExaminations() {
-      axios.get('http://localhost:8081/appointments/allExaminations/' + this.$route.params.id).then(resp => {
+      axios.get('http://localhost:8081/appointments/allExaminations/' +  this.dermatologist.id).then(resp => {
           this.setExaminationInfo(resp.data);
       }).catch(err => console.log(err));
     },

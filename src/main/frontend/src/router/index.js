@@ -119,32 +119,32 @@ const routes = [
     component: () => import('../views/dermatologist/DermatologistHomePage.vue')
   },
   {
-    path: '/dermatologistHomePage/clients/:id',
+    path: '/dermatologistHomePage/clients',
     name: 'DermatologistClients',
     component: () => import('../views/dermatologist/DermatologistClients.vue')
   },
   {
-    path: '/dermatologistHomePage/examinationsInfo/:id',
+    path: '/dermatologistHomePage/examinationsInfo',
     name: 'ExaminationsInfo',
     component: () => import('../views/dermatologist/ExaminationsInfo.vue')
   },
   {
-    path: '/dermatologistHomePage/workingSchedule/:id',
+    path: '/dermatologistHomePage/workingSchedule',
     name: 'DermatologistWorkingSchedule',
     component: () => import('../views/dermatologist/DermatologistWorkingSchedule.vue')
   },
   {
-    path: '/dermatologistHomePage/vacationsAndAbsences/:id',
+    path: '/dermatologistHomePage/vacationsAndAbsences',
     name: 'DermatologistVacationsAndAbsences',
     component: () => import('../views/dermatologist/DermatologistVacationsAndAbsences.vue')
   },
   {
-    path: '/dermatologistHomePage/profile/:id',
+    path: '/dermatologistHomePage/profile',
     name: 'DermatologistProfile',
     component: () => import('../views/dermatologist/DermatologistProfile.vue')
   },
   {
-    path: '/dermatologistHomePage/scheduleExamination/:id',
+    path: '/dermatologistHomePage/scheduleExamination',
     name: 'ScheduleExamination',
     component: () => import('../views/dermatologist/ScheduleExamination.vue')
   },
@@ -154,17 +154,17 @@ const routes = [
     component: () => import('../views/pharmacist/PharmacistHomePage.vue')
   },
   {
-    path: '/pharmacistHomePage/clients/:id',
+    path: '/pharmacistHomePage/clients',
     name: 'PharmacistClients',
     component: () => import('../views/pharmacist/PharmacistClients.vue')
   },
   {
-    path: '/pharmacistHomePage/consultationsInfo/:id',
+    path: '/pharmacistHomePage/consultationsInfo',
     name: 'ConsultationsInfo',
     component: () => import('../views/pharmacist/ConsultationsInfo.vue')
   },
   {
-    path: '/pharmacistHomePage/workingSchedule/:id',
+    path: '/pharmacistHomePage/workingSchedule',
     name: 'PharmacistWorkingSchedule',
     component: () => import('../views/pharmacist/PharmacistWorkingSchedule.vue')
   },
@@ -174,17 +174,17 @@ const routes = [
     component: () => import('../views/pharmacist/Prescriptions.vue')
   },
   {
-    path: '/pharmacistHomePage/vacationsAndAbsences/:id',
+    path: '/pharmacistHomePage/vacationsAndAbsences',
     name: 'PharmacistVacationsAndAbsences',
     component: () => import('../views/pharmacist/PharmacistVacationsAndAbsences.vue')
   },
   {
-    path: '/pharmacistHomePage/profile/:id',
+    path: '/pharmacistHomePage/profile',
     name: 'PharmacistProfile',
     component: () => import('../views/pharmacist/PharmacistProfile.vue')
   },
   {
-    path: '/pharmacistHomePage/scheduleConsultation/:id',
+    path: '/pharmacistHomePage/scheduleConsultation',
     name: 'ScheduleConsultation',
     component: () => import('../views/pharmacist/ScheduleConsultation.vue')
   },

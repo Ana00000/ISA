@@ -6,22 +6,22 @@
                 <router-link class="link" to="/dermatologistHomePage">Home page</router-link>
             </div>
             <div>
-                <router-link class="link" to="/dermatologistHomePage/clients/:id">Clients</router-link>
+                <router-link class="link" to="/dermatologistHomePage/clients">Clients</router-link>
             </div>
             <div >
-                <router-link class="link" to="/dermatologistHomePage/examinationsInfo/:id">Examinations info</router-link>
+                <router-link class="link" to="/dermatologistHomePage/examinationsInfo">Examinations info</router-link>
             </div>
             <div>
-                <router-link class="link" to="/dermatologistHomePage/workingSchedule/:id">Working schedule</router-link>
+                <router-link class="link" to="/dermatologistHomePage/workingSchedule">Working schedule</router-link>
             </div>
             <div>
-                <router-link class="link" to="/dermatologistHomePage/vacationsAndAbsences/:id">Vacations and absences</router-link>
+                <router-link class="link" to="/dermatologistHomePage/vacationsAndAbsences">Vacations and absences</router-link>
             </div>
             <div>
-                <router-link class="link" to="/dermatologistHomePage/profile/:id">Profile</router-link>
+                <router-link class="link" to="/dermatologistHomePage/profile">Profile</router-link>
             </div>
             <div>
-                <router-link class="link" to="/dermatologistHomePage/scheduleExamination/:id">Schedule examination</router-link>
+                <router-link class="link" to="/dermatologistHomePage/scheduleExamination">Schedule examination</router-link>
             </div>
             <div/>
         </v-layout>

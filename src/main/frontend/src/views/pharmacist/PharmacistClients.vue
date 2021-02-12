@@ -140,7 +140,8 @@ export default {
       searchInput: null,
       clients: [],
       clientsCopy : [],
-      consultations: []
+      consultations: [],
+      doctor: null
     }),
     watch: {
       selectedsortOption: function(newSortOption)
@@ -153,11 +154,21 @@ export default {
     },
     methods: {
       init() {
-          this.getCons();
-          this.getClients();
+          var tokenString = '';
+          tokenString = localStorage.getItem("token");
+          const config = {
+            headers: {Authorization: `Bearer ${tokenString}`}
+          };
+          
+          this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+          ).then(resp => {
+              this.doctor = resp.data
+              this.getClients();
+              this.getCons();
+          }).catch(console.log);
       },
       getClients() {
-          axios.get('http://localhost:8081/appointments/patientsFromDoneAppointmentsByDoctor/' + this.$route.params.id)
+          axios.get('http://localhost:8081/appointments/patientsFromDoneAppointmentsByDoctor/' + this.doctor.id)
             .then(res => {
               this.clients = res.data;
               this.clientsCopy = res.data
@@ -165,7 +176,7 @@ export default {
             .catch(err => console.log(err));
       },
       getCons() {
-         axios.get('http://localhost:8081/appointments/appointmentsOfPatientsByDoctor/' + this.$route.params.id)
+         axios.get('http://localhost:8081/appointments/appointmentsOfPatientsByDoctor/' + this.doctor.id)
                 .then(res => {
                 this.consultations = res.data;
             })

@@ -86,12 +86,21 @@ export default {
     },
     methods: {
         init(){
-            this.getExams();
-            this.getDoctor();
-            this.getPatients();
+          var tokenString = '';
+          tokenString = localStorage.getItem("token");
+          const config = {
+            headers: {Authorization: `Bearer ${tokenString}`}
+          };
+          
+          this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+          ).then(resp => {
+              this.doctor = resp.data;
+              this.getExams();
+              this.getPatients();
+          }).catch(console.log);
         },
         getExams() {
-            axios.get('http://localhost:8081/appointments/allEmptyExaminations/' + this.$route.params.id)
+            axios.get('http://localhost:8081/appointments/allEmptyExaminations/' + this.doctor.id)
             .then(res => {
               this.emptyExaminations = res.data;
             })
@@ -153,13 +162,8 @@ export default {
                 return;
             }
         },
-        getDoctor() {
-            this.$http.get('http://localhost:8081/dermatologists/' + this.$route.params.id).then(resp => {
-                this.doctor = resp.data;
-            }).catch(err => console.log(err));
-        },
         getPatients() {
-            this.$http.get('http://localhost:8081/appointments/upcomingPatients/' + this.$route.params.id).then(resp => {
+            this.$http.get('http://localhost:8081/appointments/upcomingPatients/' + this.doctor.id).then(resp => {
                 resp.data.forEach(patient => {
                     this.patients.push(patient);
                 });

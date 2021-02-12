@@ -171,25 +171,36 @@ export default {
         workingInPharmacy: null,
         userImage: userImage,
         consultations: [],
+        pharmacist: []
     }),
-    created(){
-        axios.get('http://localhost:8081/appointments/allNotEmptyConsultations/' + this.$route.params.id)
-            .then(res => {
-              this.consultations = res.data;
-            })
-            .catch(err => console.log(err));
-    },
     mounted() {
         this.init();
     },
     methods: {
         init() {
-            this.setPharmacist();
-            this.setPharmacy();
+          var tokenString = '';
+          tokenString = localStorage.getItem("token");
+          const config = {
+            headers: {Authorization: `Bearer ${tokenString}`}
+          };
+          
+          this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+          ).then(resp => {
+              this.pharmacist = resp.data
+              this.setPharmacist();
+              this.getCons();
+              this.setPharmacy();
+          }).catch(console.log);
+        },
+        getCons(){
+            axios.get('http://localhost:8081/appointments/allNotEmptyConsultations/' + this.pharmacist.id)
+            .then(res => {
+              this.consultations = res.data;
+            })
+            .catch(err => console.log(err));
         },
         setPharmacist() {
-            this.id = this.$route.params.id;
-            this.$http.get('http://localhost:8081/pharmacists/' + this.id).then(resp => {
+            this.$http.get('http://localhost:8081/pharmacists/' + this.pharmacist.id).then(resp => {
                 console.log(resp.data);
                 this.setPharmacistInfo(resp.data);
             }).catch(err => console.log(err));

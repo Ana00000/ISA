@@ -47,30 +47,46 @@ export default {
         vacationImage: vacationImage,
         doctor: null,
         startTime: null,
-        endTime: null
+        endTime: null,
+        dermatologist: null
     }),
     created() {
-        this.$http.get('http://localhost:8081/dermatologists/' + this.$route.params.id).then(resp => {
-            this.doctor = resp.data;
-        }).catch(err => console.log(err));
+          var tokenString = '';
+          tokenString = localStorage.getItem("token");
+          const config = {
+            headers: {Authorization: `Bearer ${tokenString}`}
+          };
+          
+          this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+          ).then(resp => {
+              this.dermatologist = resp.data
+          }).catch(console.log);
     },
     methods: {
         makeRequest() {
             this.confirmVacationInterval();
-            this.$http.post('http://localhost:8081/vacations/saveVacation', 
-            {         
-                status : 'PENDING',
-                doctor : this.doctor,
-                startTime : new Date(this.startTime),
-                endTime : new Date(this.endTime)
-            }
-            ).then(resp => {
-                console.log(resp.data);
-                alert("Request is formed!");
-            }).catch(err => {
-                alert("You already have one vacation request!");
-                console.log(err.response.data);
-            })
+            var tokenString = '';
+            tokenString = localStorage.getItem("token");
+            const config = {
+                    headers: {Authorization: `Bearer ${tokenString}`}
+            };
+            this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+             ).then(resp => {
+                this.dermatologist = resp.data
+                this.$http.post('http://localhost:8081/vacations/saveVacation', 
+                {         
+                    status : 'PENDING',
+                    doctor : this.dermatologist,
+                    startTime : new Date(this.startTime),
+                    endTime : new Date(this.endTime)
+                }).then(resp => {
+                    console.log(resp.data);
+                    alert("Request is formed!");
+                }).catch(err => {
+                    alert("You already have one vacation request!");
+                    console.log(err.response.data);
+                })
+             }).catch(console.log);
         },
         confirmVacationInterval() {
             if(this.endTime == null) {

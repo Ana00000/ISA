@@ -54,6 +54,10 @@ public class DoctorServiceImpl implements DoctorService {
 	public List<Doctor> findAllByEmail(String email) {
 		return doctorRepository.findAllByEmail(email);
 	}
+	
+	public Doctor findOneByEmail(String email) {
+		return doctorRepository.findOneByEmail(email);
+	}
 
 	public Doctor save(Doctor doctor) {
 		return doctorRepository.save(doctor);

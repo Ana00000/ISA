@@ -1,14 +1,17 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.DermatologistDTO;
+import com.example.demo.dto.PharmacyAdminDTO;
 import com.example.demo.model.Dermatologist;
 import com.example.demo.model.Pharmacy;
+import com.example.demo.model.PharmacyAdmin;
 import com.example.demo.service.DermatologistService;
 import com.example.demo.service.PharmacyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

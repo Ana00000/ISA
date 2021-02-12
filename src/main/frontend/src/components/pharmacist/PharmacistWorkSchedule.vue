@@ -29,7 +29,8 @@ export default {
           endTime: { name: 'EndTime' }
         }
       },
-      selectedDate: new Date(2021, 1, 15)
+      selectedDate: new Date(2021, 1, 15),
+      doctor: null
   }),
   mounted() {
       this.init();
@@ -42,17 +43,27 @@ export default {
   },
   methods: {
     init() {
-      this.getVacation();
-      this.getConsultations();
+      var tokenString = '';
+      tokenString = localStorage.getItem("token");
+      const config = {
+        headers: {Authorization: `Bearer ${tokenString}`}
+      };
+      
+      this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+      ).then(resp => {
+        this.doctor = resp.data
+        this.getVacation();
+        this.getConsultations();
+      }).catch(console.log);
     },
     getVacation() {
-      axios.get('http://localhost:8081/vacations/doctorVacation/' + this.$route.params.id).then(resp => {
+      axios.get('http://localhost:8081/vacations/doctorVacation/' + this.doctor.id).then(resp => {
           if(resp.data != '')
             this.setVacationInfo(resp.data);
       }).catch(err => console.log(err));
     },
     getConsultations() {
-      axios.get('http://localhost:8081/appointments/allConsultations/' + this.$route.params.id).then(resp => {
+      axios.get('http://localhost:8081/appointments/allConsultations/' + this.doctor.id).then(resp => {
           this.setConsultationInfo(resp.data);
       }).catch(err => console.log(err));
     },

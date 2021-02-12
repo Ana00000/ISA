@@ -25,6 +25,8 @@ public interface DoctorService {
 	
 	List<Doctor> findAllByEmail(String email);
 
+	Doctor findOneByEmail(String email);
+
 	Doctor save(Doctor doctor);
 
 	void remove(Long id);

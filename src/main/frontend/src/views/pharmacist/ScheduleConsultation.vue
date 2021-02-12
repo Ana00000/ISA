@@ -52,33 +52,51 @@ export default {
         endTime: null,
         patients: [],
         selectedPatient: null,
-        label: 'Patients'
+        label: 'Patients',
+        pharmacist: null
     }),
     mounted() {
         this.init();
     },
     methods: {
         init(){
-            this.getDoctor();
-            this.getPatients();
+            var tokenString = '';
+            tokenString = localStorage.getItem("token");
+            const config = {
+                headers: {Authorization: `Bearer ${tokenString}`}
+            };
+          
+            this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+            ).then(resp => {
+                this.pharmacist = resp.data;
+                this.getPatients();
+            }).catch(console.log);
         },
         scheduleConsultation() {
             this.validationOfInput();
-
-            this.$http.post('http://localhost:8081/appointments/saveConsultation', 
-            {         
-                doctor : this.doctor,
-                startTime : new Date(this.startTime),
-                endTime : new Date(this.endTime),
-                patient: this.selectedPatient
-            }
+            var tokenString = '';
+            tokenString = localStorage.getItem("token");
+            const config = {
+                    headers: {Authorization: `Bearer ${tokenString}`}
+            };
+            this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
             ).then(resp => {
-                console.log(resp.data);
-                alert("Examination is created.");
-            }).catch(err => {
-                alert("Doctor or patient is busy at this time.");
-                console.log(err.response.data);
-            })
+                this.pharmacist = resp.data;
+                this.$http.post('http://localhost:8081/appointments/saveConsultation', 
+                {         
+                    doctor : this.pharmacist,
+                    startTime : new Date(this.startTime),
+                    endTime : new Date(this.endTime),
+                    patient: this.selectedPatient
+                }
+                ).then(resp => {
+                    console.log(resp.data);
+                    alert("Examination is created.");
+                }).catch(err => {
+                    alert("Doctor or patient is busy at this time.");
+                    console.log(err.response.data);
+                })
+            }).catch(console.log);
         },
         validationOfInput() {
             if(this.endTime == null) {
@@ -101,13 +119,8 @@ export default {
                 return;
             }
         },
-        getDoctor() {
-            this.$http.get('http://localhost:8081/pharmacists/' + this.$route.params.id).then(resp => {
-                this.doctor = resp.data;
-            }).catch(err => console.log(err));
-        },
         getPatients() {
-            this.$http.get('http://localhost:8081/appointments/upcomingPatients/' + this.$route.params.id).then(resp => {
+            this.$http.get('http://localhost:8081/appointments/upcomingPatients/' + this.pharmacist.id).then(resp => {
                 resp.data.forEach(patient => {
                     this.patients.push(patient);
                 });

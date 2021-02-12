@@ -200,8 +200,18 @@ export default {
     },
     methods: {
         init() {
-            this.getCons();
-            this.getDoctor();
+            var tokenString = '';
+            tokenString = localStorage.getItem("token");
+            const config = {
+                headers: {Authorization: `Bearer ${tokenString}`}
+            };
+            
+            this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+            ).then(resp => {
+                this.doctor = resp.data
+                this.getCons();
+                this.getDoctor();
+            }).catch(console.log);
         },
         searchQuery() {
             var resultOfSearch = [];
@@ -329,12 +339,12 @@ export default {
             setTimeout(this.getCons, 2000);
         },
         getDoctor() {
-            this.$http.get('http://localhost:8081/pharmacists/' + this.$route.params.id).then(resp => {
+            this.$http.get('http://localhost:8081/pharmacists/' + this.doctor.id).then(resp => {
                 this.doctor = resp.data;
             }).catch(err => console.log(err));
         },
         getCons() {
-             axios.get('http://localhost:8081/appointments/allNotEmptyUpcomingConsultations/' + this.$route.params.id)
+             axios.get('http://localhost:8081/appointments/allNotEmptyUpcomingConsultations/' + this.doctor.id)
             .then(res => {
               this.consultations = res.data;
               this.consultationsCopy = res.data
