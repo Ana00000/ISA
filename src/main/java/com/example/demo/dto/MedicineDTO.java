@@ -3,8 +3,6 @@ package com.example.demo.dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import com.example.demo.model.Medicine;
 import com.example.demo.model.MedicineIngredient;
 
@@ -15,7 +13,6 @@ public class MedicineDTO implements Serializable {
     private MedicineManufacturerDTO medicineManufacturer;
     private MedicineShapeDTO medicineShape;
     private List<MedicineIngredientDTO> medicinesIngredients;
-    private int quantity;
 
 	public MedicineDTO() {
 	}
@@ -34,7 +31,7 @@ public class MedicineDTO implements Serializable {
 	}
 	
 	public MedicineDTO(Long id, String name, boolean recipeNeed, MedicineManufacturerDTO medicineManufacturer,
-			MedicineShapeDTO medicineShape, List<MedicineIngredientDTO> medicinesIngredients, int quantity) {
+			MedicineShapeDTO medicineShape, List<MedicineIngredientDTO> medicinesIngredients) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -42,7 +39,6 @@ public class MedicineDTO implements Serializable {
 		this.medicineManufacturer = medicineManufacturer;
 		this.medicineShape = medicineShape;
 		this.medicinesIngredients = medicinesIngredients;
-		this.quantity = quantity;
 	}
 	
 	public Long getId() {
@@ -90,10 +86,6 @@ public class MedicineDTO implements Serializable {
 	public void setMedicinesIngredients(List<MedicineIngredientDTO> medicinesIngredients) {
 		this.medicinesIngredients = medicinesIngredients;
 	}
-
-	public int getQuantity() { return quantity; }
-
-	public void setQuantity(int quantity) { this.quantity = quantity; }
 
 	@Override
 	public int hashCode() {
