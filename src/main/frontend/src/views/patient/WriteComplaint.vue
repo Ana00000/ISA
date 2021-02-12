@@ -91,8 +91,16 @@ export default {
             };
             var reqq = '';
             if(this.itemList == "doctor"){
+                if(this.pharmacistDTO == '' || this.pharmacistDTO == "undefined"){
+                    alert("Please choose the doctor");
+                    return;
+                }
                 reqq = this.request2;
             }else{
+                if(this.pharmacyDTO == '' || this.pharmacyDTO == "undefined"){
+                    alert("Please choose the pharmacy");
+                    return;
+                }
                 reqq = this.request;
             }
             this.$http.post('http://localhost:8081/complaint/new', reqq, config).then(resp => {

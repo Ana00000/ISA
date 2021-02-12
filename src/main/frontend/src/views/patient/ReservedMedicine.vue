@@ -50,14 +50,21 @@ export default {
             this.reservedMedicine = value;
         },
         cancelReservation: function(){
-            axios.post('http://localhost:8081/medicineReservation/cancel', this.reservedMedicine)
+            if(this.reservedMedicine == '' || this.reservedMedicine == "undefined"){
+                alert("choose reservation");
+                return;
+            }
+            const config = {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            };
+            axios.post('http://localhost:8081/medicineReservation/cancel', this.reservedMedicine, config)
                 .then(res => {
                     console.log(res);
                     location.reload();
                 })
                 .catch(res => {
-                    alert("You didn't cancel reservation at the time, enjoy your penalty! ;)");
-                    console.log(res);
+                    alert(res.response.data);
+                    console.log(res.response.data);
                 })
         }
     }

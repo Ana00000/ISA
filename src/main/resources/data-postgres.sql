@@ -73,11 +73,12 @@ INSERT INTO medicine_shape(id, shape_value) VALUES (3, 2);
 
 
 /*password-marko040234*/
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (4, 'Marko', 'Gojkovic', 'mile.knezevic98@gmail.com', '$2a$10$1bC7jlRWy07HDwy0/.NDm.N5J5Z17nKm4bFb4nDJvBVT.4kmdW.4m', 'Novi sad Futoska 2', '061497607', 'TRUE', 0, 'TRUE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (4, 'Marko', 'Gojkovic', 'mile.knezevic98@gmail.com', '$2a$10$MsR7mrUJ3w32rD21cMynjO.X1nr37ARqpCyUBkahvoTRgIu7gJQe2', 'Novi sad Futoska 2', '061497607', 'TRUE', 0, 'TRUE');
 /*password-klara2352892*/
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (5, 'Klara', 'Mitrovic', 'klara56mitrov@gmail.com', '$2a$10$lJD44wzUcg16lKdLQ2e9Gur8.DOQo/MuQ6Qob6azFdWL94W2dStQi', 'Novi sad Futoska 22', '061/637603', 'TRUE', 1, 'FALSE');
-/*password-mirko329855324*/
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (6, 'Mirko', 'Lazarevic', 'xdotdotx422@gmail.com', '$2a$10$C5Fl8.LEF.nfIDcSr8F/uOZUPon.2MmUDfJ1UIAich6gwV79W6D3S', 'Novi sad Futoska 23', '061/387-007', 'TRUE', 0, 'TRUE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (5, 'Klara', 'Mitrovic', 'klara56mitrov@gmail.com', '$2a$10$8j7UHWHgLSA3RAhHuUxxy.DAd0Ih13iOHKB.zcq/qvM/WW5OyYVIu', 'Novi sad Futoska 22', '061/637603', 'TRUE', 1, 'FALSE');
+/*password-hadziCar*/
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (6, 'Aleksandar', 'Hadzibabic', 'hadziCar@gmail.com', '$2a$10$xmmsjxIhhY/CXRbdhcHOBuWgx7F16ef7OU8axXNw1VnA2dGwJs/km', 'Branimira Cosica 33', '06138909132', 'TRUE', 1, 'FALSE');
+
 
 
 INSERT INTO allergies_of_patient(allergy_id, patient_id) VALUES(4, 4);
@@ -138,6 +139,9 @@ INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (4, 2);
 INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (4, 3);
 INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (5, 1);
 INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 2);
+INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 1);
+INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 3);
+
 
 
 INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
@@ -226,6 +230,13 @@ INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (70
 INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (708, 14, 8, 11);
 INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (709, 13, 9, 2);
 INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (710, 15, 10, 17);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (711, 13, 2, 20);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (712, 13, 3, 30);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (713, 13, 5, 10);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (714, 13, 6, 25);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (715, 13, 7, 4);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (716, 13, 8, 100);
+INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (717, 13, 10, 100);
 
 
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (1, 3);
@@ -265,7 +276,10 @@ INSERT INTO medicine_reservation_status(id, status_value) VALUES (2, 1);
 
 INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (1, '2021-03-03 00:00:00', 3, 'ACTIVE', 1, 6, 13);
 INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (2, '2021-03-03 00:00:00', 5, 'ACTIVE', 4, 6, 13);
-INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (3, '2020-03-03 00:00:00', 6, 'ACTIVE', 5, 6, 14);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (3, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 6, 14);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (4, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 6, 14);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (5, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 5, 14);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (6, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 4, 14);
 
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_USER');
@@ -275,6 +289,8 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACY_ADMIN');
 
 
+INSERT INTO user_authority (user_id, authority_id) VALUES (4, 1);
+INSERT INTO user_authority (user_id, authority_id) VALUES (5, 1);
 INSERT INTO user_authority (user_id, authority_id) VALUES (6, 1);
 
 
@@ -299,3 +315,6 @@ INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_
 INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (2, 8, 6, 3, '2021-03-11', 'DENIED');
 INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (3, 7, 6, 9, '2021-02-20', 'PROCESSED');
 INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (4, 8, 6, 9, '2021-05-14', 'NEW');
+INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (5, 8, 4, 9, '2021-05-14', 'NEW');
+INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (6, 8, 5, 9, '2021-05-14', 'NEW');
+INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_date, status) VALUES (7, 8, 6, 9, '2021-05-14', 'NEW');

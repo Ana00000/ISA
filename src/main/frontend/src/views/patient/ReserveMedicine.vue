@@ -7,11 +7,11 @@
             <div class="panelDiv" style="width:75%;" >
                 <div style="margin: 50px"><h2 class="display-3">Medicine Reservation</h2></div>
                 <div style="background: none; border: none;">
-                    <v-card style="margin-left: 90px; margin-right: 90px; padding: 10px;background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Medicine</h2></v-card>
+                    <v-card style=" padding: 10px;background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Medicine</h2></v-card>
                     <item-list-medicine @sendMedicine="receiveMedicine" v-bind:items="medicine" v-bind:renderingItems="medicine" v-bind:searchedItems="medicine"></item-list-medicine>
                 </div>
                 <div>
-                    <v-card style="margin-left: 90px; margin-right: 90px; padding: 10px; background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Pharmacy</h2></v-card>
+                    <v-card style="padding: 10px; background: linear-gradient(to right, #5442ed, #cdc8fa, #13077d);"><h2 class="display-1">Choose Pharmacy</h2></v-card>
                     <item-list-pharmacies @sendPharmacy="receivePharmacy" v-bind:items="pharmacies" v-bind:renderingItems="pharmacies" v-bind:searchedItems="pharmacies" ></item-list-pharmacies>
                 </div>
                 <v-container>
@@ -108,12 +108,16 @@ export default {
                 alert("Please enter all data needed for search :)");
                 return;
             }
+            
             axios.post('http://localhost:8081/medicineReservation/create', this.request, config)
                 .then(res => {
                     console.log(res);
+                    alert("Successfuly created reservation");
+                    location.reload();
                 })
                 .catch(res => {
                     console.log(res);
+                    alert(res.response.data);
                 })
         },
         receiveDatePicker: function(value){

@@ -4,6 +4,9 @@
             <div>
                 <router-link class="link" to="/patientPharmacies">Pharmacies</router-link>
             </div>
+            <div>
+                <router-link class="link" to="/patientPharmacists">Pharmacists</router-link>
+            </div>
             <div >
                 <router-link class="link" to="/patientAppointmentHistory">Appointment history</router-link>
             </div>

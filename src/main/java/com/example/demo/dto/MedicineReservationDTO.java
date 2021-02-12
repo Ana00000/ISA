@@ -92,6 +92,7 @@ public class MedicineReservationDTO implements Serializable {
         this.pickUpDate = pickUpDate;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
