@@ -23,7 +23,7 @@ public class MedicineOrder {
     @Column(name = "medicine_order_amount")
     private Map<Medicine, Integer> medicineAmount = new HashMap<>();
 
-    @Column(name="deadline", unique=true, nullable=false)
+    @Column(name="deadline", unique=false, nullable=false)
     private Timestamp deadline;
 
     public MedicineOrder() {

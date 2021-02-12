@@ -2,6 +2,7 @@ package com.example.demo.service.impl;
 
 import java.util.List;
 
+import com.example.demo.dto.MedicineDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Medicine;
@@ -13,7 +14,7 @@ import com.example.demo.service.PharmacyMedicineService;
 @Service
 public class PharmacyMedicineServiceImpl implements PharmacyMedicineService {
 
-    private PharmacyMedicineRepository pharmacyMedicineRepository;
+    private final PharmacyMedicineRepository pharmacyMedicineRepository;
     
     @Autowired
     public PharmacyMedicineServiceImpl(PharmacyMedicineRepository pharmacyMedicineRepository) {
@@ -32,6 +33,11 @@ public class PharmacyMedicineServiceImpl implements PharmacyMedicineService {
     public PharmacyMedicine findByMedicineId(Long medicineId) {
    	 	return pharmacyMedicineRepository.findByMedicineId(medicineId);
     }
+
+	@Override
+	public List<Medicine> findMedicineByPharmacyId(Long id) {
+		return pharmacyMedicineRepository.findMedicineByPharmacyId(id);
+	}
 
 	@Override
 	public PharmacyMedicine save(PharmacyMedicine pharmacyMedicine) {

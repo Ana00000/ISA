@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.junit.Ignore;
 
@@ -20,6 +21,8 @@ public class MedicineOffer {
     @JsonManagedReference //this will be serialized
     private Supplier supplier;
 
-
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name="medicine_order_id", referencedColumnName = "id")
+    @JsonManagedReference //this will be serialized
     private MedicineOrder medicineOrder;
 }
