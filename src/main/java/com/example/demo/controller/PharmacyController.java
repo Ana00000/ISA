@@ -20,27 +20,24 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/pharmacies", produces = MediaType.APPLICATION_JSON_VALUE)
 public class PharmacyController {
-    @Autowired
-    MedicineReservationService medicineReservationService;
 
-    @Autowired
-    MedicinePrescriptionService medicinePrescriptionService;
-
-    @Autowired
-    PatientService patientService;
-
-    @Autowired
-    AppointmentService appointmentService;
-
-    @Autowired
-    private TokenUtils tokenUtils;
-
-    private PharmacyService pharmacyService;
+    private final PharmacyService pharmacyService;
+    private final AppointmentService appointmentService;
+    private final MedicineReservationService medicineReservationService;
+    private final MedicinePrescriptionService medicinePrescriptionService;
+    private final PatientService patientService;
+    private final TokenUtils tokenUtils;
     
 	@Autowired
-    public PharmacyController(PharmacyService pharmacyService, AppointmentService appointmentService) {
+    public PharmacyController(PharmacyService pharmacyService, AppointmentService appointmentService,
+    		MedicineReservationService medicineReservationService, MedicinePrescriptionService medicinePrescriptionService,
+    		PatientService patientService, TokenUtils tokenUtils) {
         this.pharmacyService = pharmacyService;
         this.appointmentService = appointmentService;
+        this.medicineReservationService = medicineReservationService;
+        this.medicinePrescriptionService = medicinePrescriptionService;
+        this.patientService = patientService;
+        this.tokenUtils = tokenUtils;
     }
 
     @GetMapping(value = "/allHadzi")
