@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class TimeInterval {
     Timestamp start;
     Timestamp end;
+    LocalDateTime startTime;
+    LocalDateTime endTime;
 
     public TimeInterval() {
     }
@@ -12,6 +15,8 @@ public class TimeInterval {
     public TimeInterval(Timestamp start, Timestamp end) {
         setStart(start);
         setEnd(end);
+        this.startTime = this.start.toLocalDateTime();
+        this.endTime = this.end.toLocalDateTime();
     }
 
     public Timestamp getStart() {
@@ -47,6 +52,22 @@ public class TimeInterval {
         }else{
             this.end = end;
         }
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     public boolean same(TimeInterval timeInterval){

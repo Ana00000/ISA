@@ -4,7 +4,7 @@
             <div style="width:25%;">
                 <PatientMenu/>
             </div>
-            <div class="panelDiv">
+            <div class="panelDiv" style="width:75%;">
                 <div style="margin: 50px"><h2 class="display-3">Reserved Medicine</h2></div>
                 <div style="background: none; border: none;">
                     <item-list-medicine-reservation @sendReservedMedicine="receiveReservedMedicine" v-bind:items="reservations" v-bind:renderingItems="reservations" v-bind:searchedItems="reservations"></item-list-medicine-reservation>
