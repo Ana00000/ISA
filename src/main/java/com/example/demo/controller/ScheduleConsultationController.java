@@ -105,7 +105,7 @@ public class ScheduleConsultationController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<Appointment> schedule(HttpServletRequest request, @RequestBody ConsultationScheduleDTO consultationScheduleDTO){
+    public ResponseEntity<String> schedule(HttpServletRequest request, @RequestBody ConsultationScheduleDTO consultationScheduleDTO){
 
         Appointment appointment = new Appointment();
 
@@ -120,12 +120,12 @@ public class ScheduleConsultationController {
         appointment.setStartTime( consultationScheduleDTO.getTimeInterval().getStart() );
         appointment.setEndTime( consultationScheduleDTO.getTimeInterval().getEnd() );
         appointment.setPatient( patient );
-        appointment.setStatus( appointmentStatusService.findByValue(AppointmentStatusValue.UPCOMING) );
-        appointment.setAppointmentType( appointmentTypeService.findByTypeValue(AppointmentTypeValues.CONSULTATION));
+        appointment.setStatus( appointmentStatusService.findOne(122L) );
+        appointment.setAppointmentType( appointmentTypeService.findOne(111L));
 
         appointmentService.save(appointment);
 
-        return new ResponseEntity<>(appointment, HttpStatus.OK);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
 }

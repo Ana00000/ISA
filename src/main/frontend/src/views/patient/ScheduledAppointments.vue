@@ -7,7 +7,10 @@
             <div class="panelDiv" style="width:75%;">
                 <div style="margin: 50px"><h2 class="display-3">Scheduled Appointments</h2></div>
                 <div style="background: none; border: none;">
-                    <item-list-appointments v-bind:items="appointments" v-bind:renderingItems="appointments" v-bind:searchedItems="appointments"></item-list-appointments>
+                    <item-list-appointments @sendAppointment="receiveAppointment" v-bind:items="appointments" v-bind:renderingItems="appointments" v-bind:searchedItems="appointments"></item-list-appointments>
+                </div>
+                <div style="margin-top: 30px">
+                    <v-btn class="pink lighten-3" large @click="cancelAppointment"><h2 display-1>Cancel Appointment</h2></v-btn>
                 </div>
             </div>
         </v-layout>
@@ -26,7 +29,8 @@ export default {
     },
     data() {
         return {
-            appointments: ''
+            appointments: '',
+            chosenApp: ''
         }
     },
     created(){
@@ -40,6 +44,30 @@ export default {
                 console.log("After get");
             })
             .catch(err => console.log(err));
+    },
+    methods:{
+        cancelAppointment: function(){
+            if(this.chosenApp == '' || this.chosenApp == "undefined"){
+                alert("choose appointment");
+                return;
+            }
+            const config = {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+            };
+            axios.post('http://localhost:8081/appointments/cancel', this.chosenApp, config)
+                .then(res => {
+                    console.log(res);
+                    location.reload();
+                })
+                .catch(res => {
+                    alert(res.response.data);
+                    console.log(res.response.data);
+                })
+        },
+        receiveAppointment: function(value){
+            this.chosenApp = value;
+            console.log(value);
+        },
     }
 }
 </script>

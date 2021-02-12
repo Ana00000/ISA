@@ -2,10 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AppointmentDTO;
 import com.example.demo.dto.DoctorDTO;
+import com.example.demo.dto.Hadzi.MedicineReservationDTOHadzi;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.model.*;
 import com.example.demo.model.enums.AppointmentStatusValue;
 import com.example.demo.model.enums.AppointmentTypeValues;
+import com.example.demo.model.enums.MedicineReservationStatusValue;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.service.*;
 import com.example.demo.service.email.EmailServiceImpl;
@@ -20,10 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -764,5 +763,38 @@ public class AppointmentController {
 		}
 
 		return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/cancel")
+	public ResponseEntity<String> cancelReservation(HttpServletRequest request, @RequestBody AppointmentDTO reservationRequest) {
+		String token = tokenUtils.getToken(request);
+		if( token == null ){
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		String username = tokenUtils.getUsernameFromToken(token);
+
+		Patient patient = patientService.findOneByEmail(username);
+		Appointment appointment = appointmentService.findOne(reservationRequest.getId());
+
+		//check for the time
+		Date date = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.DATE, 1);
+		date = c.getTime();
+
+		if(reservationRequest.getStartTime().before(date)){
+			//cannot cancel reservation, If patient don't pick up medicine he get's one penalty
+			patient.setPenalties(patient.getPenalties() + 1);
+			patientService.save(patient);
+			System.out.println("Invalid date");
+			return new ResponseEntity<>("You didn't cancel reservation at the time, enjoy your penalty! ;)",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		//if good, cancel it
+		appointment.setStatus(appointmentStatusService.findOne(222L));
+		appointmentService.save(appointment);
+
+		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 }

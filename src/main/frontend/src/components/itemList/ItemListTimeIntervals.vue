@@ -29,7 +29,7 @@
         single
       >
         <template v-for="(item, index) in renderingItems">
-          <v-list-item :key="item.title" @click="$emit('sendItemInterval', item)">
+          <v-list-item :key="item.title" @click="$emit('sendTimeInterval', item)">
             <template v-slot:default="{ active }">
               <v-list-item-content >
                 <v-list-item-title  v-text="item.startTime + ' / ' + item.endTime"></v-list-item-title>

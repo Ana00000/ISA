@@ -167,13 +167,18 @@ export default {
             console.log(value);
         },
         createAppointment: function(){
+            if(this.timeInterval == '' || this.timeInterval == "undefined"){
+                alert("Please choose timeInterval");
+                return;
+            }
             const config = {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
             };
             axios.post('http://localhost:8081/scheduleConsultation/new', this.createRequest, config)
                 .then(res => {
-                    this.availableTimeIntervals = res.data;
-                    console.log(res.data);
+                    console.log(res);
+                    alert("Successfuly created appointment")
+                    location.reload();
                 })
                 .catch(res => {
                     console.log(res);

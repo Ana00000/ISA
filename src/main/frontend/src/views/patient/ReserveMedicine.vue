@@ -112,6 +112,8 @@ export default {
             axios.post('http://localhost:8081/medicineReservation/create', this.request, config)
                 .then(res => {
                     console.log(res);
+                    alert("Successfuly created reservation");
+                    location.reload();
                 })
                 .catch(res => {
                     console.log(res);

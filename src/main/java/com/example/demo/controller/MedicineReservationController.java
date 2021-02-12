@@ -119,7 +119,7 @@ public class MedicineReservationController {
             }
         }
         //check if pharmacy has enough quantity
-        if( reservationRequest.getQuantity() >= pharmacyMedicine.getQuantity() ){
+        if( reservationRequest.getQuantity() > pharmacyMedicine.getQuantity() ){
             //Exception
             System.out.println("too few quantity");
             return new ResponseEntity<>("Not enough quantity. You can reserve " + pharmacyMedicine.getQuantity(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -145,7 +145,8 @@ public class MedicineReservationController {
     }
 
     @PostMapping(value = "/cancel")
-    public ResponseEntity<MedicineReservationDTO> cancelReservation(HttpServletRequest request, @RequestBody MedicineReservationDTO reservationRequest) {
+    public ResponseEntity<String> cancelReservation(HttpServletRequest request, @RequestBody MedicineReservationDTOHadzi reservationRequest) {
+        System.out.println("Hello there");
         String token = tokenUtils.getToken(request);
         if( token == null ){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -153,8 +154,8 @@ public class MedicineReservationController {
         String username = tokenUtils.getUsernameFromToken(token);
 
         Patient patient = patientService.findOneByEmail(username);
-        Medicine medicine = medicineService.findOne(reservationRequest.getMedicineDTO().getId());
-        Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyDTO().getId());
+        Medicine medicine = medicineService.findOne(reservationRequest.getMedicineID());
+        Pharmacy pharmacy = pharmacyService.findOne(reservationRequest.getPharmacyID());
         PharmacyMedicine pharmacyMedicine = medicineReservationService.findByMedicineAndPharmacy(medicine, pharmacy);
 
         //check for the time
@@ -169,7 +170,7 @@ public class MedicineReservationController {
             patient.setPenalties(patient.getPenalties() + 1);
             patientService.save(patient);
             System.out.println("Invalid date");
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("You didn't cancel reservation at the time, enjoy your penalty! ;)",HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         //if good, cancel it
@@ -181,6 +182,6 @@ public class MedicineReservationController {
         pharmacyMedicine.setQuantity((int) (pharmacyMedicine.getQuantity() + reservationRequest.getQuantity()));
         medicineReservationService.updatePharmacyMedicine(pharmacyMedicine);
 
-        return new ResponseEntity<>(reservationRequest, HttpStatus.OK);
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 }
