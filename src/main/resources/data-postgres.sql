@@ -29,7 +29,7 @@ INSERT INTO appointment_type(id, appointment_type_value) VALUES (1211, 1);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (1311, 1);
 INSERT INTO appointment_type(id, appointment_type_value) VALUES (1411, 1);
 
-/*password-mirina3982*/
+/*password-mirina3982 ovaj dermatologist ima malo podataka*/
 INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (1, 'Mirina', 'Ikaric', 'dermatologist', 'mirina46ikaric@gmail.com', '$2a$10$QqMGdVGgZ1/4XfawMUObzOhTbHNa2rBb.PnNf1t6reW7yFmEhMzn2','Beograd ulica 2','065870094', 'TRUE');
 /*password-janko320923*/
 INSERT INTO dermatologist(id, name, last_name, type, email, password, address, phone_number, active) VALUES (2, 'Janko', 'Micic', 'dermatologist', 'janko307micic@gmail.com', '$2a$10$QIr3Owwuak7feKrEdQiN.u8RNQkbzbnTqmY50uCAtpOB6Ene.BxZu','Beograd ulica 3','021888654', 'TRUE');
@@ -94,7 +94,7 @@ INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude
 INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (15, 'Ivancic i sinovi', '02106958', 'Serbia', 'Novi Sad', 'Slobodana Jovanovica', '22', 19.8035717, 45.254534, 0);
 
 
-/*password-jovana437334*/
+/*password-jovana437334 ovaj pharmacist ima malo podataka*/
 INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (7, 'Jovana', 'Stefanovic', 'pharmacist', 'jovana3035stefanovic@gmail.com', '$2a$10$.YCwwaB.Kk97ooP8fTPbweefVgoc5gWmGCJ9rjm15dOCbgSK0ppiy', 'Smederevo Smederevska 14', '065856-880', 'TRUE', 13);
 /*password-gojkic*/
 INSERT INTO pharmacist(id, name, last_name, type, email, password, address, phone_number, active, pharmacy_id) VALUES (8, 'Gojko', 'Ostojic', 'pharmacist', 'gojko@gmail.com', '$2a$10$yBd0w059I67GfhwwOIN8YOsmhBF2TF9TL3tBpizUyCcPb2gynAYpW', 'Smederevo Smederevska 15', '061/785587', 'TRUE', 14);
@@ -229,14 +229,7 @@ INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (70
 INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (707, 14, 7, 56);
 INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (708, 14, 8, 11);
 INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (709, 13, 9, 2);
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (710, 15, 10, 17);
---INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (711, 13, 2, 20);
---INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (712, 13, 3, 30);
---INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (713, 13, 5, 10);
---INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (714, 13, 6, 25);
---INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (715, 13, 7, 4);
---INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (716, 13, 8, 100);
---INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (717, 13, 10, 100);
+--INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (710, 15, 10, 17);
 
 
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (1, 3);

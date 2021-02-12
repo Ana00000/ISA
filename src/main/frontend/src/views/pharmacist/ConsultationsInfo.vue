@@ -210,7 +210,6 @@ export default {
             ).then(resp => {
                 this.doctor = resp.data
                 this.getCons();
-                this.getDoctor();
             }).catch(console.log);
         },
         searchQuery() {
@@ -285,29 +284,39 @@ export default {
                 }).catch(err => console.log(err));
             }
 
-            this.$http.post('http://localhost:8081/reports/saveReport', 
-            {         
-                doctor : this.doctor,
-                startTime: this.from,
-                endTime: this.to,
-                patient: this.patient,
-                description: this.description,
-                medicine: this.selectedMedicine,
-                therapyInDays: this.therapyInDays
-            }).then(resp => {
-                console.log(resp.data);
-                alert("Report is formed.");
-            }).catch(err => console.log(err));
+            var tokenString = '';
+            tokenString = localStorage.getItem("token");
+            const config = {
+                headers: {Authorization: `Bearer ${tokenString}`}
+            };
+            
+            this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
+            ).then(resp => {
+                this.doctor = resp.data;
+                this.$http.post('http://localhost:8081/reports/saveReport', 
+                {         
+                    doctor : this.doctor,
+                    startTime: this.from,
+                    endTime: this.to,
+                    patient: this.patient,
+                    description: this.description,
+                    medicine: this.selectedMedicine,
+                    therapyInDays: this.therapyInDays
+                }).then(resp => {
+                    console.log(resp.data);
+                    alert("Report is formed.");
+                }).catch(err => console.log(err));
 
-            this.$http.put('http://localhost:8081/appointments/setAppointmentAsDone', 
-            {         
-                id : this.id
-            }).then(resp => {
-                console.log(resp.data);
-                alert("Appointment is finished.");
-            }).catch(err => console.log(err));
+                this.$http.put('http://localhost:8081/appointments/setAppointmentAsDone', 
+                {         
+                    id : this.id
+                }).then(resp => {
+                    console.log(resp.data);
+                    alert("Appointment is finished.");
+                }).catch(err => console.log(err));
 
-            setTimeout(this.getCons, 3000);
+                setTimeout(this.getCons, 3000);
+                }).catch(console.log);
         },
         givePenal() {
             if(this.selected != null) {
@@ -337,11 +346,6 @@ export default {
             }).catch(err => console.log(err));
 
             setTimeout(this.getCons, 2000);
-        },
-        getDoctor() {
-            this.$http.get('http://localhost:8081/pharmacists/' + this.doctor.id).then(resp => {
-                this.doctor = resp.data;
-            }).catch(err => console.log(err));
         },
         getCons() {
              axios.get('http://localhost:8081/appointments/allNotEmptyUpcomingConsultations/' + this.doctor.id)
