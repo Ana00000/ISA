@@ -161,4 +161,9 @@ public class UserServiceImpl implements UserService {
 		}
         return null;
     }
+
+	@Override
+	public User findByhashString(String hashString) {
+		return userRepository.findByhashString(hashString);
+	}
 }

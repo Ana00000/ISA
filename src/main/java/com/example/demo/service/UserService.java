@@ -29,4 +29,6 @@ public interface UserService {
 	void remove(Long id);
 
 	User login(UserDTO userDTO);
+
+	User findByhashString(String hashString);
 }

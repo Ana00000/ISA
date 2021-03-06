@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.dto.UserDTO;
@@ -62,11 +58,14 @@ public class UserController {
 	
 	@Autowired
 	private final PharmacyAdminService pharmacyAdminService;
+
+	@Autowired
+	private  final EmailServiceImpl emailService;
 	
     @Autowired
     public UserController(UserService userService, PatientService patientService,
-    		PharmacyAdminService pharmacyAdminService) {
-        
+    		PharmacyAdminService pharmacyAdminService,EmailServiceImpl emailService) {
+        this.emailService = emailService;
     	this.pharmacyAdminService = pharmacyAdminService;
 		this.userService = userService;
         this.patientService = patientService;
@@ -119,7 +118,6 @@ public class UserController {
     	if(user.getClass() == PharmacyAdmin.class) {
     		User user2 = pharmacyAdminService.findOneByEmail(email);
     		return "http://localhost:8080/pharmacyAdmin/profile/"+user2.getId();
-//    		return "http://localhost:8080/pharmacyAdmin/profile/11";
     	}
     	return "http://localhost:8080/";
     }
@@ -128,6 +126,10 @@ public class UserController {
     public ResponseEntity<UserTokenState> login(@RequestBody UserDTO authenticationRequest,
 			HttpServletResponse response) {
     	System.out.println("------- login -------");
+    	User user2 = userService.findByEmail(authenticationRequest.getEmail());
+    	if(!user2.isEnabled()){
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
     	// 
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
@@ -152,11 +154,26 @@ public class UserController {
 		if (existUser != null) {
 			throw new ResourceConflictException(existUser.getId(), "Username already exists");
 		}
-
-		User user = this.userService.save(new Patient(userRequest));
+		Patient patient = new Patient(userRequest);
+		patient.setHashString(givenUsingJava8_whenGeneratingRandomAlphabeticString_thenCorrect());
+		patient.setActive(false);
+		User user = this.userService.save(patient);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());	//is this redirection ???
+
+		String url="http://localhost:8081/users/verification/"+user.getHashString();
+		String content="<a href='"+url+"'>"+url+"</a>";
+
+		emailService.sendHtmlEmail(patient.getUsername(),"<p>Click here to verify: </p>"+content,"Verifycation mail");
 		return new ResponseEntity<>(user, HttpStatus.CREATED);
+	}
+
+	@GetMapping("/verification/{hash}")
+	public ResponseEntity<?> verification(@PathVariable String hash){
+		User user = userService.findByhashString(hash);
+		user.setActive(true);
+		userService.save(user);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
     
     public String givenUsingJava8_whenGeneratingRandomAlphabeticString_thenCorrect() {
