@@ -4,7 +4,7 @@
     padless
   >
     <v-card
-      flat
+      text
       tile
       class="indigo lighten-1 white--text text-center"
     >

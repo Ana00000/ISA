@@ -217,7 +217,12 @@ const routes = [
     path: '/pharmacyAdmin/chooseMedicineOffer',
     name: 'ChooseMedicineOffer',
     component: () => import('../views/pharmacyAdmin/ChooseMedicineOffer.vue')
-  }
+  },
+  {
+    path: '/users/verify/:hash',
+    component: () => import('../views/Verify.vue'),
+    name: 'Vefrification'
+  },
 ]
 
 const router = new VueRouter({

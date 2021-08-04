@@ -70,7 +70,19 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    public List<User> findAll() {
+	@Override
+	public void verifyUser(String hash) throws Exception {
+		User user = userRepository.findByHashString(hash);
+		if(user == null){
+			throw new Exception("User already verified or not exist !!!");
+		}
+		user.setActive(true);
+		user.setHashString(null);
+		userRepository.save(user);
+	}
+
+
+	public List<User> findAll() {
     	List<User> retList = new ArrayList();
     	retList.addAll(doctorRepository.findAll());
     	retList.addAll(dermatologistRepository.findAll());

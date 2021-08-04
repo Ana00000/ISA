@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,12 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.dto.UserDTO;
@@ -62,15 +58,21 @@ public class UserController {
 	
 	@Autowired
 	private final PharmacyAdminService pharmacyAdminService;
+
+	@Autowired
+	private final EmailServiceImpl emailService;
 	
     @Autowired
     public UserController(UserService userService, PatientService patientService,
-    		PharmacyAdminService pharmacyAdminService) {
+    		PharmacyAdminService pharmacyAdminService,EmailServiceImpl emailService) {
         
     	this.pharmacyAdminService = pharmacyAdminService;
 		this.userService = userService;
         this.patientService = patientService;
+        this.emailService = emailService;
     }
+
+
 
     @GetMapping("/findAll")
     public ResponseEntity<List<User>> findAll() {
@@ -152,10 +154,11 @@ public class UserController {
 		if (existUser != null) {
 			throw new ResourceConflictException(existUser.getId(), "Username already exists");
 		}
-
+		userRequest.setHashString(givenUsingJava8_whenGeneratingRandomAlphabeticString_thenCorrect());
 		User user = this.userService.save(new Patient(userRequest));
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());	//is this redirection ???
+		emailService.sendHTMLMail(user.getEmail(),"Verification","<p><a href=\"http://localhost:8080/users/verify/"+user.getHashString()+"\">Verify your profile!</a></p>");
 		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
     
@@ -171,5 +174,16 @@ public class UserController {
           .toString();
         return generatedString;
     }
+
+	@PostMapping("/verify/{hash}")
+	public ResponseEntity<User> verifyUser(@PathVariable String hash) {
+		try {
+			userService.verifyUser(hash);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>( HttpStatus.OK);
+	}
 
 }
