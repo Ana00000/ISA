@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.model.*;
 import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -20,11 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.dto.UserDTO;
-import com.example.demo.model.Dermatologist;
-import com.example.demo.model.Patient;
-import com.example.demo.model.Pharmacist;
-import com.example.demo.model.PharmacyAdmin;
-import com.example.demo.model.User;
 import com.example.demo.security.ResourceConflictException;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.security.UserTokenState;
@@ -123,6 +119,9 @@ public class UserController {
     		return "http://localhost:8080/pharmacyAdmin/profile/"+user2.getId();
 //    		return "http://localhost:8080/pharmacyAdmin/profile/11";
     	}
+    	if(user.getClass() == SystemAdmin.class){
+    		return "http://localhost:8080/systemAdminHomePage";
+		}
     	return "http://localhost:8080/";
     }
     

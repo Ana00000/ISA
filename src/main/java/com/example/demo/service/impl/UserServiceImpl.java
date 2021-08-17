@@ -8,6 +8,7 @@ import com.example.demo.dto.PatientDTO;
 import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.model.*;
+import com.example.demo.repository.*;
 import com.example.demo.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,12 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.repository.DermatologistRepository;
-import com.example.demo.repository.DoctorRepository;
-import com.example.demo.repository.PatientRepository;
-import com.example.demo.repository.PharmacistRepository;
-import com.example.demo.repository.PharmacyAdminRepository;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 
 @Service
@@ -32,7 +27,7 @@ public class UserServiceImpl implements UserService {
     private final PatientRepository patientRepository;
     private final PharmacistRepository pharmacistRepository;
     private final PharmacyAdminRepository pharmacyAdminRepository;
-
+	private final SystemAdminRepository systemAdminRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -41,13 +36,14 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, DoctorRepository doctorRepository, DermatologistRepository dermatologistRepository, 
-    		PatientRepository patientRepository, PharmacistRepository pharmacistRepository, PharmacyAdminRepository pharmacyAdminRepository) {
+    		PatientRepository patientRepository, PharmacistRepository pharmacistRepository, PharmacyAdminRepository pharmacyAdminRepository, SystemAdminRepository systemAdminRepository) {
         this.patientRepository = patientRepository;
 		this.userRepository = userRepository;
         this.doctorRepository = doctorRepository;
         this.dermatologistRepository = dermatologistRepository;
         this.pharmacistRepository = pharmacistRepository;
         this.pharmacyAdminRepository = pharmacyAdminRepository;
+        this.systemAdminRepository = systemAdminRepository;
     }
 
     public User findOne(Long id) {
@@ -89,6 +85,7 @@ public class UserServiceImpl implements UserService {
     	retList.addAll(patientRepository.findAll());
     	retList.addAll(pharmacistRepository.findAll());
     	retList.addAll(pharmacyAdminRepository.findAll());
+    	retList.addAll(systemAdminRepository.findAll());
         return retList;
     }
 

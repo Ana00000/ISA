@@ -223,6 +223,11 @@ const routes = [
     component: () => import('../views/Verify.vue'),
     name: 'Vefrification'
   },
+  {
+    path: '/systemAdminHomePage',
+    name: 'SystemAdminHomePage',
+    component: () => import('../views/systemAdmin/SystemAdminHomePage.vue')
+  },
 ]
 
 const router = new VueRouter({

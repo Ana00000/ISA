@@ -280,6 +280,7 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_ADMIN');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_DERMATOLOGIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACY_ADMIN');
+INSERT INTO AUTHORITY (name) VALUES ('ROLE_SYSTEM_ADMIN');
 
 
 INSERT INTO user_authority (user_id, authority_id) VALUES (1, 3);
@@ -333,3 +334,6 @@ INSERT INTO supplier(id, name, last_name, email, password, address, phone_number
 INSERT INTO medicine_offer(id, supplier_id, medicine_order_id, cost) VALUES (1, 19, 1, 500);
 INSERT INTO medicine_offer(id, supplier_id, medicine_order_id, cost) VALUES (2, 20, 1, 750);
 INSERT INTO medicine_offer(id, supplier_id, medicine_order_id, cost) VALUES (3, 20, 2, 350);
+
+/*password-stefan*/
+INSERT INTO system_admin(id, name, last_name, email, password, address, phone_number, active, is_logged_first_time) VALUES (300, 'Stefan', 'Petrovic', 'stefan@gmail.com', '$2a$10$AjZC.QsU9rFl.IrUGaZvyOovamqNWiVYURj71q1KjBZjSks.kyizy', 'Novi Sad, Kralja Milana 14', '064764652', 'TRUE','TRUE');
