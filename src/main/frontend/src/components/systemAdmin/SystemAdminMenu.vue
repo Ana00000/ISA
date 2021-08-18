@@ -11,6 +11,12 @@
             <div>
                 <router-link class="link" to="/systemAdminHomePage/addPharmacyAdmin">Add pharmacy admin</router-link>
             </div>
+            <div>
+                <router-link class="link" to="/systemAdminHomePage/addDermatologist">Add dermatologist</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/systemAdminHomePage/addSupplier">Add supplier</router-link>
+            </div>
             <div/>
         </v-layout>
     </v-container>

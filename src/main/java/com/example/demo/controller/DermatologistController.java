@@ -108,6 +108,14 @@ public class DermatologistController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
+	@PostMapping(value = "/addDermatolog")
+	public ResponseEntity<DermatologistDTO> addDermatologist(@RequestBody DermatologistDTO dermatologistDTO){
+		Dermatologist dermatologist = new Dermatologist(dermatologistDTO);
+		dermatologist.setType("dermatologist");
+		dermatologistService.save(dermatologist);
+		return new ResponseEntity<>(dermatologistDTO,HttpStatus.CREATED);
+	}
 	private void setOfValidInputs(Dermatologist dermatologist, DermatologistDTO dermatologistDTO) {
 		setOfValidName(dermatologist, dermatologistDTO.getName());
 		setOfValidLastName(dermatologist, dermatologistDTO.getLastName());

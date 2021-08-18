@@ -238,6 +238,16 @@ const routes = [
     name: 'SystemAdminAddPharmacyAdmin',
     component: () => import('../views/systemAdmin/SystemAdminAddPharmacyAdmin.vue')
   },
+  {
+    path: '/systemAdminHomePage/addDermatologist',
+    name: 'SystemAdminAddDermatologist',
+    component: () => import('../views/systemAdmin/SystemAdminAddDermatologist.vue')
+  },
+  {
+    path: '/systemAdminHomePage/addSupplier',
+    name: 'SystemAdminAddSupplier',
+    component: () => import('../views/systemAdmin/SystemAdminAddSupplier.vue')
+  },
 ]
 
 const router = new VueRouter({

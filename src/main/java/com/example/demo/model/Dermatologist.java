@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.DermatologistDTO;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +11,10 @@ import java.util.Set;
 public class Dermatologist extends Doctor {
 	
 	 public Dermatologist(){
+	 }
+
+	 public  Dermatologist(DermatologistDTO dermatologistDTO){
+	 	super(dermatologistDTO);
 	 }
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "dermatologists")
