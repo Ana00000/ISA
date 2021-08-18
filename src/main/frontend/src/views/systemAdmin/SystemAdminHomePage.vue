@@ -1,13 +1,25 @@
 <template>
-  <p>radi</p>
+    <div>
+        <HomeBackground/>
+        <div class="panelDiv">
+            <SystemAdminMenu/>
+        </div>
+    </div>
 </template>
 
 <script>
+import HomeBackground from '../../components/HomeBackground.vue'
+import SystemAdminMenu from '../../components/systemAdmin/SystemAdminMenu.vue'
 export default {
+    name:'SystemAdminHomePage',
+    components: { SystemAdminMenu, HomeBackground },
 
 }
 </script>
 
 <style>
 
+.panelDiv {
+    float: bottom;
+}
 </style>

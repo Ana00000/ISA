@@ -40,6 +40,14 @@ public class PharmacyController {
         this.tokenUtils = tokenUtils;
     }
 
+    @PostMapping(value = "/addPharmacy")
+    public ResponseEntity<Pharmacy> addPharmacy(@RequestBody PharmacyDTO pharmacyDTO){
+	    pharmacyDTO.setAverageGrade(0);
+	    Pharmacy pharmacy = new Pharmacy(pharmacyDTO);
+        pharmacyService.save(pharmacy);
+	    return new ResponseEntity<>(pharmacy,HttpStatus.CREATED);
+    }
+
     @GetMapping(value = "/allHadzi")
     public ResponseEntity<List<PharmacyDTOHadzi>> getAllPharmaciesHadzi() {
 

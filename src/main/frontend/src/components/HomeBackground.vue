@@ -22,6 +22,6 @@ export default {
   background: url('https://wallup.net/wp-content/uploads/2017/11/17/260979-pills-pharmacy.jpg');
   background-size: cover;
   width: 100%;
-  height: 100%;
+  height:100vh;
 }
 </style>
