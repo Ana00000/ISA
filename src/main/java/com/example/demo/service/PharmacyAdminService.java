@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.PharmacyAdminDTO;
 import com.example.demo.model.PharmacyAdmin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,4 +28,6 @@ public interface PharmacyAdminService  {
     PharmacyAdmin save(PharmacyAdmin pharmacyAdmin);
 
     void remove(Long id);
+
+    PharmacyAdmin addPharmacyAdmin(PharmacyAdminDTO pharmacyAdminDTO);
 }

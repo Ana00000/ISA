@@ -8,6 +8,9 @@
             <div>
                 <router-link class="link" to="/systemAdminHomePage/addPharmacy">Add pharmacy</router-link>
             </div>
+            <div>
+                <router-link class="link" to="/systemAdminHomePage/addPharmacyAdmin">Add pharmacy admin</router-link>
+            </div>
             <div/>
         </v-layout>
     </v-container>

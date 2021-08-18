@@ -1,4 +1,6 @@
 <template>
+    <div>
+    <SystemAdminMenu/>
     <v-card width="400" class="mx-auto  mt-5" color="white">
         <v-card-title class="justify-center">
       <h1 class="display-1 ">Add pharmacy</h1>
@@ -40,10 +42,14 @@
       </v-btn>
     </v-card-actions>
     </v-card>
+    
+    </div>
 </template>
 
 <script>
+import SystemAdminMenu from '../../components/systemAdmin/SystemAdminMenu.vue';
 export default {
+  components: { SystemAdminMenu },
     name:'SystemAdminAddPharmacy',
     data:()=>({
         name: '',

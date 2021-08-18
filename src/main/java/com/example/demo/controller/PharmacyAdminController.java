@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.PharmacyAdminDTO;
+import com.example.demo.dto.PharmacyDTO;
 import com.example.demo.model.PharmacyAdmin;
 import com.example.demo.service.DermatologistService;
 import com.example.demo.service.PharmacyAdminService;
@@ -55,9 +56,6 @@ public class PharmacyAdminController {
         return new ResponseEntity<>(pharmacyAdminDTO, HttpStatus.OK);
     }
 
-
-
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<PharmacyAdminDTO> getPharmacyAdmin(@PathVariable Long id) {
 
@@ -70,5 +68,9 @@ public class PharmacyAdminController {
         return new ResponseEntity<>(new PharmacyAdminDTO(pharmacyAdmin), HttpStatus.OK);
     }
 
-
+    @PostMapping(value = "addPharmacyAdmin")
+    public ResponseEntity<PharmacyAdminDTO> addPharmacyAdmin(@RequestBody PharmacyAdminDTO pharmacyAdminDTO){
+        PharmacyAdmin pharmacyAdmin = pharmacyAdminService.addPharmacyAdmin(pharmacyAdminDTO);
+        return new ResponseEntity<>(pharmacyAdminDTO,HttpStatus.CREATED);
+    }
 }

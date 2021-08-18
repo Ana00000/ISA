@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.AppointmentDTO;
+import com.example.demo.dto.MedicineDTO;
+import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.PharmacyDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.junit.Ignore;
@@ -8,7 +11,9 @@ import javax.persistence.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity

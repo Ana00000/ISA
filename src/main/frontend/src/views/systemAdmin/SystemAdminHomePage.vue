@@ -1,9 +1,7 @@
 <template>
     <div>
+        <SystemAdminMenu/>
         <HomeBackground/>
-        <div class="panelDiv">
-            <SystemAdminMenu/>
-        </div>
     </div>
 </template>
 
