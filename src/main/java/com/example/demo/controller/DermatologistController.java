@@ -11,15 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RestController
 @RequestMapping(value = "/dermatologists", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DermatologistController {
 	
 	private final DermatologistService dermatologistService;
@@ -110,8 +112,10 @@ public class DermatologistController {
 	}
 
 	@PostMapping(value = "/addDermatolog")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
 	public ResponseEntity<DermatologistDTO> addDermatologist(@RequestBody DermatologistDTO dermatologistDTO){
 		Dermatologist dermatologist = new Dermatologist(dermatologistDTO);
+		dermatologist.setActive(true);
 		dermatologist.setType("dermatologist");
 		dermatologistService.save(dermatologist);
 		return new ResponseEntity<>(dermatologistDTO,HttpStatus.CREATED);

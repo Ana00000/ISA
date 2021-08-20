@@ -76,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.antMatchers("/medicineIngredients/**").permitAll()
 					.antMatchers("/medicineReservation/**").permitAll()
 					.antMatchers("/pharmacists/**").permitAll()
-					.antMatchers("/dermatologists/**").permitAll()
+//					.antMatchers("/dermatologists/**").hasAnyAuthority("ROLE_SYSTEM_ADMIN")
 					.antMatchers("/patients/**").permitAll()
 					.antMatchers("/doctors/**").permitAll()
 					.antMatchers("/vacations/**").permitAll()
@@ -86,10 +86,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.antMatchers("/**").permitAll()
 
 					.antMatchers("/pharmacyAdmins/**").permitAll()
-					.antMatchers("/**").permitAll().and()
+					.antMatchers("/**").permitAll()//.and()
 
 					// za svaki drugi zahtev korisnik mora biti autentifikovan
-					//.anyRequest().authenticated().and()
+					.anyRequest().authenticated().and()
 
 					// za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
 					.cors().and()

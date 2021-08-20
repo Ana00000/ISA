@@ -281,6 +281,7 @@ INSERT INTO AUTHORITY (name) VALUES ('ROLE_DERMATOLOGIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACIST');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_PHARMACY_ADMIN');
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_SYSTEM_ADMIN');
+INSERT INTO AUTHORITY (name) VALUES ('ROLE_SUPPLIER');
 
 
 INSERT INTO user_authority (user_id, authority_id) VALUES (1, 3);
@@ -295,6 +296,7 @@ INSERT INTO user_authority (user_id, authority_id) VALUES (9, 4);
 INSERT INTO user_authority (user_id, authority_id) VALUES (10, 5);
 INSERT INTO user_authority (user_id, authority_id) VALUES (11, 5);
 INSERT INTO user_authority (user_id, authority_id) VALUES (12, 5);
+INSERT INTO user_authority (user_id, authority_id) VALUES (300, 6);
 
 
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (101, 0, 1, '2021-02-17 00:00', '2021-02-18 00:00');

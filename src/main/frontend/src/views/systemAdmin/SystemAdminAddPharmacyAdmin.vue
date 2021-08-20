@@ -100,6 +100,9 @@ export default {
   methods:{
       
       add(){
+        if(!this.ValidateEmail()){
+        return;
+        }
         if (this.password!==this.password2){
             alert("Passwords don't match !!!");
             this.password='';
@@ -108,14 +111,24 @@ export default {
         }
         console.log(this.pharmacyAdmin);
         this.$http.post('http://localhost:8081/pharmacyAdmins/addPharmacyAdmin',this.pharmacyAdmin)
-      .then(resp => {
-        console.log(resp.data);
-        window.location.href = 'http://localhost:8080/systemAdminHomePage';
-      })
-      .catch(er => {
-        console.log('Error while adding pharmacy admin');
-        console.log(er.response.data);
-      })
+        .then(resp => {
+          console.log(resp.data);
+          window.location.href = 'http://localhost:8080/systemAdminHomePage';
+        })
+        .catch(er => {
+          console.log('Error while adding pharmacy admin');
+          console.log(er.response.data);
+        })
+      },
+
+    ValidateEmail() 
+    {
+      if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.username))
+        {
+          return (true)
+        }
+          alert("You have entered an invalid email address!")
+          return (false)
       }
   }
 }
