@@ -17,6 +17,9 @@
             <div>
                 <router-link class="link" to="/systemAdminHomePage/addSupplier">Add supplier</router-link>
             </div>
+            <div>
+                <router-link class="link" to="/systemAdminHomePage/addMedicine">Add medicine</router-link>
+            </div>
             <div/>
         </v-layout>
     </v-container>

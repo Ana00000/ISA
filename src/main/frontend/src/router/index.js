@@ -248,6 +248,11 @@ const routes = [
     name: 'SystemAdminAddSupplier',
     component: () => import('../views/systemAdmin/SystemAdminAddSupplier.vue')
   },
+  {
+    path: '/systemAdminHomePage/addMedicine',
+    name: 'SystemAdminAddMedicine',
+    component: () => import('../views/systemAdmin/SystemAdminAddMedicine.vue')
+  },
 ]
 
 const router = new VueRouter({

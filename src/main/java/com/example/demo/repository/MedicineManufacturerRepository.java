@@ -13,4 +13,6 @@ public interface MedicineManufacturerRepository extends JpaRepository<MedicineMa
 	Page<MedicineManufacturer> findAll(Pageable pageable);
 
 	List<MedicineManufacturer> findAllByName(String name);
+
+	MedicineManufacturer findByName(String name);
 }

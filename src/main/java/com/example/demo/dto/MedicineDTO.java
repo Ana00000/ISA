@@ -14,13 +14,19 @@ public class MedicineDTO implements Serializable {
     private MedicineShapeDTO medicineShape;
     private List<MedicineIngredientDTO> medicinesIngredients;
     private List<MedicineDTO> alternativeMedicines;
-
+    private String code;
+    private String medicinType;
+	private String contraindications;
+	private String recommendedIntake;
 	public MedicineDTO() {
 	}
 	
 	public MedicineDTO(Medicine medicine) {
 		this.id = medicine.getId();
 		this.name = medicine.getName();
+		this.code = medicine.getCode();
+		if(medicine.getMedicineType()!=null)
+			this.medicinType = medicine.getMedicineType().getType();
 		this.recipeNeed = medicine.isRecipeNeeded();
 		this.medicineManufacturer = new MedicineManufacturerDTO(medicine.getMedicineManufacturer());
 		this.medicineShape = new MedicineShapeDTO(medicine.getMedicineShape());
@@ -29,7 +35,7 @@ public class MedicineDTO implements Serializable {
         for(MedicineIngredient mi: medicine.getIngredients())
         	medicinesIngredients.add(new MedicineIngredientDTO(mi));
         this.medicinesIngredients = medicinesIngredients;
-   
+
 		List<MedicineDTO> alternativeMedicines = new ArrayList<MedicineDTO>();
         for(Medicine m: medicine.getAlternativeMedicine())
         	alternativeMedicines.add(new MedicineDTO(m));
@@ -47,7 +53,39 @@ public class MedicineDTO implements Serializable {
 		this.medicinesIngredients = medicinesIngredients;
 		this.alternativeMedicines = alternativeMedicines;
 	}
-	
+
+	public String getCode() {
+		return code;
+	}
+
+	public String getMedicinType() {
+		return medicinType;
+	}
+
+	public String getContraindications() {
+		return contraindications;
+	}
+
+	public void setContraindications(String contraindications) {
+		this.contraindications = contraindications;
+	}
+
+	public String getRecommendedIntake() {
+		return recommendedIntake;
+	}
+
+	public void setRecommendedIntake(String recommendedIntake) {
+		this.recommendedIntake = recommendedIntake;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setMedicinType(String medicinType) {
+		this.medicinType = medicinType;
+	}
+
 	public Long getId() {
 		return id;
 	}

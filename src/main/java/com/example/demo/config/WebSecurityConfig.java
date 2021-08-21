@@ -77,6 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.antMatchers("/medicineReservation/**").permitAll()
 					.antMatchers("/pharmacists/**").permitAll()
 //					.antMatchers("/dermatologists/**").hasAnyAuthority("ROLE_SYSTEM_ADMIN")
+					.antMatchers("medicineType/**").permitAll()
 					.antMatchers("/patients/**").permitAll()
 					.antMatchers("/doctors/**").permitAll()
 					.antMatchers("/vacations/**").permitAll()

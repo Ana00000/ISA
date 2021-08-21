@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 
+import com.example.demo.dto.MedicineDTO;
+import com.example.demo.dto.MedicineShapeDTO;
 import com.example.demo.model.enums.MedicineShapeValue;
 
 import java.io.Serializable;
@@ -24,6 +26,11 @@ public class MedicineShape implements Serializable {
 		super();
 		this.id = id;
 		this.shapeValue = shapeValue;
+	}
+
+	public MedicineShape(MedicineShapeDTO medicineShapeDTO){
+    	this.id = medicineShapeDTO.getId();
+    	this.shapeValue = medicineShapeDTO.getShapeValue();
 	}
 
 	public Long getId() {

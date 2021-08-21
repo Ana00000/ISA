@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.MedicineManufacturerDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -23,6 +25,10 @@ public class MedicineManufacturer implements Serializable {
 		this.name = name;
 	}
 
+	public MedicineManufacturer(MedicineManufacturerDTO medicineManufacturerDTO){
+    	this.id = medicineManufacturerDTO.getId();
+    	this.name = medicineManufacturerDTO.getName();
+	}
 	public Long getId() {
 		return id;
 	}
