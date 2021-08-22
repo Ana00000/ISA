@@ -68,7 +68,7 @@ public class MedicineServiceImpl implements MedicineService {
 				alternativeMedicines.add(pom);
 		}
 		medicine.setAlternativeMedicine(alternativeMedicines);
-		
+
 		for(MedicineShape ms : medicineShapeRepository.findAll()){
 			if(ms.getShapeValue().getText().equals(medicineToAddDTO.getMedicineShape())){
 				medicine.setMedicineShape(ms);

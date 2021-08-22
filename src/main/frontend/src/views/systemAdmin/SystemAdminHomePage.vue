@@ -1,16 +1,14 @@
 <template>
-    <div>
+    <div class="backgroundDiv">
         <SystemAdminMenu/>
-        <HomeBackground/>
     </div>
 </template>
 
 <script>
-import HomeBackground from '../../components/HomeBackground.vue'
 import SystemAdminMenu from '../../components/systemAdmin/SystemAdminMenu.vue'
 export default {
     name:'SystemAdminHomePage',
-    components: { SystemAdminMenu, HomeBackground },
+    components: { SystemAdminMenu },
 
 }
 </script>
@@ -19,5 +17,12 @@ export default {
 
 .panelDiv {
     float: bottom;
+}
+
+.backgroundDiv {
+  background: url('https://wallup.net/wp-content/uploads/2017/11/17/260979-pills-pharmacy.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 }
 </style>

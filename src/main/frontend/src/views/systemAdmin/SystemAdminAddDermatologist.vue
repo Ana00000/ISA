@@ -85,43 +85,12 @@ export default {
           this.password2='';
           return;
       }
-      // var tokenString = '';
-      //       tokenString = localStorage.getItem("token");
-      //       const config = {
-      //               headers: {Authorization: `Bearer ${tokenString}`}
-      //       };
-      //       this.$http.get('http://localhost:8081/doctors/findLoggedDoctor', config
-      //        ).then(resp => {
-      //           this.dermatologist = resp.data
-      //           this.$http.post('http://localhost:8081/vacations/saveVacation', 
-      //           {         
-      //               status : 'PENDING',
-      //               doctor : this.dermatologist,
-      //               startTime : new Date(this.startTime),
-      //               endTime : new Date(this.endTime)
-      //           }).then(resp => {
-      //               console.log(resp.data);
-      //               alert("Request is formed!");
-      //           }).catch(err => {
-      //               alert("You already have one vacation request!");
-      //               console.log(err.response.data);
-      //           })
-      //        }).catch(console.log);
-
+      
       var tokenString = '';
       tokenString = localStorage.getItem("token");
       const config = {
               headers: {Authorization: `Bearer ${tokenString}`}
       };
-      // axios.post('http://localhost:8081/dermatologists/addDermatolog', this.user,config)
-      // .then(res => {
-      //   console.log(res.data);
-      //   alert("Successfully added !")
-      //   window.location.href = 'http://localhost:8080/systemAdminHomePage';
-      // })
-      // .catch(er => {
-      //   console.log(er);
-      // });
       this.$http.post('http://localhost:8081/dermatologists/addDermatolog',this.user,config)
       .then(resp => {
         console.log(resp.data);

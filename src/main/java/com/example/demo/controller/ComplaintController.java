@@ -1,15 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ComplaintAnswerDTO;
 import com.example.demo.dto.ComplaintDTO;
-import com.example.demo.model.Complaint;
-import com.example.demo.model.Doctor;
-import com.example.demo.model.Patient;
-import com.example.demo.model.Pharmacy;
+import com.example.demo.dto.DoctorDTO;
+import com.example.demo.model.*;
 import com.example.demo.security.TokenUtils;
-import com.example.demo.service.ComplaintService;
-import com.example.demo.service.DoctorService;
-import com.example.demo.service.PatientService;
-import com.example.demo.service.PharmacyService;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -35,7 +33,10 @@ public class ComplaintController {
     private PharmacyService pharmacyService;
 
     @Autowired
-    ComplaintService complaintService;
+    private ComplaintService complaintService;
+
+    @Autowired
+    private ComplaintAnswerService complaintAnswerService;
 
     @PostMapping("/new")
     public ResponseEntity<ComplaintDTO> newComplaint(HttpServletRequest request, @RequestBody ComplaintDTO complaintDTO){
@@ -62,4 +63,28 @@ public class ComplaintController {
 
         return new ResponseEntity<>(complaintDTO, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/getNotAnswered")
+    public ResponseEntity<List<ComplaintDTO>> getNotAnsweredCompalintments(){
+        List<Complaint> complaints = complaintService.getNotAnsweredCompalintments();
+        List<ComplaintDTO> complaintDTOS = new ArrayList<>();
+        for(Complaint complaint :complaints){
+            complaintDTOS.add(new ComplaintDTO(complaint));
+        }
+        return new ResponseEntity<>(complaintDTOS,HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ComplaintDTO> getComplainment(@PathVariable Long id) {
+        Complaint complaint = complaintService.getById(id);
+        ComplaintDTO complaintDTO = new ComplaintDTO(complaint);
+        return new ResponseEntity<>(complaintDTO,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/addCompalintAnswer")
+    public ResponseEntity<ComplaintAnswerDTO> addAnswer(@RequestBody ComplaintAnswerDTO complaintAnswerDTO){
+        ComplaintAnswerDTO complaintAnswerDTO2 = complaintAnswerService.save(complaintAnswerDTO);
+        return new ResponseEntity<>(complaintAnswerDTO2,HttpStatus.CREATED);
+    }
+
 }

@@ -253,6 +253,21 @@ const routes = [
     name: 'SystemAdminAddMedicine',
     component: () => import('../views/systemAdmin/SystemAdminAddMedicine.vue')
   },
+  {
+    path: '/systemAdminHomePage/complaintments',
+    name: 'SystemAdminAnswerOnComplaintments',
+    component: () => import('../views/systemAdmin/SystemAdminAnswerOnComplaintments.vue')
+  },
+  {
+    path: '/systemAdminHomePage/answerOnSpecificComplainment/:complainmentID',
+    name: 'AnswerOnSpecificComplainment',
+    component: () => import('../views/systemAdmin/AnswerOnSpecificComplainment.vue')
+  },
+  {
+    path: '/systemAdminHomePage/LoyaltyProgram',
+    name: 'LoyaltyProgram',
+    component: () => import('../views/systemAdmin/LoyaltyProgram.vue')
+  },
 ]
 
 const router = new VueRouter({

@@ -1,27 +1,33 @@
 <template>
-  <v-container class="indigo ma-0" fluid fill-width>
-        <v-layout type>
-            <div/>
-            <div>
-                <router-link class="link" to="/systemAdminHomePage">Home page</router-link>
-            </div>
-            <div>
-                <router-link class="link" to="/systemAdminHomePage/addPharmacy">Add pharmacy</router-link>
-            </div>
-            <div>
-                <router-link class="link" to="/systemAdminHomePage/addPharmacyAdmin">Add pharmacy admin</router-link>
-            </div>
-            <div>
-                <router-link class="link" to="/systemAdminHomePage/addDermatologist">Add dermatologist</router-link>
-            </div>
-            <div>
-                <router-link class="link" to="/systemAdminHomePage/addSupplier">Add supplier</router-link>
-            </div>
-            <div>
-                <router-link class="link" to="/systemAdminHomePage/addMedicine">Add medicine</router-link>
-            </div>
-            <div/>
-        </v-layout>
+  <v-container class="containerClass">
+        <v-container >
+            <v-col >
+                <v-row no-gutters> 
+                    <router-link class="link" to="/systemAdminHomePage">Home page</router-link>
+                </v-row>
+                <v-row no-gutters>
+                    <router-link class="link" to="/systemAdminHomePage/addPharmacy">Add pharmacy</router-link>
+                </v-row>
+                <v-row>
+                    <router-link class="link" to="/systemAdminHomePage/addPharmacyAdmin">Add pharmacy admin</router-link>
+                </v-row>
+                <v-row>
+                    <router-link class="link" to="/systemAdminHomePage/addDermatologist">Add dermatologist</router-link>
+                </v-row>
+                <v-row>
+                    <router-link class="link" to="/systemAdminHomePage/addSupplier">Add supplier</router-link>
+                </v-row>
+                <v-row>
+                    <router-link class="link" to="/systemAdminHomePage/addMedicine">Add medicine</router-link>
+                </v-row>
+                <v-row>
+                    <router-link class="link" to="/systemAdminHomePage/complaintments">Answer on complaintments</router-link>
+                </v-row>
+            </v-col>
+            <v-col>
+            </v-col>
+            
+        </v-container>
     </v-container>
 </template>
 
@@ -32,17 +38,22 @@ export default {
 </script>
 
 <style scoped>
-div {
-    width: max-content;
-    margin-left: 30px;
-    margin-right: 30px;
-    display: inline-block;
+/* div {
+    margin-bottom: 30px;
+    justify-content: center;
+    display: flex;
 }
 
 .link {
-    color: whitesmoke;
-    text-decoration: snow;
-    font-weight: bolder;
-    font-size: 25px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+} */
+.containerClass{
+    width: 2%;
+    margin-right: 100%;
+    font-size: 32px;
 }
+
 </style>

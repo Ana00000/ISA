@@ -343,3 +343,8 @@ INSERT INTO system_admin(id, name, last_name, email, password, address, phone_nu
 INSERT INTO medicine_type(id,type) VALUES(401,'ANTIBIOTIK');
 INSERT INTO medicine_type(id,type) VALUES(402,'ANESTETIK');
 INSERT INTO medicine_type(id,type) VALUES(403,'ANTIHISTAMINIK');
+
+INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nije dobar lekar...', 1, 4, null);
+INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nije dobara apoteka nema taj lek...', null, 4, 13);
+INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('jako drzak...', 3, 5, null);
+INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nisu mi dali lek bez recepta o ovoj apoteci...', null, 6, 15);
