@@ -21,14 +21,41 @@ public class LoyaltyProgram {
     @Column(name="pointsForGold", unique=false, nullable=false)
     private int pointsForGold;
 
+    @Column(name="discauntForSilver", unique=false, nullable=false)
+    private int discauntForSilver;
+
+    @Column(name="discauntForGold", unique=false, nullable=false)
+    private int discauntForGold;
+
     public LoyaltyProgram(){}
 
-    public LoyaltyProgram(Long id, int pointsForConsultation, int pointsForExamination, int pointsForSilver, int pointsForGold) {
+    public LoyaltyProgram(int discauntForGold){
+        this.discauntForGold = discauntForGold;
+    }
+
+    public LoyaltyProgram(Long id, int pointsForConsultation, int pointsForExamination, int pointsForSilver, int pointsForGold, int discauntForGold) {
         this.id = id;
         this.pointsForConsultation = pointsForConsultation;
         this.pointsForExamination = pointsForExamination;
         this.pointsForSilver = pointsForSilver;
         this.pointsForGold = pointsForGold;
+        this.discauntForGold = discauntForGold;
+    }
+
+    public int getDiscauntForSilver() {
+        return discauntForSilver;
+    }
+
+    public void setDiscauntForSilver(int discauntForSilver) {
+        this.discauntForSilver = discauntForSilver;
+    }
+
+    public int getDiscauntForGold() {
+        return discauntForGold;
+    }
+
+    public void setDiscauntForGold(int discauntForGold) {
+        this.discauntForGold = discauntForGold;
     }
 
     public Long getId() {

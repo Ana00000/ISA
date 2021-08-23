@@ -1,6 +1,9 @@
 <template>
   <div>
-<SystemAdminMenu/>
+    <div style="width:25%;">
+        <SystemAdminMenu/>
+    </div>
+
   <v-card width="400" class="mx-auto mt-5" color="white">
     <v-card-title class="justify-center">
       <h1 class="display-1 ">Add dermatologist</h1>

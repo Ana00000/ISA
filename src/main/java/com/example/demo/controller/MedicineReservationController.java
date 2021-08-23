@@ -133,6 +133,7 @@ public class MedicineReservationController {
         medicineReservation.setPharmacy(pharmacy);
         medicineReservation.setPickUpDate(reservationRequest.getPickUpDate());
         medicineReservation.setPatient(patient);
+        setDiscount(patient, medicineReservation);
         MedicineReservation retValue = medicineReservationService.save(medicineReservation);
 
         //Update quantity of medicine in pharmacy
@@ -142,6 +143,12 @@ public class MedicineReservationController {
         emailService.sendEmail(patient.getEmail(), "New Reservation", "reservation");
 
         return new ResponseEntity<>("successful", HttpStatus.OK);
+    }
+
+    private void setDiscount(Patient patient, MedicineReservation medicineReservation) {
+        int discountPercent = patientService.CalculateDiscauntForUser(patient.getId());
+        double discount = (medicineReservation.getMedicine().getPrice()*discountPercent)/100;
+        medicineReservation.setUserDiscount(discount);
     }
 
     @PostMapping(value = "/cancel")

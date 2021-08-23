@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pink lighten-3 white--text">
+    <v-container class="blue lighten-3 white--text">
         <v-layout style="padding:0px" column>
             <div>
                 <router-link class="link" to="/patientPharmacies">Pharmacies</router-link>

@@ -15,12 +15,14 @@ public class MedicineToAddDTO {
     private String contraindications;
     private int recommendedIntake;
     private String medicineShapeName;
+    private int points;
+    private int price;
 
     public MedicineToAddDTO(){}
 
     public MedicineToAddDTO(Long id, String name, boolean recipeNeed, String medicineManufacturer,
                             String medicineShape, List<String> medicinesIngredients, List<String> alternativeMedicines,
-                            String code, String medicinType, String contraindications, int recommendedIntake, String medicineShapeName) {
+                            String code, String medicinType, String contraindications, int recommendedIntake, String medicineShapeName, int price) {
         this.id = id;
         this.name = name;
         this.recipeNeed = recipeNeed;
@@ -33,6 +35,23 @@ public class MedicineToAddDTO {
         this.contraindications = contraindications;
         this.recommendedIntake = recommendedIntake;
         this.medicineShapeName = medicineShapeName;
+        this.price = price;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public String getMedicineShapeName() {

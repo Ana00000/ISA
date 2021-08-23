@@ -17,6 +17,9 @@ public class Patient extends User implements Serializable{
     @Column(name = "penalties", unique = false)
     private int penalties;
 
+    @Column(name = "points", unique = false)
+    private int points;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable( name = "patientsOnPromotion", joinColumns = @JoinColumn(name="promotion_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"))
     private Set<Promotion> promotions = new HashSet<Promotion>();
@@ -27,9 +30,17 @@ public class Patient extends User implements Serializable{
 
     public Patient(){
     }
-    
+
     public Patient(UserDTO userDTO) {
-    	super(userDTO);
+        super(userDTO);
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public int getPenalties() {

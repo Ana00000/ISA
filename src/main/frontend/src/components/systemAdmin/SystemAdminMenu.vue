@@ -1,33 +1,75 @@
 <template>
-  <v-container class="containerClass">
-        <v-container >
-            <v-col >
-                <v-row no-gutters> 
+  <v-container class="mainContainer">
+        <!-- <v-layout >
+            <div class="firstDiv">
+                <div class="divBelow"> 
                     <router-link class="link" to="/systemAdminHomePage">Home page</router-link>
-                </v-row>
-                <v-row no-gutters>
+                </div>
+                <div class="divBelow">
                     <router-link class="link" to="/systemAdminHomePage/addPharmacy">Add pharmacy</router-link>
-                </v-row>
-                <v-row>
+                </div>
+                <div class="divBelow">
                     <router-link class="link" to="/systemAdminHomePage/addPharmacyAdmin">Add pharmacy admin</router-link>
-                </v-row>
-                <v-row>
+                </div>
+                <div class="divBelow"> 
                     <router-link class="link" to="/systemAdminHomePage/addDermatologist">Add dermatologist</router-link>
-                </v-row>
-                <v-row>
+                </div>
+                <div class="divBelow">
                     <router-link class="link" to="/systemAdminHomePage/addSupplier">Add supplier</router-link>
-                </v-row>
-                <v-row>
+                </div>
+                <div class="divBelow">
                     <router-link class="link" to="/systemAdminHomePage/addMedicine">Add medicine</router-link>
-                </v-row>
-                <v-row>
+                </div>
+                <div class="divBelow">
                     <router-link class="link" to="/systemAdminHomePage/complaintments">Answer on complaintments</router-link>
-                </v-row>
-            </v-col>
-            <v-col>
-            </v-col>
-            
-        </v-container>
+                </div>
+            </div> -->
+            <v-menu
+            top
+            :close-on-content-click="closeOnContentClick"
+            :offset-y="true"
+            >
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                color="primary"
+                dark
+                v-bind="attrs"
+                v-on="on"
+                >
+                System admin menu
+                </v-btn>
+            </template>
+
+            <v-list>
+                <v-list-item>
+                    <router-link class="link" to="/systemAdminHomePage">Home page</router-link>
+                </v-list-item>
+                <v-list-item>
+                    <router-link class="link" to="/systemAdminHomePage/addPharmacy">Add pharmacy</router-link>
+                </v-list-item>
+                <v-list-item>
+                    <router-link class="link" to="/systemAdminHomePage/addPharmacyAdmin">Add pharmacy admin</router-link>
+                </v-list-item>
+                <v-list-item>
+                    <router-link class="link" to="/systemAdminHomePage/addDermatologist">Add dermatologist</router-link>
+                </v-list-item>
+                <v-list-item>
+                    <router-link class="link" to="/systemAdminHomePage/addSupplier">Add supplier</router-link>
+                </v-list-item>
+                <v-list-item>
+                    <router-link class="link" to="/systemAdminHomePage/addMedicine">Add medicine</router-link>
+                </v-list-item>
+                <v-list-item>
+                    <router-link class="link" to="/systemAdminHomePage/complaintments">Answer on complaintments</router-link>
+                </v-list-item>
+                <v-list-item>
+                    <router-link class="link" to="/systemAdminHomePage/LoyaltyProgram">Loyalty program</router-link>
+                </v-list-item>
+                
+            </v-list>
+            </v-menu>
+            <br/>
+        <!-- </v-layout> -->
     </v-container>
 </template>
 
@@ -38,22 +80,22 @@ export default {
 </script>
 
 <style scoped>
-/* div {
-    margin-bottom: 30px;
-    justify-content: center;
-    display: flex;
+.divBelow{
+    float: left;
+    clear: left;
+    font-size: 40px;
 }
-
-.link {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 30px;
-} */
-.containerClass{
-    width: 2%;
-    margin-right: 100%;
-    font-size: 32px;
+.firstDiv{
+    float: left;
+}
+.mainContainer{
+    max-width:220px;
+    float:left ; 
+    height:100%;
+}
+.link{
+    color: black;
+    font-weight: bolder;
 }
 
 </style>

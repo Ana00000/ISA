@@ -73,11 +73,11 @@ INSERT INTO medicine_shape(id, shape_value) VALUES (3, 2);
 
 
 /*password-marko040234*/
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (4, 'Marko', 'Gojkovic', 'mile.knezevic98@gmail.com', '$2a$10$MsR7mrUJ3w32rD21cMynjO.X1nr37ARqpCyUBkahvoTRgIu7gJQe2', 'Novi sad Futoska 2', '061497607', 'TRUE', 0, 'TRUE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions, points) VALUES (4, 'Marko', 'Gojkovic', 'mile.knezevic98@gmail.com', '$2a$10$MsR7mrUJ3w32rD21cMynjO.X1nr37ARqpCyUBkahvoTRgIu7gJQe2', 'Novi sad Futoska 2', '061497607', 'TRUE', 0, 'TRUE',0);
 /*password-klara2352892*/
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (5, 'Klara', 'Mitrovic', 'klara56mitrov@gmail.com', '$2a$10$8j7UHWHgLSA3RAhHuUxxy.DAd0Ih13iOHKB.zcq/qvM/WW5OyYVIu', 'Novi sad Futoska 22', '061/637603', 'TRUE', 1, 'FALSE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions, points) VALUES (5, 'Klara', 'Mitrovic', 'klara56mitrov@gmail.com', '$2a$10$8j7UHWHgLSA3RAhHuUxxy.DAd0Ih13iOHKB.zcq/qvM/WW5OyYVIu', 'Novi sad Futoska 22', '061/637603', 'TRUE', 1, 'FALSE', 0);
 /*password-hadziCar*/
-INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions) VALUES (6, 'Aleksandar', 'Hadzibabic', 'hadziCar@gmail.com', '$2a$10$xmmsjxIhhY/CXRbdhcHOBuWgx7F16ef7OU8axXNw1VnA2dGwJs/km', 'Branimira Cosica 33', '06138909132', 'TRUE', 1, 'FALSE');
+INSERT INTO patient(id, name, last_name, email, password, address, phone_number, active, penalties, subscribed_to_promotions, points) VALUES (6, 'Aleksandar', 'Hadzibabic', 'hadziCar@gmail.com', '$2a$10$xmmsjxIhhY/CXRbdhcHOBuWgx7F16ef7OU8axXNw1VnA2dGwJs/km', 'Branimira Cosica 33', '06138909132', 'TRUE', 1, 'FALSE',0);
 
 
 
@@ -144,34 +144,34 @@ INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 3);
 
 
 
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (1000, 250.35, 811, 1022, 6, 3, '2021-09-25 12:00', '2021-09-25 13:00', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (2000, 450.50, 411, 922, 5, 1, '2021-12-31 15:35', '2021-12-31 17:05', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (3000, 259.99, 511, 222, 4, 2, '2021-05-04 10:10', '2021-05-04 11:11', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (4000, 300.00, 111, 522, 4, 8, '2021-01-01 23:05', '2021-12-31 23:35', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (5000, 150.50, 211, 422, 5, 9, '2021-07-22 13:20', '2021-07-22 15:00', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (6000, 850.50, 911, 222, 4, 8, '2021-03-03 01:00', '2021-03-03 01:50', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (7000, 310.99, 311, 922, 6, 2, '2021-08-29 14:00', '2021-08-29 14:14', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (8000, 261.80, 711, 322, 5, 2, '2021-12-02 16:20', '2021-12-02 17:00', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (9000, 700.00, 411, 522, 6, 9, '2021-05-17 08:05', '2021-05-17 09:00', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (10000, 451.00, 611, 422, 6, 3, '2021-02-13 00:20', '2021-02-13 00:50', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (11000, 251.00, 1111, 1122, null, 3, '2022-07-13 12:20', '2022-07-13 12:50', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (12000, 150.00, 1211, 1222, null, 1, '2023-05-15 12:20', '2023-05-15 12:30', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (13000, 440.00, 1311, 1322, null, 2, '2022-03-13 12:50', '2022-03-13 14:50', 0);
-INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty)
-VALUES (14000, 240.00, 1411, 1422, null, 3, '2022-02-13 12:50', '2022-02-13 14:50', 0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (1000, 250.35, 811, 1022, 6, 3, '2021-09-25 12:00', '2021-09-25 13:00', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (2000, 450.50, 411, 922, 5, 1, '2021-12-31 15:35', '2021-12-31 17:05', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (3000, 259.99, 511, 222, 4, 2, '2021-05-04 10:10', '2021-05-04 11:11', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (4000, 300.00, 111, 522, 4, 8, '2021-01-01 23:05', '2021-12-31 23:35', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (5000, 150.50, 211, 422, 5, 9, '2021-07-22 13:20', '2021-07-22 15:00', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (6000, 850.50, 911, 222, 4, 8, '2021-03-03 01:00', '2021-03-03 01:50', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (7000, 310.99, 311, 922, 6, 2, '2021-08-29 14:00', '2021-08-29 14:14', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (8000, 261.80, 711, 322, 5, 2, '2021-12-02 16:20', '2021-12-02 17:00', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (9000, 700.00, 411, 522, 6, 9, '2021-05-17 08:05', '2021-05-17 09:00', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (10000, 451.00, 611, 422, 6, 3, '2021-02-13 00:20', '2021-02-13 00:50', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (11000, 251.00, 1111, 1122, null, 3, '2022-07-13 12:20', '2022-07-13 12:50', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (12000, 150.00, 1211, 1222, null, 1, '2023-05-15 12:20', '2023-05-15 12:30', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (13000, 440.00, 1311, 1322, null, 2, '2022-03-13 12:50', '2022-03-13 14:50', 0,0);
+INSERT INTO appointment(id, price, appointment_type_id, status_id, patient_id, doctor_id, start_time, end_time, penalty, user_discount)
+VALUES (14000, 240.00, 1411, 1422, null, 3, '2022-02-13 12:50', '2022-02-13 14:50', 0,0);
 
 
 INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 1000);
@@ -190,26 +190,26 @@ INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 130
 INSERT INTO appointment_in_pharmacy(pharmacy_id, appointment_id) VALUES (13, 14000);
 
 
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Ibuprofen', False, 5, 1, 2);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Adderall', False, 4, 3, 3);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Lexapro', True, 1, 1, 2);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Methadone', False, 2, 3, 2);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Zofran', True, 1, 1, 1);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Ketamine', False, 3, 1, 1);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Vitamin B1', False, 3, 3, 3);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Sinemet', True, 2, 2, 2);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Otezla', True, 5, 2, 4);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake)
-VALUES ( 'Codeine', False, 1, 3, 2);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Ibuprofen', False, 5, 1, 2, 2, 100);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Adderall', False, 4, 3, 3, 1, 200);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Lexapro', True, 1, 1, 2, 3, 150);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Methadone', False, 2, 3, 2, 4, 130);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Zofran', True, 1, 1, 1, 2, 240);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Ketamine', False, 3, 1, 1, 1, 130);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Vitamin B1', False, 3, 3, 3, 2, 120);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Sinemet', True, 2, 2, 2, 2, 100);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Otezla', True, 5, 2, 4, 2, 50);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price)
+VALUES ( 'Codeine', False, 1, 3, 2, 1, 20);
 
 
 INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (13, 1);
@@ -267,12 +267,12 @@ INSERT INTO medicine_reservation_status(id, status_value) VALUES (1, 0);
 INSERT INTO medicine_reservation_status(id, status_value) VALUES (2, 1);
 
 
-INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (1, '2021-03-03 00:00:00', 3, 'ACTIVE', 1, 6, 13);
-INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (2, '2021-03-03 00:00:00', 5, 'ACTIVE', 4, 6, 13);
-INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (3, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 6, 14);
-INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (4, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 6, 14);
-INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (5, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 5, 14);
-INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id ) VALUES (6, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 4, 14);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id, user_discount) VALUES (1, '2021-03-03 00:00:00', 3, 'ACTIVE', 1, 6, 13, 0);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id, user_discount) VALUES (2, '2021-03-03 00:00:00', 5, 'ACTIVE', 4, 6, 13, 0);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id, user_discount) VALUES (3, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 6, 14, 0);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id, user_discount) VALUES (4, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 6, 14, 0);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id, user_discount) VALUES (5, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 5, 14, 0);
+INSERT INTO medicine_reservation(id, pick_up_date, quantity, reservation_status, medicine_id, patient_id, pharmacy_id, user_discount) VALUES (6, '2021-07-03 00:00:00', 6, 'ACTIVE', 5, 4, 14, 0);
 
 
 INSERT INTO AUTHORITY (name) VALUES ('ROLE_USER');
@@ -348,3 +348,5 @@ INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nije dobar
 INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nije dobara apoteka nema taj lek...', null, 4, 13);
 INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('jako drzak...', 3, 5, null);
 INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nisu mi dali lek bez recepta o ovoj apoteci...', null, 6, 15);
+
+INSERT INTO loyalty_program(points_for_consultation,points_for_examination,points_for_silver,points_for_gold,discaunt_for_silver,discaunt_for_gold) VALUES (2, 3, 15, 30,3,6);

@@ -175,8 +175,10 @@ public class AppointmentController {
 		}
 		String username = tokenUtils.getUsernameFromToken(token);
 		Patient patient = patientService.findOneByEmail(username);
-
+		int discountPercent =  patientService.CalculateDiscauntForUser(patient.getId());
 		Appointment appointment = appointmentService.findOne(appointmentDTO.getId());
+		double discount = (appointment.getPrice()*discountPercent)/100;
+		appointment.setUserDiscount(discount);
 		appointment.setPatient(patient);
 		appointmentService.save(appointment);
 

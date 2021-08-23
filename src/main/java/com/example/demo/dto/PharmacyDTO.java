@@ -44,20 +44,20 @@ public class PharmacyDTO implements Serializable {
         this.averageGrade = pharmacy.getAverageGrade();
         this.dermatologists = pharmacy.getDermatologists();
         
-        List<PharmacistDTO> pharmacists = new ArrayList<PharmacistDTO>();
-        for(Pharmacist p: pharmacy.getPharmacists())
-        	pharmacists.add(new PharmacistDTO(p));
-        this.pharmacists = pharmacists;
-        
-        List<MedicineDTO> medicines = new ArrayList<MedicineDTO>();
-        for(Medicine m: pharmacy.getMedicines())
-        	medicines.add(new MedicineDTO(m));
-        this.medicines = medicines;
-        
-        List<AppointmentDTO> appointments = new ArrayList<AppointmentDTO>();
-        for(Appointment a: pharmacy.getAppointments())
-        	appointments.add(new AppointmentDTO(a));
-        this.appointments = appointments;
+//        List<PharmacistDTO> pharmacists = new ArrayList<PharmacistDTO>();
+//        for(Pharmacist p: pharmacy.getPharmacists())
+//        	pharmacists.add(new PharmacistDTO(p));
+//        this.pharmacists = pharmacists;
+//
+//        List<MedicineDTO> medicines = new ArrayList<MedicineDTO>();
+//        for(Medicine m: pharmacy.getMedicines())
+//        	medicines.add(new MedicineDTO(m));
+//        this.medicines = medicines;
+//
+//        List<AppointmentDTO> appointments = new ArrayList<AppointmentDTO>();
+//        for(Appointment a: pharmacy.getAppointments())
+//        	appointments.add(new AppointmentDTO(a));
+//        this.appointments = appointments;
     }
 
 	private Long id;

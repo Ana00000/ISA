@@ -1,11 +1,12 @@
 <template>
     <div>
         <SystemAdminMenu/>
-        <h1 style="margin:10px; color:blue;">Complainments</h1>
-        <div style="margin: 0 auto width:100px">
-            <Complainent v-for="complaintmet in complaintments" :key="complaintmet.id" v-bind:complaintment="complaintmet"/>
-        </div>    
-      
+        <div>
+            <h1 style="margin:10px; color:blue;">Complainments</h1>
+            <div style="margin: 0 auto width:100px">
+                <Complainent v-for="complaintmet in complaintments" :key="complaintmet.id" v-bind:complaintment="complaintmet"/>
+            </div>    
+        </div>
     </div>
 </template>
 
