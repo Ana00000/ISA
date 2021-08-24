@@ -268,6 +268,21 @@ const routes = [
     name: 'LoyaltyProgram',
     component: () => import('../views/systemAdmin/LoyaltyProgram.vue')
   },
+  {
+    path: '/systemAdminHomePage/AddSystemAdmin',
+    name: 'AddSystemAdmin',
+    component: () => import('../views/systemAdmin/AddSystemAdmin')
+  },
+  {
+    path: '/systemAdminHomePage/FirstLogin',
+    name: 'FirstLogin',
+    component: () => import('../views/systemAdmin/FirstLogin.vue')
+  },
+  {
+    path: '/supplierHomePage',
+    name: 'supplierHomePage',
+    component: () => import('../views/supplier/supplierHomePage.vue')
+  },
 ]
 
 const router = new VueRouter({

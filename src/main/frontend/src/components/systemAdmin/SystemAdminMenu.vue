@@ -65,6 +65,9 @@
                 <v-list-item>
                     <router-link class="link" to="/systemAdminHomePage/LoyaltyProgram">Loyalty program</router-link>
                 </v-list-item>
+                <v-list-item>
+                    <router-link class="link" to="/systemAdminHomePage/AddSystemAdmin">Add system admin</router-link>
+                </v-list-item>
                 
             </v-list>
             </v-menu>

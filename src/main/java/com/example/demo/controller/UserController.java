@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.example.demo.model.*;
+import com.example.demo.service.*;
 import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -24,12 +25,6 @@ import com.example.demo.dto.UserDTO;
 import com.example.demo.security.ResourceConflictException;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.security.UserTokenState;
-import com.example.demo.service.DermatologistService;
-import com.example.demo.service.DoctorService;
-import com.example.demo.service.PatientService;
-import com.example.demo.service.PharmacistService;
-import com.example.demo.service.PharmacyAdminService;
-import com.example.demo.service.UserService;
 import com.example.demo.service.impl.CustomUserDetailsService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -57,16 +52,23 @@ public class UserController {
 
 	@Autowired
 	private final EmailServiceImpl emailService;
+
+	@Autowired
+	private final SystemAdminService systemAdminService;
 	
     @Autowired
-    public UserController(UserService userService, PatientService patientService,
-    		PharmacyAdminService pharmacyAdminService,EmailServiceImpl emailService) {
-        
-    	this.pharmacyAdminService = pharmacyAdminService;
+    public UserController(TokenUtils tokenUtils, AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, UserService userService, PatientService patientService,
+						  PharmacyAdminService pharmacyAdminService, EmailServiceImpl emailService, SystemAdminService systemAdminService) {
+		this.tokenUtils = tokenUtils;
+		this.authenticationManager = authenticationManager;
+		this.userDetailsService = userDetailsService;
+
+		this.pharmacyAdminService = pharmacyAdminService;
 		this.userService = userService;
         this.patientService = patientService;
         this.emailService = emailService;
-    }
+		this.systemAdminService = systemAdminService;
+	}
 
 
 
@@ -121,6 +123,9 @@ public class UserController {
     	}
     	if(user.getClass() == SystemAdmin.class){
     		return "http://localhost:8080/systemAdminHomePage";
+		}
+    	if(user.getClass() == Supplier.class){
+    		return "http://localhost:8080/supplierHomePage";
 		}
     	return "http://localhost:8080/";
     }
@@ -184,5 +189,16 @@ public class UserController {
 		}
 		return new ResponseEntity<>( HttpStatus.OK);
 	}
+
+	@GetMapping("/IsFirstLogin")
+	public ResponseEntity<Boolean> isSystemAdminFirstLogin(Authentication authentication){
+		SystemAdmin systemAdmin = systemAdminService.findByEmail(authentication.getName());
+		if(systemAdmin != null){
+			if(systemAdmin.isLoggedFirstTime()==true){
+				return new ResponseEntity<>(true,HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<>(false,HttpStatus.OK);
+    }
 
 }

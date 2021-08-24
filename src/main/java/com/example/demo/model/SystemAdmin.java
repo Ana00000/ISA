@@ -24,6 +24,7 @@ public class SystemAdmin extends User{
 
     public  SystemAdmin(UserDTO userDTO){
         super(userDTO);
+        this.isLoggedFirstTime = true;
     }
 
 }

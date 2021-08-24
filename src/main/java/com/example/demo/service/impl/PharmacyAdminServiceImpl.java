@@ -8,6 +8,7 @@ import com.example.demo.repository.PharmacyAdminRepository;
 import com.example.demo.repository.PharmacyRepository;
 import com.example.demo.service.AuthorityService;
 import com.example.demo.service.PharmacyAdminService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,13 +22,13 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
 
     private final PharmacyAdminRepository pharmacyAdminRepository;
     private final PharmacyRepository pharmacyRepository;
-    private AuthorityService authorityService;
+    private final UserService userService;
 
     @Autowired
-    public PharmacyAdminServiceImpl(PharmacyAdminRepository pharmacyAdminRepository, PharmacyRepository pharmacyRepository, AuthorityService authorityService) {
+    public PharmacyAdminServiceImpl(PharmacyAdminRepository pharmacyAdminRepository, PharmacyRepository pharmacyRepository, UserService userService) {
         this.pharmacyAdminRepository = pharmacyAdminRepository;
         this.pharmacyRepository = pharmacyRepository;
-        this.authorityService = authorityService;
+        this.userService = userService;
     }
 
     @Override
@@ -82,10 +83,7 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
     public PharmacyAdmin addPharmacyAdmin(PharmacyAdminDTO pharmacyAdminDTO) {
         Pharmacy pharmacy = pharmacyRepository.findById(pharmacyAdminDTO.getPharmacyId()).get();
         PharmacyAdmin pharmacyAdmin = new PharmacyAdmin(pharmacyAdminDTO, pharmacy);
-        List<Authority> authorities = new ArrayList<>();
-        authorities.add(authorityService.findByName("ROLE_PHARMACY_ADMIN"));
-        pharmacyAdmin.setAuthorities(authorities);
-        pharmacyAdminRepository.save(pharmacyAdmin);
+        userService.save(pharmacyAdmin);
         return pharmacyAdmin;
     }
 }

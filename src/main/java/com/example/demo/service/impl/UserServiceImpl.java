@@ -3,9 +3,6 @@ package com.example.demo.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.dto.DermatologistDTO;
-import com.example.demo.dto.PatientDTO;
-import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
@@ -28,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final PharmacistRepository pharmacistRepository;
     private final PharmacyAdminRepository pharmacyAdminRepository;
 	private final SystemAdminRepository systemAdminRepository;
+	private final SupplierRepository supplierRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -35,8 +33,8 @@ public class UserServiceImpl implements UserService {
     private AuthorityService authorityService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, DoctorRepository doctorRepository, DermatologistRepository dermatologistRepository, 
-    		PatientRepository patientRepository, PharmacistRepository pharmacistRepository, PharmacyAdminRepository pharmacyAdminRepository, SystemAdminRepository systemAdminRepository) {
+    public UserServiceImpl(UserRepository userRepository, DoctorRepository doctorRepository, DermatologistRepository dermatologistRepository,
+						   PatientRepository patientRepository, PharmacistRepository pharmacistRepository, PharmacyAdminRepository pharmacyAdminRepository, SystemAdminRepository systemAdminRepository, SupplierRepository supplierRepository) {
         this.patientRepository = patientRepository;
 		this.userRepository = userRepository;
         this.doctorRepository = doctorRepository;
@@ -44,7 +42,8 @@ public class UserServiceImpl implements UserService {
         this.pharmacistRepository = pharmacistRepository;
         this.pharmacyAdminRepository = pharmacyAdminRepository;
         this.systemAdminRepository = systemAdminRepository;
-    }
+		this.supplierRepository = supplierRepository;
+	}
 
     public User findOne(Long id) {
     	List<User> users = findAll();
@@ -86,6 +85,7 @@ public class UserServiceImpl implements UserService {
     	retList.addAll(pharmacistRepository.findAll());
     	retList.addAll(pharmacyAdminRepository.findAll());
     	retList.addAll(systemAdminRepository.findAll());
+    	retList.addAll(supplierRepository.findAll());
         return retList;
     }
 
@@ -139,20 +139,31 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
     	user.setPassword(passwordEncoder.encode(user.getPassword()));
         List<Authority> authorities = new ArrayList<>();
-        authorities.add(authorityService.findByName("ROLE_USER"));
         user.setAuthorities(authorities);
     	if(user.getClass() == Dermatologist.class) {
+
     		return dermatologistRepository.save((Dermatologist)user);
     	}
     	if (user.getClass() == Patient.class) {
+			authorities.add(authorityService.findByName("ROLE_USER"));
     		return patientRepository.save((Patient)user);
     	}
     	if(user.getClass() == Pharmacist.class) {
+			authorities.add(authorityService.findByName("ROLE_PHARMACIST"));
     		return pharmacistRepository.save((Pharmacist)user);
     	}
     	if(user.getClass() == PharmacyAdmin.class) {
-    		 return pharmacyAdminRepository.save((PharmacyAdmin)user);
+    		authorities.add(authorityService.findByName("ROLE_PHARMACY_ADMIN"));
+    		return pharmacyAdminRepository.save((PharmacyAdmin)user);
     	}
+    	if(user.getClass() == SystemAdmin.class){
+    		authorities.add(authorityService.findByName("ROLE_SYSTEM_ADMIN"));
+			return  systemAdminRepository.save((SystemAdmin) user);
+		}
+    	if(user.getClass() == Supplier.class){
+			authorities.add(authorityService.findByName("ROLE_SUPPLIER"));
+    		return supplierRepository.save((Supplier) user);
+		}
 		return userRepository.save(user);
     }
 

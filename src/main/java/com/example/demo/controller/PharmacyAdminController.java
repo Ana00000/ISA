@@ -1,11 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.PharmacyAdminDTO;
-import com.example.demo.dto.PharmacyDTO;
 import com.example.demo.model.PharmacyAdmin;
 import com.example.demo.service.DermatologistService;
 import com.example.demo.service.PharmacyAdminService;
 import com.example.demo.service.PharmacyService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,13 +22,15 @@ public class PharmacyAdminController {
     private final PharmacyAdminService pharmacyAdminService;
     private final PharmacyService pharmacyService;
     private final DermatologistService dermatologistService;
+    private final UserService userService;
 
     @Autowired
     public PharmacyAdminController(PharmacyAdminService pharmacyAdminService, PharmacyService pharmacyService,
-                                   DermatologistService dermatologistService) {
+                                   DermatologistService dermatologistService, UserService userService) {
         this.pharmacyAdminService = pharmacyAdminService;
         this.pharmacyService = pharmacyService;
         this.dermatologistService = dermatologistService;
+        this.userService = userService;
     }
 
     @GetMapping("/findAll")
