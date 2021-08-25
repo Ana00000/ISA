@@ -1,18 +1,20 @@
 <template>
      <div class="backgroundDiv">
-        <!-- <SystemAdminMenu/> -->
+        <SupplierMenu/>
     </div>
 </template>
 
 <script>
+import SupplierMenu from '../../components/supplier/SupplierMenu.vue'
 export default {
+  components: { SupplierMenu },
     name:'supplierHomePage'
 }
 </script>
 
 <style>
 .backgroundDiv {
-  background: url('https://www.google.com/search?q=supplier&client=opera&hs=CMJ&sxsrf=ALeKk03uEtiVAaJo8LuHIIy8JNHNC0_54Q:1629826381024&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjF3vGzmMryAhXXgP0HHWixC9IQ_AUoAXoECAIQAw&biw=1496&bih=723#imgrc=57cXp4fcoCDW7M');
+  background: url('https://www.rwe.com/-/media/RWE/images/04-massgeschneiderte-loesungen/lieferantenportal/lieferantenmanagement/STA02-lieferantenauswahl.jpg?db=web&mw=479&w=498&hash=2D9FC8524A4607E512E125D8EC2CC4A6,%20/-/media/RWE/images/04-massgeschneiderte-loesungen/lieferantenportal/lieferantenmanagement/STA02-lieferantenauswahl.jpg?db=web&mw=479&w=996&hash=96A591DBA07A2449D1F1B973D587F3B0%202x');
   background-size: cover;
   width: 100%;
   height: 100%;

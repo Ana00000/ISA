@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.MedicineOffer;
+import com.example.demo.model.Supplier;
 import com.example.demo.repository.MedicineOfferRepository;
 import com.example.demo.service.MedicineOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class MedicineOfferServiceImpl implements MedicineOfferService {
     @Override
     public List<MedicineOffer> findAllByOrderId(Long orderId) {
         return medicineOfferRepository.findAllByMedicineOrderId(orderId);
+    }
+
+    @Override
+    public List<MedicineOffer> findAllBySupplierID(Long supplierId) {
+        return medicineOfferRepository.findAllBySupplierId(supplierId);
     }
 
     @Override

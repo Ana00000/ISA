@@ -31,15 +31,15 @@ public class MedicineDTO implements Serializable {
 		this.medicineManufacturer = new MedicineManufacturerDTO(medicine.getMedicineManufacturer());
 		this.medicineShape = new MedicineShapeDTO(medicine.getMedicineShape());
 
-		List<MedicineIngredientDTO> medicinesIngredients = new ArrayList<MedicineIngredientDTO>();
-        for(MedicineIngredient mi: medicine.getIngredients())
-        	medicinesIngredients.add(new MedicineIngredientDTO(mi));
-        this.medicinesIngredients = medicinesIngredients;
-
-		List<MedicineDTO> alternativeMedicines = new ArrayList<MedicineDTO>();
-        for(Medicine m: medicine.getAlternativeMedicine())
-        	alternativeMedicines.add(new MedicineDTO(m));
-        this.alternativeMedicines = alternativeMedicines;
+//		List<MedicineIngredientDTO> medicinesIngredients = new ArrayList<MedicineIngredientDTO>();
+//        for(MedicineIngredient mi: medicine.getIngredients())
+//        	medicinesIngredients.add(new MedicineIngredientDTO(mi));
+//        this.medicinesIngredients = medicinesIngredients;
+//
+//		List<MedicineDTO> alternativeMedicines = new ArrayList<MedicineDTO>();
+//        for(Medicine m: medicine.getAlternativeMedicine())
+//        	alternativeMedicines.add(new MedicineDTO(m));
+//        this.alternativeMedicines = alternativeMedicines;
 	}
 	
 	public MedicineDTO(Long id, String name, boolean recipeNeed, MedicineManufacturerDTO medicineManufacturer,

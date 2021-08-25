@@ -283,6 +283,21 @@ const routes = [
     name: 'supplierHomePage',
     component: () => import('../views/supplier/supplierHomePage.vue')
   },
+  {
+    path: '/supplierHomePage/viewOrders',
+    name: 'viewOrders',
+    component: () => import('../views/supplier/ViewOrders.vue')
+  },
+  {
+    path: '/supplierHomePage/giveOffer/:orderId',
+    name: 'giveOffer',
+    component: () => import('../views/supplier/giveOffer.vue')
+  },
+  {
+    path: '/supplierHomePage/MyOffers',
+    name: 'MyOffers',
+    component: () => import('../views/supplier/MyOffers.vue')
+  },
 ]
 
 const router = new VueRouter({

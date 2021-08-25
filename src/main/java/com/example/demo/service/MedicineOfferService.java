@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.MedicineOffer;
 import com.example.demo.model.MedicineOrder;
+import com.example.demo.model.Supplier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ public interface MedicineOfferService {
     MedicineOffer findOne(Long id);
 
     List<MedicineOffer> findAllByOrderId(Long pharmacyAdminId);
+
+    List<MedicineOffer> findAllBySupplierID(Long supplierId);
 
     List<MedicineOffer> findAll();
 

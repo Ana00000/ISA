@@ -3,18 +3,18 @@
         <v-navigation-drawer app temporary v-model="drawer" class="indigo" dark disable-resize-watcher>
             <v-list>
                 <template v-for="(item, index) in items">
-                    <v-list-tile :key="index" >
-                        <v-list-tile-content>
+                    <v-list-item-title :key="index" >
+                        <v-list-item-content>
                             <v-card height="35px" class="ma-1 text-sm-button text-center">
                                 <router-link class="router" :to="item.path">{{item.title}}</router-link>
                             </v-card>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                        </v-list-item-content>
+                    </v-list-item-title>
                     <v-divider :key="`divider-${index}`"></v-divider>
                 </template>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar app dark class="indigo">
+        <v-app-bar app dark class="indigo">
             <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-spacer class="hidden-md-and-up"></v-spacer>
             <v-toolbar-title><router-link class="router" to="/">{{appTitle}}</router-link></v-toolbar-title>
@@ -39,7 +39,7 @@
                 </v-btn>
             </div>
 
-        </v-toolbar>
+        </v-app-bar>
     </span>
 </template>
 

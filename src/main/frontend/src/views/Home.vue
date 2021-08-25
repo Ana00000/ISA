@@ -29,6 +29,27 @@ import ItemListPharmacies from '../components/itemList/ItemListPharmacies.vue';
 import MapContainer from '../components/MapContainer.vue';
 import axios from 'axios';
 
+function redirectLogedUser(){
+      var tokenString= '';
+      tokenString = localStorage.getItem("token");
+      // const bodyParameters = {
+      //   key: "value"
+      // };
+      const config = {
+          headers: { Authorization: `Bearer ${tokenString}` }
+      };
+      axios.get( 
+        'http://localhost:8081/users/redirectMeToMyHomePage',
+        config
+      ).then((response) => {
+        console.log(response);
+        window.location.href = response.data;
+      }, (error) => {
+        console.log(error);
+      });
+      
+}
+
 export default {
   name: 'Home',
   components: {
@@ -46,6 +67,13 @@ export default {
       axios.get('http://localhost:8081/pharmacies/all')
           .then(res => this.items = res.data)
           .catch(err => console.log(err));
+  },
+  beforeMount(){
+    var tokenString= '';
+    tokenString = localStorage.getItem("token");
+    if(tokenString != null){
+      redirectLogedUser();
+    }
   }
 
 }

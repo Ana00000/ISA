@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.MedicineDTO;
-import com.example.demo.dto.MedicineOfferDTO;
-import com.example.demo.dto.MedicineOrderDTO;
-import com.example.demo.dto.PatientDTO;
+import com.example.demo.dto.*;
 import com.example.demo.model.MedicineOffer;
 import com.example.demo.model.MedicineOrder;
 import com.example.demo.model.Patient;
@@ -50,6 +47,20 @@ public class MedicineOrderController {
         return new ResponseEntity<>(medicineOrderDTOs, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getAllActive")
+    public ResponseEntity<List<MedicineOrderDTOSmaller>> getAllActiveOrders() {
+        System.out.println("------- Get all Orders -------");
+
+        List<MedicineOrder> medicineOrders = medicineOrderService.findAllActive();
+
+        List<MedicineOrderDTOSmaller> medicineOrderDTOs = new ArrayList<>();
+        for (MedicineOrder mo : medicineOrders) {
+            medicineOrderDTOs.add(new MedicineOrderDTOSmaller(mo));
+        }
+
+        return new ResponseEntity<>(medicineOrderDTOs, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/getAllOrdersByPharmacyId={id}")
     public ResponseEntity<List<MedicineOrderDTO>> getAllOrdersByPharmacyId(@PathVariable Long id) {
         System.out.println("------- Get all Orders by Pharmacy ID: " + id + " -------");
@@ -69,6 +80,15 @@ public class MedicineOrderController {
         System.out.println("------- Get Order by " + id + " -------");
 
         MedicineOrderDTO medicineOrderDTO = new MedicineOrderDTO(medicineOrderService.findOne(id));
+
+        return new ResponseEntity<>(medicineOrderDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/my/{id}")
+    public ResponseEntity<MedicineOrderDTOSmaller> getOrderByIdMy(@PathVariable Long id) {
+        System.out.println("------- Get Order by " + id + " -------");
+
+        MedicineOrderDTOSmaller medicineOrderDTO = new MedicineOrderDTOSmaller(medicineOrderService.findOne(id));
 
         return new ResponseEntity<>(medicineOrderDTO, HttpStatus.OK);
     }

@@ -41,9 +41,16 @@ public class MedicineOrderDTO implements Serializable{
 
     public MedicineOrderDTO(MedicineOrder medicineOrder) {
         this.id = medicineOrder.getId();
-        //this.medicineAmount = medicineOrder.getMedicineAmount();
         this.deadline = medicineOrder.getDeadline();
         this.pharmacyAdminId = medicineOrder.getPharmacyAdminId();
+
+        Map<MedicineDTO, Integer> medicineAmountDTO = new HashMap<>();
+        for(Medicine m : medicineOrder.getMedicineAmount().keySet()){
+            MedicineDTO key = new MedicineDTO(m);
+            int value = medicineOrder.getMedicineAmount().get(m);
+            medicineAmountDTO.put(key, value);
+        }
+        this.medicineAmount = medicineAmountDTO;
     }
 
     public Long getPharmacyAdminId() {

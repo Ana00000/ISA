@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.MedicineOfferDTO;
 import com.example.demo.dto.MedicineOrderDTO;
+import com.example.demo.dto.SupplierDTO;
 import com.example.demo.model.*;
 import com.example.demo.repository.SupplierRepository;
 import com.example.demo.service.*;
@@ -11,6 +12,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -140,5 +142,48 @@ public class MedicineOfferController {
         supplierService.save(acceptedSupplier);
 
         return new ResponseEntity<>(medicineOfferDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getAllMyOffers")
+    public ResponseEntity<List<MedicineOfferDTO>> getAllMyOffers(Authentication authentication){
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+        List<MedicineOffer> medicineOffers = medicineOfferService.findAllBySupplierID(supplier.getId());
+
+        List<MedicineOfferDTO> medicineOfferDTOS =new ArrayList<>();
+        for(MedicineOffer m : medicineOffers){
+            medicineOfferDTOS.add(new MedicineOfferDTO(m));
+        }
+        return new ResponseEntity<>(medicineOfferDTOS,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/addOffer")
+    public ResponseEntity<String> makeOffer(Authentication authentication, @RequestBody MedicineOfferDTO medicineOfferDTO){
+        MedicineOrder medicineOrder = medicineOrderService.findOne(medicineOfferDTO.getMedicineOrderId());
+        medicineOfferDTO.setMedicineOrder(new MedicineOrderDTO(medicineOrder));
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+        medicineOfferDTO.setSupplier(new SupplierDTO(supplier));
+
+        boolean haveIt = doesSupplierHaveAllMedicineRequired(authentication,medicineOfferDTO.getMedicineOrder().getId());
+        if(haveIt == false){
+            return new ResponseEntity<>("You dont hava all medicine",HttpStatus.BAD_REQUEST);
+        }
+
+        MedicineOffer medicineOffer = new MedicineOffer(medicineOfferDTO);
+        if(medicineOffer.getMedicineOrder().getDeadline().getTime() < System.currentTimeMillis()){
+            return new ResponseEntity<>("You are late order deadline has passed",HttpStatus.BAD_REQUEST);
+        }
+        medicineOfferService.save(medicineOffer);
+        return new ResponseEntity<>("Successfully added",HttpStatus.CREATED);
+    }
+    private boolean doesSupplierHaveAllMedicineRequired(Authentication authentication,Long orderId){
+        MedicineOrder medicineOrder = medicineOrderService.findOne(orderId);
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+
+        for(Medicine m : medicineOrder.getMedicineAmount().keySet()){
+            if(medicineOrder.getMedicineAmount().get(m) > supplier.getMedicineAmount().get(m)){
+                return false;
+            }
+        }
+        return true;
     }
 }

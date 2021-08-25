@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class MedicineOfferDTO implements Serializable {
 
@@ -17,7 +18,11 @@ public class MedicineOfferDTO implements Serializable {
 
     private MedicineOrderDTO medicineOrder;
 
+    private Long medicineOrderId;
+
     private int cost;
+
+    private Timestamp time;
 
     private PharmacyAdminDTO pharmacyAdmin;
 
@@ -29,14 +34,32 @@ public class MedicineOfferDTO implements Serializable {
         this.cost = medicineOffer.getCost();
         this.medicineOrder = new MedicineOrderDTO(medicineOffer.getMedicineOrder());
         this.supplier = new SupplierDTO(medicineOffer.getSupplier());
+        this.time = medicineOffer.getTime();
     }
 
-    public MedicineOfferDTO(Long id, SupplierDTO supplier, MedicineOrderDTO medicineOrder, int cost, PharmacyAdminDTO pharmacyAdmin) {
+    public MedicineOfferDTO(Long id, SupplierDTO supplier, MedicineOrderDTO medicineOrder, int cost, PharmacyAdminDTO pharmacyAdmin, Timestamp time) {
         this.id = id;
         this.supplier = supplier;
         this.medicineOrder = medicineOrder;
         this.cost = cost;
         this.pharmacyAdmin = pharmacyAdmin;
+        this.time = time;
+    }
+
+    public Long getMedicineOrderId() {
+        return medicineOrderId;
+    }
+
+    public void setMedicineOrderId(Long medicineOrderId) {
+        this.medicineOrderId = medicineOrderId;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
     public Long getId() {

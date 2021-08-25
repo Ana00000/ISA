@@ -2,10 +2,12 @@
     <div>
         <SystemAdminMenu/>
         <div>
-            <h1 style="margin:10px; color:blue;">Complainments</h1>
+            <v-card width="800" class="mx-auto mt-5" color="white">
+            <h1 class="myText">Complainments</h1>
             <div style="margin: 0 auto width:100px">
                 <Complainent v-for="complaintmet in complaintments" :key="complaintmet.id" v-bind:complaintment="complaintmet"/>
-            </div>    
+            </div>
+            </v-card>    
         </div>
     </div>
 </template>
@@ -35,5 +37,8 @@ export default {
 </script>
 
 <style>
-
+    .myText{
+        margin:10px; 
+        color:blue;
+    }
 </style>
