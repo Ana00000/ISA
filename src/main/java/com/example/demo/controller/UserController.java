@@ -55,10 +55,13 @@ public class UserController {
 
 	@Autowired
 	private final SystemAdminService systemAdminService;
+
+	@Autowired
+	private final SupplierService supplierService;
 	
     @Autowired
     public UserController(TokenUtils tokenUtils, AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, UserService userService, PatientService patientService,
-						  PharmacyAdminService pharmacyAdminService, EmailServiceImpl emailService, SystemAdminService systemAdminService) {
+						  PharmacyAdminService pharmacyAdminService, EmailServiceImpl emailService, SystemAdminService systemAdminService, SupplierService supplierService) {
 		this.tokenUtils = tokenUtils;
 		this.authenticationManager = authenticationManager;
 		this.userDetailsService = userDetailsService;
@@ -68,6 +71,7 @@ public class UserController {
         this.patientService = patientService;
         this.emailService = emailService;
 		this.systemAdminService = systemAdminService;
+		this.supplierService = supplierService;
 	}
 
 
@@ -191,14 +195,20 @@ public class UserController {
 	}
 
 	@GetMapping("/IsFirstLogin")
-	public ResponseEntity<Boolean> isSystemAdminFirstLogin(Authentication authentication){
+	public ResponseEntity<String> isSystemAdminFirstLogin(Authentication authentication){
 		SystemAdmin systemAdmin = systemAdminService.findByEmail(authentication.getName());
 		if(systemAdmin != null){
 			if(systemAdmin.isLoggedFirstTime()==true){
-				return new ResponseEntity<>(true,HttpStatus.OK);
+				return new ResponseEntity<>("systemAdmin",HttpStatus.OK);
 			}
 		}
-		return new ResponseEntity<>(false,HttpStatus.OK);
+		Supplier supplier = supplierService.findByEmail(authentication.getName());
+		if(supplier != null){
+			if(supplier.isLoggedFirstTime()==true){
+				return new ResponseEntity<>("supplier",HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<>("",HttpStatus.OK);
     }
 
 }

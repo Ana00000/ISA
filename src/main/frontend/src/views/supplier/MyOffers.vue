@@ -1,7 +1,7 @@
 <template>
     <div>
         <SupplierMenu/>
-        <v-card width="1200" class="mx-auto mt-5" color="white">
+        <v-card width="1000" class="mx-auto mt-5" color="white">
             <Offer v-for="offer in offers" :key="offer.id" v-bind:offer="offer"/>
         </v-card>
     </div>

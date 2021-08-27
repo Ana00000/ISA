@@ -4,6 +4,7 @@ import com.example.demo.dto.SupplierDTO;
 import com.example.demo.model.Medicine;
 import com.example.demo.model.MedicineOrder;
 import com.example.demo.model.Supplier;
+import com.example.demo.model.SystemAdmin;
 import com.example.demo.service.MedicineOrderService;
 import com.example.demo.service.SupplierService;
 import com.example.demo.service.UserService;
@@ -49,5 +50,36 @@ public class SupplierController {
             }
         }
         return new ResponseEntity<>(true,HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getSupplier")
+    public ResponseEntity<SupplierDTO> getSupplier(Authentication authentication){
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+        SupplierDTO supplierDTO = new SupplierDTO(supplier);
+        return new ResponseEntity<>(supplierDTO,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/editSupplier")
+    public ResponseEntity<SupplierDTO> editSupplier(@RequestBody SupplierDTO supplierDTO){
+        Supplier supplier = supplierService.findByEmail(supplierDTO.getEmail());
+        if(supplier == null){
+            new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
+        supplier.setName(supplierDTO.getName());
+        supplier.setLastName(supplierDTO.getLastName());
+        supplier.setAddress(supplierDTO.getAddress());
+        supplier.setPhoneNumber(supplierDTO.getPhoneNumber());
+
+        userService.save(supplier);
+        return new ResponseEntity<>(supplierDTO,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/editPassword/{newPassword}")
+    public ResponseEntity<SupplierDTO> edit(Authentication authentication, @PathVariable String newPassword){
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+        supplier.setPassword(newPassword);
+        supplier.setLoggedFirstTime(false);
+        userService.save(supplier);
+        return new ResponseEntity<>(new SupplierDTO(supplier),HttpStatus.OK);
     }
 }

@@ -299,6 +299,8 @@ INSERT INTO user_authority (user_id, authority_id) VALUES (9, 4);
 INSERT INTO user_authority (user_id, authority_id) VALUES (10, 5);
 INSERT INTO user_authority (user_id, authority_id) VALUES (11, 5);
 INSERT INTO user_authority (user_id, authority_id) VALUES (12, 5);
+INSERT INTO user_authority (user_id, authority_id) VALUES (19, 7);
+INSERT INTO user_authority (user_id, authority_id) VALUES (20, 7);
 INSERT INTO user_authority (user_id, authority_id) VALUES (300, 6);
 
 
@@ -331,9 +333,9 @@ INSERT INTO medicine_prescription(id, medicine_id, patient_id, doctor_id, local_
 
 
 /*password-nenadovic*/
-INSERT INTO supplier(id, name, last_name, email, password, address, phone_number, active) VALUES (19, 'Aleksa', 'Nenadovic', 'nenadovic@gmail.com', '$2a$10$x1WBCRVmwfkjetdsSYcSj.zUVGq2QIvUWKRlHJw4JhcQi.ccgb8t.', 'Kneza Lazara 76', '061343145', 'TRUE');
+INSERT INTO supplier(id, name, last_name, email, password, address, phone_number, active, is_logged_first_time) VALUES (19, 'Aleksa', 'Nenadovic', 'nenadovic@gmail.com', '$2a$10$x1WBCRVmwfkjetdsSYcSj.zUVGq2QIvUWKRlHJw4JhcQi.ccgb8t.', 'Kneza Lazara 76', '061343145', 'TRUE', 'TRUE');
 /*password-nenadovic*/
-INSERT INTO supplier(id, name, last_name, email, password, address, phone_number, active) VALUES (20, 'Mateja', 'Nenadovic', 'nenadovic.mateja@gmail.com', '$2a$10$x1WBCRVmwfkjetdsSYcSj.zUVGq2QIvUWKRlHJw4JhcQi.ccgb8t.', 'Kneza Lazara 76', '062343145', 'TRUE');
+INSERT INTO supplier(id, name, last_name, email, password, address, phone_number, active, is_logged_first_time) VALUES (20, 'Mateja', 'Nenadovic', 'nenadovic.mateja@gmail.com', '$2a$10$x1WBCRVmwfkjetdsSYcSj.zUVGq2QIvUWKRlHJw4JhcQi.ccgb8t.', 'Kneza Lazara 76', '062343145', 'TRUE', 'TRUE');
 
 
 INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (19, 1, 500, 'WAITING','2022-08-28 00:00:00');

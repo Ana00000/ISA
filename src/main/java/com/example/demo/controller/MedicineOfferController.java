@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/medicineOffers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MedicineOfferController {
@@ -163,6 +164,9 @@ public class MedicineOfferController {
         Supplier supplier = supplierService.findByEmail(authentication.getName());
         medicineOfferDTO.setSupplier(new SupplierDTO(supplier));
 
+        if(hasDeadLinePassed(medicineOfferDTO.getMedicineOrderId())){
+            return new ResponseEntity<>("DeadLine has passed",HttpStatus.BAD_REQUEST);
+        }
         boolean haveIt = doesSupplierHaveAllMedicineRequired(authentication,medicineOfferDTO.getMedicineOrder().getId());
         if(haveIt == false){
             return new ResponseEntity<>("You dont hava all medicine",HttpStatus.BAD_REQUEST);
@@ -172,17 +176,64 @@ public class MedicineOfferController {
         if(medicineOffer.getMedicineOrder().getDeadline().getTime() < System.currentTimeMillis()){
             return new ResponseEntity<>("You are late order deadline has passed",HttpStatus.BAD_REQUEST);
         }
-        medicineOfferService.save(medicineOffer);
+        if( medicineOfferService.save(medicineOffer) == null){
+            return new ResponseEntity<>("You can't create two offers for same order!",HttpStatus.OK);
+        }
         return new ResponseEntity<>("Successfully added",HttpStatus.CREATED);
     }
+
+    @PostMapping(value = "/editOffer")
+    public ResponseEntity<String> edifOffer(Authentication authentication, @RequestBody MedicineOfferDTO medicineOfferDTO){
+        MedicineOrder medicineOrder = medicineOrderService.findOne(medicineOfferDTO.getMedicineOrderId());
+        medicineOfferDTO.setMedicineOrder(new MedicineOrderDTO(medicineOrder));
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+        medicineOfferDTO.setSupplier(new SupplierDTO(supplier));
+
+        if(hasDeadLinePassed(medicineOfferDTO.getMedicineOrderId())){
+            return new ResponseEntity<>("Deadline has passed",HttpStatus.OK);
+        }
+        boolean haveIt = doesSupplierHaveAllMedicineRequired(authentication,medicineOfferDTO.getMedicineOrder().getId());
+        if(haveIt == false){
+            return new ResponseEntity<>("You dont hava all medicine",HttpStatus.BAD_REQUEST);
+        }
+
+        MedicineOffer medicineOffer = new MedicineOffer(medicineOfferDTO);
+        if(medicineOffer.getMedicineOrder().getDeadline().getTime() < System.currentTimeMillis()){
+            return new ResponseEntity<>("You are late order deadline has passed",HttpStatus.BAD_REQUEST);
+        }
+        if( medicineOfferService.save(medicineOffer) == null){
+            return new ResponseEntity<>("You can't create two offers for same order!",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Successfully edited",HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/deteteById/{id}")
+    public ResponseEntity<Boolean> deleteById(@PathVariable Long id){
+        medicineOfferService.remove(id);
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
     private boolean doesSupplierHaveAllMedicineRequired(Authentication authentication,Long orderId){
         MedicineOrder medicineOrder = medicineOrderService.findOne(orderId);
         Supplier supplier = supplierService.findByEmail(authentication.getName());
 
         for(Medicine m : medicineOrder.getMedicineAmount().keySet()){
-            if(medicineOrder.getMedicineAmount().get(m) > supplier.getMedicineAmount().get(m)){
+            int supNumb = supplier.getMedicineAmount().get(m);
+            int medNumb = medicineOrder.getMedicineAmount().get(m);
+//            if(supNumb == null || medNumb == null){
+//                continue;
+//            }
+            if(medNumb > supNumb){
                 return false;
             }
+        }
+        return true;
+    }
+
+    private boolean hasDeadLinePassed(Long orderId){
+        MedicineOrder order = medicineOrderService.findOne(orderId);
+        if(order.getDeadline().getTime()>System.currentTimeMillis()){
+            return false;
         }
         return true;
     }

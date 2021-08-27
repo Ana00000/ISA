@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.MedicineOffer;
+import com.example.demo.model.MedicineOrder;
 import com.example.demo.model.Supplier;
 import com.example.demo.repository.MedicineOfferRepository;
 import com.example.demo.service.MedicineOfferService;
@@ -47,8 +48,17 @@ public class MedicineOfferServiceImpl implements MedicineOfferService {
     }
 
     @Override
-    public MedicineOffer save(MedicineOffer medicineOrder) {
-        return medicineOfferRepository.save(medicineOrder);
+    public MedicineOffer save(MedicineOffer medicineOffer) {
+        if(medicineOffer.getId()!=null){
+            return medicineOfferRepository.save(medicineOffer);
+        }
+        for(MedicineOffer mo : findAll()){
+            if(mo.getMedicineOrder().getId() == medicineOffer.getMedicineOrder().getId() &&
+            mo.getSupplier().getId() == medicineOffer.getSupplier().getId()){
+                return null;
+            }
+        }
+        return medicineOfferRepository.save(medicineOffer);
     }
 
     @Override

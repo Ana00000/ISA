@@ -298,6 +298,16 @@ const routes = [
     name: 'MyOffers',
     component: () => import('../views/supplier/MyOffers.vue')
   },
+  {
+    path: '/supplierHomePage/Profile',
+    name: 'profile',
+    component: () => import('../views/supplier/profile.vue')
+  },
+  {
+    path: '/supplierHomePage/ChangePassword',
+    name: 'ChangePassword',
+    component: () => import('../views/supplier/ChangePassword.vue')
+  },
 ]
 
 const router = new VueRouter({

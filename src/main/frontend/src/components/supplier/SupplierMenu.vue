@@ -25,6 +25,9 @@
                 <v-list-item>
                     <router-link class="link" to="/supplierHomePage/MyOffers">My offers</router-link>
                 </v-list-item>
+                <v-list-item>
+                    <router-link class="link" to="/supplierHomePage/Profile">Profile</router-link>
+                </v-list-item>
             </v-list>
             </v-menu>
             <br/>

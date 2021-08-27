@@ -80,9 +80,13 @@ export default {
         this.$http.get('http://localhost:8081/users/IsFirstLogin', config)
         .then(resp => {
           console.log(resp.data);
-          if(resp.data ==true){
+          if(resp.data === "systemAdmin"){
             window.location.href = 'http://localhost:8080/systemAdminHomePage/FirstLogin';
-          }else{
+          }
+          else if(resp.data === "supplier"){
+            window.location.href = 'http://localhost:8080/supplierHomePage/changePassword';
+          }
+          else{
             redirectLogedUser();
           }
         })

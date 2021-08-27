@@ -16,6 +16,9 @@ public class Supplier extends User {
     @Column(name = "medicine_order_amount")
     private Map<Medicine, Integer> medicineAmount = new HashMap<>();
 
+    @Column(name= "isLoggedFirstTime", unique = false ,nullable = false)
+    private boolean isLoggedFirstTime;
+
     public Supplier() {
     }
 
@@ -25,6 +28,14 @@ public class Supplier extends User {
 
     public Supplier(Long id, String name, String lastName, String email, String password, String address, String phoneNumber, boolean active, String hashString) {
         super(id, name, lastName, email, password, address, phoneNumber, active, hashString);
+    }
+
+    public boolean isLoggedFirstTime() {
+        return isLoggedFirstTime;
+    }
+
+    public void setLoggedFirstTime(boolean loggedFirstTime) {
+        isLoggedFirstTime = loggedFirstTime;
     }
 
     public Map<Medicine, Integer> getMedicineAmount() {

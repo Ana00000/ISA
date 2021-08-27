@@ -1,5 +1,5 @@
 <template>
-    <div class="textStyle" v-on:click="select()">
+    <div class="textStyle">
         <h1>OFFER</h1>
         <v-date-picker v-model="datePickerTime"/>
         <v-text-field
@@ -8,7 +8,23 @@
             outlined
             v-model="offer.cost"
             type="number"/>
-        <Order v-bind:orderId="this.offer.medicineOrder.id" />
+        <Order v-bind:orderId="this.offer.medicineOrder.id" canBeSelected="adsad"/>
+        <v-btn
+            depressed
+            color="primary"
+            style="margin:6px"
+            v-on:click="edit"
+            >
+            Edit
+        </v-btn>
+        <v-btn
+            depressed
+            color="primary"
+            style="margin:6px;"
+            v-on:click="deleteOffer"
+            >
+            Delete offer
+        </v-btn>
   </div>
 </template>
 
@@ -28,21 +44,48 @@ export default {
     mounted(){
         console.log("offer:",this.offer);
         this.datePickerTime = (new Date(this.offer.time).toISOString().substr(0, 10));
-
-        // var tokenString = '';
-        // tokenString = localStorage.getItem("token");
-        // const config = {
-        //         headers: {Authorization: `Bearer ${tokenString}`}
-        // // };
-        // // this.$http.get('http://localhost:8081/medicineOrder/my/'+this.password, config)
-        // // .then(resp => {
-        // //     console.log(resp.data);
-        // // })
-        // // .catch(er => {
-        // //     console.log('Error while editing system admin');
-        // //     console.log(er.response.data);
-        // // })
+    }, 
+    methods:{
+        edit(){
+            var tokenString = '';
+            tokenString = localStorage.getItem("token");
+            const config = {
+                    headers: {Authorization: `Bearer ${tokenString}`}
+            };
+            this.$http.post('http://localhost:8081/medicineOffers/editOffer',this.offerToEdit,config)
+            .then(resp => {
+                alert(resp.data);
+                window.location.href = 'http://localhost:8080/supplierHomePage/MyOffers';
+            })
+            .catch(er => {
+                alert("Error !");
+                console.log('Error while loading adding offer !');
+                console.log(er.response.data);
+            });
+        },
+        deleteOffer(){
+            var tokenString = '';
+            tokenString = localStorage.getItem("token");
+            const config = {
+                    headers: {Authorization: `Bearer ${tokenString}`}
+            };
+            this.$http.delete('http://localhost:8081/medicineOffers/deteteById/'+this.offer.id,config,null)
+            .then(() => {
+                window.location.href = 'http://localhost:8080/supplierHomePage/MyOffers';
+                alert("Deleted offer !");
+            })
+            .catch(er => {
+                alert("Error !");
+                console.log('Error while loading adding offer !');
+                console.log(er.response.data);
+            });
+        }
     },
+    computed: {
+        offerToEdit() {
+            return {'id':this.offer.id,'time':this.datePickerTime, 'medicineOrderId':this.offer.medicineOrder.id,'cost': this.offer.cost}
+        }
+    }
 }
 </script>
 

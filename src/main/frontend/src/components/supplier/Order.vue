@@ -14,7 +14,7 @@
 var moment = require('moment');
 export default {
     name:'Order',
-    props:['orderId'],
+    props:['orderId','canBeSelected'],
     data: ()=>({
         pharmacyAdmin:null,
         pharmacy:null,
@@ -62,6 +62,9 @@ export default {
     },
     methods:{
         select: function() {
+            if(this.canBeSelected){
+                return;
+            }
             window.location.href = 'http://localhost:8080/supplierHomePage/giveOffer/'+this.order.id;
         }
     },
