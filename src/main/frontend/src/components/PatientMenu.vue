@@ -26,6 +26,9 @@
                 <router-link class="link" to="/patientPenaltyInsight">Penalty insight</router-link>
             </div>
             <div>
+                <router-link class="link" to="/patient/subscribeToPharmacypromotion">Subscribe to pharmacy promotions</router-link>
+            </div>
+            <div>
                 <router-link class="link" to="/patientPromotions">Promotions</router-link>
             </div>
             <div>

@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -71,6 +73,48 @@ public class PharmacyController {
             pharmacistsDTO.add(new PharmacyDTO(p));
         }
         
+        return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allSubscribed")
+    public ResponseEntity<List<PharmacyDTO>> getAllSubscribedPharmacies(Authentication authentication) {
+        Patient patient = patientService.findOneByEmail(authentication.getName());
+        Set<Pharmacy> pharmacies = patient.getPharmacieSubscribed();
+
+        List<PharmacyDTO> pharmacistsDTO = new ArrayList<>();
+        for (Pharmacy p : pharmacies) {
+            pharmacistsDTO.add(new PharmacyDTO(p));
+        }
+
+        return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allUserIsNotSubscribedOn")
+    public ResponseEntity<List<PharmacyDTO>> getAllUserIsNotSubscribedOnPharmacies(Authentication authentication) {
+        Patient patient = patientService.findOneByEmail(authentication.getName());
+        Set<Pharmacy> pharmaciesSub = patient.getPharmacieSubscribed();
+        List<Pharmacy> pharmaciesNotSub = new ArrayList<>();
+        boolean itIsFounded= false;
+        for(Pharmacy p :pharmacyService.findAll()){
+            itIsFounded=false;
+            for(Pharmacy ps :pharmaciesSub){
+                if(ps.getId() == p.getId()){
+                    itIsFounded= true;
+                    break;
+                }
+            }
+            if(!itIsFounded){
+                pharmaciesNotSub.add(p);
+            }
+
+        }
+
+
+        List<PharmacyDTO> pharmacistsDTO = new ArrayList<>();
+        for (Pharmacy p : pharmaciesNotSub) {
+            pharmacistsDTO.add(new PharmacyDTO(p));
+        }
+
         return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
     }
 

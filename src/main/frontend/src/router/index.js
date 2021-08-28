@@ -308,6 +308,11 @@ const routes = [
     name: 'ChangePassword',
     component: () => import('../views/supplier/ChangePassword.vue')
   },
+  {
+    path: '/patient/subscribeToPharmacypromotion',
+    name: 'SubscribeToPharmacy',
+    component: () => import('../views/patient/SubscribeToPharmacy.vue')
+  },
 ]
 
 const router = new VueRouter({

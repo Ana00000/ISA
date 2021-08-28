@@ -26,6 +26,7 @@
     <v-list two-line>
       <v-list-item-group
         v-model="selected"
+        v-on:change="$emit('selectedChanged', renderingItems[selected])"
         active-class="pink--text"
         single
       >

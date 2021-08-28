@@ -134,13 +134,19 @@ INSERT INTO promotion(id, start_time, end_time, description, pharmacy_id) VALUES
 INSERT INTO promotion(id, start_time, end_time, description, pharmacy_id) VALUES (3, '2021-07-25 12:00', '2021-10-02 17:00', 'Promocija 3', 14);
 
 
-INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (4, 1);
-INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (4, 2);
-INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (4, 3);
-INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (5, 1);
-INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 2);
-INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 1);
-INSERT INTO patients_on_promotion(promotion_id, patient_id) VALUES (6, 3);
+INSERT INTO patients_on_promotion(patient_id, promotion_id) VALUES (4, 1);
+INSERT INTO patients_on_promotion(patient_id, promotion_id) VALUES (4, 2);
+INSERT INTO patients_on_promotion(patient_id, promotion_id) VALUES (4, 3);
+INSERT INTO patients_on_promotion(patient_id, promotion_id) VALUES (5, 1);
+INSERT INTO patients_on_promotion(patient_id, promotion_id) VALUES (6, 2);
+INSERT INTO patients_on_promotion(patient_id, promotion_id) VALUES (6, 1);
+INSERT INTO patients_on_promotion(patient_id, promotion_id) VALUES (6, 3);
+
+INSERT INTO patient_subscribed_to_pharmacy(patient_id, pharmacy_id) VALUES(4, 14);
+INSERT INTO patient_subscribed_to_pharmacy(patient_id, pharmacy_id) VALUES(5, 13);
+INSERT INTO patient_subscribed_to_pharmacy(patient_id, pharmacy_id) VALUES(5, 15);
+INSERT INTO patient_subscribed_to_pharmacy(patient_id, pharmacy_id) VALUES(6, 13);
+INSERT INTO patient_subscribed_to_pharmacy(patient_id, pharmacy_id) VALUES(6, 14);
 
 
 

@@ -3,9 +3,12 @@ package com.example.demo.controller;
 import com.example.demo.dto.PatientDTO;
 import com.example.demo.dto.PromotionDTO;
 import com.example.demo.model.Patient;
+import com.example.demo.model.Pharmacy;
 import com.example.demo.model.Promotion;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.service.PatientService;
+import com.example.demo.service.PharmacyService;
+import com.example.demo.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,10 +30,15 @@ public class PatientController {
 	private TokenUtils tokenUtils;
 	
 	private PatientService patientService;
+	private PromotionService promotionService;
+	private PharmacyService pharmacyService;
     
 	@Autowired
-	public PatientController(PatientService patientService) {
+	public PatientController(TokenUtils tokenUtils, PatientService patientService, PromotionService promotionService, PharmacyService pharmacyService) {
+		this.tokenUtils = tokenUtils;
 		this.patientService = patientService;
+		this.promotionService = promotionService;
+		this.pharmacyService = pharmacyService;
 	}
 	
 	@GetMapping(value = "/allPatients")
@@ -94,22 +102,64 @@ public class PatientController {
 	}
 
 	@GetMapping(value = "/getPromotions")
-	public ResponseEntity<Set<PromotionDTO>> getPromotions() {
+	public ResponseEntity<Set<PromotionDTO>> getPromotions(Authentication authentication) {
 
 		//extract patient from session
 
-		Patient patient = patientService.findOne(4L);
+		Patient patient = patientService.findOneByEmail(authentication.getName());
 
 		if (patient == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		Set<PromotionDTO> promotionDTOS = new HashSet<>();
-		for( Promotion p : patient.getPromotions()){
-			promotionDTOS.add(new PromotionDTO(p));
+		for( Pharmacy ph : patient.getPharmacieSubscribed()){
+			List<Promotion> promotions = promotionService.findAllByPharmacyId(ph.getId());
+			for(Promotion p :promotions){
+				promotionDTOS.add(new PromotionDTO(p));
+			}
 		}
 
 		return new ResponseEntity<>(promotionDTOS, HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/subscribeToPharmacyPromotionsByPharmacyId/{id}")
+	public ResponseEntity<String> subscribeToPharmacyPromotionsByPharmacyId(Authentication authentication,@PathVariable long id){
+		Patient patient = patientService.findOneByEmail(authentication.getName());
+		if(patient== null){
+			return new ResponseEntity<>("No user found",HttpStatus.BAD_REQUEST);
+		}
+		Set<Pharmacy> pharmacieSubscribed = patient.getPharmacieSubscribed();
+		Pharmacy pharmacy = pharmacyService.findOne(id);
+		for(Pharmacy p :pharmacieSubscribed){
+			if(p.getId() == id){
+				return new ResponseEntity<>("Already subscribed",HttpStatus.OK);
+			}
+		}
+		pharmacieSubscribed.add(pharmacy);
+		patient.setPharmacieSubscribed(pharmacieSubscribed);
+		patientService.save(patient);
+
+		return new ResponseEntity<>("Successfully subscribed",HttpStatus.CREATED);
+	}
+
+	@PostMapping(value = "/usubscribeToPharmacyPromotionsByPharmacyId/{id}")
+	public ResponseEntity<String> usubscribeToPharmacyPromotionsByPharmacyId(Authentication authentication,@PathVariable long id){
+		Patient patient = patientService.findOneByEmail(authentication.getName());
+		if(patient== null){
+			return new ResponseEntity<>("No user found",HttpStatus.BAD_REQUEST);
+		}
+		Set<Pharmacy> pharmacieSubscribed = patient.getPharmacieSubscribed();
+		for(Pharmacy p :pharmacieSubscribed){
+			if(p.getId() == id){
+				pharmacieSubscribed.remove(p);
+				break;
+			}
+		}
+		patient.setPharmacieSubscribed(pharmacieSubscribed);
+		patientService.save(patient);
+
+		return new ResponseEntity<>("Successfully unsubscribed",HttpStatus.CREATED);
 	}
 	
 	// For this search is needed full name

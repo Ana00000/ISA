@@ -11,6 +11,8 @@ public interface PromotionService {
 
     Promotion findOne(Long id);
 
+    List<Promotion> findAllByPharmacyId(Long id);
+
     List<Promotion> findAll();
 
     Promotion save(Promotion promotion);
