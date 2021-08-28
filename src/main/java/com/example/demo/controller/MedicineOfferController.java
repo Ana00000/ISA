@@ -4,6 +4,7 @@ import com.example.demo.dto.MedicineOfferDTO;
 import com.example.demo.dto.MedicineOrderDTO;
 import com.example.demo.dto.SupplierDTO;
 import com.example.demo.model.*;
+import com.example.demo.model.enums.OfferStatus;
 import com.example.demo.repository.SupplierRepository;
 import com.example.demo.service.*;
 import com.example.demo.service.email.EmailServiceImpl;
@@ -74,6 +75,8 @@ public class MedicineOfferController {
         List<MedicineOffer> deniedMedicineOffers = medicineOfferService.findAllByOrderId(medicineOfferDTO.getMedicineOrder().getId());
 
         MedicineOffer acceptedMedicineOffer = medicineOfferService.findOne(medicineOfferDTO.getId());
+        acceptedMedicineOffer.setOfferStatus(OfferStatus.ACCEPTED);
+        medicineOfferService.save(acceptedMedicineOffer);
 
         deniedMedicineOffers.remove(acceptedMedicineOffer);
 
@@ -88,6 +91,8 @@ public class MedicineOfferController {
         emailService.sendEmail(acceptedSupplier.getEmail(), body, topic);
 
         for(MedicineOffer medicineOffer : deniedMedicineOffers){
+            medicineOffer.setOfferStatus(OfferStatus.DECLINED);
+            medicineOfferService.save(medicineOffer);
             Supplier deniedSupplier = supplierService.findOne(medicineOffer.getSupplier().getId());
             System.out.println("Denied: " + deniedSupplier.getEmail());
             String body1 = "Dear " + acceptedSupplier.getName() + " " + acceptedSupplier.getLastName() + ",\n" +
@@ -127,18 +132,18 @@ public class MedicineOfferController {
             }
         }
 
-        for(MedicineOffer mof : medicineOfferService.findAll()) {
-            if (mof.getMedicineOrder().getId().equals(medicineOrder.getId()))
-                medicineOfferService.remove(mof.getId());
-        }
+//        for(MedicineOffer mof : medicineOfferService.findAll()) {
+//            if (mof.getMedicineOrder().getId().equals(medicineOrder.getId()))
+//                medicineOfferService.remove(mof.getId());
+//        }
 
-        System.out.println(medicineOrder.toString());
-        try {
-            medicineOrderService.remove(medicineOrder.getId());
-        }
-        catch (Exception e) {
-            System.out.println("Medicine Order already deleted!");
-        }
+//        System.out.println(medicineOrder.toString());
+//        try {
+//            medicineOrderService.remove(medicineOrder.getId());
+//        }
+//        catch (Exception e) {
+//            System.out.println("Medicine Order already deleted!");
+//        }
 
         supplierService.save(acceptedSupplier);
 

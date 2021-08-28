@@ -310,8 +310,8 @@ INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time)
 INSERT INTO vacation(id, vacation_status_value, doctor_id, start_time, end_time) VALUES (105, 0, 7, '2021-02-19 00:00', '2021-02-20 00:00');
 
 
-INSERT INTO medicine_order (id, deadline, pharmacy_admin_id) VALUES (1, '2021-11-11 10:00', 11);
-INSERT INTO medicine_order (id, deadline, pharmacy_admin_id) VALUES (2, '2021-11-12 15:00', 12);
+INSERT INTO medicine_order (id, deadline, pharmacy_admin_id) VALUES (1, '2022-11-11 10:00', 11);
+INSERT INTO medicine_order (id, deadline, pharmacy_admin_id) VALUES (2, '2022-11-12 15:00', 12);
 
 
 INSERT INTO medicine_order_mapping (order_id, medicine_id, medicine_order_amount) VALUES (1, 3, 30);
@@ -338,9 +338,9 @@ INSERT INTO supplier(id, name, last_name, email, password, address, phone_number
 INSERT INTO supplier(id, name, last_name, email, password, address, phone_number, active, is_logged_first_time) VALUES (20, 'Mateja', 'Nenadovic', 'nenadovic.mateja@gmail.com', '$2a$10$x1WBCRVmwfkjetdsSYcSj.zUVGq2QIvUWKRlHJw4JhcQi.ccgb8t.', 'Kneza Lazara 76', '062343145', 'TRUE', 'TRUE');
 
 
-INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (19, 1, 500, 'DECLINED','2022-08-28 00:00:00');
+INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (19, 1, 500, 'WAITING','2022-08-28 00:00:00');
 INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (20, 1, 750, 'WAITING','2022-08-28 00:00:00');
-INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (20, 2, 350, 'DECLINED','2022-08-28 00:00:00');
+INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (20, 2, 350, 'WAITING','2022-08-28 00:00:00');
 
 /*password-stefan*/
 INSERT INTO system_admin(id, name, last_name, email, password, address, phone_number, active, is_logged_first_time) VALUES (300, 'Stefan', 'Petrovic', 'stefan@gmail.com', '$2a$10$AjZC.QsU9rFl.IrUGaZvyOovamqNWiVYURj71q1KjBZjSks.kyizy', 'Novi Sad, Kralja Milana 14', '064764652', 'TRUE','TRUE');
