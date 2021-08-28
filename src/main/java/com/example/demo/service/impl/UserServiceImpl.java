@@ -141,7 +141,6 @@ public class UserServiceImpl implements UserService {
         List<Authority> authorities = new ArrayList<>();
         user.setAuthorities(authorities);
     	if(user.getClass() == Dermatologist.class) {
-
     		return dermatologistRepository.save((Dermatologist)user);
     	}
     	if (user.getClass() == Patient.class) {

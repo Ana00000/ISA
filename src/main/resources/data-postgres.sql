@@ -338,9 +338,9 @@ INSERT INTO supplier(id, name, last_name, email, password, address, phone_number
 INSERT INTO supplier(id, name, last_name, email, password, address, phone_number, active, is_logged_first_time) VALUES (20, 'Mateja', 'Nenadovic', 'nenadovic.mateja@gmail.com', '$2a$10$x1WBCRVmwfkjetdsSYcSj.zUVGq2QIvUWKRlHJw4JhcQi.ccgb8t.', 'Kneza Lazara 76', '062343145', 'TRUE', 'TRUE');
 
 
-INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (19, 1, 500, 'WAITING','2022-08-28 00:00:00');
+INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (19, 1, 500, 'DECLINED','2022-08-28 00:00:00');
 INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (20, 1, 750, 'WAITING','2022-08-28 00:00:00');
-INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (20, 2, 350, 'WAITING','2022-08-28 00:00:00');
+INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) VALUES (20, 2, 350, 'DECLINED','2022-08-28 00:00:00');
 
 /*password-stefan*/
 INSERT INTO system_admin(id, name, last_name, email, password, address, phone_number, active, is_logged_first_time) VALUES (300, 'Stefan', 'Petrovic', 'stefan@gmail.com', '$2a$10$AjZC.QsU9rFl.IrUGaZvyOovamqNWiVYURj71q1KjBZjSks.kyizy', 'Novi Sad, Kralja Milana 14', '064764652', 'TRUE','TRUE');

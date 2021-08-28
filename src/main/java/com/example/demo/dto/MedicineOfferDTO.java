@@ -26,6 +26,8 @@ public class MedicineOfferDTO implements Serializable {
 
     private PharmacyAdminDTO pharmacyAdmin;
 
+    private String status;
+
     public MedicineOfferDTO() {
     }
 
@@ -35,6 +37,7 @@ public class MedicineOfferDTO implements Serializable {
         this.medicineOrder = new MedicineOrderDTO(medicineOffer.getMedicineOrder());
         this.supplier = new SupplierDTO(medicineOffer.getSupplier());
         this.time = medicineOffer.getTime();
+        this.status = medicineOffer.getOfferStatus().getText();
     }
 
     public MedicineOfferDTO(Long id, SupplierDTO supplier, MedicineOrderDTO medicineOrder, int cost, PharmacyAdminDTO pharmacyAdmin, Timestamp time) {
@@ -44,6 +47,14 @@ public class MedicineOfferDTO implements Serializable {
         this.cost = cost;
         this.pharmacyAdmin = pharmacyAdmin;
         this.time = time;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getMedicineOrderId() {

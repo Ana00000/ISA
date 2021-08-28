@@ -147,9 +147,12 @@ public class UserController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		// Kreiraj token zaa tog korisnika
 		User user = (User) authentication.getPrincipal();
+
 		String jwt = tokenUtils.generateToken(user.getUsername());
 		int expiresIn = tokenUtils.getExpiredIn();
-
+		if(user.isActive() == false && user.getClass() == Patient.class){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		// Vrati token kao odgovor na uspesnu autentifikaciju
 		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
     }

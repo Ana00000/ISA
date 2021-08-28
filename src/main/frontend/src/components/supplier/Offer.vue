@@ -9,6 +9,7 @@
             v-model="offer.cost"
             type="number"/>
         <Order v-bind:orderId="this.offer.medicineOrder.id" canBeSelected="adsad"/>
+        <p> STATUS: {{offer.status}}</p>
         <v-btn
             depressed
             color="primary"
