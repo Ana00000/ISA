@@ -38,6 +38,7 @@
                 <v-list-item-subtitle v-text="'Manufacturer: ' + item.medicineManufacturer.name"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Shape: ' + item.medicineShape.shapeValue"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Needs recipe: ' + item.recipeNeed"></v-list-item-subtitle>
+                <v-list-item-subtitle v-text="'Type: ' + item.medicinType"></v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-action>

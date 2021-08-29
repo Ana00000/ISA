@@ -17,7 +17,7 @@ public class MedicineDTO implements Serializable {
     private String code;
     private String medicinType;
 	private String contraindications;
-	private String recommendedIntake;
+	private int recommendedIntake;
 	public MedicineDTO() {
 	}
 	
@@ -30,16 +30,17 @@ public class MedicineDTO implements Serializable {
 		this.recipeNeed = medicine.isRecipeNeeded();
 		this.medicineManufacturer = new MedicineManufacturerDTO(medicine.getMedicineManufacturer());
 		this.medicineShape = new MedicineShapeDTO(medicine.getMedicineShape());
+		this.contraindications = medicine.getContraindications();
+		this.recommendedIntake = medicine.getRecommendedIntake();
+		List<MedicineIngredientDTO> medicinesIngredients = new ArrayList<MedicineIngredientDTO>();
+        for(MedicineIngredient mi: medicine.getIngredients())
+        	medicinesIngredients.add(new MedicineIngredientDTO(mi));
+        this.medicinesIngredients = medicinesIngredients;
 
-//		List<MedicineIngredientDTO> medicinesIngredients = new ArrayList<MedicineIngredientDTO>();
-//        for(MedicineIngredient mi: medicine.getIngredients())
-//        	medicinesIngredients.add(new MedicineIngredientDTO(mi));
-//        this.medicinesIngredients = medicinesIngredients;
-//
-//		List<MedicineDTO> alternativeMedicines = new ArrayList<MedicineDTO>();
-//        for(Medicine m: medicine.getAlternativeMedicine())
-//        	alternativeMedicines.add(new MedicineDTO(m));
-//        this.alternativeMedicines = alternativeMedicines;
+		List<MedicineDTO> alternativeMedicines = new ArrayList<MedicineDTO>();
+        for(Medicine m: medicine.getAlternativeMedicine())
+        	alternativeMedicines.add(new MedicineDTO(m));
+        this.alternativeMedicines = alternativeMedicines;
 	}
 	
 	public MedicineDTO(Long id, String name, boolean recipeNeed, MedicineManufacturerDTO medicineManufacturer,
@@ -70,11 +71,11 @@ public class MedicineDTO implements Serializable {
 		this.contraindications = contraindications;
 	}
 
-	public String getRecommendedIntake() {
+	public int getRecommendedIntake() {
 		return recommendedIntake;
 	}
 
-	public void setRecommendedIntake(String recommendedIntake) {
+	public void setRecommendedIntake(int recommendedIntake) {
 		this.recommendedIntake = recommendedIntake;
 	}
 

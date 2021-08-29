@@ -9,13 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.dto.PharmacyMedicineDTO;
 import com.example.demo.model.PharmacyAdmin;
@@ -53,7 +47,17 @@ public class PharmacyMedicineController {
 
 		return new ResponseEntity<>(pharmacyMedicineDTO, HttpStatus.OK);
     }
-	
+
+    @GetMapping("/getPharmacyMedicine")
+	public ResponseEntity<PharmacyMedicineDTO> getPrice(@RequestParam Long medicineId, @RequestParam Long pharmacyId){
+		PharmacyMedicine pharmacyMedicine = pharmacyMedicineService.findByPharmacyIdAndMedicineId(pharmacyId,medicineId);
+		if(pharmacyMedicine == null){
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(new PharmacyMedicineDTO(pharmacyMedicine),HttpStatus.OK);
+	}
+
+
 	@GetMapping(value = "/getPharmacyMedicine/{id}")
 	public ResponseEntity<PharmacyMedicineDTO> getPharmacyMedicine(@PathVariable Long id) {
 

@@ -20,6 +20,9 @@ public class PharmacyMedicine implements Serializable {
     @Column( nullable = false, unique = false)
     private int quantity;
 
+	@Column( nullable = false, unique = false)
+	private double price;
+
     public PharmacyMedicine(){
     }
 
@@ -30,8 +33,16 @@ public class PharmacyMedicine implements Serializable {
         this.pharmacy = pharmacy;
         this.quantity = quantity;
     }
-    
-    public Long getId() {
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public Long getId() {
         return id;
     }
 

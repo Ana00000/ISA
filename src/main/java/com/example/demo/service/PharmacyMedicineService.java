@@ -14,6 +14,8 @@ public interface PharmacyMedicineService {
 	
     PharmacyMedicine findByMedicineId(Long medicineId);
 
+	List<PharmacyMedicine> findAllByMedicineId(Long medicineId);
+
     List<Medicine> findMedicineByPharmacyId(Long id);
 
 	PharmacyMedicine save(PharmacyMedicine pharmacyMedicine);

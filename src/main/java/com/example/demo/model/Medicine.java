@@ -35,9 +35,6 @@ public class Medicine implements Serializable {
 
 	@Column(name="points", unique=false, nullable=true)
 	private int points;
-
-	@Column(name="price", unique=false, nullable=true)
-	private int price;
     
     @Column(name="recipeNeed", unique=false, nullable=false)
     private boolean recipeNeed;
@@ -76,7 +73,6 @@ public class Medicine implements Serializable {
     	this.contraindications = medicineToAddDTO.getContraindications();
     	this.recommendedIntake = medicineToAddDTO.getRecommendedIntake();
     	this.points = medicineToAddDTO.getPoints();
-    	this.price = medicineToAddDTO.getPrice();
 	}
 
 	public Medicine(Long id, String name, boolean recipeNeed, Set<Medicine> alternativeMedicine,
@@ -91,14 +87,6 @@ public class Medicine implements Serializable {
 		this.medicineShape = medicineShape;
 		this.ingredients = ingredients;
 		this.points = points;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
 	}
 
 	public int getPoints() {

@@ -5,10 +5,7 @@ import com.example.demo.dto.MedicineReservationDTO;
 import com.example.demo.model.*;
 import com.example.demo.model.enums.MedicineReservationStatusValue;
 import com.example.demo.security.TokenUtils;
-import com.example.demo.service.MedicineReservationService;
-import com.example.demo.service.MedicineService;
-import com.example.demo.service.PatientService;
-import com.example.demo.service.PharmacyService;
+import com.example.demo.service.*;
 import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +40,9 @@ public class MedicineReservationController {
 
     @Autowired
     private PharmacyService pharmacyService;
+
+    @Autowired
+    private PharmacyMedicineService pharmacyMedicineService;
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<MedicineReservationDTO>> getAllReservations() {
@@ -147,7 +147,8 @@ public class MedicineReservationController {
 
     private void setDiscount(Patient patient, MedicineReservation medicineReservation) {
         int discountPercent = patientService.CalculateDiscauntForUser(patient.getId());
-        double discount = (medicineReservation.getMedicine().getPrice()*discountPercent)/100;
+        PharmacyMedicine pharmacyMedicine = pharmacyMedicineService.findByPharmacyIdAndMedicineId(medicineReservation.getPharmacy().getId(),medicineReservation.getMedicine().getId());
+        double discount = (pharmacyMedicine.getPrice()*discountPercent)/100;
         medicineReservation.setUserDiscount(discount);
     }
 

@@ -89,9 +89,9 @@ INSERT INTO allergies_of_patient(allergy_id, patient_id) VALUES(6, 6);
 INSERT INTO allergies_of_patient(allergy_id, patient_id) VALUES(5, 6);
 
 
-INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (13, 'Lekic', '021765873', 'Serbia', 'Novi Sad', 'Danila Kisa', '1', 19.83766985, 45.249441, 0);
-INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (14, 'Zegin', '021643251', 'Serbia', 'Novi Sad', 'Kralja Petra', '12', 19.83478635, 45.26154741, 0);
-INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (15, 'Ivancic i sinovi', '02106958', 'Serbia', 'Novi Sad', 'Slobodana Jovanovica', '22', 19.8035717, 45.254534, 0);
+INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (13, 'Lekic', '021765873', 'Serbia', 'Novi Sad', 'Danila Kisa', '1', 19.83766985, 45.249441, 4);
+INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (14, 'Zegin', '021643251', 'Serbia', 'Novi Sad', 'Kralja Petra', '12', 19.83478635, 45.26154741, 5);
+INSERT INTO pharmacy(id, name, contact, country, city, street, number, longitude, latitude, average_grade) VALUES (15, 'Ivancic i sinovi', '02106958', 'Serbia', 'Novi Sad', 'Slobodana Jovanovica', '22', 19.8035717, 45.254534, 6);
 
 
 /*password-jovana437334 ovaj pharmacist ima malo podataka*/
@@ -199,26 +199,26 @@ INSERT INTO medicine_type(id,type) VALUES(401,'ANTIBIOTIK');
 INSERT INTO medicine_type(id,type) VALUES(402,'ANESTETIK');
 INSERT INTO medicine_type(id,type) VALUES(403,'ANTIHISTAMINIK');
 
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Ibuprofen', False, 5, 1, 2, 2, 100,'d123asd','None', 401);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Adderall', False, 4, 3, 3, 1, 200,'1d23asd','None', 401);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Lexapro', True, 1, 1, 2, 3, 150,'123dasd','None', 401);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Methadone', False, 2, 3, 2, 4, 130,'123asd1','None', 402);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Zofran', True, 1, 1, 1, 2, 240,'1231asd','None', 402);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Ketamine', False, 3, 1, 1, 1, 130,'1223asd','None', 402);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Vitamin B1', False, 3, 3, 3, 2, 120,'1232asd','None', 402);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Sinemet', True, 2, 2, 2, 2, 100,'123as4d','None', 403);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Otezla', True, 5, 2, 4, 2, 50,'1232d','None', 403);
-INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, price, code, contraindications, medicine_type_id)
-VALUES ( 'Codeine', False, 1, 3, 2, 1, 20,'123a5sd','None', 403);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Ibuprofen', False, 5, 1, 2, 2,'d123asd','None', 401);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Adderall', False, 4, 3, 3, 1,'1d23asd','None', 401);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Lexapro', True, 1, 1, 2, 3,'123dasd','None', 401);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Methadone', False, 2, 3, 2, 4, '123asd1','None', 402);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Zofran', True, 1, 1, 1, 2, '1231asd','None', 402);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Ketamine', False, 3, 1, 1, 1, '1223asd','None', 402);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Vitamin B1', False, 3, 3, 3, 2, '1232asd','None', 402);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Sinemet', True, 2, 2, 2, 2, '123as4d','None', 403);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Otezla', True, 5, 2, 4, 2, '1232d','None', 403);
+INSERT INTO medicine( name, recipe_need, medicine_manufacturer_id, medicine_shape_id,recommended_intake, points, code, contraindications, medicine_type_id)
+VALUES ( 'Codeine', False, 1, 3, 2, 1, '123a5sd','None', 403);
 
 
 INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (13, 1);
@@ -229,17 +229,19 @@ INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (14, 5);
 INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (15, 6);
 
 
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (701, 13, 1, 20);
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (702, 14, 2, 30);
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (703, 15, 3, 10);
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (704, 13, 4, 25);
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (705, 14, 5, 4);
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (706, 15, 6, 100);
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (707, 14, 7, 56);
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (708, 14, 8, 11);
-INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (709, 13, 9, 2);
---INSERT INTO pharmacy_medicine(id, pharmacy_id, medicine_id, quantity) VALUES (710, 15, 10, 17);
-
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 1, 20,200);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 2, 30,220);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 15, 3, 10,250);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 4, 25,300);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 5, 4,330);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 15, 6, 100,110);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 7, 56,120);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 8, 11,130);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 9, 2,140);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 2, 35,150);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 3, 30,160);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 5, 25,170);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 6, 20,180);
 
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (1, 3);
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (5, 2);

@@ -25,11 +25,6 @@
           v-model="points"
           prepend-icon="mdi-address-circle"
           type="number"/>
-        <v-text-field
-          label="Price"
-          v-model="price"
-          prepend-icon="mdi-address-circle"
-          type="number"/>
         <v-select
             v-model="selectedMedicineType"
             :items="medicineType"
@@ -117,7 +112,6 @@ export default {
     medicineManufacturers:[],
     selectedMedicineManufacturers:null,
     points:0,
-    price:0,
   }),  
   computed: {
     medicineToAdd() {
@@ -125,7 +119,7 @@ export default {
       'medicineShape':this.selectedMedicineShape,'medicinesIngredients':this.selectedMedicinyIngredient,
       'alternativeMedicines':this.selectedMedicines,'code':this.code,'medicinType':this.selectedMedicineType,
       'contraindications':this.contraindications,'recommendedIntake':parseInt(this.recommendedIntake,10),
-      'medicineShapeName':this.selectedMedicineShape,'points':this.points,'price':this.price}
+      'medicineShapeName':this.selectedMedicineShape,'points':this.points}
     }
   },
   methods:{
