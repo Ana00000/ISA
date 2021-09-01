@@ -230,18 +230,22 @@ INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (15, 6);
 
 
 INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 1, 20,200);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 2, 30,220);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 15, 3, 10,250);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 4, 25,300);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 5, 4,330);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 15, 6, 100,110);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 7, 56,120);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 8, 11,130);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 9, 2,140);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 2, 35,150);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 3, 30,160);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 5, 25,170);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 6, 20,180);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 2, 20,150);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 3, 20,130);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 4, 20,120);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 5, 20,100);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 6, 20,200);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 7, 20,150);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 8, 20,130);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 9, 20,120);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 10, 20,100);
+
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 6, 5,500);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 7, 2,400);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 8, 2,300);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 9, 1,600);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 10, 1,800);
+
 
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (1, 3);
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (5, 2);
@@ -381,3 +385,25 @@ INSERT INTO medicine_order_mapping_supplier(supplier_id, medicine_order_amount, 
 INSERT INTO medicine_order_mapping_supplier(supplier_id, medicine_order_amount, medicine_id) VALUES (20, 28, 8);
 INSERT INTO medicine_order_mapping_supplier(supplier_id, medicine_order_amount, medicine_id) VALUES (20, 25, 9);
 INSERT INTO medicine_order_mapping_supplier(supplier_id, medicine_order_amount, medicine_id) VALUES (20, 13, 10);
+
+INSERT INTO recipe(id, date_of_issue, patient_id) VALUES (1001, '2021-03-02 17:00', 4);
+INSERT INTO recipe(id, date_of_issue, patient_id) VALUES (1002, '2021-01-02 17:00', 4);
+INSERT INTO recipe(id, date_of_issue, patient_id) VALUES (1003, '2021-02-02 17:00', 5);
+
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1001, 7, 1);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1001, 2, 2);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1001, 6, 3);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1001, 1, 4);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1001, 1, 5);
+
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1002, 5, 6);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1002, 1, 7);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1002, 2, 8);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1002, 1, 9);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1002, 1, 10);
+
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1003, 1, 6);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1003, 3, 7);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1003, 2, 8);
+
+

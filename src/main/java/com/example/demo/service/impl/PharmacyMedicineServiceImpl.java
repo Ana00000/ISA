@@ -24,7 +24,12 @@ public class PharmacyMedicineServiceImpl implements PharmacyMedicineService {
 	public List<PharmacyMedicine> findAll() {
 		return pharmacyMedicineRepository.findAll();
 	}
-	
+
+	@Override
+	public List<PharmacyMedicine> findAllByPharmacyId(Long id) {
+		return pharmacyMedicineRepository.findAllByPharmacyId(id);
+	}
+
 	public PharmacyMedicine findOne(Long id) {
 		return pharmacyMedicineRepository.findById(id).orElseGet(null);
 	}

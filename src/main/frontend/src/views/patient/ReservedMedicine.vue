@@ -1,5 +1,5 @@
 <template>
-    <v-container style="padding: 0px" fluid fill-height dark class="grey lighten-1">
+    <v-container style="padding: 0px" fluid fill-height dark>
         <v-layout>
             <div style="width:25%;">
                 <PatientMenu/>

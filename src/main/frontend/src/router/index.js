@@ -313,6 +313,16 @@ const routes = [
     name: 'SubscribeToPharmacy',
     component: () => import('../views/patient/SubscribeToPharmacy.vue')
   },
+  {
+    path: '/patient/RecipePage/:recipeId',
+    name: 'RecipePage',
+    component: () => import('../views/patient/RecipePage.vue')
+  },
+  {
+    path: '/patient/QRCodeRecipe',
+    name: 'QRCodeRecipe',
+    component: () => import('../views/patient/QRCodeRecipe.vue')
+  },
 ]
 
 const router = new VueRouter({

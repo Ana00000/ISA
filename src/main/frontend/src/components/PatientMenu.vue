@@ -46,6 +46,9 @@
             <div>
                 <router-link class="link" to="/patientProfile">Profile</router-link>
             </div>
+            <div>
+                <router-link class="link" to="/patient/QRCodeRecipe">QR code recipe</router-link>
+            </div>
         </v-layout>
     </v-container>
 </template>
