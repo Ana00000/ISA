@@ -229,22 +229,27 @@ INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (14, 5);
 INSERT INTO medicine_in_pharmacy(pharmacy_id, medicine_id) VALUES (15, 6);
 
 
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 1, 20,200);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 2, 20,150);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 3, 20,130);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 4, 20,120);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 5, 20,100);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 6, 20,200);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 7, 20,150);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 8, 20,130);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 9, 20,120);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 13, 10, 20,100);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 1, 20,200,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 2, 20,150,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 3, 20,130,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 4, 20,120,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 5, 20,100,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 6, 20,200,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 7, 20,150,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 8, 20,130,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 9, 20,120,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 13, 10, 20,100,1);
 
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 6, 5,500);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 7, 2,400);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 8, 2,300);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 9, 1,600);
-INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price) VALUES ( 14, 10, 1,800);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 14, 6, 5,500,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 14, 7, 2,400,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 14, 8, 2,300,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 14, 9, 1,600,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 14, 10, 1,800,1);
+
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 15, 7, 2,200,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 15, 8, 2,100,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 15, 9, 2,800,1);
+INSERT INTO pharmacy_medicine( pharmacy_id, medicine_id, quantity, price,version) VALUES ( 15, 10, 2,1300,1);
 
 
 INSERT INTO alternative_medicine(main_medicine_id, alternative_medicine_id) VALUES (1, 3);
@@ -356,6 +361,8 @@ INSERT INTO medicine_offer( supplier_id, medicine_order_id, cost, status, time) 
 
 /*password-stefan*/
 INSERT INTO system_admin(id, name, last_name, email, password, address, phone_number, active, is_logged_first_time) VALUES (300, 'Stefan', 'Petrovic', 'stefan@gmail.com', '$2a$10$AjZC.QsU9rFl.IrUGaZvyOovamqNWiVYURj71q1KjBZjSks.kyizy', 'Novi Sad, Kralja Milana 14', '064764652', 'TRUE','TRUE');
+INSERT INTO system_admin(id, name, last_name, email, password, address, phone_number, active, is_logged_first_time) VALUES (301, 'Nikola', 'Nikola', 'nikola@gmail.com', '$2a$10$R5gmTNA4BwVhYPWNwEL/tO96DrSa/VCYVbFvXSU5iW8o6ygImhPW6', 'Novi Sad, Kralja Milana 14', '064764652', 'TRUE','TRUE');
+
 
 INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nije dobar lekar...', 1, 4, null);
 INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nije dobara apoteka nema taj lek...', null, 4, 13);
@@ -389,6 +396,9 @@ INSERT INTO medicine_order_mapping_supplier(supplier_id, medicine_order_amount, 
 INSERT INTO recipe(id, date_of_issue, patient_id) VALUES (1001, '2021-03-02 17:00', 4);
 INSERT INTO recipe(id, date_of_issue, patient_id) VALUES (1002, '2021-01-02 17:00', 4);
 INSERT INTO recipe(id, date_of_issue, patient_id) VALUES (1003, '2021-02-02 17:00', 5);
+INSERT INTO recipe(id, date_of_issue, patient_id) VALUES (1004, '2021-03-02 17:00', 5);
+INSERT INTO recipe(id, date_of_issue, patient_id) VALUES (1005, '2021-02-04 17:00', 6);
+INSERT INTO recipe(id, date_of_issue, patient_id) VALUES (1006, '2021-03-05 17:00', 6);
 
 INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1001, 7, 1);
 INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1001, 2, 2);
@@ -406,4 +416,12 @@ INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_
 INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1003, 3, 7);
 INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1003, 2, 8);
 
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1004, 5, 6);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1004, 1, 7);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1004, 2, 8);
 
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1005, 1, 6);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1005, 1, 7);
+
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1006, 2, 8);
+INSERT INTO medicine_recipe_mapping(recipe_id, medicine_recipe_amount, medicine_id) VALUES(1006, 2, 9);

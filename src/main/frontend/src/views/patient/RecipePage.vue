@@ -84,6 +84,7 @@ export default {
                 alert(res.data);
                 window.location.href = "http://localhost:8080/";
             } catch (error) {
+                alert(error);
                 console.log(error);
             }
             

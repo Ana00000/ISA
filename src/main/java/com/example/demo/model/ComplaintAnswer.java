@@ -10,11 +10,14 @@ public class ComplaintAnswer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     private Complaint complaint;
 
     @Column(name="text", unique=false, nullable=false)
     private String text;
+
+    @Version
+    private Long version;
 
     public ComplaintAnswer(){}
 
@@ -27,6 +30,14 @@ public class ComplaintAnswer {
     public ComplaintAnswer(ComplaintAnswerDTO complaintAnswerDTO){
         this.id = complaintAnswerDTO.getId();
         this.text = complaintAnswerDTO.getText();
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
     public Long getId() {

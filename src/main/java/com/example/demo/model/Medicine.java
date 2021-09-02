@@ -57,6 +57,9 @@ public class Medicine implements Serializable {
 	@JoinColumn(name="medicineTypeId", referencedColumnName = "id")
     private MedicineType medicineType;
 
+	@Version
+	private Long version;
+
     public Medicine() {
     }
 
@@ -87,6 +90,14 @@ public class Medicine implements Serializable {
 		this.medicineShape = medicineShape;
 		this.ingredients = ingredients;
 		this.points = points;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 
 	public int getPoints() {

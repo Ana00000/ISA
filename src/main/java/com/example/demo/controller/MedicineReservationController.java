@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.Exception.MyException;
 import com.example.demo.dto.Hadzi.MedicineReservationDTOHadzi;
 import com.example.demo.dto.MedicineReservationDTO;
 import com.example.demo.model.*;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,6 +85,7 @@ public class MedicineReservationController {
     }
    
     @PostMapping(value = "/create")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<String> createReservation(HttpServletRequest request, @RequestBody MedicineReservationDTOHadzi reservationRequest) {
         //Need to get patient from session
         //validate DTO data for null
@@ -153,6 +157,7 @@ public class MedicineReservationController {
     }
 
     @PostMapping(value = "/cancel")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<String> cancelReservation(HttpServletRequest request, @RequestBody MedicineReservationDTOHadzi reservationRequest) {
         System.out.println("Hello there");
         String token = tokenUtils.getToken(request);

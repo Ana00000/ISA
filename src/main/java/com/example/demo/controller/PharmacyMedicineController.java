@@ -3,19 +3,25 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.Exception.MyException;
 import com.example.demo.dto.*;
 import com.example.demo.model.*;
 import com.example.demo.service.PharmacyService;
 import com.example.demo.service.RecipeService;
+import org.apache.maven.plugin.lifecycle.Execution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.web.bind.annotation.*;
+
 
 import com.example.demo.service.PharmacyAdminService;
 import com.example.demo.service.PharmacyMedicineService;
 import com.example.demo.service.email.EmailServiceImpl;
+import org.springframework.transaction.annotation.Transactional;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -199,22 +205,36 @@ public class PharmacyMedicineController {
 	@PostMapping(value = "/buyMedicinesForRecipe")
 	public ResponseEntity<String> buyMedicinesForRecipeInChoosenPharmacy(@RequestBody BuyMedicineForRecipeDTO buyMedicineForRecipeDTO){
 		Recipe recipe = recipeService.findOne(buyMedicineForRecipeDTO.getRecipeId());
-		List<PharmacyMedicine> pharmacyMedicines = pharmacyMedicineService.findAllByPharmacyId(buyMedicineForRecipeDTO.getPharmacyId());
+
 		Pharmacy pharmacy = pharmacyService.findOne(buyMedicineForRecipeDTO.getPharmacyId());
 		if(!isPharmacyContainingAllMedicine(recipe,pharmacy)){
-			new ResponseEntity<>("Pharmacy don't have all medicine!",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Pharmacy don't have all medicine!",HttpStatus.BAD_REQUEST);
 		}
-		GetAllMedicineFromRecipeForChoosenPharmacy(recipe, pharmacyMedicines);
+
+		try {
+			GetAllMedicineFromRecipeForChoosenPharmacy(buyMedicineForRecipeDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Pharmacy don't have all medicine!",HttpStatus.BAD_REQUEST);
+		}
+
 		recipeService.remove(recipe.getId());
 		return new ResponseEntity<>("You have successfully bought all medicine from recipe",HttpStatus.OK);
 	}
 
-	private void GetAllMedicineFromRecipeForChoosenPharmacy(Recipe recipe, List<PharmacyMedicine> pharmacyMedicines) {
+	@Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = MyException.class)
+	private void GetAllMedicineFromRecipeForChoosenPharmacy(BuyMedicineForRecipeDTO buyMedicineForRecipeDTO) throws Exception {
+		Recipe recipe = recipeService.findOne(buyMedicineForRecipeDTO.getRecipeId());
+		List<PharmacyMedicine> pharmacyMedicines = pharmacyMedicineService.findAllByPharmacyId(buyMedicineForRecipeDTO.getPharmacyId());
+
 		for(Medicine m : recipe.getMedicineAmount().keySet()){
 			for(PharmacyMedicine pm : pharmacyMedicines){
 				if(isItSameMedicine(m, pm.getMedicine())){
 					int medicineNeeded = recipe.getMedicineAmount().get(m);
 					pm.setQuantity(pm.getQuantity()-medicineNeeded);
+					if(pm.getQuantity()<0){
+						throw new MyException("Exception message");
+					}
 					pharmacyMedicineService.save(pm);
 				}
 			}

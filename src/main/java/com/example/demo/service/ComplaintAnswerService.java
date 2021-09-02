@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.Exception.MyException;
 import com.example.demo.dto.ComplaintAnswerDTO;
 import com.example.demo.model.ComplaintAnswer;
 import com.example.demo.model.Dermatologist;
@@ -18,5 +19,5 @@ public interface ComplaintAnswerService {
 
     void remove(Long id);
 
-    ComplaintAnswerDTO save(ComplaintAnswerDTO complaintAnswerDTO);
+    ComplaintAnswerDTO save(ComplaintAnswerDTO complaintAnswerDTO) throws MyException;
 }

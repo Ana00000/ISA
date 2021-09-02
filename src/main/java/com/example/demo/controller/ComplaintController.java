@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.Exception.MyException;
 import com.example.demo.dto.ComplaintAnswerDTO;
 import com.example.demo.dto.ComplaintDTO;
 import com.example.demo.dto.DoctorDTO;
@@ -83,7 +84,16 @@ public class ComplaintController {
 
     @PostMapping(value = "/addCompalintAnswer")
     public ResponseEntity<ComplaintAnswerDTO> addAnswer(@RequestBody ComplaintAnswerDTO complaintAnswerDTO){
-        ComplaintAnswerDTO complaintAnswerDTO2 = complaintAnswerService.save(complaintAnswerDTO);
+        ComplaintAnswerDTO complaintAnswerDTO2 = null;
+        try {
+            complaintAnswerDTO2 = complaintAnswerService.save(complaintAnswerDTO);
+        } catch (MyException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
+        if(complaintAnswerDTO2 == null){
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(complaintAnswerDTO2,HttpStatus.CREATED);
     }
 
