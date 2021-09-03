@@ -15,29 +15,7 @@ public class Complaint {
     @ManyToOne(fetch = FetchType.LAZY)
     private Doctor doctor;
 
-    @Column( nullable = true )
-    private String answer;
-
-    @Column(nullable = true)
-    private String UserNameFromUserWhoAnswered;
-
     public Complaint() {
-    }
-
-    public String getUserNameFromUserWhoAnswered() {
-        return UserNameFromUserWhoAnswered;
-    }
-
-    public void setUserNameFromUserWhoAnswered(String userNameFromUserWhoAnswered) {
-        UserNameFromUserWhoAnswered = userNameFromUserWhoAnswered;
-    }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
     }
 
     public Long getId() {
