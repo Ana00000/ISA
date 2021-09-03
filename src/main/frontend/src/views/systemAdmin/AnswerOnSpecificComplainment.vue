@@ -46,7 +46,7 @@ export default {
         .then(resp => {
             console.log(resp.data);
             alert("Successfully added !")
-            // window.location.href = 'http://localhost:8080/systemAdminHomePage/complaintments';
+            window.location.href = 'http://localhost:8080/systemAdminHomePage/complaintments';
         })
         .catch(er => {
             console.log('Error while registering in');

@@ -27,6 +27,9 @@ public class LoyaltyProgram {
     @Column(name="discauntForGold", unique=false, nullable=false)
     private int discauntForGold;
 
+    @Version
+    private Long version;
+
     public LoyaltyProgram(){}
 
     public LoyaltyProgram(int discauntForGold){
@@ -40,6 +43,14 @@ public class LoyaltyProgram {
         this.pointsForSilver = pointsForSilver;
         this.pointsForGold = pointsForGold;
         this.discauntForGold = discauntForGold;
+    }
+
+    public Long getVerion() {
+        return version;
+    }
+
+    public void setVerion(Long version) {
+        this.version = version;
     }
 
     public int getDiscauntForSilver() {

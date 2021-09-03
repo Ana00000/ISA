@@ -369,7 +369,7 @@ INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nije dobar
 INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('jako drzak...', 3, 5, null);
 INSERT INTO complaint(text,doctor_id,patient_id,pharmacy_id) VALUES ('nisu mi dali lek bez recepta o ovoj apoteci...', null, 6, 15);
 
-INSERT INTO loyalty_program(points_for_consultation,points_for_examination,points_for_silver,points_for_gold,discaunt_for_silver,discaunt_for_gold) VALUES (2, 3, 15, 30,3,6);
+INSERT INTO loyalty_program(points_for_consultation,points_for_examination,points_for_silver,points_for_gold,discaunt_for_silver,discaunt_for_gold, version) VALUES (2, 3, 15, 30,3,6,1);
 
 INSERT INTO medicine_order_mapping_supplier(supplier_id, medicine_order_amount, medicine_id) VALUES (19, 400, 1);
 INSERT INTO medicine_order_mapping_supplier(supplier_id, medicine_order_amount, medicine_id) VALUES (19, 32, 2);
