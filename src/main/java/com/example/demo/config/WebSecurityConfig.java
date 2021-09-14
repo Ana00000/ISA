@@ -67,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 					// svim korisnicima dopusti da pristupe putanjama /auth/**, (/h2-console/** ako se koristi H2 baza) i /api/foo
 					.authorizeRequests().antMatchers("/users/login").permitAll()
-					.antMatchers("/users/register").permitAll()
+					.antMatchers("/users/**").permitAll()
 					.antMatchers("/pharmacies/**").permitAll()
 					.antMatchers("/appointments/**").permitAll()
 					.antMatchers("/appointmentTypes/**").permitAll()
@@ -76,20 +76,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.antMatchers("/medicineIngredients/**").permitAll()
 					.antMatchers("/medicineReservation/**").permitAll()
 					.antMatchers("/pharmacists/**").permitAll()
-					.antMatchers("/dermatologists/**").permitAll()
+//					.antMatchers("/dermatologists/**").hasAnyAuthority("ROLE_SYSTEM_ADMIN")
+					.antMatchers("medicineType/**").permitAll()
 					.antMatchers("/patients/**").permitAll()
 					.antMatchers("/doctors/**").permitAll()
 					.antMatchers("/vacations/**").permitAll()
 					.antMatchers("/reports/**").permitAll()
 					.antMatchers("/prescriptions/**").permitAll()
 					.antMatchers("/pharmacyMedicines/**").permitAll()
-					//.antMatchers("/**").permitAll()
+					.antMatchers("/**").permitAll()
 
 					.antMatchers("/pharmacyAdmins/**").permitAll()
-					.antMatchers("/**").permitAll().and()
+					.antMatchers("/**").permitAll()//.and()
 
 					// za svaki drugi zahtev korisnik mora biti autentifikovan
-					//.anyRequest().authenticated().and()
+					.anyRequest().authenticated().and()
 
 					// za development svrhe ukljuci konfiguraciju za CORS iz WebConfig klase
 					.cors().and()

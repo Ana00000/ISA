@@ -9,6 +9,7 @@ import com.example.demo.service.AppointmentService;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.example.demo.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,10 +19,12 @@ import org.springframework.stereotype.Service;
 public class ApointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final PatientService patientService;
     
 	@Autowired
-	public ApointmentServiceImpl(AppointmentRepository appointmentRepository) {
+	public ApointmentServiceImpl(AppointmentRepository appointmentRepository, PatientService patientService) {
 		this.appointmentRepository = appointmentRepository;
+		this.patientService = patientService;
 	}
     
     public Appointment findOne(Long id) {

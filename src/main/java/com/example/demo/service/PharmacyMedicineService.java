@@ -11,8 +11,12 @@ public interface PharmacyMedicineService {
 	PharmacyMedicine findOne(Long id);
 
 	List<PharmacyMedicine> findAll();
+
+	List<PharmacyMedicine> findAllByPharmacyId(Long id);
 	
     PharmacyMedicine findByMedicineId(Long medicineId);
+
+	List<PharmacyMedicine> findAllByMedicineId(Long medicineId);
 
     List<Medicine> findMedicineByPharmacyId(Long id);
 

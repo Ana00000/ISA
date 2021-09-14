@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.PharmacistDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;

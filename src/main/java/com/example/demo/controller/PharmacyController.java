@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -26,18 +28,30 @@ public class PharmacyController {
     private final MedicineReservationService medicineReservationService;
     private final MedicinePrescriptionService medicinePrescriptionService;
     private final PatientService patientService;
+    private final MedicineService medicineService;
+    private final PharmacyMedicineService pharmacyMedicineService;
     private final TokenUtils tokenUtils;
     
 	@Autowired
     public PharmacyController(PharmacyService pharmacyService, AppointmentService appointmentService,
-    		MedicineReservationService medicineReservationService, MedicinePrescriptionService medicinePrescriptionService,
-    		PatientService patientService, TokenUtils tokenUtils) {
+                              MedicineReservationService medicineReservationService, MedicinePrescriptionService medicinePrescriptionService,
+                              PatientService patientService, MedicineService medicineService, PharmacyMedicineService pharmacyMedicineService, TokenUtils tokenUtils) {
         this.pharmacyService = pharmacyService;
         this.appointmentService = appointmentService;
         this.medicineReservationService = medicineReservationService;
         this.medicinePrescriptionService = medicinePrescriptionService;
         this.patientService = patientService;
+        this.medicineService = medicineService;
+        this.pharmacyMedicineService = pharmacyMedicineService;
         this.tokenUtils = tokenUtils;
+    }
+
+    @PostMapping(value = "/addPharmacy")
+    public ResponseEntity<Pharmacy> addPharmacy(@RequestBody PharmacyDTO pharmacyDTO){
+	    pharmacyDTO.setAverageGrade(0);
+	    Pharmacy pharmacy = new Pharmacy(pharmacyDTO);
+        pharmacyService.save(pharmacy);
+	    return new ResponseEntity<>(pharmacy,HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/allHadzi")
@@ -63,6 +77,67 @@ public class PharmacyController {
             pharmacistsDTO.add(new PharmacyDTO(p));
         }
         
+        return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allSubscribed")
+    public ResponseEntity<List<PharmacyDTO>> getAllSubscribedPharmacies(Authentication authentication) {
+        Patient patient = patientService.findOneByEmail(authentication.getName());
+        Set<Pharmacy> pharmacies = patient.getPharmacieSubscribed();
+
+        List<PharmacyDTO> pharmacistsDTO = new ArrayList<>();
+        for (Pharmacy p : pharmacies) {
+            pharmacistsDTO.add(new PharmacyDTO(p));
+        }
+
+        return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getPharmacyThatHaveMedicin/{id}")
+    public ResponseEntity<List<PharmacyDTO>> getPharmacyThatHaveMedicin(@PathVariable Long id){
+	    Medicine medicine = medicineService.findOne(id);
+        List<Pharmacy> pharmacies = new ArrayList<>();
+        List<PharmacyMedicine> pharmacyMedicines = pharmacyMedicineService.findAllByMedicineId(id);
+	    for(PharmacyMedicine pm : pharmacyMedicines){
+	        pharmacies.add(pm.getPharmacy());
+        }
+
+        List<PharmacyDTO> pharmacyDTOS = new ArrayList<>();
+
+
+
+        for(Pharmacy p : pharmacies){
+            pharmacyDTOS.add(new PharmacyDTO(p));
+        }
+        return new ResponseEntity<>(pharmacyDTOS,HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/allUserIsNotSubscribedOn")
+    public ResponseEntity<List<PharmacyDTO>> getAllUserIsNotSubscribedOnPharmacies(Authentication authentication) {
+        Patient patient = patientService.findOneByEmail(authentication.getName());
+        Set<Pharmacy> pharmaciesSub = patient.getPharmacieSubscribed();
+        List<Pharmacy> pharmaciesNotSub = new ArrayList<>();
+        boolean itIsFounded= false;
+        for(Pharmacy p :pharmacyService.findAll()){
+            itIsFounded=false;
+            for(Pharmacy ps :pharmaciesSub){
+                if(ps.getId() == p.getId()){
+                    itIsFounded= true;
+                    break;
+                }
+            }
+            if(!itIsFounded){
+                pharmaciesNotSub.add(p);
+            }
+
+        }
+
+
+        List<PharmacyDTO> pharmacistsDTO = new ArrayList<>();
+        for (Pharmacy p : pharmaciesNotSub) {
+            pharmacistsDTO.add(new PharmacyDTO(p));
+        }
+
         return new ResponseEntity<>(pharmacistsDTO, HttpStatus.OK);
     }
 

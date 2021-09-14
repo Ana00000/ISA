@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.MedicineOfferDTO;
 import com.example.demo.dto.MedicineOrderDTO;
+import com.example.demo.dto.SupplierDTO;
 import com.example.demo.model.*;
+import com.example.demo.model.enums.OfferStatus;
 import com.example.demo.repository.SupplierRepository;
 import com.example.demo.service.*;
 import com.example.demo.service.email.EmailServiceImpl;
@@ -11,6 +13,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/medicineOffers", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MedicineOfferController {
@@ -71,6 +75,8 @@ public class MedicineOfferController {
         List<MedicineOffer> deniedMedicineOffers = medicineOfferService.findAllByOrderId(medicineOfferDTO.getMedicineOrder().getId());
 
         MedicineOffer acceptedMedicineOffer = medicineOfferService.findOne(medicineOfferDTO.getId());
+        acceptedMedicineOffer.setOfferStatus(OfferStatus.ACCEPTED);
+        medicineOfferService.save(acceptedMedicineOffer);
 
         deniedMedicineOffers.remove(acceptedMedicineOffer);
 
@@ -85,6 +91,8 @@ public class MedicineOfferController {
         emailService.sendEmail(acceptedSupplier.getEmail(), body, topic);
 
         for(MedicineOffer medicineOffer : deniedMedicineOffers){
+            medicineOffer.setOfferStatus(OfferStatus.DECLINED);
+            medicineOfferService.save(medicineOffer);
             Supplier deniedSupplier = supplierService.findOne(medicineOffer.getSupplier().getId());
             System.out.println("Denied: " + deniedSupplier.getEmail());
             String body1 = "Dear " + acceptedSupplier.getName() + " " + acceptedSupplier.getLastName() + ",\n" +
@@ -124,21 +132,114 @@ public class MedicineOfferController {
             }
         }
 
-        for(MedicineOffer mof : medicineOfferService.findAll()) {
-            if (mof.getMedicineOrder().getId().equals(medicineOrder.getId()))
-                medicineOfferService.remove(mof.getId());
-        }
+//        for(MedicineOffer mof : medicineOfferService.findAll()) {
+//            if (mof.getMedicineOrder().getId().equals(medicineOrder.getId()))
+//                medicineOfferService.remove(mof.getId());
+//        }
 
-        System.out.println(medicineOrder.toString());
-        try {
-            medicineOrderService.remove(medicineOrder.getId());
-        }
-        catch (Exception e) {
-            System.out.println("Medicine Order already deleted!");
-        }
+//        System.out.println(medicineOrder.toString());
+//        try {
+//            medicineOrderService.remove(medicineOrder.getId());
+//        }
+//        catch (Exception e) {
+//            System.out.println("Medicine Order already deleted!");
+//        }
 
         supplierService.save(acceptedSupplier);
 
         return new ResponseEntity<>(medicineOfferDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getAllMyOffers")
+    public ResponseEntity<List<MedicineOfferDTO>> getAllMyOffers(Authentication authentication){
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+        List<MedicineOffer> medicineOffers = medicineOfferService.findAllBySupplierID(supplier.getId());
+
+        List<MedicineOfferDTO> medicineOfferDTOS =new ArrayList<>();
+        for(MedicineOffer m : medicineOffers){
+            medicineOfferDTOS.add(new MedicineOfferDTO(m));
+        }
+        return new ResponseEntity<>(medicineOfferDTOS,HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/addOffer")
+    public ResponseEntity<String> makeOffer(Authentication authentication, @RequestBody MedicineOfferDTO medicineOfferDTO){
+        MedicineOrder medicineOrder = medicineOrderService.findOne(medicineOfferDTO.getMedicineOrderId());
+        medicineOfferDTO.setMedicineOrder(new MedicineOrderDTO(medicineOrder));
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+        medicineOfferDTO.setSupplier(new SupplierDTO(supplier));
+
+        if(hasDeadLinePassed(medicineOfferDTO.getMedicineOrderId())){
+            return new ResponseEntity<>("DeadLine has passed",HttpStatus.BAD_REQUEST);
+        }
+        boolean haveIt = doesSupplierHaveAllMedicineRequired(authentication,medicineOfferDTO.getMedicineOrder().getId());
+        if(haveIt == false){
+            return new ResponseEntity<>("You dont hava all medicine",HttpStatus.BAD_REQUEST);
+        }
+
+        MedicineOffer medicineOffer = new MedicineOffer(medicineOfferDTO);
+        if(medicineOffer.getMedicineOrder().getDeadline().getTime() < System.currentTimeMillis()){
+            return new ResponseEntity<>("You are late order deadline has passed",HttpStatus.BAD_REQUEST);
+        }
+        if( medicineOfferService.save(medicineOffer) == null){
+            return new ResponseEntity<>("You can't create two offers for same order!",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Successfully added",HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/editOffer")
+    public ResponseEntity<String> edifOffer(Authentication authentication, @RequestBody MedicineOfferDTO medicineOfferDTO){
+        MedicineOrder medicineOrder = medicineOrderService.findOne(medicineOfferDTO.getMedicineOrderId());
+        medicineOfferDTO.setMedicineOrder(new MedicineOrderDTO(medicineOrder));
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+        medicineOfferDTO.setSupplier(new SupplierDTO(supplier));
+
+        if(hasDeadLinePassed(medicineOfferDTO.getMedicineOrderId())){
+            return new ResponseEntity<>("Deadline has passed",HttpStatus.OK);
+        }
+        boolean haveIt = doesSupplierHaveAllMedicineRequired(authentication,medicineOfferDTO.getMedicineOrder().getId());
+        if(haveIt == false){
+            return new ResponseEntity<>("You dont hava all medicine",HttpStatus.BAD_REQUEST);
+        }
+
+        MedicineOffer medicineOffer = new MedicineOffer(medicineOfferDTO);
+        if(medicineOffer.getMedicineOrder().getDeadline().getTime() < System.currentTimeMillis()){
+            return new ResponseEntity<>("You are late order deadline has passed",HttpStatus.BAD_REQUEST);
+        }
+        if( medicineOfferService.save(medicineOffer) == null){
+            return new ResponseEntity<>("You can't create two offers for same order!",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Successfully edited",HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/deteteById/{id}")
+    public ResponseEntity<Boolean> deleteById(@PathVariable Long id){
+        medicineOfferService.remove(id);
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+    private boolean doesSupplierHaveAllMedicineRequired(Authentication authentication,Long orderId){
+        MedicineOrder medicineOrder = medicineOrderService.findOne(orderId);
+        Supplier supplier = supplierService.findByEmail(authentication.getName());
+
+        for(Medicine m : medicineOrder.getMedicineAmount().keySet()){
+            int supNumb = supplier.getMedicineAmount().get(m);
+            int medNumb = medicineOrder.getMedicineAmount().get(m);
+//            if(supNumb == null || medNumb == null){
+//                continue;
+//            }
+            if(medNumb > supNumb){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean hasDeadLinePassed(Long orderId){
+        MedicineOrder order = medicineOrderService.findOne(orderId);
+        if(order.getDeadline().getTime()>System.currentTimeMillis()){
+            return false;
+        }
+        return true;
     }
 }

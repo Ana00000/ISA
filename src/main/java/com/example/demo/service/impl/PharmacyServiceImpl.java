@@ -51,6 +51,11 @@ public class PharmacyServiceImpl implements PharmacyService {
     public List<Medicine> findMedicineIdById(Long pharmacyId) { return pharmacyRepository.findMedicineAllById(pharmacyId); }
 
     @Override
+    public List<Pharmacy> findAllByMedicine(Medicine medicine) {
+        return pharmacyRepository.findAllByMedicines(medicine);
+    }
+
+    @Override
     public void save(Pharmacy pharmacy) {
         pharmacyRepository.save(pharmacy);
     }

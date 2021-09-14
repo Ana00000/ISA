@@ -217,7 +217,112 @@ const routes = [
     path: '/pharmacyAdmin/chooseMedicineOffer',
     name: 'ChooseMedicineOffer',
     component: () => import('../views/pharmacyAdmin/ChooseMedicineOffer.vue')
-  }
+  },
+  {
+    path: '/users/verify/:hash',
+    component: () => import('../views/Verify.vue'),
+    name: 'Vefrification'
+  },
+  {
+    path: '/systemAdminHomePage',
+    name: 'SystemAdminHomePage',
+    component: () => import('../views/systemAdmin/SystemAdminHomePage.vue')
+  },
+  {
+    path: '/systemAdminHomePage/addPharmacy',
+    name: 'SystemAdminAddPharmacy',
+    component: () => import('../views/systemAdmin/SystemAdminAddPharmacy.vue')
+  },
+  {
+    path: '/systemAdminHomePage/addPharmacyAdmin',
+    name: 'SystemAdminAddPharmacyAdmin',
+    component: () => import('../views/systemAdmin/SystemAdminAddPharmacyAdmin.vue')
+  },
+  {
+    path: '/systemAdminHomePage/addDermatologist',
+    name: 'SystemAdminAddDermatologist',
+    component: () => import('../views/systemAdmin/SystemAdminAddDermatologist.vue')
+  },
+  {
+    path: '/systemAdminHomePage/addSupplier',
+    name: 'SystemAdminAddSupplier',
+    component: () => import('../views/systemAdmin/SystemAdminAddSupplier.vue')
+  },
+  {
+    path: '/systemAdminHomePage/addMedicine',
+    name: 'SystemAdminAddMedicine',
+    component: () => import('../views/systemAdmin/SystemAdminAddMedicine.vue')
+  },
+  {
+    path: '/systemAdminHomePage/complaintments',
+    name: 'SystemAdminAnswerOnComplaintments',
+    component: () => import('../views/systemAdmin/SystemAdminAnswerOnComplaintments.vue')
+  },
+  {
+    path: '/systemAdminHomePage/answerOnSpecificComplainment/:complainmentID',
+    name: 'AnswerOnSpecificComplainment',
+    component: () => import('../views/systemAdmin/AnswerOnSpecificComplainment.vue')
+  },
+  {
+    path: '/systemAdminHomePage/LoyaltyProgram',
+    name: 'LoyaltyProgram',
+    component: () => import('../views/systemAdmin/LoyaltyProgram.vue')
+  },
+  {
+    path: '/systemAdminHomePage/AddSystemAdmin',
+    name: 'AddSystemAdmin',
+    component: () => import('../views/systemAdmin/AddSystemAdmin')
+  },
+  {
+    path: '/systemAdminHomePage/FirstLogin',
+    name: 'FirstLogin',
+    component: () => import('../views/systemAdmin/FirstLogin.vue')
+  },
+  {
+    path: '/supplierHomePage',
+    name: 'supplierHomePage',
+    component: () => import('../views/supplier/supplierHomePage.vue')
+  },
+  {
+    path: '/supplierHomePage/viewOrders',
+    name: 'viewOrders',
+    component: () => import('../views/supplier/ViewOrders.vue')
+  },
+  {
+    path: '/supplierHomePage/giveOffer/:orderId',
+    name: 'giveOffer',
+    component: () => import('../views/supplier/giveOffer.vue')
+  },
+  {
+    path: '/supplierHomePage/MyOffers',
+    name: 'MyOffers',
+    component: () => import('../views/supplier/MyOffers.vue')
+  },
+  {
+    path: '/supplierHomePage/Profile',
+    name: 'profile',
+    component: () => import('../views/supplier/profile.vue')
+  },
+  {
+    path: '/supplierHomePage/ChangePassword',
+    name: 'ChangePassword',
+    component: () => import('../views/supplier/ChangePassword.vue')
+  },
+  {
+    path: '/patient/subscribeToPharmacypromotion',
+    name: 'SubscribeToPharmacy',
+    component: () => import('../views/patient/SubscribeToPharmacy.vue')
+  },
+  {
+    path: '/patient/RecipePage/:recipeId',
+    name: 'RecipePage',
+    component: () => import('../views/patient/RecipePage.vue')
+  },
+  {
+    path: '/patient/QRCodeRecipe',
+    name: 'QRCodeRecipe',
+    component: () => import('../views/patient/QRCodeRecipe.vue')
+  },
 ]
 
 const router = new VueRouter({

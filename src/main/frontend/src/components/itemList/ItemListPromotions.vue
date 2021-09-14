@@ -110,7 +110,10 @@ import axios from 'axios';
       items: []
     }),
     created(){
-      axios.get('http://localhost:8081/patients/getPromotions')
+      const config = {
+                headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+      };
+      axios.get('http://localhost:8081/patients/getPromotions',config)
             .then(res => {
               this.items = res.data;
               this.renderingItems = res.data;

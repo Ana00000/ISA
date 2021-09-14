@@ -1,6 +1,10 @@
 package com.example.demo.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.example.demo.model.Authority;
+import com.example.demo.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +17,12 @@ import com.example.demo.service.PharmacistService;
 public class PharmacistServiceImpl implements PharmacistService {
 
     private PharmacistRepository pharmacistRepository;
+	private AuthorityService authorityService;
     
 	@Autowired
-	public PharmacistServiceImpl(PharmacistRepository pharmacistRepository) {
+	public PharmacistServiceImpl(PharmacistRepository pharmacistRepository, AuthorityService authorityService) {
 		this.pharmacistRepository = pharmacistRepository;
+		this.authorityService = authorityService;
 	}
     
     public Pharmacist findOne(Long id) {
@@ -52,6 +58,9 @@ public class PharmacistServiceImpl implements PharmacistService {
 	}
 
 	public Pharmacist save(Pharmacist pharmacist) {
+		List<Authority> authorities = new ArrayList<>();
+		authorities.add(authorityService.findByName("ROLE_PHARMACIST"));
+		pharmacist.setAuthorities(authorities);
 		return pharmacistRepository.save(pharmacist);
 	}
 

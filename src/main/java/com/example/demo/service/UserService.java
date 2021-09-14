@@ -12,6 +12,8 @@ public interface UserService {
 
 	User findOneByPassword(String password);
 
+	void verifyUser(String hash) throws Exception;
+
 	List<User> findAll();
 
 	Page<User> findAll(Pageable page);

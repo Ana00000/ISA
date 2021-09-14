@@ -13,4 +13,6 @@ public interface MedicineIngredientRepository extends JpaRepository<MedicineIngr
 	Page<MedicineIngredient> findAll(Pageable pageable);
 
 	List<MedicineIngredient> findAllByName(String name);
+
+	MedicineIngredient findByName(String name);
 }

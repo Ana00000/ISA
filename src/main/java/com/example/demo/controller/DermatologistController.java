@@ -1,34 +1,36 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.DermatologistDTO;
-import com.example.demo.dto.PharmacyAdminDTO;
 import com.example.demo.model.Dermatologist;
 import com.example.demo.model.Pharmacy;
-import com.example.demo.model.PharmacyAdmin;
 import com.example.demo.service.DermatologistService;
 import com.example.demo.service.PharmacyService;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 @RestController
 @RequestMapping(value = "/dermatologists", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class DermatologistController {
 	
 	private final DermatologistService dermatologistService;
 	private final PharmacyService pharmacyService;
+	private final UserService userService;
 
 	@Autowired
-	public DermatologistController(DermatologistService dermatologistService, PharmacyService pharmacyService) {
+	public DermatologistController(DermatologistService dermatologistService, PharmacyService pharmacyService, UserService userService) {
 		this.dermatologistService = dermatologistService;
 		this.pharmacyService = pharmacyService;
+		this.userService = userService;
 	}
 	
 	@GetMapping(value = "/all")
@@ -107,6 +109,16 @@ public class DermatologistController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+
+	@PostMapping(value = "/addDermatolog")
+	@PreAuthorize("hasRole('SYSTEM_ADMIN')")
+	public ResponseEntity<DermatologistDTO> addDermatologist(@RequestBody DermatologistDTO dermatologistDTO){
+		Dermatologist dermatologist = new Dermatologist(dermatologistDTO);
+		dermatologist.setActive(true);
+		dermatologist.setType("dermatologist");
+		userService.save(dermatologist);
+		return new ResponseEntity<>(dermatologistDTO,HttpStatus.CREATED);
 	}
 	private void setOfValidInputs(Dermatologist dermatologist, DermatologistDTO dermatologistDTO) {
 		setOfValidName(dermatologist, dermatologistDTO.getName());

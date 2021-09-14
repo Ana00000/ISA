@@ -35,6 +35,9 @@ public class MedicineReservation implements Serializable {
     @Column(nullable = false)
     private Date pickUpDate;
 
+    @Column(nullable = false)
+    private double userDiscount;
+
     public MedicineReservation(){
     }
 
@@ -45,6 +48,14 @@ public class MedicineReservation implements Serializable {
         this.pharmacy = new Pharmacy(reservationDTO.getPharmacyDTO());
         this.medicine = new Medicine(reservationDTO.getMedicineDTO());
         this.pickUpDate = reservationDTO.getPickUpDate();
+    }
+
+    public double getUserDiscount() {
+        return userDiscount;
+    }
+
+    public void setUserDiscount(double userDiscount) {
+        this.userDiscount = userDiscount;
     }
 
     public Long getId() {

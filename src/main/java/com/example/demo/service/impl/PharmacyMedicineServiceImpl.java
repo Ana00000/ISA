@@ -24,7 +24,12 @@ public class PharmacyMedicineServiceImpl implements PharmacyMedicineService {
 	public List<PharmacyMedicine> findAll() {
 		return pharmacyMedicineRepository.findAll();
 	}
-	
+
+	@Override
+	public List<PharmacyMedicine> findAllByPharmacyId(Long id) {
+		return pharmacyMedicineRepository.findAllByPharmacyId(id);
+	}
+
 	public PharmacyMedicine findOne(Long id) {
 		return pharmacyMedicineRepository.findById(id).orElseGet(null);
 	}
@@ -33,6 +38,11 @@ public class PharmacyMedicineServiceImpl implements PharmacyMedicineService {
     public PharmacyMedicine findByMedicineId(Long medicineId) {
    	 	return pharmacyMedicineRepository.findByMedicineId(medicineId);
     }
+
+	@Override
+	public List<PharmacyMedicine> findAllByMedicineId(Long medicineId) {
+		return pharmacyMedicineRepository.findAllByMedicineId(medicineId);
+	}
 
 	@Override
 	public List<Medicine> findMedicineByPharmacyId(Long id) {

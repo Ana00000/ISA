@@ -103,7 +103,7 @@ export default {
           for (let i = 0 ; i < allPharmacyOrders.length; ++i) {
             let order = allPharmacyOrders[i]
 
-            if (order.deadline < Date.now())
+            if (order.deadline > Date.now())
               this.ordersInPharmacy.push(order);
           }
           console.log(this.ordersInPharmacy);

@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.demo.dto.MedicineShapeSmallerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,5 +53,18 @@ public class MedicineShapeController {
 		}
 
 		return new ResponseEntity<>(new MedicineShapeDTO(medicineShape), HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/allStefan")
+	public ResponseEntity<List<MedicineShapeSmallerDTO>> getAllMedicineShapesStefan() {
+
+		List<MedicineShape> medicineShapes = medicineShapeService.findAll();
+
+		List<MedicineShapeSmallerDTO> medicineShapesDTO = new ArrayList<>();
+		for (MedicineShape ms : medicineShapes) {
+			medicineShapesDTO.add(new MedicineShapeSmallerDTO(ms));
+		}
+
+		return new ResponseEntity<>(medicineShapesDTO, HttpStatus.OK);
 	}
 }

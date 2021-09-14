@@ -29,5 +29,7 @@ public interface PatientService {
 
 	Patient save(Patient patient);
 
+	int CalculateDiscauntForUser(Long id);
+
 	void remove(Long id);
 }

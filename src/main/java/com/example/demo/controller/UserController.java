@@ -6,6 +6,9 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.example.demo.model.*;
+import com.example.demo.service.*;
+import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,29 +18,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.demo.dto.UserDTO;
-import com.example.demo.model.Dermatologist;
-import com.example.demo.model.Patient;
-import com.example.demo.model.Pharmacist;
-import com.example.demo.model.PharmacyAdmin;
-import com.example.demo.model.User;
 import com.example.demo.security.ResourceConflictException;
 import com.example.demo.security.TokenUtils;
 import com.example.demo.security.UserTokenState;
-import com.example.demo.service.DermatologistService;
-import com.example.demo.service.DoctorService;
-import com.example.demo.service.PatientService;
-import com.example.demo.service.PharmacistService;
-import com.example.demo.service.PharmacyAdminService;
-import com.example.demo.service.UserService;
 import com.example.demo.service.impl.CustomUserDetailsService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -62,15 +49,32 @@ public class UserController {
 	
 	@Autowired
 	private final PharmacyAdminService pharmacyAdminService;
+
+	@Autowired
+	private final EmailServiceImpl emailService;
+
+	@Autowired
+	private final SystemAdminService systemAdminService;
+
+	@Autowired
+	private final SupplierService supplierService;
 	
     @Autowired
-    public UserController(UserService userService, PatientService patientService,
-    		PharmacyAdminService pharmacyAdminService) {
-        
-    	this.pharmacyAdminService = pharmacyAdminService;
+    public UserController(TokenUtils tokenUtils, AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, UserService userService, PatientService patientService,
+						  PharmacyAdminService pharmacyAdminService, EmailServiceImpl emailService, SystemAdminService systemAdminService, SupplierService supplierService) {
+		this.tokenUtils = tokenUtils;
+		this.authenticationManager = authenticationManager;
+		this.userDetailsService = userDetailsService;
+
+		this.pharmacyAdminService = pharmacyAdminService;
 		this.userService = userService;
         this.patientService = patientService;
-    }
+        this.emailService = emailService;
+		this.systemAdminService = systemAdminService;
+		this.supplierService = supplierService;
+	}
+
+
 
     @GetMapping("/findAll")
     public ResponseEntity<List<User>> findAll() {
@@ -121,6 +125,12 @@ public class UserController {
     		return "http://localhost:8080/pharmacyAdmin/profile/"+user2.getId();
 //    		return "http://localhost:8080/pharmacyAdmin/profile/11";
     	}
+    	if(user.getClass() == SystemAdmin.class){
+    		return "http://localhost:8080/systemAdminHomePage";
+		}
+    	if(user.getClass() == Supplier.class){
+    		return "http://localhost:8080/supplierHomePage";
+		}
     	return "http://localhost:8080/";
     }
     
@@ -137,9 +147,12 @@ public class UserController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		// Kreiraj token zaa tog korisnika
 		User user = (User) authentication.getPrincipal();
+
 		String jwt = tokenUtils.generateToken(user.getUsername());
 		int expiresIn = tokenUtils.getExpiredIn();
-
+		if(user.isActive() == false && user.getClass() == Patient.class){
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		// Vrati token kao odgovor na uspesnu autentifikaciju
 		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn));
     }
@@ -152,10 +165,11 @@ public class UserController {
 		if (existUser != null) {
 			throw new ResourceConflictException(existUser.getId(), "Username already exists");
 		}
-
+		userRequest.setHashString(givenUsingJava8_whenGeneratingRandomAlphabeticString_thenCorrect());
 		User user = this.userService.save(new Patient(userRequest));
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/api/user/{userId}").buildAndExpand(user.getId()).toUri());	//is this redirection ???
+		emailService.sendHTMLMail(user.getEmail(),"Verification","<p><a href=\"http://localhost:8080/users/verify/"+user.getHashString()+"\">Verify your profile!</a></p>");
 		return new ResponseEntity<>(user, HttpStatus.CREATED);
 	}
     
@@ -170,6 +184,34 @@ public class UserController {
           .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
           .toString();
         return generatedString;
+    }
+
+	@PostMapping("/verify/{hash}")
+	public ResponseEntity<User> verifyUser(@PathVariable String hash) {
+		try {
+			userService.verifyUser(hash);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>( HttpStatus.OK);
+	}
+
+	@GetMapping("/IsFirstLogin")
+	public ResponseEntity<String> isSystemAdminFirstLogin(Authentication authentication){
+		SystemAdmin systemAdmin = systemAdminService.findByEmail(authentication.getName());
+		if(systemAdmin != null){
+			if(systemAdmin.isLoggedFirstTime()==true){
+				return new ResponseEntity<>("systemAdmin",HttpStatus.OK);
+			}
+		}
+		Supplier supplier = supplierService.findByEmail(authentication.getName());
+		if(supplier != null){
+			if(supplier.isLoggedFirstTime()==true){
+				return new ResponseEntity<>("supplier",HttpStatus.OK);
+			}
+		}
+		return new ResponseEntity<>("",HttpStatus.OK);
     }
 
 }

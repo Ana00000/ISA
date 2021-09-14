@@ -24,6 +24,12 @@ public class PromotionServiceImpl implements PromotionService {
     }
 
     @Override
+    public List<Promotion> findAllByPharmacyId(Long id) {
+        return promotionRepository.findAllByPharmacyId(id);
+    }
+
+
+    @Override
     public List<Promotion> findAll() {
         return promotionRepository.findAll();
     }

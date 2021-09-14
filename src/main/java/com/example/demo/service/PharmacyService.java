@@ -22,6 +22,8 @@ public interface PharmacyService {
 
     List<Medicine> findMedicineIdById(Long pharmacyId);
 
+    List<Pharmacy> findAllByMedicine(Medicine medicine);
+
     void save(Pharmacy pharmacy);
 
     void update(Pharmacy pharmacy);

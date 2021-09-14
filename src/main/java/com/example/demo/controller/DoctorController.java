@@ -36,7 +36,7 @@ public class DoctorController {
 
         Doctor doctor = doctorService.findOneByEmail(authentication.getName());
 
-        if (doctorService == null) {
+        if (doctor == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         

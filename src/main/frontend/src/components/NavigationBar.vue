@@ -3,30 +3,30 @@
         <v-navigation-drawer app temporary v-model="drawer" class="indigo" dark disable-resize-watcher>
             <v-list>
                 <template v-for="(item, index) in items">
-                    <v-list-tile :key="index" >
-                        <v-list-tile-content>
+                    <v-list-item-title :key="index" >
+                        <v-list-item-content>
                             <v-card height="35px" class="ma-1 text-sm-button text-center">
                                 <router-link class="router" :to="item.path">{{item.title}}</router-link>
                             </v-card>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                        </v-list-item-content>
+                    </v-list-item-title>
                     <v-divider :key="`divider-${index}`"></v-divider>
                 </template>
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar app dark class="indigo">
+        <v-app-bar app dark class="indigo">
             <v-app-bar-nav-icon class="hidden-md-and-up" @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-spacer class="hidden-md-and-up"></v-spacer>
             <v-toolbar-title><router-link class="router" to="/">{{appTitle}}</router-link></v-toolbar-title>
-            <v-btn flat class="hidden-sm-and-down ma-1" @click="drawer = !drawer">Menu</v-btn>
+            <v-btn text class="hidden-sm-and-down ma-1" @click="drawer = !drawer">Menu</v-btn>
             <v-spacer class="hidden-sm-and-down"></v-spacer>
             <div  v-if="!isLogged">
-                <v-btn flat class="hidden-sm-and-down">
+                <v-btn text class="hidden-sm-and-down">
                   <router-link class="router" to="/login">Login</router-link>
                 </v-btn>
             </div>
             <div v-else>
-                <v-btn flat class="hidden-sm-and-down" v-on:click="logoff">Logoff</v-btn>
+                <v-btn text class="hidden-sm-and-down" v-on:click="logoff">Logoff</v-btn>
             </div>
             <div v-if="!isLogged">
                 <v-btn color="brown lighten-3" class="hidden-sm-and-down ma-1">
@@ -39,7 +39,7 @@
                 </v-btn>
             </div>
 
-        </v-toolbar>
+        </v-app-bar>
     </span>
 </template>
 

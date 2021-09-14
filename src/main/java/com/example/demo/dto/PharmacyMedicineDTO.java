@@ -10,6 +10,7 @@ public class PharmacyMedicineDTO implements Serializable {
     private MedicineDTO medicine;
     private PharmacyDTO pharmacy;
     private int quantity;
+    private double price;
     
     public PharmacyMedicineDTO() {}
 
@@ -25,7 +26,16 @@ public class PharmacyMedicineDTO implements Serializable {
         this.medicine = new MedicineDTO(pharmacyMedicine.getMedicine());
         this.pharmacy = new PharmacyDTO(pharmacyMedicine.getPharmacy());
         this.quantity = pharmacyMedicine.getQuantity();
+        this.price = pharmacyMedicine.getPrice();
     }
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
 	public Long getId() {
 		return id;

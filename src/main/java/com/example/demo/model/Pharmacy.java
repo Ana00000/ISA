@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.AppointmentDTO;
+import com.example.demo.dto.MedicineDTO;
+import com.example.demo.dto.PharmacistDTO;
 import com.example.demo.dto.PharmacyDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.junit.Ignore;
@@ -8,7 +11,9 @@ import javax.persistence.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -77,6 +82,14 @@ public class Pharmacy implements Serializable {
     public Pharmacy(PharmacyDTO pharmacyDTO) {
         this.id = pharmacyDTO.getId();
         this.name = pharmacyDTO.getName();
+        this.contact = pharmacyDTO.getContact();
+        this.country = pharmacyDTO.getCountry();
+        this.city = pharmacyDTO.getCity();
+        this.street = pharmacyDTO.getStreet();
+        this.number = pharmacyDTO.getNumber();
+        this.longitude = pharmacyDTO.getLongitude();
+        this.latitude = pharmacyDTO.getLatitude();
+        this.averageGrade = pharmacyDTO.getAverageGrade();
     }
 
     public Pharmacy(Long id, String name, String country, String city, String street, int number, float longitude, float latitude, float averageGrade) {

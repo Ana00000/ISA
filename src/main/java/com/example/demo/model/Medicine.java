@@ -1,7 +1,11 @@
 package com.example.demo.model;
 
 import com.example.demo.dto.MedicineDTO;
+import com.example.demo.dto.MedicineIngredientDTO;
+import com.example.demo.dto.MedicineToAddDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.GenericGenerator;
 import org.junit.Ignore;
 
 import javax.persistence.*;
@@ -19,6 +23,18 @@ public class Medicine implements Serializable {
 
     @Column(name="name", unique=false, nullable=false)
     private String name;
+
+	@Column(name="contraindications", unique=false, nullable=true)
+	private String contraindications;
+
+	@Column(name="recommendedIntake", unique=false, nullable=true)
+	private int recommendedIntake;
+
+	@Column(name="code", unique=false, nullable=true)
+	private String code;
+
+	@Column(name="points", unique=false, nullable=true)
+	private int points;
     
     @Column(name="recipeNeed", unique=false, nullable=false)
     private boolean recipeNeed;
@@ -37,17 +53,34 @@ public class Medicine implements Serializable {
     @JoinTable( name = "ingredientsOfMedicine", joinColumns = @JoinColumn(name="ingredient_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "medicine_id", referencedColumnName = "id"))
     private Set<MedicineIngredient> ingredients = new HashSet<MedicineIngredient>();
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="medicineTypeId", referencedColumnName = "id")
+    private MedicineType medicineType;
+
+	@Version
+	private Long version;
+
     public Medicine() {
     }
 
     public Medicine(MedicineDTO medicineDTO) {
     	this.id = medicineDTO.getId();
     	this.name = medicineDTO.getName();
+    }
+
+    public Medicine(MedicineToAddDTO medicineToAddDTO){
+    	this.id = medicineToAddDTO.getId();
+    	this.name = medicineToAddDTO.getName();
+    	this.code = medicineToAddDTO.getCode();
+    	this.recipeNeed = medicineToAddDTO.isRecipeNeed();
+    	this.contraindications = medicineToAddDTO.getContraindications();
+    	this.recommendedIntake = medicineToAddDTO.getRecommendedIntake();
+    	this.points = medicineToAddDTO.getPoints();
 	}
 
 	public Medicine(Long id, String name, boolean recipeNeed, Set<Medicine> alternativeMedicine,
 			MedicineManufacturer medicineManufacturer, MedicineShape medicineShape,
-			Set<MedicineIngredient> ingredients, int quantity) {
+			Set<MedicineIngredient> ingredients, int points) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -56,6 +89,55 @@ public class Medicine implements Serializable {
 		this.medicineManufacturer = medicineManufacturer;
 		this.medicineShape = medicineShape;
 		this.ingredients = ingredients;
+		this.points = points;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	public int getRecommendedIntake() {
+		return recommendedIntake;
+	}
+
+	public void setRecommendedIntake(int recommendedIntake) {
+		this.recommendedIntake = recommendedIntake;
+	}
+
+	public String getContraindications() {
+		return contraindications;
+	}
+
+	public void setContraindications(String contraindications) {
+		this.contraindications = contraindications;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public void setMedicineType(MedicineType medicineType) {
+		this.medicineType = medicineType;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public MedicineType getMedicineType() {
+		return medicineType;
 	}
 
 	public Long getId() {

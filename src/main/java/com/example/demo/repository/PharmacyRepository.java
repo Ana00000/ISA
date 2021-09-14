@@ -18,6 +18,10 @@ public interface PharmacyRepository extends JpaRepository<Pharmacy, Long> {
 
     List<Pharmacy> findAllByCity(String city);
 
+    List<Pharmacy> findAllByMedicines(Medicine medicine);
+
+    Pharmacy findFirstById(long id);
+
     @Query(value="SELECT med FROM Pharmacy p JOIN p.medicines med WHERE p.id=:pharmacyId")
     List<Medicine> findMedicineAllById(@Param("pharmacyId") Long Id);
 

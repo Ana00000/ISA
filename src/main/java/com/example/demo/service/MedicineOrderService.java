@@ -24,6 +24,8 @@ public interface MedicineOrderService {
 
     List<MedicineOrder> findAll();
 
+    List<MedicineOrder> findAllActive();
+
     Page<MedicineOrder> findAll(Pageable page);
 
     MedicineOrder save(MedicineOrder medicineOrder);

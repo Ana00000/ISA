@@ -17,9 +17,16 @@ public class Patient extends User implements Serializable{
     @Column(name = "penalties", unique = false)
     private int penalties;
 
+    @Column(name = "points", unique = false)
+    private int points;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable( name = "patientsOnPromotion", joinColumns = @JoinColumn(name="promotion_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"))
+    @JoinTable( name = "patientsOnPromotion", joinColumns = @JoinColumn(name="patient_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "promotion_id", referencedColumnName = "id"))
     private Set<Promotion> promotions = new HashSet<Promotion>();
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable( name = "patientSubscribedToPharmacy", joinColumns = @JoinColumn(name="patient_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "pharmacy_id", referencedColumnName = "id"))
+    private Set<Pharmacy> pharmacieSubscribed  = new HashSet<Pharmacy>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable( name = "allergiesOfPatient", joinColumns = @JoinColumn(name="allergy_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "id"))
@@ -27,9 +34,25 @@ public class Patient extends User implements Serializable{
 
     public Patient(){
     }
-    
+
     public Patient(UserDTO userDTO) {
-    	super(userDTO);
+        super(userDTO);
+    }
+
+    public Set<Pharmacy> getPharmacieSubscribed() {
+        return pharmacieSubscribed;
+    }
+
+    public void setPharmacieSubscribed(Set<Pharmacy> pharmacieSubscribed) {
+        this.pharmacieSubscribed = pharmacieSubscribed;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public int getPenalties() {

@@ -40,7 +40,7 @@ function redirectLogedUser(){
       const config = {
           headers: { Authorization: `Bearer ${tokenString}` }
       };
-  axios.get( 
+      axios.get( 
         'http://localhost:8081/users/redirectMeToMyHomePage',
         config
       ).then((response) => {
@@ -71,7 +71,29 @@ export default {
       .then(resp => {
         console.log(resp.data);
         localStorage.setItem("token", resp.data.accessToken);
-        redirectLogedUser();
+
+        var tokenString = '';
+        tokenString = localStorage.getItem("token");
+        const config = {
+                headers: {Authorization: `Bearer ${tokenString}`}
+        };
+        this.$http.get('http://localhost:8081/users/IsFirstLogin', config)
+        .then(resp => {
+          console.log(resp.data);
+          if(resp.data === "systemAdmin"){
+            window.location.href = 'http://localhost:8080/systemAdminHomePage/FirstLogin';
+          }
+          else if(resp.data === "supplier"){
+            window.location.href = 'http://localhost:8080/supplierHomePage/changePassword';
+          }
+          else{
+            redirectLogedUser();
+          }
+        })
+        .catch(er => {
+          console.log('Error while logging in');
+          console.log(er.response.data);
+        })
       })
       .catch(er => {
         console.log('Error while logging in');

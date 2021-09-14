@@ -26,6 +26,7 @@
     <v-list two-line>
       <v-list-item-group
         v-model="selected"
+        v-on:change="$emit('selectedChanged', renderingItems[selected])"
         active-class="pink--text"
         single
       >
@@ -36,6 +37,7 @@
                 <v-list-item-title  v-text="item.name"></v-list-item-title>
                 <v-list-item-subtitle v-text="item.street + ', ' + item.city"></v-list-item-subtitle>
                 <v-list-item-subtitle v-text="'Grade: ' + item.averageGrade"></v-list-item-subtitle>
+                <v-list-item-subtitle v-if="item.price" v-text="'Price: ' + item.price"></v-list-item-subtitle>
               </v-list-item-content>
 
 
@@ -67,7 +69,7 @@
       </v-list-item-group>
     </v-list>
   </v-card>
-  <v-card v-bind:class="{'cardClass':drawer}" width="25%">
+  <v-card v-bind:class="{'cardClass':drawer}" width="15%">
     <div>
       <h2>Sort</h2>
     </div>
@@ -81,7 +83,20 @@
     </div>
     <v-btn v-on:click="sort">Sort</v-btn>
   </v-card>
-  <v-card v-bind:class="{'cardClass':drawer}" width="25%">
+  <v-card v-if="renderingItems[0].price" v-bind:class="{'cardClass':drawer}" width="15%">
+    <div>
+      <h2>Sort by price</h2>
+    </div>
+    <v-divider></v-divider>
+    <div style="margin: 0 auto; width: 100px">
+      <v-radio-group v-model="sortPriceCriteria" column>
+        <v-radio value="Ascending" label="Ascending"></v-radio>
+        <v-radio value="Descending" label="Descending"></v-radio>
+      </v-radio-group>
+    </div>
+    <v-btn v-on:click="sortByPrice">Sort</v-btn>
+  </v-card>
+  <v-card v-bind:class="{'cardClass':drawer}" width="15%">
     <div>
       <h2>Filter</h2>
     </div>
@@ -107,12 +122,17 @@
       searchString: '',
       filterGrade: 0,
       sortCriteria: 'name',
+      sortPriceCriteria:'none',
     }),
     props: [
       "items",
       "renderingItems",
       "searchedItems"
     ],
+    mounted(){
+      console.log("items recevied:",this.renderingItems);
+      this.$forceUpdate();
+    },
     methods:{
       search: function(){
         var i;
@@ -149,6 +169,18 @@
           this.renderingItems.sort(function(a, b){
             return a.averageGrade - b.averageGrade;
           })
+        }
+      },
+      sortByPrice: function(){
+        if(this.sortPriceCriteria == "Descending"){
+            this.renderingItems.sort(function(a,b){
+              return b.price-a.price;
+            })
+        }
+        else if(this.sortPriceCriteria == "Ascending"){
+            this.renderingItems.sort(function(a,b){
+              return a.price-b.price;
+            })
         }
       }
     }

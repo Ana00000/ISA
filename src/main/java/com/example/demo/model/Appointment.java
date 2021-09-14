@@ -17,6 +17,9 @@ public class Appointment {
     @Column(name="price", unique=false)
     private double price;
 
+	@Column(name="userDiscount", unique=false)
+	private double userDiscount;
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private AppointmentType appointmentType;
 
@@ -70,6 +73,14 @@ public class Appointment {
 		this.startTime = appointmentDTO.getStartTime();
 		this.endTime = appointmentDTO.getEndTime();
 		this.penalty = appointmentDTO.getPenalty();
+	}
+
+	public double getUserDiscount() {
+		return userDiscount;
+	}
+
+	public void setUserDiscount(double userDiscount) {
+		this.userDiscount = userDiscount;
 	}
 
 	public Long getId() {

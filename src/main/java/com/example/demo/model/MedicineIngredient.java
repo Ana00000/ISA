@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.example.demo.dto.MedicineIngredientDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -21,6 +23,11 @@ public class MedicineIngredient implements Serializable {
 		super();
 		this.id = id;
 		this.name = name;
+	}
+
+	public  MedicineIngredient(MedicineIngredientDTO medicineIngredientDTO){
+    	this.id = medicineIngredientDTO.getId();
+    	this.name = medicineIngredientDTO.getName();
 	}
 
 	public Long getId() {

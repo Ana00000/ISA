@@ -1,19 +1,19 @@
 package com.example.demo.controller;
 
+import com.example.demo.Exception.MyException;
 import com.example.demo.dto.Hadzi.MedicineReservationDTOHadzi;
 import com.example.demo.dto.MedicineReservationDTO;
 import com.example.demo.model.*;
 import com.example.demo.model.enums.MedicineReservationStatusValue;
 import com.example.demo.security.TokenUtils;
-import com.example.demo.service.MedicineReservationService;
-import com.example.demo.service.MedicineService;
-import com.example.demo.service.PatientService;
-import com.example.demo.service.PharmacyService;
+import com.example.demo.service.*;
 import com.example.demo.service.email.EmailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +43,9 @@ public class MedicineReservationController {
 
     @Autowired
     private PharmacyService pharmacyService;
+
+    @Autowired
+    private PharmacyMedicineService pharmacyMedicineService;
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<MedicineReservationDTO>> getAllReservations() {
@@ -82,6 +85,7 @@ public class MedicineReservationController {
     }
    
     @PostMapping(value = "/create")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<String> createReservation(HttpServletRequest request, @RequestBody MedicineReservationDTOHadzi reservationRequest) {
         //Need to get patient from session
         //validate DTO data for null
@@ -133,6 +137,7 @@ public class MedicineReservationController {
         medicineReservation.setPharmacy(pharmacy);
         medicineReservation.setPickUpDate(reservationRequest.getPickUpDate());
         medicineReservation.setPatient(patient);
+        setDiscount(patient, medicineReservation);
         MedicineReservation retValue = medicineReservationService.save(medicineReservation);
 
         //Update quantity of medicine in pharmacy
@@ -144,7 +149,15 @@ public class MedicineReservationController {
         return new ResponseEntity<>("successful", HttpStatus.OK);
     }
 
+    private void setDiscount(Patient patient, MedicineReservation medicineReservation) {
+        int discountPercent = patientService.CalculateDiscauntForUser(patient.getId());
+        PharmacyMedicine pharmacyMedicine = pharmacyMedicineService.findByPharmacyIdAndMedicineId(medicineReservation.getPharmacy().getId(),medicineReservation.getMedicine().getId());
+        double discount = (pharmacyMedicine.getPrice()*discountPercent)/100;
+        medicineReservation.setUserDiscount(discount);
+    }
+
     @PostMapping(value = "/cancel")
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<String> cancelReservation(HttpServletRequest request, @RequestBody MedicineReservationDTOHadzi reservationRequest) {
         System.out.println("Hello there");
         String token = tokenUtils.getToken(request);

@@ -1,23 +1,28 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.model.Authority;
 import com.example.demo.model.Supplier;
 import com.example.demo.repository.SupplierRepository;
+import com.example.demo.service.AuthorityService;
 import com.example.demo.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class SupplierServiceImpl implements SupplierService {
 
     private final SupplierRepository supplierRepository;
+    private AuthorityService authorityService;
 
     @Autowired
-    public SupplierServiceImpl(SupplierRepository supplierRepository) {
+    public SupplierServiceImpl(SupplierRepository supplierRepository, AuthorityService authorityService) {
         this.supplierRepository = supplierRepository;
+        this.authorityService = authorityService;
     }
 
     @Override
@@ -62,6 +67,9 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public Supplier save(Supplier supplier) {
+        List<Authority> authorities = new ArrayList<>();
+        authorities.add(authorityService.findByName("ROLE_SUPPLIER"));
+        supplier.setAuthorities(authorities);
         return supplierRepository.save(supplier);
     }
 }

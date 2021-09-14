@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pink lighten-3 white--text">
+    <v-container class="blue lighten-3 white--text">
         <v-layout style="padding:0px" column>
             <div>
                 <router-link class="link" to="/patientPharmacies">Pharmacies</router-link>
@@ -26,6 +26,9 @@
                 <router-link class="link" to="/patientPenaltyInsight">Penalty insight</router-link>
             </div>
             <div>
+                <router-link class="link" to="/patient/subscribeToPharmacypromotion">Subscribe to pharmacy promotions</router-link>
+            </div>
+            <div>
                 <router-link class="link" to="/patientPromotions">Promotions</router-link>
             </div>
             <div>
@@ -42,6 +45,9 @@
             </div>
             <div>
                 <router-link class="link" to="/patientProfile">Profile</router-link>
+            </div>
+            <div>
+                <router-link class="link" to="/patient/QRCodeRecipe">QR code recipe</router-link>
             </div>
         </v-layout>
     </v-container>

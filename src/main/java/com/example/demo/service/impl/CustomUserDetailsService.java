@@ -17,6 +17,8 @@ import com.example.demo.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -32,6 +34,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		List<User> users= userService.findAll();
+		System.out.print(userService.findAll());
+
 		User user = userService.findByEmail(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));

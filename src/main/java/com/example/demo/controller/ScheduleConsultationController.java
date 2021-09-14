@@ -45,7 +45,6 @@ public class ScheduleConsultationController {
     @Autowired
     private AppointmentTypeService appointmentTypeService;
 
-
     private void findAvailablePharmacists(TimeInterval timeInterval){
         TimeGenerator timeGenerator = new TimeGenerator(30, 10, timeInterval.getStart().toLocalDateTime().toLocalDate());
         Set<TimeInterval> timeIntervalSet = timeGenerator.generateForChosenPeriod(timeInterval);
@@ -122,6 +121,10 @@ public class ScheduleConsultationController {
         appointment.setPatient( patient );
         appointment.setStatus( appointmentStatusService.findOne(122L) );
         appointment.setAppointmentType( appointmentTypeService.findOne(111L));
+
+        int discountPercent =  patientService.CalculateDiscauntForUser(patient.getId());
+        double discount = (appointment.getPrice()*discountPercent)/100;
+        appointment.setUserDiscount(discount);
 
         appointmentService.save(appointment);
 
